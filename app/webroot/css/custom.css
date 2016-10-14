@@ -1,0 +1,29 @@
+#flag-country {
+    width: 24px;
+    height: 24px;
+}
+
+table.dataTable {
+    width: 100% !important;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+div.dataTables_wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+tfoot select, select[aria-controls=dataTables] {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+td.highlight {
+    background-color: whitesmoke !important;
+}
+
+div.input label {
+    font-weight: bold;
+}
