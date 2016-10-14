@@ -37,6 +37,12 @@ class AppController extends Controller {
             'authorize' => array(
                 'Actions' => array('actionPath' => 'controllers')
             ),
+            'authenticate' => array(
+                'Form' => array(
+                    'fields' => array('username' => 'email'),
+                    'passwordHasher' => 'Blowfish'
+                )
+            ),
             'loginRedirect' => array(
                 'controller' => 'posts',
                 'action' => 'add',

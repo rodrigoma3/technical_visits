@@ -1,6 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('AuthComponent', 'Controller/Component');
+App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 /**
  * User Model
  *
@@ -37,11 +38,12 @@ class User extends AppModel {
  * @return boolean
  */
 	public function beforeSave($options = array()) {
-        $this->data['User']['password'] = AuthComponent::password(
-          $this->data['User']['password']
-        );
-        return true;
-    }
+		if (isset($this->data[$this->alias]['password'])) {
+			$hash = new BlowfishPasswordHasher();
+			$this->data[$this->alias]['password'] = $hash->hash($this->data[$this->alias]['password']);
+		}
+		return true;
+	}
 
 /**
  * Validation rules
@@ -149,5 +151,30 @@ class User extends AppModel {
  */
 	public function deletePermissions($aroId){
 		return $this->query("DELETE FROM aros_acos WHERE aro_id = $aroId");
+	}
+
+	public function equaltofield($check,$otherfield) {
+		$fname = '';
+		foreach ($check as $key => $value){
+			$fname = $key;
+			break;
+		}
+		if ($this->data['User'][$otherfield] === $this->data['User'][$fname]) {
+			return true;
+		} else {
+			$this->invalidate($otherfield, null);
+			return false;
+		}
+
+	}
+
+	public function confirmCurrentPassword() {
+		$usuario = $this->findById($this->id);
+		$newHash = Security::hash($this->data['User']['currentPassword'], 'blowfish', $usuario['User']['password']);
+		if($newHash === $usuario['User']['password']){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
