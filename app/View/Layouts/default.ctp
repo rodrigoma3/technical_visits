@@ -58,7 +58,7 @@
 	        <ul class="nav pull-right">
 	          <li class="dropdown" id="fat-menu">
 				  <?php echo $this->Html->link(
-				  		__('Welcome, ').$this->Session->read('Auth.User.username').'<b class="caret"></b>',
+				  		__('Welcome, ').$this->Session->read('Auth.User.name').'<b class="caret"></b>',
 						'#',
 						array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'escape' => false, 'role' => 'button', 'id' => 'drop3', 'aria-haspopup' => 'true', 'aria-expanded' => 'false')
 					); ?>
@@ -99,26 +99,28 @@
 	</div>
 
 	<div class="subnavbar">
-		<div class="subnavbar-inner">
-			<div class="container">
-				<ul class="mainnav">
-					<?php foreach ($menus as $menu): ?>
-						<?php if ($menu['allow']): ?>
-							<li <?php if ($this->params['controller'] == $menu['controller']) echo 'class="active"'; ?>>
-								<?php
+		<?php if (!empty($menus)): ?>
+			<div class="subnavbar-inner">
+				<div class="container">
+					<ul class="mainnav">
+						<?php foreach ($menus as $menu): ?>
+							<?php if ($menu['allow']): ?>
+								<li <?php if ($this->params['controller'] == $menu['controller']) echo 'class="active"'; ?>>
+									<?php
 									echo $this->Html->link(
-														$menu['icon'].'<span>'.$menu['title'].'</span>',
-														array('controller' => $menu['controller'], 'action' => $menu['action']),
-														array('escape' => false)
+										$menu['icon'].'<span>'.$menu['title'].'</span>',
+										array('controller' => $menu['controller'], 'action' => $menu['action']),
+										array('escape' => false)
 									);
-								?>
-							</li>
-						<?php endif; ?>
-					<?php endforeach; ?>
-				</ul>
+									?>
+								</li>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+				<!-- /container -->
 			</div>
-		<!-- /container -->
-		</div>
+		<?php endif; ?>
 	<!-- /subnavbar-inner -->
 	</div>
 

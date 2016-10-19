@@ -7,7 +7,7 @@ $(document).ready(function() {
         var all = 'All';
     }
 
-    var table = $('#dataTables').DataTable({
+    var table = $('table#dataTables').DataTable({
         "language": {
             "url": langpath+lang+".json"
         },

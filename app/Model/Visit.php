@@ -10,6 +10,30 @@ App::uses('AppModel', 'Model');
  */
 class Visit extends AppModel {
 
+	public function statuses() {
+		return array(
+			        0 => __('Opening'),
+			        1 => __('Awaiting transport'),
+			        2 => __('Pre approved'),
+			        3 => __('Awaiting realization'),
+			        4 => __('Awaiting report and update transport'),
+			        5 => __('Awaiting report'),
+			        6 => __('Awaiting evaluation report and update transport'),
+			        7 => __('Awaiting evaluation report'),
+			        8 => __('Awaiting update transport'),
+			        9 => __('Completed'),
+			    );
+	}
+
+	public function typesOfTransport() {
+		return array(
+			        0 => __('Own'),
+			        1 => __('Campus'),
+			        2 => __('Outsourced'),
+			    );
+	}
+
+
 /**
  * Validation rules
  *

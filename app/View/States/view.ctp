@@ -5,16 +5,21 @@
 	<!-- /widget-header -->
 	<div class="widget-content">
 		<dl>
-					<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($state['State']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Name'); ?></dt>
-		<dd>
-			<?php echo h($state['State']['name']); ?>
-			&nbsp;
-		</dd>
+			<dt><?php echo __('Id'); ?></dt>
+			<dd>
+				<?php echo h($state['State']['id']); ?>
+				&nbsp;
+			</dd>
+			<dt><?php echo __('Name'); ?></dt>
+			<dd>
+				<?php echo h($state['State']['name']); ?>
+				&nbsp;
+			</dd>
+			<dt><?php echo __('Initials'); ?></dt>
+			<dd>
+				<?php echo h($state['State']['initials']); ?>
+				&nbsp;
+			</dd>
 		</dl>
 		<div class="form-actions">
 					<?php echo $this->Html->link(__('List States'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>

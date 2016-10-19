@@ -34,6 +34,7 @@
 			<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('action' => 'view', $group['Group']['id']), array('escape' => false, 'class' => 'btn')); ?>
 			<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('action' => 'edit', $group['Group']['id']), array('escape' => false, 'class' => 'btn')); ?>
 			<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('action' => 'delete', $group['Group']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $group['Group']['id']))); ?>
+            <?php echo $this->Html->link('<i class="fa fa-key"></i> '.__('Permission'), array('action' => 'permission', $group['Group']['id']), array('escape' => false, 'class' => 'btn')); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -49,6 +50,8 @@
 	</div>
 	<!-- /widget-header -->
 	<div class="widget-content actions">
-        <?php echo $this->Html->link(__('New Group'), array('action' => 'add'), array('class' => 'btn btn-success')); ?>	</div>
+        <?php echo $this->Html->link(__('New Group'), array('action' => 'add'), array('class' => 'btn btn-success')); ?>
+        <?php echo $this->Html->link(__('Rebuild Aco Tree (Actions & Controllers)'), array('action' => 'rebuilt'), array('class' => 'btn btn-info')); ?>
+    </div>
 <!-- /widget-content -->
 </div>

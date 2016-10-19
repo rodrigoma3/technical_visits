@@ -10,6 +10,7 @@
                     <th></th>
             	                	<th><?php echo __('id'); ?></th>
             	                	<th><?php echo __('name'); ?></th>
+            	                	<th><?php echo __('initials'); ?></th>
             	                	<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</thead>
@@ -18,6 +19,7 @@
                     <th></th>
             	            		<th><?php echo __('id'); ?></th>
             	            		<th><?php echo __('name'); ?></th>
+            	            		<th><?php echo __('initials'); ?></th>
             	            		<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</tfoot>
@@ -27,6 +29,7 @@
 		<td></td>
 		<td><?php echo h($state['State']['id']); ?>&nbsp;</td>
 		<td><?php echo h($state['State']['name']); ?>&nbsp;</td>
+		<td><?php echo h($state['State']['initials']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('action' => 'view', $state['State']['id']), array('escape' => false, 'class' => 'btn')); ?>
 			<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('action' => 'edit', $state['State']['id']), array('escape' => false, 'class' => 'btn')); ?>

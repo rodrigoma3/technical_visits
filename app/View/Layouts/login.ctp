@@ -86,25 +86,39 @@
 	  <!-- /navbar-inner -->
 	</div>
 
+	<div class="subnavbar">
 
-	<?php echo $this->Flash->render('auth'); ?>
+	</div>
 
-	<?php echo $this->Flash->render(); ?>
+	<div class="main">
+		<div class="main-inner">
+			<div class="container">
+				<div class="row">
+					<?php echo $this->Flash->render('auth'); ?>
 
-	<div class="account-container">
+					<?php echo $this->Flash->render(); ?>
 
-		<div class="content clearfix">
+					<div class="account-container">
 
-			<?php echo $this->fetch('content'); ?>
+						<div class="content clearfix">
 
-		</div> <!-- /content -->
+							<?php echo $this->fetch('content'); ?>
 
-	</div> <!-- /account-container -->
+						</div> <!-- /content -->
 
-	<div class="login-extra">
-		<?php echo $this->Html->link(__('Reset Password'), array('controller' => 'users', 'action' => 'reset_password')); ?>
-		<!-- <a href="#">Reset Password</a> -->
-	</div> <!-- /login-extra -->
+					</div> <!-- /account-container -->
+
+					<div class="login-extra">
+						<?php echo $this->Html->link(__('Reset Password'), array('controller' => 'users', 'action' => 'reset_password')); ?>
+						<!-- <a href="#">Reset Password</a> -->
+					</div> <!-- /login-extra -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
 	<script type="text/javascript">
 		var lang = "<?php echo Configure::read('Config.language'); ?>";

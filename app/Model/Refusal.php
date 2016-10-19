@@ -8,6 +8,13 @@ App::uses('AppModel', 'Model');
  */
 class Refusal extends AppModel {
 
+	public function typesOfRefusals() {
+		return array(
+			        0 => __('Visit'),
+			        1 => __('Report'),
+			    );
+	}
+
 /**
  * Validation rules
  *

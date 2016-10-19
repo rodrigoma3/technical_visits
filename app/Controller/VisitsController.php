@@ -21,6 +21,7 @@ class VisitsController extends AppController {
  * @return void
  */
 	public function index() {
+		// debug(Configure::read());
 		$this->Visit->recursive = 0;
 		$this->set('visits', $this->Paginator->paginate());
 	}

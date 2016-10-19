@@ -44,8 +44,8 @@ class AppController extends Controller {
                 )
             ),
             'loginRedirect' => array(
-                'controller' => 'posts',
-                'action' => 'add',
+                'controller' => 'visits',
+                'action' => 'index',
             ),
             'logoutRedirect' => array(
                 'controller' => 'users',
@@ -80,38 +80,72 @@ class AppController extends Controller {
     }
 
     public function beforeRender() {
-        $menus = array(
-                	array(
-                		'title' => __('Posts'),
-                		'icon' => '<i class="fa fa-sticky-note"></i>',
-                		'controller' => 'posts',
-                		'action' => 'index',
-                	),
-                	array(
-                		'title' => __('Widgets'),
-                		'icon' => '<i class="fa fa-wrench"></i>',
-                		'controller' => 'widgets',
-                		'action' => 'index',
-                	),
-                	array(
-                		'title' => __('Groups'),
-                		'icon' => '<i class="fa fa-users"></i>',
-                		'controller' => 'groups',
-                		'action' => 'index',
-                	),
-                	array(
-                		'title' => __('Users'),
-                		'icon' => '<i class="fa fa-user"></i>',
-                		'controller' => 'users',
-                		'action' => 'index',
-                	),
-                );
 
         if ($this->Auth->user()) {
+            $menus = array(
+                array(
+                    'title' => __('Visits'),
+                    'icon' => '<i class="fa fa-calendar"></i>',
+                    'controller' => 'visits',
+                    'action' => 'index',
+                    'allow' => false,
+                ),
+                array(
+                    'title' => __('Users'),
+                    'icon' => '<i class="fa fa-user"></i>',
+                    'controller' => 'users',
+                    'action' => 'index',
+                    'allow' => false,
+                ),
+                array(
+                    'title' => __('Groups'),
+                    'icon' => '<i class="fa fa-users"></i>',
+                    'controller' => 'groups',
+                    'action' => 'index',
+                    'allow' => false,
+                ),
+                array(
+                    'title' => __('City'),
+                    'icon' => '<i class="fa fa-building"></i>',
+                    'controller' => 'cities',
+                    'action' => 'index',
+                    'allow' => false,
+                ),
+                array(
+                    'title' => __('States'),
+                    'icon' => '<i class="fa fa-map"></i>',
+                    'controller' => 'states',
+                    'action' => 'index',
+                    'allow' => false,
+                ),
+                array(
+                    'title' => __('Teams'),
+                    'icon' => '<i class="fa fa-venus-mars"></i>',
+                    'controller' => 'teams',
+                    'action' => 'index',
+                    'allow' => false,
+                ),
+                array(
+                    'title' => __('Disciplines'),
+                    'icon' => '<i class="fa fa-file"></i>',
+                    'controller' => 'disciplines',
+                    'action' => 'index',
+                    'allow' => false,
+                ),
+                array(
+                    'title' => __('Courses'),
+                    'icon' => '<i class="fa fa-graduation-cap"></i>',
+                    'controller' => 'courses',
+                    'action' => 'index',
+                    'allow' => false,
+                ),
+            );
+
             foreach ($menus as $k => $menu) {
                 $menus[$k]['allow'] = $this->Acl->check(array('User' => $this->Auth->user()), $menu['controller'].'/'.$menu['action']);
             }
+
+            $this->set('menus', $menus);
         }
-        $this->set('menus', $menus);
     }
 }

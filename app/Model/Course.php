@@ -7,6 +7,13 @@ App::uses('AppModel', 'Model');
  */
 class Course extends AppModel {
 
+	public function typesOfAcademicPeriod() {
+		return array(
+			        0 => __('Anual'),
+			        1 => __('Semestral'),
+			    );
+	}
+
 /**
  * Validation rules
  *

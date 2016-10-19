@@ -10,6 +10,13 @@ App::uses('ShellDispatcher', 'Console');
 class GroupsController extends AppController {
 
 /**
+ * Components
+ *
+ * @var array
+ */
+	public $components = array('Paginator');
+
+/**
  * beforeFilter method
  *
  * @return void
@@ -251,7 +258,7 @@ class GroupsController extends AppController {
 		$args = explode(' ', $command);
 		$dispatcher = new ShellDispatcher($args, false);
 		$dispatcher->dispatch();
-		$this->Acl->Aco->deleteAll(array('alias' => 'AclExtras'), false);
+		$this->Acl->Aco->deleteAll(array('alias' => array('AclExtras', 'login', 'logout', 'set_language')), false);
 		$this->Flash->success(__('Rebuild Aco Tree (Actions & Controllers) has been completed.'));
 		return $this->redirect(array('action' => 'index'));
 	}
