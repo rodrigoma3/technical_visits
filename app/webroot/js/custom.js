@@ -1,18 +1,18 @@
 $(document).ready(function() {
 
     // BEGIN: dataTables
-    if (lang == 'pt-br') {
-        var all = 'Todos';
-    } else {
-        var all = 'All';
-    }
+    // if (lang == 'pt-br') {
+    //     var all = 'Todos';
+    // } else {
+    //     var all = 'All';
+    // }
 
     var table = $('table#dataTables').DataTable({
         "language": {
             "url": langpath+lang+".json"
         },
         "scrollX": true,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, all]],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 'all']],
         initComplete: function () {
             this.api().columns().every( function () {
                 var column = this;
@@ -33,6 +33,13 @@ $(document).ready(function() {
                 } );
             } );
 
+            $.getJSON( langpath+lang+".json", function( data ) {
+                // $.each( data, function( key, val ) {
+                //     console.log('key: '+key+' val: '+val);
+                // });
+                // console.log(data.oLocation);
+                $('select[name=dataTables_length] option[value=-1]').html(data.oLocation.sAll);
+            });
         },
         responsive: {
             details: {
