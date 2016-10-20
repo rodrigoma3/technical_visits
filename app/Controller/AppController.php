@@ -70,7 +70,9 @@ class AppController extends Controller {
 
         $this->Auth->allow($allowAction);
 
-        Configure::write('Config.language', $this->Session->read('Config.language'));
+        if ($this->Session->check('Config.language')) {
+            Configure::write('Config.language', $this->Session->read('Config.language'));
+        }
 
         if (!$this->Auth->loggedIn() && !in_array($this->action, $allowAction)) {
             $this->Auth->authError = false;

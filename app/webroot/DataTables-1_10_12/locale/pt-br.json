@@ -11,7 +11,8 @@
     "sLoadingRecords": "Carregando...",
     "sProcessing": "Processando...",
     "sZeroRecords": "Nenhum registro encontrado",
-    "sSearch": "Pesquisar",
+    "sSearch": "_INPUT_",
+    "sSearchPlaceholder": "Pesquisar",
     "oPaginate": {
         "sNext": "Próximo",
         "sPrevious": "Anterior",

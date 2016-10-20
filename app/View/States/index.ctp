@@ -8,18 +8,18 @@
         	<thead>
             	<tr>
                     <th></th>
-            	                	<th><?php echo __('id'); ?></th>
-            	                	<th><?php echo __('name'); ?></th>
-            	                	<th><?php echo __('initials'); ?></th>
+            	                	<th><?php echo __('Id'); ?></th>
+            	                	<th><?php echo __('Name'); ?></th>
+            	                	<th><?php echo __('Initials'); ?></th>
             	                	<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</thead>
         	<tfoot>
             	<tr>
                     <th></th>
-            	            		<th><?php echo __('id'); ?></th>
-            	            		<th><?php echo __('name'); ?></th>
-            	            		<th><?php echo __('initials'); ?></th>
+            	            		<th><?php echo __('Id'); ?></th>
+            	            		<th><?php echo __('Name'); ?></th>
+            	            		<th><?php echo __('Initials'); ?></th>
             	            		<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</tfoot>

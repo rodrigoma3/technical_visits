@@ -8,21 +8,21 @@
         	<thead>
             	<tr>
                     <th></th>
-            	                	<th><?php echo __('id'); ?></th>
-            	                	<th><?php echo __('name'); ?></th>
-            	                	<th><?php echo __('type_of_academic_period'); ?></th>
-            	                	<th><?php echo __('amount_of_academic_periods'); ?></th>
-            	                	<th><?php echo __('Actions'); ?></th>
+                	<th><?php echo __('Id'); ?></th>
+                	<th><?php echo __('Name'); ?></th>
+                	<th><?php echo __('Type of Academic Period'); ?></th>
+                	<th><?php echo __('Amount of Academic Periods'); ?></th>
+                	<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</thead>
         	<tfoot>
             	<tr>
                     <th></th>
-            	            		<th><?php echo __('id'); ?></th>
-            	            		<th><?php echo __('name'); ?></th>
-            	            		<th><?php echo __('type_of_academic_period'); ?></th>
-            	            		<th><?php echo __('amount_of_academic_periods'); ?></th>
-            	            		<th><?php echo __('Actions'); ?></th>
+                	<th><?php echo __('Id'); ?></th>
+                	<th><?php echo __('Name'); ?></th>
+                	<th><?php echo __('Type of Academic Period'); ?></th>
+                	<th><?php echo __('Amount of Academic Periods'); ?></th>
+            		<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</tfoot>
         	<tbody>
@@ -31,7 +31,7 @@
 		<td></td>
 		<td><?php echo h($course['Course']['id']); ?>&nbsp;</td>
 		<td><?php echo h($course['Course']['name']); ?>&nbsp;</td>
-		<td><?php echo h($course['Course']['type_of_academic_period']); ?>&nbsp;</td>
+		<td><?php echo h($course['TypeOfAcademicPeriod']['name']); ?>&nbsp;</td>
 		<td><?php echo h($course['Course']['amount_of_academic_periods']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('action' => 'view', $course['Course']['id']), array('escape' => false, 'class' => 'btn')); ?>

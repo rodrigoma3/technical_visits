@@ -4,16 +4,8 @@ App::uses('AppController', 'Controller');
  * Courses Controller
  *
  * @property Course $Course
- * @property PaginatorComponent $Paginator
  */
 class CoursesController extends AppController {
-
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
 
 /**
  * index method
@@ -22,7 +14,7 @@ class CoursesController extends AppController {
  */
 	public function index() {
 		$this->Course->recursive = 0;
-		$this->set('courses', $this->Paginator->paginate());
+		$this->set('courses', $this->Course->find('all'));
 	}
 
 /**
@@ -55,6 +47,8 @@ class CoursesController extends AppController {
 				$this->Flash->error(__('The course could not be saved. Please, try again.'));
 			}
 		}
+		$typeOfAcademicPeriods = $this->Course->getEnums('type_of_academic_period');
+		$this->set(compact('typeOfAcademicPeriods'));
 	}
 
 /**
@@ -79,6 +73,8 @@ class CoursesController extends AppController {
 			$options = array('conditions' => array('Course.' . $this->Course->primaryKey => $id));
 			$this->request->data = $this->Course->find('first', $options);
 		}
+		$typeOfAcademicPeriods = $this->Course->getEnums('type_of_academic_period');
+		$this->set(compact('typeOfAcademicPeriods'));
 	}
 
 /**

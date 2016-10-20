@@ -4,16 +4,8 @@ App::uses('AppController', 'Controller');
  * States Controller
  *
  * @property State $State
- * @property PaginatorComponent $Paginator
  */
 class StatesController extends AppController {
-
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
 
 /**
  * index method
@@ -22,7 +14,7 @@ class StatesController extends AppController {
  */
 	public function index() {
 		$this->State->recursive = 0;
-		$this->set('states', $this->Paginator->paginate());
+		$this->set('states', $this->State->find('all'));
 	}
 
 /**
@@ -36,8 +28,7 @@ class StatesController extends AppController {
 		if (!$this->State->exists($id)) {
 			throw new NotFoundException(__('Invalid state'));
 		}
-		$options = array('conditions' => array('State.' . $this->State->primaryKey => $id));
-		$this->set('state', $this->State->find('first', $options));
+		$this->set('state', $this->State->findById($id));
 	}
 
 /**

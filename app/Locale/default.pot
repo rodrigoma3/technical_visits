@@ -1,0 +1,1169 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/AppController.php:67
+msgid "You are not authorized to access that location."
+msgstr ""
+
+#: Controller/AppController.php:89
+#: View/Visits/index.ctp:3
+msgid "Visits"
+msgstr ""
+
+#: Controller/AppController.php:96
+#: View/Users/index.ctp:3
+msgid "Users"
+msgstr ""
+
+#: Controller/AppController.php:103
+#: View/Groups/index.ctp:3
+msgid "Groups"
+msgstr ""
+
+#: Controller/AppController.php:110
+#: View/Cities/view.ctp:3
+#: View/Visits/view.ctp:73
+msgid "City"
+msgstr ""
+
+#: Controller/AppController.php:117
+#: View/States/index.ctp:3
+msgid "States"
+msgstr ""
+
+#: Controller/AppController.php:124
+#: View/Teams/index.ctp:3
+msgid "Teams"
+msgstr ""
+
+#: Controller/AppController.php:131
+#: View/Disciplines/index.ctp:3
+msgid "Disciplines"
+msgstr ""
+
+#: Controller/AppController.php:138
+#: View/Courses/index.ctp:3
+msgid "Courses"
+msgstr ""
+
+#: Controller/CitiesController.php:37;70;97
+msgid "Invalid city"
+msgstr ""
+
+#: Controller/CitiesController.php:51;74
+msgid "The city has been saved."
+msgstr ""
+
+#: Controller/CitiesController.php:54;77
+msgid "The city could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/CitiesController.php:101
+msgid "The city has been deleted."
+msgstr ""
+
+#: Controller/CitiesController.php:103
+msgid "The city could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/CoursesController.php:29;61;86
+msgid "Invalid course"
+msgstr ""
+
+#: Controller/CoursesController.php:44;65
+msgid "The course has been saved."
+msgstr ""
+
+#: Controller/CoursesController.php:47;68
+msgid "The course could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/CoursesController.php:90
+msgid "The course has been deleted."
+msgstr ""
+
+#: Controller/CoursesController.php:92
+msgid "The course could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/DisciplinesController.php:37;72;100
+msgid "Invalid discipline"
+msgstr ""
+
+#: Controller/DisciplinesController.php:52;76
+msgid "The discipline has been saved."
+msgstr ""
+
+#: Controller/DisciplinesController.php:55;79
+msgid "The discipline could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/DisciplinesController.php:104
+msgid "The discipline has been deleted."
+msgstr ""
+
+#: Controller/DisciplinesController.php:106
+msgid "The discipline could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/GroupsController.php:48;81;106;147
+msgid "Invalid group"
+msgstr ""
+
+#: Controller/GroupsController.php:64;85
+msgid "The group has been saved."
+msgstr ""
+
+#: Controller/GroupsController.php:67;88
+msgid "The group could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/GroupsController.php:111
+msgid "The group has been deleted."
+msgstr ""
+
+#: Controller/GroupsController.php:113
+msgid "The group could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/GroupsController.php:157
+msgid "The group permissions has been saved."
+msgstr ""
+
+#: Controller/GroupsController.php:262
+msgid "Rebuild Aco Tree (Actions & Controllers) has been completed."
+msgstr ""
+
+#: Controller/RefusalsController.php:37;72;100
+msgid "Invalid refusal"
+msgstr ""
+
+#: Controller/RefusalsController.php:52;76
+msgid "The refusal has been saved."
+msgstr ""
+
+#: Controller/RefusalsController.php:55;79
+msgid "The refusal could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/RefusalsController.php:104
+msgid "The refusal has been deleted."
+msgstr ""
+
+#: Controller/RefusalsController.php:106
+msgid "The refusal could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/StatesController.php:29;60;85
+msgid "Invalid state"
+msgstr ""
+
+#: Controller/StatesController.php:43;64
+msgid "The state has been saved."
+msgstr ""
+
+#: Controller/StatesController.php:46;67
+msgid "The state could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/StatesController.php:89
+msgid "The state has been deleted."
+msgstr ""
+
+#: Controller/StatesController.php:91
+msgid "The state could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/TeamsController.php:37;71;98
+msgid "Invalid team"
+msgstr ""
+
+#: Controller/TeamsController.php:52;75
+msgid "The team has been saved."
+msgstr ""
+
+#: Controller/TeamsController.php:55;78
+msgid "The team could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/TeamsController.php:102
+msgid "The team has been deleted."
+msgstr ""
+
+#: Controller/TeamsController.php:104
+msgid "The team could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:34
+msgid "You are logged in!"
+msgstr ""
+
+#: Controller/UsersController.php:49
+msgid "Your username or password was incorrect."
+msgstr ""
+
+#: Controller/UsersController.php:67
+msgid "Good-Bye"
+msgstr ""
+
+#: Controller/UsersController.php:90;124;151;171
+msgid "Invalid user"
+msgstr ""
+
+#: Controller/UsersController.php:105;128
+msgid "The user has been saved."
+msgstr ""
+
+#: Controller/UsersController.php:108;131
+msgid "The user could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:155
+msgid "The user has been deleted."
+msgstr ""
+
+#: Controller/UsersController.php:157
+msgid "The user could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:186
+msgid "The user permissions has been saved."
+msgstr ""
+
+#: Controller/UsersController.php:213
+msgid "Deny"
+msgstr ""
+
+#: Controller/UsersController.php:213
+msgid "Allow"
+msgstr ""
+
+#: Controller/UsersController.php:213
+msgid "Inherit the group"
+msgstr ""
+
+#: Controller/VisitsController.php:38;74;103
+msgid "Invalid visit"
+msgstr ""
+
+#: Controller/VisitsController.php:53;78
+msgid "The visit has been saved."
+msgstr ""
+
+#: Controller/VisitsController.php:56;81
+msgid "The visit could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/VisitsController.php:107
+msgid "The visit has been deleted."
+msgstr ""
+
+#: Controller/VisitsController.php:109
+msgid "The visit could not be deleted. Please, try again."
+msgstr ""
+
+#: Plugin/AclExtras/Console/Command/AclExtrasShell.php:80
+msgid "Plugin to process"
+msgstr ""
+
+#: Plugin/AclExtras/Console/Command/AclExtrasShell.php:83
+msgid "Better manage, and easily synchronize you application's ACO tree"
+msgstr ""
+
+#: Plugin/AclExtras/Console/Command/AclExtrasShell.php:88
+msgid "Add new ACOs for new controllers and actions. Does not remove nodes from the ACO table."
+msgstr ""
+
+#: Plugin/AclExtras/Console/Command/AclExtrasShell.php:93
+msgid "Perform a full sync on the ACO table.Will create new ACOs or missing controllers and actions.Will also remove orphaned entries that no longer have a matching controller/action"
+msgstr ""
+
+#: Plugin/AclExtras/Console/Command/AclExtrasShell.php:97
+msgid "Verify the tree structure of either your Aco or Aro Trees"
+msgstr ""
+
+#: Plugin/AclExtras/Console/Command/AclExtrasShell.php:102
+msgid "The type of tree to verify"
+msgstr ""
+
+#: Plugin/AclExtras/Console/Command/AclExtrasShell.php:108
+msgid "Recover a corrupted Tree"
+msgstr ""
+
+#: Plugin/AclExtras/Console/Command/AclExtrasShell.php:113
+msgid "The type of tree to recover"
+msgstr ""
+
+#: Plugin/AclExtras/Lib/AclExtras.php:124
+msgid "<error>Plugin %s not found or not activated</error>"
+msgstr ""
+
+#: Plugin/AclExtras/Lib/AclExtras.php:137
+msgid "<success>Aco Update Complete</success>"
+msgstr ""
+
+#: Plugin/AclExtras/Lib/AclExtras.php:182
+msgid "Deleted %s and all children"
+msgstr ""
+
+#: Plugin/AclExtras/Lib/AclExtras.php:223
+msgid "Created Aco node: <success>%s</success>"
+msgstr ""
+
+#: Plugin/AclExtras/Lib/AclExtras.php:276
+msgid "Unable to get methods for \"%s\""
+msgstr ""
+
+#: Plugin/AclExtras/Lib/AclExtras.php:297
+msgid "Deleted Aco node: <warning>%s</warning>"
+msgstr ""
+
+#: Plugin/AclExtras/Lib/AclExtras.php:316
+msgid "<success>Tree is valid and strong</success>"
+msgstr ""
+
+#: Plugin/AclExtras/Lib/AclExtras.php:334
+msgid "Tree has been recovered, or tree did not need recovery."
+msgstr ""
+
+#: Plugin/AclExtras/Lib/AclExtras.php:336
+msgid "<error>Tree recovery failed.</error>"
+msgstr ""
+
+#: View/Cities/add.ctp:4
+msgid "Add City"
+msgstr ""
+
+#: View/Cities/add.ctp:14
+#: View/Cities/edit.ctp:15
+#: View/Courses/add.ctp:14
+#: View/Courses/edit.ctp:15
+#: View/Disciplines/add.ctp:15
+#: View/Disciplines/edit.ctp:16
+#: View/Groups/add.ctp:13
+#: View/Groups/edit.ctp:14
+#: View/Groups/permission.ctp:14
+#: View/Refusals/add.ctp:16
+#: View/Refusals/edit.ctp:17
+#: View/States/add.ctp:13
+#: View/States/edit.ctp:14
+#: View/Teams/add.ctp:13
+#: View/Teams/edit.ctp:14
+#: View/Users/add.ctp:15
+#: View/Users/edit.ctp:16
+#: View/Users/permission.ctp:14
+#: View/Visits/add.ctp:25
+#: View/Visits/edit.ctp:26
+msgid "Submit"
+msgstr ""
+
+#: View/Cities/add.ctp:15
+#: View/Cities/edit.ctp:16
+#: View/Courses/add.ctp:15
+#: View/Courses/edit.ctp:16
+#: View/Disciplines/add.ctp:16
+#: View/Disciplines/edit.ctp:17
+#: View/Groups/add.ctp:14
+#: View/Groups/edit.ctp:15
+#: View/Groups/permission.ctp:15
+#: View/Refusals/add.ctp:17
+#: View/Refusals/edit.ctp:18
+#: View/States/add.ctp:14
+#: View/States/edit.ctp:15
+#: View/Teams/add.ctp:14
+#: View/Teams/edit.ctp:15
+#: View/Users/add.ctp:16
+#: View/Users/edit.ctp:17
+#: View/Users/permission.ctp:15
+#: View/Visits/add.ctp:26
+#: View/Visits/edit.ctp:27
+msgid "Cancel"
+msgstr ""
+
+#: View/Cities/edit.ctp:4
+#: View/Cities/view.ctp:35
+msgid "Edit City"
+msgstr ""
+
+#: View/Cities/index.ctp:3
+msgid "Cities"
+msgstr ""
+
+#: View/Cities/index.ctp:11;21
+#: View/Cities/view.ctp:8
+#: View/Courses/index.ctp:11;21
+#: View/Courses/view.ctp:8;48;58
+#: View/Disciplines/view.ctp:8;48;56
+#: View/Groups/view.ctp:8;43;54
+#: View/Refusals/view.ctp:8
+#: View/States/index.ctp:11;20
+#: View/States/view.ctp:8;43;52
+#: View/Teams/view.ctp:8;38;59;120;130
+#: View/Users/view.ctp:8;53;65;108;129
+#: View/Visits/view.ctp:8;103;115
+msgid "Id"
+msgstr ""
+
+#: View/Cities/index.ctp:12;22
+#: View/Cities/view.ctp:13
+#: View/Courses/index.ctp:12;22
+#: View/Courses/view.ctp:13;49;59
+#: View/Disciplines/view.ctp:13;49;57
+#: View/Groups/view.ctp:13;44;55
+#: View/States/index.ctp:12;21
+#: View/States/view.ctp:13;44;53
+#: View/Teams/view.ctp:13;121;131
+#: View/Users/view.ctp:13
+msgid "Name"
+msgstr ""
+
+#: View/Cities/index.ctp:13;23
+#: View/Cities/view.ctp:18
+#: View/States/view.ctp:45;54
+msgid "Short Distance"
+msgstr ""
+
+#: View/Cities/index.ctp:14;24
+#: View/Cities/view.ctp:27
+#: View/States/view.ctp:3
+msgid "State"
+msgstr ""
+
+#: View/Cities/index.ctp:15;25;59
+#: View/Courses/index.ctp:15;25;51
+#: View/Courses/view.ctp:52;62
+#: View/Disciplines/index.ctp:15;25;53
+#: View/Disciplines/view.ctp:50;58
+#: View/Groups/index.ctp:14;23;49
+#: View/Groups/view.ctp:48;59
+#: View/Refusals/index.ctp:17;29;61
+#: View/States/index.ctp:14;23;48
+#: View/States/view.ctp:46;55
+#: View/Teams/index.ctp:13;21;45
+#: View/Teams/view.ctp:53;74;124;134
+#: View/Users/index.ctp:16;27;57
+#: View/Users/view.ctp:59;71;123;144
+#: View/Visits/index.ctp:26;47;90
+#: View/Visits/view.ctp:109;121
+msgid "Actions"
+msgstr ""
+
+#: View/Cities/index.ctp:36
+#: View/Cities/view.ctp:21
+#: View/States/view.ctp:66
+msgid "Yes"
+msgstr ""
+
+#: View/Cities/index.ctp:38
+#: View/Cities/view.ctp:23
+#: View/States/view.ctp:68
+msgid "No"
+msgstr ""
+
+#: View/Cities/index.ctp:45
+#: View/Courses/index.ctp:37
+#: View/Courses/view.ctp:74
+#: View/Disciplines/index.ctp:39
+#: View/Disciplines/view.ctp:68
+#: View/Groups/index.ctp:34
+#: View/Groups/view.ctp:72
+#: View/Refusals/index.ctp:47
+#: View/States/index.ctp:34
+#: View/States/view.ctp:72
+#: View/Teams/index.ctp:31
+#: View/Teams/view.ctp:97;146
+#: View/Users/index.ctp:42
+#: View/Users/view.ctp:85;167
+#: View/Visits/index.ctp:76
+#: View/Visits/view.ctp:135
+msgid "View"
+msgstr ""
+
+#: View/Cities/index.ctp:46
+#: View/Courses/index.ctp:38
+#: View/Courses/view.ctp:75
+#: View/Disciplines/index.ctp:40
+#: View/Disciplines/view.ctp:69
+#: View/Groups/index.ctp:35
+#: View/Groups/view.ctp:73
+#: View/Refusals/index.ctp:48
+#: View/States/index.ctp:35
+#: View/States/view.ctp:73
+#: View/Teams/index.ctp:32
+#: View/Teams/view.ctp:98;147
+#: View/Users/index.ctp:43
+#: View/Users/view.ctp:86;168
+#: View/Visits/index.ctp:77
+#: View/Visits/view.ctp:136
+msgid "Edit"
+msgstr ""
+
+#: View/Cities/index.ctp:47
+#: View/Courses/index.ctp:39
+#: View/Courses/view.ctp:76
+#: View/Disciplines/index.ctp:41
+#: View/Disciplines/view.ctp:70
+#: View/Groups/index.ctp:36
+#: View/Groups/view.ctp:74
+#: View/Refusals/index.ctp:49
+#: View/States/index.ctp:36
+#: View/States/view.ctp:74
+#: View/Teams/index.ctp:33
+#: View/Teams/view.ctp:99;148
+#: View/Users/index.ctp:44
+#: View/Users/view.ctp:87;169
+#: View/Visits/index.ctp:78
+#: View/Visits/view.ctp:137
+msgid "Delete"
+msgstr ""
+
+#: View/Cities/index.ctp:47
+#: View/Cities/view.ctp:36
+#: View/Courses/index.ctp:39
+#: View/Courses/view.ctp:32;76
+#: View/Disciplines/index.ctp:41
+#: View/Disciplines/view.ctp:32;70
+#: View/Groups/index.ctp:36
+#: View/Groups/view.ctp:27;74
+#: View/Refusals/index.ctp:49
+#: View/Refusals/view.ctp:42
+#: View/States/index.ctp:36
+#: View/States/view.ctp:27;74
+#: View/Teams/index.ctp:33
+#: View/Teams/view.ctp:22;99;148
+#: View/Users/index.ctp:44
+#: View/Users/view.ctp:37;87;169
+#: View/Visits/index.ctp:78
+#: View/Visits/view.ctp:87;137
+msgid "Are you sure you want to delete # %s?"
+msgstr ""
+
+#: View/Cities/index.ctp:63
+#: View/States/view.ctp:81
+msgid "New City"
+msgstr ""
+
+#: View/Cities/view.ctp:34
+msgid "List Cities"
+msgstr ""
+
+#: View/Cities/view.ctp:36
+msgid "Delete City"
+msgstr ""
+
+#: View/Courses/add.ctp:4
+msgid "Add Course"
+msgstr ""
+
+#: View/Courses/edit.ctp:4
+#: View/Courses/view.ctp:31
+msgid "Edit Course"
+msgstr ""
+
+#: View/Courses/index.ctp:13;23
+msgid "Type of Academic Period"
+msgstr ""
+
+#: View/Courses/index.ctp:14;24
+msgid "Amount of Academic Periods"
+msgstr ""
+
+#: View/Courses/index.ctp:34
+msgid "%s"
+msgstr ""
+
+#: View/Courses/index.ctp:55
+msgid "New Course"
+msgstr ""
+
+#: View/Courses/view.ctp:3
+#: View/Disciplines/view.ctp:23
+msgid "Course"
+msgstr ""
+
+#: View/Courses/view.ctp:18
+msgid "Type Of Academic Period"
+msgstr ""
+
+#: View/Courses/view.ctp:23
+msgid "Amount Of Academic Periods"
+msgstr ""
+
+#: View/Courses/view.ctp:30
+msgid "List Courses"
+msgstr ""
+
+#: View/Courses/view.ctp:32
+msgid "Delete Course"
+msgstr ""
+
+#: View/Courses/view.ctp:40
+#: View/Teams/view.ctp:112
+msgid "Related Disciplines"
+msgstr ""
+
+#: View/Courses/view.ctp:50;60
+#: View/Disciplines/view.ctp:18
+#: View/Teams/view.ctp:122;132
+msgid "Academic Period"
+msgstr ""
+
+#: View/Courses/view.ctp:51;61
+#: View/Teams/view.ctp:123;133
+msgid "Course Id"
+msgstr ""
+
+#: View/Courses/view.ctp:83
+#: View/Disciplines/index.ctp:57
+#: View/Teams/view.ctp:155
+msgid "New Discipline"
+msgstr ""
+
+#: View/Disciplines/add.ctp:4
+msgid "Add Discipline"
+msgstr ""
+
+#: View/Disciplines/edit.ctp:4
+#: View/Disciplines/view.ctp:31
+msgid "Edit Discipline"
+msgstr ""
+
+#: View/Disciplines/index.ctp:11;21
+#: View/Groups/index.ctp:11;20
+#: View/Refusals/index.ctp:11;23
+#: View/Teams/index.ctp:11;19
+#: View/Users/index.ctp:11;22
+#: View/Visits/index.ctp:11;32
+msgid "id"
+msgstr ""
+
+#: View/Disciplines/index.ctp:12;22
+#: View/Groups/index.ctp:12;21
+#: View/Teams/index.ctp:12;20
+#: View/Users/index.ctp:12;23
+msgid "name"
+msgstr ""
+
+#: View/Disciplines/index.ctp:13;23
+msgid "academic_period"
+msgstr ""
+
+#: View/Disciplines/index.ctp:14;24
+msgid "course_id"
+msgstr ""
+
+#: View/Disciplines/view.ctp:3
+msgid "Discipline"
+msgstr ""
+
+#: View/Disciplines/view.ctp:30
+msgid "List Disciplines"
+msgstr ""
+
+#: View/Disciplines/view.ctp:32
+msgid "Delete Discipline"
+msgstr ""
+
+#: View/Disciplines/view.ctp:40
+msgid "Related Teams"
+msgstr ""
+
+#: View/Disciplines/view.ctp:77
+#: View/Teams/index.ctp:49
+msgid "New Team"
+msgstr ""
+
+#: View/Groups/add.ctp:4
+msgid "Add Group"
+msgstr ""
+
+#: View/Groups/edit.ctp:4
+#: View/Groups/view.ctp:26
+msgid "Edit Group"
+msgstr ""
+
+#: View/Groups/index.ctp:13;22
+msgid "description"
+msgstr ""
+
+#: View/Groups/index.ctp:37
+#: View/Groups/view.ctp:75
+#: View/Users/index.ctp:45
+msgid "Permission"
+msgstr ""
+
+#: View/Groups/index.ctp:53
+msgid "New Group"
+msgstr ""
+
+#: View/Groups/index.ctp:54
+msgid "Rebuild Aco Tree (Actions & Controllers)"
+msgstr ""
+
+#: View/Groups/permission.ctp:4
+#: View/Users/permission.ctp:4
+msgid "Edit permissions for "
+msgstr ""
+
+#: View/Groups/view.ctp:3
+#: View/Users/view.ctp:28
+msgid "Group"
+msgstr ""
+
+#: View/Groups/view.ctp:18
+msgid "Description"
+msgstr ""
+
+#: View/Groups/view.ctp:25
+msgid "List Groups"
+msgstr ""
+
+#: View/Groups/view.ctp:27
+msgid "Delete Group"
+msgstr ""
+
+#: View/Groups/view.ctp:35
+msgid "Related Users"
+msgstr ""
+
+#: View/Groups/view.ctp:45;56
+#: View/Users/view.ctp:18
+msgid "Email"
+msgstr ""
+
+#: View/Groups/view.ctp:46;57
+#: View/Users/login.ctp:8
+#: View/Users/view.ctp:23
+msgid "Password"
+msgstr ""
+
+#: View/Groups/view.ctp:47;58
+msgid "Group Id"
+msgstr ""
+
+#: View/Groups/view.ctp:82
+#: View/Users/index.ctp:61
+msgid "New User"
+msgstr ""
+
+#: View/Layouts/default.ctp:51
+#: View/Layouts/login.ctp:53
+msgid "Technical Visits"
+msgstr ""
+
+#: View/Layouts/default.ctp:60
+msgid "Welcome, "
+msgstr ""
+
+#: View/Layouts/default.ctp:65
+msgid "Profile"
+msgstr ""
+
+#: View/Layouts/default.ctp:66
+msgid "Logout"
+msgstr ""
+
+#: View/Layouts/login.ctp:112
+msgid "Reset Password"
+msgstr ""
+
+#: View/Refusals/add.ctp:4
+msgid "Add Refusal"
+msgstr ""
+
+#: View/Refusals/edit.ctp:4
+#: View/Refusals/view.ctp:41
+msgid "Edit Refusal"
+msgstr ""
+
+#: View/Refusals/index.ctp:3
+msgid "Refusals"
+msgstr ""
+
+#: View/Refusals/index.ctp:12;24
+msgid "date"
+msgstr ""
+
+#: View/Refusals/index.ctp:13;25
+msgid "reason"
+msgstr ""
+
+#: View/Refusals/index.ctp:14;26
+msgid "type"
+msgstr ""
+
+#: View/Refusals/index.ctp:15;27
+#: View/Visits/index.ctp:23;44
+msgid "user_id"
+msgstr ""
+
+#: View/Refusals/index.ctp:16;28
+msgid "visit_id"
+msgstr ""
+
+#: View/Refusals/index.ctp:65
+#: View/Users/view.ctp:94
+#: View/Visits/view.ctp:144
+msgid "New Refusal"
+msgstr ""
+
+#: View/Refusals/view.ctp:3
+msgid "Refusal"
+msgstr ""
+
+#: View/Refusals/view.ctp:13
+#: View/Users/view.ctp:54;66
+#: View/Visits/view.ctp:104;116
+msgid "Date"
+msgstr ""
+
+#: View/Refusals/view.ctp:18
+#: View/Users/view.ctp:55;67
+#: View/Visits/view.ctp:105;117
+msgid "Reason"
+msgstr ""
+
+#: View/Refusals/view.ctp:23
+#: View/Users/view.ctp:56;68
+#: View/Visits/view.ctp:106;118
+msgid "Type"
+msgstr ""
+
+#: View/Refusals/view.ctp:28
+#: View/Users/view.ctp:3
+#: View/Visits/view.ctp:68
+msgid "User"
+msgstr ""
+
+#: View/Refusals/view.ctp:33
+#: View/Visits/view.ctp:3
+msgid "Visit"
+msgstr ""
+
+#: View/Refusals/view.ctp:40
+msgid "List Refusals"
+msgstr ""
+
+#: View/Refusals/view.ctp:42
+msgid "Delete Refusal"
+msgstr ""
+
+#: View/States/add.ctp:4
+msgid "Add State"
+msgstr ""
+
+#: View/States/edit.ctp:4
+#: View/States/view.ctp:26
+msgid "Edit State"
+msgstr ""
+
+#: View/States/index.ctp:13;22
+#: View/States/view.ctp:18
+msgid "Initials"
+msgstr ""
+
+#: View/States/index.ctp:52
+msgid "New State"
+msgstr ""
+
+#: View/States/view.ctp:25
+msgid "List States"
+msgstr ""
+
+#: View/States/view.ctp:27
+msgid "Delete State"
+msgstr ""
+
+#: View/States/view.ctp:35
+msgid "Related Cities"
+msgstr ""
+
+#: View/Teams/add.ctp:4
+msgid "Add Team"
+msgstr ""
+
+#: View/Teams/edit.ctp:4
+#: View/Teams/view.ctp:21
+msgid "Edit Team"
+msgstr ""
+
+#: View/Teams/view.ctp:3
+#: View/Visits/view.ctp:78
+msgid "Team"
+msgstr ""
+
+#: View/Teams/view.ctp:20
+msgid "List Teams"
+msgstr ""
+
+#: View/Teams/view.ctp:22
+msgid "Delete Team"
+msgstr ""
+
+#: View/Teams/view.ctp:30
+#: View/Users/view.ctp:100
+msgid "Related Visits"
+msgstr ""
+
+#: View/Teams/view.ctp:39;60
+#: View/Users/view.ctp:109;130
+#: View/Visits/view.ctp:13
+msgid "Departure"
+msgstr ""
+
+#: View/Teams/view.ctp:40;61
+#: View/Users/view.ctp:110;131
+#: View/Visits/view.ctp:18
+msgid "Arrival"
+msgstr ""
+
+#: View/Teams/view.ctp:41;62
+#: View/Users/view.ctp:111;132
+#: View/Visits/view.ctp:23
+msgid "Destination"
+msgstr ""
+
+#: View/Teams/view.ctp:42;63
+#: View/Users/view.ctp:112;133
+#: View/Visits/view.ctp:28
+msgid "Number Of Students"
+msgstr ""
+
+#: View/Teams/view.ctp:43;64
+#: View/Users/view.ctp:113;134
+#: View/Visits/view.ctp:33
+msgid "Daily"
+msgstr ""
+
+#: View/Teams/view.ctp:44;65
+#: View/Users/view.ctp:114;135
+#: View/Visits/view.ctp:38
+msgid "Transport"
+msgstr ""
+
+#: View/Teams/view.ctp:45;66
+#: View/Users/view.ctp:115;136
+#: View/Visits/view.ctp:43
+msgid "Cost Transport"
+msgstr ""
+
+#: View/Teams/view.ctp:46;67
+#: View/Users/view.ctp:116;137
+#: View/Visits/view.ctp:48
+msgid "Distance"
+msgstr ""
+
+#: View/Teams/view.ctp:47;68
+#: View/Users/view.ctp:117;138
+#: View/Visits/view.ctp:53
+msgid "Objective"
+msgstr ""
+
+#: View/Teams/view.ctp:48;69
+#: View/Users/view.ctp:118;139
+#: View/Visits/view.ctp:58
+msgid "Comments"
+msgstr ""
+
+#: View/Teams/view.ctp:49;70
+#: View/Users/view.ctp:119;140
+#: View/Visits/view.ctp:63
+msgid "Status"
+msgstr ""
+
+#: View/Teams/view.ctp:50;71
+#: View/Users/view.ctp:57;69;120;141
+#: View/Visits/view.ctp:107;119
+msgid "User Id"
+msgstr ""
+
+#: View/Teams/view.ctp:51;72
+#: View/Users/view.ctp:121;142
+msgid "City Id"
+msgstr ""
+
+#: View/Teams/view.ctp:52;73
+#: View/Users/view.ctp:122;143
+msgid "Team Id"
+msgstr ""
+
+#: View/Teams/view.ctp:106
+#: View/Users/view.ctp:176
+#: View/Visits/index.ctp:94
+msgid "New Visit"
+msgstr ""
+
+#: View/Users/add.ctp:4
+msgid "Add User"
+msgstr ""
+
+#: View/Users/edit.ctp:4
+#: View/Users/view.ctp:36
+msgid "Edit User"
+msgstr ""
+
+#: View/Users/index.ctp:13;24
+#: Model/User.php:validation for field email
+msgid "email"
+msgstr ""
+
+#: View/Users/index.ctp:14;25
+msgid "password"
+msgstr ""
+
+#: View/Users/index.ctp:15;26
+msgid "group_id"
+msgstr ""
+
+#: View/Users/login.ctp:2;18
+msgid "Login"
+msgstr ""
+
+#: View/Users/login.ctp:5
+msgid "Please provide your details"
+msgstr ""
+
+#: View/Users/login.ctp:7
+msgid "E-mail"
+msgstr ""
+
+#: View/Users/login.ctp:15
+msgid "Keep me signed in"
+msgstr ""
+
+#: View/Users/view.ctp:35
+msgid "List Users"
+msgstr ""
+
+#: View/Users/view.ctp:37
+msgid "Delete User"
+msgstr ""
+
+#: View/Users/view.ctp:45
+#: View/Visits/view.ctp:95
+msgid "Related Refusals"
+msgstr ""
+
+#: View/Users/view.ctp:58;70
+#: View/Visits/view.ctp:108;120
+msgid "Visit Id"
+msgstr ""
+
+#: View/Visits/add.ctp:4
+msgid "Add Visit"
+msgstr ""
+
+#: View/Visits/edit.ctp:4
+#: View/Visits/view.ctp:86
+msgid "Edit Visit"
+msgstr ""
+
+#: View/Visits/index.ctp:12;33
+msgid "departure"
+msgstr ""
+
+#: View/Visits/index.ctp:13;34
+msgid "arrival"
+msgstr ""
+
+#: View/Visits/index.ctp:14;35
+msgid "destination"
+msgstr ""
+
+#: View/Visits/index.ctp:15;36
+msgid "number_of_students"
+msgstr ""
+
+#: View/Visits/index.ctp:16;37
+msgid "daily"
+msgstr ""
+
+#: View/Visits/index.ctp:17;38
+msgid "transport"
+msgstr ""
+
+#: View/Visits/index.ctp:18;39
+msgid "cost_transport"
+msgstr ""
+
+#: View/Visits/index.ctp:19;40
+msgid "distance"
+msgstr ""
+
+#: View/Visits/index.ctp:20;41
+msgid "objective"
+msgstr ""
+
+#: View/Visits/index.ctp:21;42
+msgid "comments"
+msgstr ""
+
+#: View/Visits/index.ctp:22;43
+msgid "status"
+msgstr ""
+
+#: View/Visits/index.ctp:24;45
+msgid "city_id"
+msgstr ""
+
+#: View/Visits/index.ctp:25;46
+msgid "team_id"
+msgstr ""
+
+#: View/Visits/view.ctp:85
+msgid "List Visits"
+msgstr ""
+
+#: View/Visits/view.ctp:87
+msgid "Delete Visit"
+msgstr ""
+
+#: Model/City.php:validation for field name
+#: Model/Course.php:validation for field name;validation for field type_of_academic_period
+#: Model/Discipline.php:validation for field name
+#: Model/Group.php:validation for field name;validation for field description
+#: Model/Refusal.php:validation for field reason;validation for field type
+#: Model/State.php:validation for field name
+#: Model/Team.php:validation for field name
+#: Model/User.php:validation for field name;validation for field password
+#: Model/Visit.php:validation for field destination;validation for field transport;validation for field objective;validation for field comments
+msgid "notBlank"
+msgstr ""
+
+#: Model/City.php:validation for field short_distance
+msgid "boolean"
+msgstr ""
+
+#: Model/City.php:validation for field state_id
+#: Model/Course.php:validation for field amount_of_academic_periods
+#: Model/Discipline.php:validation for field academic_period;validation for field course_id
+#: Model/Refusal.php:validation for field user_id;validation for field visit_id
+#: Model/User.php:validation for field group_id
+#: Model/Visit.php:validation for field number_of_students;validation for field daily;validation for field cost_transport;validation for field distance;validation for field status;validation for field user_id;validation for field city_id;validation for field team_id
+msgid "numeric"
+msgstr ""
+
+#: Model/Refusal.php:validation for field date
+#: Model/Visit.php:validation for field departure;validation for field arrival
+msgid "datetime"
+msgstr ""
+
+#: Model/Course.php:enum for field type_of_academic_period
+msgid "Yearly"
+msgstr ""
+
+#: Model/Course.php:enum for field type_of_academic_period
+msgid "Semiannual"
+msgstr ""

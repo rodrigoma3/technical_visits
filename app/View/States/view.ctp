@@ -40,20 +40,18 @@
 			<thead>
 				<tr>
 					<th></th>
-							<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Short Distance'); ?></th>
-		<th><?php echo __('State Id'); ?></th>
+					<th><?php echo __('Id'); ?></th>
+					<th><?php echo __('Name'); ?></th>
+					<th><?php echo __('Short Distance'); ?></th>
 					<th><?php echo __('Actions'); ?></th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
 					<th></th>
-							<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Short Distance'); ?></th>
-		<th><?php echo __('State Id'); ?></th>
+					<th><?php echo __('Id'); ?></th>
+					<th><?php echo __('Name'); ?></th>
+					<th><?php echo __('Short Distance'); ?></th>
 					<th><?php echo __('Actions'); ?></th>
 				</tr>
 			</tfoot>
@@ -61,10 +59,15 @@
 					<?php foreach ($state['City'] as $city): ?>
 		<tr>
 			<td></td>
-			<td><?php echo $city['id']; ?></td>
-			<td><?php echo $city['name']; ?></td>
-			<td><?php echo $city['short_distance']; ?></td>
-			<td><?php echo $city['state_id']; ?></td>
+			<td><?php echo h($city['id']); ?></td>
+			<td><?php echo h($city['name']); ?></td>
+			<td>
+				<?php if ($city['short_distance']) {
+					echo __('Yes');
+				} else {
+					echo __('No');
+				} ?>
+			</td>
 			<td class="actions">
 				<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('controller' => 'cities', 'action' => 'view', $city['id']), array('escape' => false, 'class' => 'btn')); ?>
 				<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('controller' => 'cities', 'action' => 'edit', $city['id']), array('escape' => false, 'class' => 'btn')); ?>

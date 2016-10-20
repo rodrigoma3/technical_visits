@@ -22,7 +22,7 @@ class CitiesController extends AppController {
  */
 	public function index() {
 		$this->City->recursive = 0;
-		$this->set('cities', $this->Paginator->paginate());
+		$this->set('cities', $this->City->find('all'));
 	}
 
 /**
@@ -36,8 +36,7 @@ class CitiesController extends AppController {
 		if (!$this->City->exists($id)) {
 			throw new NotFoundException(__('Invalid city'));
 		}
-		$options = array('conditions' => array('City.' . $this->City->primaryKey => $id));
-		$this->set('city', $this->City->find('first', $options));
+		$this->set('city', $this->City->findById($id));
 	}
 
 /**
