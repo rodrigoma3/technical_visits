@@ -34,7 +34,6 @@
 									'custom',
 		));
 
-
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
@@ -139,13 +138,9 @@
 	</div>
 
 	<script type="text/javascript">
-		var lang = "<?php echo Configure::read('Config.language'); ?>";
-		var langpath = "<?php echo Router::url('/DataTables-1_10_12/languages/'); ?>";
+		var lang = "<?php echo Router::url('/DataTables-1_10_12/locale/').Configure::read('Config.language').'.json'; ?>";
 	</script>
 
-	<?php
-
-	 ?>
 
 	<?php if (isset($jstreeData)) { ?>
 	    <script type="text/javascript">

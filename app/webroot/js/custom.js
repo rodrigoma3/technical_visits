@@ -1,18 +1,20 @@
+
 $(document).ready(function() {
+    // var locale = [];
+    // $.getJSON( lang, function( data ) {
+    //     json = JSON.stringify(data.oLocale); //convert to json string
+    //     // console.log(json);
+    //     locale = $.parseJSON(json); //convert to javascript array
+    //     // console.log(locale['All']);
+    // });
 
     // BEGIN: dataTables
-    // if (lang == 'pt-br') {
-    //     var all = 'Todos';
-    // } else {
-    //     var all = 'All';
-    // }
-
     var table = $('table#dataTables').DataTable({
         "language": {
-            "url": langpath+lang+".json"
+            "url": lang
         },
         "scrollX": true,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, 'all']],
+        "lengthMenu": [10, 25, 50, -1],
         initComplete: function () {
             this.api().columns().every( function () {
                 var column = this;
@@ -33,12 +35,8 @@ $(document).ready(function() {
                 } );
             } );
 
-            $.getJSON( langpath+lang+".json", function( data ) {
-                // $.each( data, function( key, val ) {
-                //     console.log('key: '+key+' val: '+val);
-                // });
-                // console.log(data.oLocation);
-                $('select[name=dataTables_length] option[value=-1]').html(data.oLocation.sAll);
+            $.getJSON( lang, function( data ) {
+                $('select[name=dataTables_length] option[value=-1]').html(data.oLocale['All']);
             });
         },
         responsive: {
@@ -57,6 +55,9 @@ $(document).ready(function() {
 
     $('#dataTables tbody')
         .on( 'mouseenter', 'td:not(.child)', function () {
+            // if (true) {
+            //
+            // }
             var colIdx = table.cell(this).index().column;
 
             $( table.cells().nodes() ).removeClass( 'highlight' );
@@ -64,5 +65,8 @@ $(document).ready(function() {
         }
     );
     // END: dataTables
+
+
+
 
 } );

@@ -22,7 +22,7 @@
 		"sSortAscending":  ": activate to sort column ascending",
 		"sSortDescending": ": activate to sort column descending"
 	},
-	"oLocation": {
-        "sAll": "All"
+	"oLocale": {
+        "All": "All"
     }
 }

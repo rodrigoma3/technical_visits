@@ -22,7 +22,7 @@ class TeamsController extends AppController {
  */
 	public function index() {
 		$this->Team->recursive = 0;
-		$this->set('teams', $this->Paginator->paginate());
+		$this->set('teams', $this->Team->find('all'));
 	}
 
 /**
