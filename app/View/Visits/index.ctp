@@ -57,12 +57,12 @@
 		<td><?php echo h($visit['Visit']['destination']); ?>&nbsp;</td>
 		<td><?php echo h($visit['Visit']['number_of_students']); ?>&nbsp;</td>
 		<td><?php echo h($visit['Visit']['daily']); ?>&nbsp;</td>
-		<td><?php echo h($visit['Visit']['transport']); ?>&nbsp;</td>
+		<td><?php echo h($visit['Transport']['name']); ?>&nbsp;</td>
 		<td><?php echo h($visit['Visit']['cost_transport']); ?>&nbsp;</td>
 		<td><?php echo h($visit['Visit']['distance']); ?>&nbsp;</td>
 		<td><?php echo h($visit['Visit']['objective']); ?>&nbsp;</td>
 		<td><?php echo h($visit['Visit']['comments']); ?>&nbsp;</td>
-		<td><?php echo h($visit['Visit']['status']); ?>&nbsp;</td>
+		<td><?php echo h($visit['Status']['name']); ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($visit['User']['name'], array('controller' => 'users', 'action' => 'view', $visit['User']['id'])); ?>
 		</td>

@@ -37,7 +37,7 @@
 		</dd>
 		<dt><?php echo __('Transport'); ?></dt>
 		<dd>
-			<?php echo h($visit['Visit']['transport']); ?>
+			<?php echo h($visit['Transport']['name']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Cost Transport'); ?></dt>
@@ -62,7 +62,7 @@
 		</dd>
 		<dt><?php echo __('Status'); ?></dt>
 		<dd>
-			<?php echo h($visit['Visit']['status']); ?>
+			<?php echo h($visit['Status']['name']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('User'); ?></dt>
