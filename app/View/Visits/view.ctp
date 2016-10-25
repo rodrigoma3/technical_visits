@@ -32,7 +32,7 @@
 		</dd>
 		<dt><?php echo __('Daily'); ?></dt>
 		<dd>
-			<?php echo h($visit['Visit']['daily']); ?>
+			<?php echo h($visit['Visit']['refund']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Transport'); ?></dt>
@@ -40,9 +40,9 @@
 			<?php echo h($visit['Transport']['name']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Cost Transport'); ?></dt>
+		<dt><?php echo __('Transport Cost'); ?></dt>
 		<dd>
-			<?php echo h($visit['Visit']['cost_transport']); ?>
+			<?php echo h($visit['Visit']['transport_cost']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Distance'); ?></dt>
