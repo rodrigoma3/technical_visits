@@ -6,8 +6,8 @@
 	<!-- /widget-header -->
 	<div class="widget-content">
 			<?php
-		echo $this->Form->input('departure');
-		echo $this->Form->input('arrival');
+		echo $this->Form->input('departure', ['type'=>'datetime-local']);
+		echo $this->Form->input('arrival', ['type'=>'datetime-local']);
 		echo $this->Form->input('destination');
 		echo $this->Form->input('number_of_students');
 		echo $this->Form->input('daily');
