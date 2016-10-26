@@ -9,7 +9,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('name');
 		echo $this->Form->input('type_of_academic_period');
-		echo $this->Form->input('amount_of_academic_periods');
+		echo $this->Form->input('amount_of_academic_periods', array('min' => $maxAcademicPeriod));
 	?>
 		<div class="form-actions">
 					<?php echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false)); ?>

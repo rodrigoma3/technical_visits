@@ -28,7 +28,7 @@ class CoursesController extends AppController {
 		if (!$this->Course->exists($id)) {
 			throw new NotFoundException(__('Invalid course'));
 		}
-		$options = array('conditions' => array('Course.' . $this->Course->primaryKey => $id));
+		$options = array('conditions' => array($this->Course->alias.'.'.$this->Course->primaryKey => $id));
 		$this->set('course', $this->Course->find('first', $options));
 	}
 
@@ -70,11 +70,19 @@ class CoursesController extends AppController {
 				$this->Flash->error(__('The course could not be saved. Please, try again.'));
 			}
 		} else {
-			$options = array('conditions' => array('Course.' . $this->Course->primaryKey => $id));
+			$options = array('conditions' => array($this->Course->alias.'.'.$this->Course->primaryKey => $id));
 			$this->request->data = $this->Course->find('first', $options);
 		}
+		
+		$options['fields'] = array('MAX(academic_period) AS max_academic_period');
+		$maxAcademicPeriod = $this->Course->Discipline->find('first', $options);
+		$maxAcademicPeriod = $maxAcademicPeriod[0]['max_academic_period'];
+		if (is_null($maxAcademicPeriod)) {
+			$maxAcademicPeriod = '1';
+		}
+
 		$typeOfAcademicPeriods = $this->Course->getEnums('type_of_academic_period');
-		$this->set(compact('typeOfAcademicPeriods'));
+		$this->set(compact('typeOfAcademicPeriods', 'maxAcademicPeriod'));
 	}
 
 /**
@@ -89,11 +97,16 @@ class CoursesController extends AppController {
 		if (!$this->Course->exists()) {
 			throw new NotFoundException(__('Invalid course'));
 		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Course->delete()) {
-			$this->Flash->success(__('The course has been deleted.'));
+		$options = array('conditions' => array($this->Course->alias.'.'.$this->Course->primaryKey => $id));
+		if ($this->Course->Discipline->find('count', $options) === 0) {
+			$this->request->allowMethod('post', 'delete');
+			if ($this->Course->delete()) {
+				$this->Flash->success(__('The course has been deleted.'));
+			} else {
+				$this->Flash->error(__('The course could not be deleted. Please, try again.'));
+			}
 		} else {
-			$this->Flash->error(__('The course could not be deleted. Please, try again.'));
+			$this->Flash->warning(__('The course could not be deleted because it is tied to a discipline.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}

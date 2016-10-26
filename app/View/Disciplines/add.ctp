@@ -7,7 +7,7 @@
 	<div class="widget-content">
 			<?php
 		echo $this->Form->input('name');
-		echo $this->Form->input('academic_period');
+		echo $this->Form->input('academic_period', array('min' => 1, 'value' => 1));
 		echo $this->Form->input('course_id');
 		echo $this->Form->input('Team');
 	?>
@@ -18,3 +18,25 @@
 	</div>
 <!-- /widget-content -->
 </div>
+
+<script type="text/javascript">
+	var courses = <?php echo $coursesJson; ?>;
+	$('#DisciplineCourseId').change(function(){
+		setAttrMax();
+	});
+
+	setAttrMax();
+
+	function setAttrMax(){
+		var courseId = $('#DisciplineCourseId option:selected').val();
+		for (var i = 0; i < courses.length; i++) {
+			if(courseId === courses[i].Course.id) {
+				var aoap = courses[i].Course.amount_of_academic_periods;
+				if ($('#DisciplineAcademicPeriod').val() > aoap) {
+					$('#DisciplineAcademicPeriod').val(aoap);
+				}
+				$('#DisciplineAcademicPeriod').attr('max', courses[i].Course.amount_of_academic_periods);
+			}
+		}
+	}
+</script>

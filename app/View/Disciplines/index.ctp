@@ -8,21 +8,21 @@
         	<thead>
             	<tr>
                     <th></th>
-            	                	<th><?php echo __('id'); ?></th>
-            	                	<th><?php echo __('name'); ?></th>
-            	                	<th><?php echo __('academic_period'); ?></th>
-            	                	<th><?php echo __('course_id'); ?></th>
-            	                	<th><?php echo __('Actions'); ?></th>
+                	<th><?php echo __('Id'); ?></th>
+                	<th><?php echo __('Name'); ?></th>
+                	<th><?php echo __('Academic Period'); ?></th>
+                	<th><?php echo __('Course'); ?></th>
+                	<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</thead>
         	<tfoot>
             	<tr>
                     <th></th>
-            	            		<th><?php echo __('id'); ?></th>
-            	            		<th><?php echo __('name'); ?></th>
-            	            		<th><?php echo __('academic_period'); ?></th>
-            	            		<th><?php echo __('course_id'); ?></th>
-            	            		<th><?php echo __('Actions'); ?></th>
+            		<th><?php echo __('Id'); ?></th>
+            		<th><?php echo __('Name'); ?></th>
+            		<th><?php echo __('Academic Period'); ?></th>
+            		<th><?php echo __('Course'); ?></th>
+            		<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</tfoot>
         	<tbody>

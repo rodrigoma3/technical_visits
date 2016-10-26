@@ -4,16 +4,9 @@ App::uses('AppController', 'Controller');
  * Disciplines Controller
  *
  * @property Discipline $Discipline
- * @property PaginatorComponent $Paginator
  */
 class DisciplinesController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
 
 /**
  * index method
@@ -22,7 +15,7 @@ class DisciplinesController extends AppController {
  */
 	public function index() {
 		$this->Discipline->recursive = 0;
-		$this->set('disciplines', $this->Paginator->paginate());
+		$this->set('disciplines', $this->Discipline->find('all'));
 	}
 
 /**
@@ -58,6 +51,9 @@ class DisciplinesController extends AppController {
 		$courses = $this->Discipline->Course->find('list');
 		$teams = $this->Discipline->Team->find('list');
 		$this->set(compact('courses', 'teams'));
+
+		$this->Discipline->Course->recursive = 0;
+		$this->set('coursesJson', json_encode($this->Discipline->Course->find('all')));
 	}
 
 /**
@@ -85,6 +81,9 @@ class DisciplinesController extends AppController {
 		$courses = $this->Discipline->Course->find('list');
 		$teams = $this->Discipline->Team->find('list');
 		$this->set(compact('courses', 'teams'));
+
+		$this->Discipline->Course->recursive = 0;
+		$this->set('coursesJson', json_encode($this->Discipline->Course->find('all')));
 	}
 
 /**
@@ -99,11 +98,16 @@ class DisciplinesController extends AppController {
 		if (!$this->Discipline->exists()) {
 			throw new NotFoundException(__('Invalid discipline'));
 		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Discipline->delete()) {
-			$this->Flash->success(__('The discipline has been deleted.'));
+		$options = array('conditions' => array('discipline_id' => $id));
+		if ($this->Discipline->DisciplinesTeam->find('count', $options) == 0) {
+			$this->request->allowMethod('post', 'delete');
+			if ($this->Discipline->delete()) {
+				$this->Flash->success(__('The discipline has been deleted.'));
+			} else {
+				$this->Flash->error(__('The discipline could not be deleted. Please, try again.'));
+			}
 		} else {
-			$this->Flash->error(__('The discipline could not be deleted. Please, try again.'));
+			$this->Flash->warning(__('The discipline could not be deleted because it is tied to a team.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}

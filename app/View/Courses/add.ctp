@@ -8,7 +8,7 @@
 			<?php
 		echo $this->Form->input('name');
 		echo $this->Form->input('type_of_academic_period');
-		echo $this->Form->input('amount_of_academic_periods');
+		echo $this->Form->input('amount_of_academic_periods', array('min' => 1, 'value' => 1));
 	?>
 		<div class="form-actions">
 					<?php echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false)); ?>
