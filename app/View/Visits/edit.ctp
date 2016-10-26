@@ -11,9 +11,9 @@
 		echo $this->Form->input('arrival');
 		echo $this->Form->input('destination');
 		echo $this->Form->input('number_of_students');
-		echo $this->Form->input('daily');
+		echo $this->Form->input('refund');
 		echo $this->Form->input('transport');
-		echo $this->Form->input('cost_transport');
+		echo $this->Form->input('transport_cost');
 		echo $this->Form->input('distance');
 		echo $this->Form->input('objective');
 		echo $this->Form->input('comments');

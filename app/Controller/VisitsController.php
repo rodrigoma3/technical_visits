@@ -22,8 +22,8 @@ class VisitsController extends AppController {
  */
 	public function index() {
 		// debug(Configure::read());
-		$this->Visit->recursive = 0;
-		$this->set('visits', $this->Paginator->paginate());
+		$this->Visit->recursive = 2;
+		$this->set('visits', $this->Visit->find('all'));
 	}
 
 /**
@@ -58,10 +58,12 @@ class VisitsController extends AppController {
 				$this->Flash->error(__('The visit could not be saved. Please, try again.'));
 			}
 		}
+		$transports = $this->Visit->getEnums('transport');
+		$statuses = $this->Visit->getEnums('status');
 		$users = $this->Visit->User->find('list');
 		$cities = $this->Visit->City->find('list');
 		$teams = $this->Visit->Team->find('list');
-		$this->set(compact('users', 'cities', 'teams'));
+		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses'));
 	}
 
 /**
@@ -86,10 +88,12 @@ class VisitsController extends AppController {
 			$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 			$this->request->data = $this->Visit->find('first', $options);
 		}
+		$transports = $this->Visit->getEnums('transport');
+		$statuses = $this->Visit->getEnums('status');
 		$users = $this->Visit->User->find('list');
 		$cities = $this->Visit->City->find('list');
 		$teams = $this->Visit->Team->find('list');
-		$this->set(compact('users', 'cities', 'teams'));
+		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses'));
 	}
 
 /**

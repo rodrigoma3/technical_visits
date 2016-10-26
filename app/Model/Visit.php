@@ -27,6 +27,7 @@ class Visit extends AppModel {
 			7 => 'Awaiting evaluation report',
 			8 => 'Awaiting update transport',
 			9 => 'Completed',
+			10 => 'Canceled',
 		),
 	);
 
@@ -152,7 +153,7 @@ class Visit extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'daily' => array(
+		'refund' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
