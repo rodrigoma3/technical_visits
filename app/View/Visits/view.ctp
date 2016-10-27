@@ -30,7 +30,7 @@
 			<?php echo h($visit['Visit']['number_of_students']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Daily'); ?></dt>
+		<dt><?php echo __('Refund'); ?></dt>
 		<dd>
 			<?php echo h($visit['Visit']['refund']); ?>
 			&nbsp;
@@ -73,6 +73,11 @@
 		<dt><?php echo __('City'); ?></dt>
 		<dd>
 			<?php echo $this->Html->link($visit['City']['name'], array('controller' => 'cities', 'action' => 'view', $visit['City']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('State'); ?></dt>
+		<dd>
+			<?php echo $this->Html->link($visit['City']['State']['name'], array('controller' => 'states', 'action' => 'view', $visit['City']['State']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Team'); ?></dt>

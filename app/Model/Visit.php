@@ -101,12 +101,6 @@ class Visit extends AppModel {
 		return $return;
 	}
 
-	public function datetimeLocalToSQL($date){
-		if(!empty($date)){
-			return date('Y-m-d H:i:s', strtotime($date)); // TENTEI POR ISSO NO 'beforeSave' mas não consegui..
-		}
-	}
-
 /**
  * Validation rules
  *

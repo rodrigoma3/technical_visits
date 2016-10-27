@@ -4,16 +4,32 @@ App::uses('AppController', 'Controller');
  * Visits Controller
  *
  * @property Visit $Visit
- * @property PaginatorComponent $Paginator
  */
 class VisitsController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
+	public function beforeFilter(){
+		parent::beforeFilter();
+		if (isset($this->request->data[$this->Visit->alias]['departure'])) {
+			$this->request->data[$this->Visit->alias]['departure'] =
+			date('Y-m-d H:i:s', strtotime($this->request->data[$this->Visit->alias]['departure']));
+		}
+		if (isset($this->request->data[$this->Visit->alias]['arrival'])) {
+			$this->request->data[$this->Visit->alias]['arrival'] =
+			date('Y-m-d H:i:s', strtotime($this->request->data[$this->Visit->alias]['arrival']));
+		}
+	}
+
+	public function beforeRender(){
+		parent::beforeRender();
+		if (isset($this->request->data[$this->Visit->alias]['departure'])) {
+			$this->request->data[$this->Visit->alias]['departure'] =
+			date('Y-m-d\TH:i:s', strtotime($this->request->data[$this->Visit->alias]['departure']));
+		}
+		if (isset($this->request->data[$this->Visit->alias]['arrival'])) {
+			$this->request->data[$this->Visit->alias]['arrival'] =
+			date('Y-m-d\TH:i:s', strtotime($this->request->data[$this->Visit->alias]['arrival']));
+		}
+	}
 
 /**
  * index method
@@ -37,6 +53,7 @@ class VisitsController extends AppController {
 		if (!$this->Visit->exists($id)) {
 			throw new NotFoundException(__('Invalid visit'));
 		}
+		$this->Visit->recursive = 2;
 		$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 		$this->set('visit', $this->Visit->find('first', $options));
 	}
@@ -49,8 +66,6 @@ class VisitsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Visit->create();
-			$this->request->data['Visit']['departure'] = $this->Visit->datetimeLocalToSQL($this->request->data['Visit']['departure']);
-			$this->request->data['Visit']['arrival'] = $this->Visit->datetimeLocalToSQL($this->request->data['Visit']['arrival']);
 			if ($this->Visit->save($this->request->data)) {
 				$this->Flash->success(__('The visit has been saved.'));
 				return $this->redirect(array('action' => 'index'));
@@ -88,12 +103,28 @@ class VisitsController extends AppController {
 			$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 			$this->request->data = $this->Visit->find('first', $options);
 		}
+		debug($this->request->data['Visit']); //TODO AQUI
 		$transports = $this->Visit->getEnums('transport');
 		$statuses = $this->Visit->getEnums('status');
 		$users = $this->Visit->User->find('list');
 		$cities = $this->Visit->City->find('list');
 		$teams = $this->Visit->Team->find('list');
 		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses'));
+	}
+
+	public function copy($id = null){
+		if (!$this->Visit->exists($id)) {
+			throw new NotFoundException(__('Invalid visit'));
+		}
+		$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
+		$this->request->data = $this->Visit->find('first', $options);
+		$transports = $this->Visit->getEnums('transport');
+		$statuses = $this->Visit->getEnums('status');
+		$users = $this->Visit->User->find('list');
+		$cities = $this->Visit->City->find('list');
+		$teams = $this->Visit->Team->find('list');
+		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses'));
+		$this->render('add');
 	}
 
 /**
