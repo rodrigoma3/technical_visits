@@ -8,13 +8,6 @@ App::uses('AppController', 'Controller');
 class UsersController extends AppController {
 
 /**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
-
-/**
  * beforeFilter method
  *
  * @return void
@@ -36,15 +29,20 @@ class UsersController extends AppController {
 	    } else {
 			if ($this->request->is('post')) {
 				if ($this->Auth->login()) {
-					if ($this->request->data['User']['remember_me']) {
-			            $cookie = array();
-			            $cookie['username'] = $this->request->data['User']['username'];
-			            $cookie['password'] = $this->request->data['User']['password'];
-			            $this->Cookie->write('remember_me_cookie', $cookie, true, '2 weeks');
-			        } else {
-						$this->Cookie->delete('remember_me_cookie');
+					if (!$this->Auth->user('enabled')) {
+						$this->Flash->info(__('The user is disabled.'));
+						$this->redirect($this->Auth->logout());
+					} else {
+						if ($this->request->data['User']['remember_me']) {
+							$cookie = array();
+							$cookie['username'] = $this->request->data['User']['username'];
+							$cookie['password'] = $this->request->data['User']['password'];
+							$this->Cookie->write('remember_me_cookie', $cookie, true, '2 weeks');
+						} else {
+							$this->Cookie->delete('remember_me_cookie');
+						}
+						return $this->redirect($this->Auth->redirectUrl());
 					}
-					return $this->redirect($this->Auth->redirectUrl());
 				}
 				$this->Flash->error(__('Your username or password was incorrect.'));
 			} elseif ($this->Cookie->read('remember_me_cookie')) {
@@ -74,8 +72,7 @@ class UsersController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->User->recursive = 0;
-		$this->set('users', $this->Paginator->paginate());
+		$this->set('users', $this->User->find('all'));
 	}
 
 /**
@@ -124,6 +121,9 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			if (empty($this->request->data[$this->User->alias]['password'])) {
+				unset($this->request->data[$this->User->alias]['password']);
+			}
 			if ($this->User->save($this->request->data)) {
 				$this->Flash->success(__('The user has been saved.'));
 				return $this->redirect(array('action' => 'index'));
@@ -150,13 +150,44 @@ class UsersController extends AppController {
 		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid user'));
 		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->User->delete()) {
-			$this->Flash->success(__('The user has been deleted.'));
+		$user = $this->User->read();
+		if (empty($user[$this->User->Visit->alias])) {
+			$this->request->allowMethod('post', 'delete');
+			if ($this->User->delete()) {
+				$this->Flash->success(__('The user has been deleted.'));
+			} else {
+				$this->Flash->error(__('The user could not be deleted. Please, try again.'));
+			}
 		} else {
-			$this->Flash->error(__('The user could not be deleted. Please, try again.'));
+			$this->Flash->warning(__('The user could not be deleted because it is tied to a visit.'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+
+/**
+ * allow_access method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function allow_access($id = null) {
+		$this->User->id = $id;
+		if (!$this->User->exists()) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		$this->request->allowMethod('post', 'allow_access');
+		if ($this->User->field('enabled')) {
+			$enabled = '0';
+		} else {
+			$enabled = '1';
+		}
+		if ($this->User->saveField('enabled', $enabled)) {
+			$this->Flash->success(__('The user has been saved.'));
+		} else {
+			$this->Flash->error(__('The user could not be saved. Please, try again.'));
+		}
+		return $this->redirect($this->referer());
 	}
 
 /**
@@ -198,7 +229,7 @@ class UsersController extends AppController {
 		}
 
 		$user = $this->User->read();
-		$perms = array();
+		$actions = array();
 
 		$acosList = $this->Acl->Aco->find('list');
 		foreach ($acosList as $acoId) {
@@ -207,12 +238,11 @@ class UsersController extends AppController {
 			foreach ($tree as $t) {
 				$aliases[] = $t['Aco']['alias'];
 			}
-			$perms[] = implode('/', $aliases);
+			$actions[] = implode('/', $aliases);
 		}
 
-		$this->set('options', array('0' => __('Deny'), '1' => __('Allow'), '2' => __('Inherit the group')));
-		// $this->set('options', array('0' => 'Negado', '1' => 'Permitido', '2' => 'Herdar do grupo'));
+		$this->set('perms', $this->User->getEnums('perms'));
 		$this->set('user', $user);
-		$this->set('perms', $perms);
+		$this->set('actions', $actions);
 	}
 }

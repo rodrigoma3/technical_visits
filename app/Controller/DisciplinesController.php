@@ -49,8 +49,7 @@ class DisciplinesController extends AppController {
 			}
 		}
 		$courses = $this->Discipline->Course->find('list');
-		$teams = $this->Discipline->Team->find('list');
-		$this->set(compact('courses', 'teams'));
+		$this->set(compact('courses'));
 
 		$this->Discipline->Course->recursive = 0;
 		$this->set('coursesJson', json_encode($this->Discipline->Course->find('all')));
@@ -79,8 +78,7 @@ class DisciplinesController extends AppController {
 			$this->request->data = $this->Discipline->find('first', $options);
 		}
 		$courses = $this->Discipline->Course->find('list');
-		$teams = $this->Discipline->Team->find('list');
-		$this->set(compact('courses', 'teams'));
+		$this->set(compact('courses'));
 
 		$this->Discipline->Course->recursive = 0;
 		$this->set('coursesJson', json_encode($this->Discipline->Course->find('all')));

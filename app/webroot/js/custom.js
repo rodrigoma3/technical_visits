@@ -7,6 +7,7 @@ $(document).ready(function() {
     //     locale = $.parseJSON(json); //convert to javascript array
     //     // console.log(locale['All']);
     // });
+    String.prototype.stripHTML = function() {return this.replace(/<.*?>/g, '');}
 
     // BEGIN: dataTables
     var table = $('table#dataTables').DataTable({
@@ -29,9 +30,13 @@ $(document).ready(function() {
                             .search( val ? '^'+val+'$' : '', true, false )
                             .draw();
                     } );
-
+                var texts = [];
                 column.data().unique().sort().each( function ( d, j ) {
-                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                    var i = d.stripHTML();
+                    if (texts.indexOf(i) === -1) {
+                        texts.push(i);
+                        select.append( '<option value="'+i+'">'+i+'</option>' );
+                    }
                 } );
             } );
 

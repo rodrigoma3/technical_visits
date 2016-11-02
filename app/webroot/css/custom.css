@@ -27,3 +27,7 @@ td.highlight {
 div.input label {
     font-weight: bold;
 }
+
+.btn-success {
+    margin-right: 15px;
+}

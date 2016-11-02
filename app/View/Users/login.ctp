@@ -4,7 +4,7 @@
 <div class="login-fields">
     <p><?php echo __('Please provide your details'); ?></p>
     <?php
-        echo $this->Form->input('email', array('label' => false, 'placeholder' => __('E-mail'), 'class' => 'login username-field', 'div' => 'field input-prepend', 'id' => 'username', 'before' => '<span class="add-on"><i class="fa fa-envelope"></i></span>'));
+        echo $this->Form->input('email', array('label' => false, 'placeholder' => __('E-mail'), 'class' => 'login username-field', 'div' => 'field input-prepend', 'id' => 'username', 'before' => '<span class="add-on"><i class="fa fa-envelope"></i></span>', 'autofocus' => true));
         echo $this->Form->input('password', array('label' => false, 'placeholder' => __('Password'), 'class' => 'login password-field', 'div' => 'field input-prepend', 'id' => 'password', 'before' => '<span class="add-on"><i class="fa fa-key"></i></span>'));
     ?>
 </div> <!-- /login-fields -->

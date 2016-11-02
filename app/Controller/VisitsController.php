@@ -139,6 +139,8 @@ class VisitsController extends AppController {
 		if (!$this->Visit->exists()) {
 			throw new NotFoundException(__('Invalid visit'));
 		}
+		debug($id);
+		exit;
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Visit->delete()) {
 			$this->Flash->success(__('The visit has been deleted.'));

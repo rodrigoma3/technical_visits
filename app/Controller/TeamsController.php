@@ -4,16 +4,9 @@ App::uses('AppController', 'Controller');
  * Teams Controller
  *
  * @property Team $Team
- * @property PaginatorComponent $Paginator
  */
 class TeamsController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
 
 /**
  * index method
@@ -97,11 +90,16 @@ class TeamsController extends AppController {
 		if (!$this->Team->exists()) {
 			throw new NotFoundException(__('Invalid team'));
 		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Team->delete()) {
-			$this->Flash->success(__('The team has been deleted.'));
+		$team = $this->Team->read();
+		if (empty($team[$this->Team->Visit->alias])) {
+			$this->request->allowMethod('post', 'delete');
+			if ($this->Team->delete()) {
+				$this->Flash->success(__('The team has been deleted.'));
+			} else {
+				$this->Flash->error(__('The team could not be deleted. Please, try again.'));
+			}
 		} else {
-			$this->Flash->error(__('The team could not be deleted. Please, try again.'));
+			$this->Flash->warning(__('The team could not be deleted because it is tied to a visit.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}

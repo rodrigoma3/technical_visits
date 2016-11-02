@@ -9,7 +9,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('name');
 		echo $this->Form->input('email');
-		echo $this->Form->input('password');
+		echo $this->Form->input('password', array('placeholder' => 'If you do not change leave blank.'));
 		echo $this->Form->input('group_id');
 	?>
 		<div class="form-actions">

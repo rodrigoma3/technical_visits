@@ -27,11 +27,6 @@ class User extends AppModel {
         return array('Group' => array('id' => $groupId));
     }
 
-	// Analisa permissões somente do Grupo
-	// public function bindNode($user) {
-	//     return array('model' => 'Group', 'foreign_key' => $user['User']['group_id']);
-	// }
-
 /**
  * beforeSave method
  *
@@ -43,6 +38,95 @@ class User extends AppModel {
 			$this->data[$this->alias]['password'] = $hash->hash($this->data[$this->alias]['password']);
 		}
 		return true;
+	}
+
+	private $enum = array(
+		'perms' => array(
+			0 => 'Deny',
+			1 => 'Allow',
+			2 => 'Inherit the group',
+		),
+		'enabled' => array(
+			0 => 'No',
+			1 => 'Yes',
+		),
+	);
+
+	public function getEnums($options = null) {
+		$r = array();
+		if (is_null($options)) {
+			foreach ($this->enum as $field => $value) {
+				$r[$field] = $this->__translate($value);
+			}
+		} elseif (is_array($options)) {
+			foreach ($options as $option) {
+				if (array_key_exists($option, $this->enum)) {
+					$r[$option] = $this->__translate($this->enum[$option]);
+				}
+			}
+		} elseif (array_key_exists($options, $this->enum)) {
+			$r = $this->__translate($this->enum[$options]);
+		}
+		return $r;
+	}
+
+	public function afterFind($results, $primary = false) {
+		if (Router::getParams()['action'] !== 'login') {
+			foreach($results as $key => $value) {
+				if(isset($results[$key][$this->alias]['password'])) {
+					unset($results[$key][$this->alias]['password']);
+				}
+			}
+		}
+	    foreach ($results as $key => $val) {
+			if (!is_null($val)) {
+				if ($key === 'prev' || $key === 'next') {
+					if (isset($val[$this->name])) {
+						foreach (array_keys($this->enum) as $field) {
+							if (isset($val[$this->name][$field])) {
+								$results[$key][Inflector::camelize($field)]['id'] = $val[$this->name][$field];
+								$results[$key][Inflector::camelize($field)]['name'] = __($this->enum[$field][$val[$this->name][$field]]);
+							}
+						}
+					}
+				} elseif ($key === $this->name) {
+					foreach (array_keys($this->enum) as $field) {
+						if (isset($val[$field])) {
+							$results[Inflector::camelize($field)]['id'] = $val[$field];
+							$results[Inflector::camelize($field)]['name'] = __($this->enum[$field][$val[$field]]);
+						}
+					}
+				} elseif (array_key_exists($this->name, $val)) {
+					foreach (array_keys($this->enum) as $field) {
+						if (isset($val[$this->name][$field])) {
+							$results[$key][Inflector::camelize($field)]['id'] = $val[$this->name][$field];
+							$results[$key][Inflector::camelize($field)]['name'] = __($this->enum[$field][$val[$this->name][$field]]);
+						}
+					}
+				}
+				if (array_key_exists('children', $val)) {
+					foreach ($val['children'] as $c => $child) {
+						if (array_key_exists($this->name, $child)) {
+							foreach (array_keys($this->enum) as $field) {
+								if (isset($child[$this->name][$field])) {
+									$results[$key]['children'][$c][Inflector::camelize($field)]['id'] = $child[$this->name][$field];
+									$results[$key]['children'][$c][Inflector::camelize($field)]['name'] = __($this->enum[$field][$child[$this->name][$field]]);
+								}
+							}
+						}
+					}
+				}
+			}
+	    }
+	    return $results;
+	}
+
+	private function __translate($values = array()){
+		$return = array();
+		foreach($values as $key => $value){
+			$return[$key] = __($value);
+		}
+		return $return;
 	}
 
 /**
@@ -78,7 +162,7 @@ class User extends AppModel {
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'group_id' => array(

@@ -10,7 +10,6 @@
 		echo $this->Form->input('name');
 		echo $this->Form->input('academic_period', array('min' => 1));
 		echo $this->Form->input('course_id');
-		echo $this->Form->input('Team');
 	?>
 		<div class="form-actions">
 					<?php echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false)); ?>

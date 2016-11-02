@@ -84,11 +84,16 @@ class StatesController extends AppController {
 		if (!$this->State->exists()) {
 			throw new NotFoundException(__('Invalid state'));
 		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->State->delete()) {
-			$this->Flash->success(__('The state has been deleted.'));
+		$options = array('conditions' => array($this->State->alias.'.'.$this->State->primaryKey => $id));
+		if ($this->State->City->find('count', $options) === 0) {
+			$this->request->allowMethod('post', 'delete');
+			if ($this->State->delete()) {
+				$this->Flash->success(__('The state has been deleted.'));
+			} else {
+				$this->Flash->error(__('The state could not be deleted. Please, try again.'));
+			}
 		} else {
-			$this->Flash->error(__('The state could not be deleted. Please, try again.'));
+			$this->Flash->warning(__('The state could not be deleted because it is tied to a city.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}

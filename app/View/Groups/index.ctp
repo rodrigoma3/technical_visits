@@ -8,19 +8,19 @@
         	<thead>
             	<tr>
                     <th></th>
-            	                	<th><?php echo __('id'); ?></th>
-            	                	<th><?php echo __('name'); ?></th>
-            	                	<th><?php echo __('description'); ?></th>
-            	                	<th><?php echo __('Actions'); ?></th>
+                	<th><?php echo __('Id'); ?></th>
+                	<th><?php echo __('Name'); ?></th>
+                	<th><?php echo __('Description'); ?></th>
+                	<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</thead>
         	<tfoot>
             	<tr>
                     <th></th>
-            	            		<th><?php echo __('id'); ?></th>
-            	            		<th><?php echo __('name'); ?></th>
-            	            		<th><?php echo __('description'); ?></th>
-            	            		<th><?php echo __('Actions'); ?></th>
+            		<th><?php echo __('Id'); ?></th>
+            		<th><?php echo __('Name'); ?></th>
+            		<th><?php echo __('Description'); ?></th>
+            		<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</tfoot>
         	<tbody>
@@ -33,7 +33,9 @@
 		<td class="actions">
 			<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('action' => 'view', $group['Group']['id']), array('escape' => false, 'class' => 'btn')); ?>
 			<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('action' => 'edit', $group['Group']['id']), array('escape' => false, 'class' => 'btn')); ?>
-			<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('action' => 'delete', $group['Group']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $group['Group']['id']))); ?>
+            <?php if (empty($group['User'])): ?>
+                <?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('action' => 'delete', $group['Group']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $group['Group']['id']))); ?>
+            <?php endif; ?>
             <?php echo $this->Html->link('<i class="fa fa-key"></i> '.__('Permission'), array('action' => 'permission', $group['Group']['id']), array('escape' => false, 'class' => 'btn')); ?>
 		</td>
 	</tr>

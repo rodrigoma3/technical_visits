@@ -5,16 +5,8 @@ App::uses('ShellDispatcher', 'Console');
  * Groups Controller
  *
  * @property Group $Group
- * @property PaginatorComponent $Paginator
  */
 class GroupsController extends AppController {
-
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
 
 /**
  * beforeFilter method
@@ -32,8 +24,8 @@ class GroupsController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Group->recursive = 0;
-		$this->set('groups', $this->Paginator->paginate());
+		$this->Group->recursive = 1;
+		$this->set('groups', $this->Group->find('all'));
 	}
 
 /**
@@ -47,8 +39,9 @@ class GroupsController extends AppController {
 		if (!$this->Group->exists($id)) {
 			throw new NotFoundException(__('Invalid group'));
 		}
-		$options = array('conditions' => array('Group.' . $this->Group->primaryKey => $id));
+		$options = array('conditions' => array($this->Group->alias.'.'.$this->Group->primaryKey => $id));
 		$this->set('group', $this->Group->find('first', $options));
+		$this->set('users', $this->Group->User->find('all', $options));
 	}
 
 /**
@@ -105,12 +98,16 @@ class GroupsController extends AppController {
 		if (!$this->Group->exists()) {
 			throw new NotFoundException(__('Invalid group'));
 		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Group->delete()) {
-			$this->Group->User->deleteAll(array($this->Group->User->alias.'.group_id' => $id));
-			$this->Flash->success(__('The group has been deleted.'));
+		$group = $this->Group->read();
+		if (empty($group[$this->Group->User->alias])) {
+			$this->request->allowMethod('post', 'delete');
+			if ($this->Group->delete()) {
+				$this->Flash->success(__('The group has been deleted.'));
+			} else {
+				$this->Flash->error(__('The group could not be deleted. Please, try again.'));
+			}
 		} else {
-			$this->Flash->error(__('The group could not be deleted. Please, try again.'));
+			$this->Flash->warning(__('The group could not be deleted because it is tied to a user.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}

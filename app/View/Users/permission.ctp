@@ -6,8 +6,8 @@
 	<!-- /widget-header -->
 	<div class="widget-content">
 		<?php
-			foreach ($perms as $perm) {
-				echo $this->Form->input('perms.'.$perm, array('options' => $options, 'default' => '2'));
+			foreach ($actions as $action) {
+				echo $this->Form->input('perms.'.$action, array('options' => $perms, 'default' => '2'));
 			}
 		?>
 		<div class="form-actions">
