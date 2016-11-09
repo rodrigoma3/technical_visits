@@ -53,6 +53,23 @@ class Discipline extends AppModel {
  *
  * @var array
  */
+
+ public $hasMany = array(
+ 	'Visit' => array(
+ 		'className' => 'Visit',
+ 		'foreignKey' => 'discipline_id',
+ 		'dependent' => false,
+ 		'conditions' => '',
+ 		'fields' => '',
+ 		'order' => '',
+ 		'limit' => '',
+ 		'offset' => '',
+ 		'exclusive' => '',
+ 		'finderQuery' => '',
+ 		'counterQuery' => ''
+ 	)
+ );
+
 	public $belongsTo = array(
 		'Course' => array(
 			'className' => 'Course',

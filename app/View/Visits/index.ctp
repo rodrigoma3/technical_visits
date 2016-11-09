@@ -23,6 +23,8 @@
             	                	<th><?php echo __('User'); ?></th>
             	                	<th><?php echo __('City'); ?></th>
                                 <th><?php echo __('State'); ?></th>
+            	                	<th><?php echo __('Course'); ?></th>
+            	                	<th><?php echo __('Discipline'); ?></th>
             	                	<th><?php echo __('Team'); ?></th>
             	                	<th><?php echo __('Actions'); ?></th>
             	</tr>
@@ -45,6 +47,8 @@
             	            		<th><?php echo __('user_id'); ?></th>
             	            		<th><?php echo __('city_id'); ?></th>
             	            		<th><?php echo __('state_id'); ?></th>
+            	            		<th><?php echo __('course_id'); ?></th>
+            	            		<th><?php echo __('discipline_id'); ?></th>
             	            		<th><?php echo __('team_id'); ?></th>
             	            		<th><?php echo __('Actions'); ?></th>
             	</tr>
@@ -74,6 +78,12 @@
 		<td>
       <?php echo $this->Html->link($visit['City']['State']['initials'], array('controller' => 'states', 'action' => 'view', $visit['City']['State']['id'])); ?>
 		</td>
+    <td>
+			<?php echo $this->Html->link($courses[$visit['Team']['Discipline'][0]['course_id']], array('controller' => 'courses', 'action' => 'view', $visit['Team']['Discipline'][0]['course_id'])); ?>
+		</td>
+    <td>
+			<?php echo $this->Html->link($visit['Discipline']['name'], array('controller' => 'disciplines', 'action' => 'view', $visit['Visit']['discipline_id'])); ?>
+		</td>
 		<td>
 			<?php echo $this->Html->link($visit['Team']['name'], array('controller' => 'teams', 'action' => 'view', $visit['Team']['id'])); ?>
 		</td>
@@ -81,7 +91,7 @@
 			<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('action' => 'view', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn')); ?>
 			<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('action' => 'edit', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn')); ?>
 			<?php echo $this->Html->link('<i class="fa fa-copy"></i> '.__('Copy'), array('action' => 'copy', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn')); ?>
-			<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('action' => 'delete', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $visit['Visit']['id']))); ?>
+			<?php echo $this->Html->link('<i class="fa fa-trash"></i> '.__('Cancel'), array('controller' => 'refusals','action' => 'cancel', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to cancel # %s?', $visit['Visit']['id']))); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

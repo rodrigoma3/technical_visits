@@ -60,6 +60,10 @@ class RefusalsController extends AppController {
 		$this->set(compact('users', 'visits'));
 	}
 
+	public function cancel($id = null){
+		$this->render('add');
+	}
+
 /**
  * edit method
  *

@@ -1,5 +1,5 @@
 <div class="widget visits form">
-	<?php echo $this->Form->create('Visit'); ?>
+	<?php echo $this->Form->create('Visit',array('url'=>'add')); ?>
 	<div class="widget-header">
 		<h3><?php echo __('Add Visit'); ?></h3>
 	</div>
@@ -19,6 +19,8 @@
 		echo $this->Form->input('status');
 		echo $this->Form->input('user_id');
 		echo $this->Form->input('city_id');
+		echo $this->Form->input('course');
+		echo $this->Form->input('discipline_id');
 		echo $this->Form->input('team_id');
 	?>
 		<div class="form-actions">

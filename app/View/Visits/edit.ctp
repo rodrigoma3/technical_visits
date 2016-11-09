@@ -20,6 +20,8 @@
 		echo $this->Form->input('status');
 		echo $this->Form->input('user_id');
 		echo $this->Form->input('city_id');
+		echo $this->Form->input('course');
+		echo $this->Form->input('discipline_id');
 		echo $this->Form->input('team_id');
 	?>
 		<div class="form-actions">
