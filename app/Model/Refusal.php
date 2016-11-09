@@ -12,6 +12,7 @@ class Refusal extends AppModel {
 		'type' => array(
 			0 => 'Visit',
 			1 => 'Report',
+			2 => 'Cancel',
 		),
 	);
 

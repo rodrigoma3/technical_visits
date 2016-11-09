@@ -49,6 +49,10 @@ class RefusalsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Refusal->create();
 			if ($this->Refusal->save($this->request->data)) {
+				if($this->request->data['Refusal']['type'] == 2){ // SE É CANCELAR
+					$this->Refusal->Visit->id = $this->request->data['Refusal']['visit_id'];
+					$this->Refusal->Visit->saveField('status','10'); // ALTERA O STATUS DA VISITA PRA CANCELADA..
+				}
 				$this->Flash->success(__('The refusal has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -61,7 +65,14 @@ class RefusalsController extends AppController {
 	}
 
 	public function cancel($id = null){
-		$this->render('add');
+		if($id!=null){
+			$this->request->data['Refusal']['type'] = '2'; // 2 = Cancel
+			$this->request->data['Refusal']['user_id'] = $this->Auth->user('id');
+			$this->request->data['Refusal']['visit_id'] = $id;
+			$this->render('add');
+		}else{
+			return $this->redirect(array('controller'=>'visits','action' => 'index'));
+		}
 	}
 
 /**
