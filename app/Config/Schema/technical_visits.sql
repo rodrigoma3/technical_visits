@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 02-Nov-2016 às 04:51
+-- Generation Time: 10-Nov-2016 às 23:51
 -- Versão do servidor: 10.1.10-MariaDB
 -- PHP Version: 5.6.15
 
@@ -28,6 +28,7 @@ USE `technical_visits`;
 -- Estrutura da tabela `acos`
 --
 
+DROP TABLE IF EXISTS `acos`;
 CREATE TABLE IF NOT EXISTS `acos` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) DEFAULT NULL,
@@ -39,14 +40,14 @@ CREATE TABLE IF NOT EXISTS `acos` (
   PRIMARY KEY (`id`),
   KEY `idx_acos_lft_rght` (`lft`,`rght`),
   KEY `idx_acos_alias` (`alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `acos`
 --
 
 INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `rght`) VALUES
-(1, NULL, NULL, NULL, 'controllers', 1, 156),
+(1, NULL, NULL, NULL, 'controllers', 1, 192),
 (2, 1, NULL, NULL, 'Cities', 2, 13),
 (3, 2, NULL, NULL, 'index', 3, 4),
 (4, 2, NULL, NULL, 'view', 5, 6),
@@ -65,7 +66,7 @@ INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `
 (17, 14, NULL, NULL, 'add', 31, 32),
 (18, 14, NULL, NULL, 'edit', 33, 34),
 (19, 14, NULL, NULL, 'delete', 35, 36),
-(26, 1, NULL, NULL, 'Groups', 38, 59),
+(26, 1, NULL, NULL, 'Groups', 38, 65),
 (27, 26, NULL, NULL, 'index', 39, 40),
 (28, 26, NULL, NULL, 'view', 41, 42),
 (29, 26, NULL, NULL, 'add', 43, 44),
@@ -73,41 +74,47 @@ INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `
 (31, 26, NULL, NULL, 'delete', 47, 48),
 (32, 26, NULL, NULL, 'permission', 49, 50),
 (33, 26, NULL, NULL, 'rebuilt', 51, 52),
-(35, 1, NULL, NULL, 'Pages', 60, 63),
-(36, 35, NULL, NULL, 'display', 61, 62),
-(37, 1, NULL, NULL, 'Refusals', 64, 75),
-(38, 37, NULL, NULL, 'index', 65, 66),
-(39, 37, NULL, NULL, 'view', 67, 68),
-(40, 37, NULL, NULL, 'add', 69, 70),
-(41, 37, NULL, NULL, 'edit', 71, 72),
-(42, 37, NULL, NULL, 'delete', 73, 74),
-(43, 1, NULL, NULL, 'States', 76, 87),
-(44, 43, NULL, NULL, 'index', 77, 78),
-(45, 43, NULL, NULL, 'view', 79, 80),
-(46, 43, NULL, NULL, 'add', 81, 82),
-(47, 43, NULL, NULL, 'edit', 83, 84),
-(48, 43, NULL, NULL, 'delete', 85, 86),
-(49, 1, NULL, NULL, 'Teams', 88, 99),
-(50, 49, NULL, NULL, 'index', 89, 90),
-(51, 49, NULL, NULL, 'view', 91, 92),
-(52, 49, NULL, NULL, 'add', 93, 94),
-(53, 49, NULL, NULL, 'edit', 95, 96),
-(54, 49, NULL, NULL, 'delete', 97, 98),
-(55, 1, NULL, NULL, 'Users', 100, 131),
-(58, 55, NULL, NULL, 'index', 105, 106),
-(59, 55, NULL, NULL, 'view', 107, 108),
-(60, 55, NULL, NULL, 'add', 109, 110),
-(61, 55, NULL, NULL, 'edit', 111, 112),
-(62, 55, NULL, NULL, 'delete', 113, 114),
-(63, 55, NULL, NULL, 'permission', 115, 116),
-(64, 1, NULL, NULL, 'Visits', 132, 145),
-(65, 64, NULL, NULL, 'index', 133, 134),
-(66, 64, NULL, NULL, 'view', 135, 136),
-(67, 64, NULL, NULL, 'add', 137, 138),
-(68, 64, NULL, NULL, 'edit', 139, 140),
-(69, 64, NULL, NULL, 'delete', 141, 142),
-(73, 55, NULL, NULL, 'allow_access', 129, 130),
-(74, 64, NULL, NULL, 'copy', 143, 144);
+(35, 1, NULL, NULL, 'Pages', 66, 69),
+(36, 35, NULL, NULL, 'display', 67, 68),
+(37, 1, NULL, NULL, 'Refusals', 70, 81),
+(38, 37, NULL, NULL, 'index', 71, 72),
+(39, 37, NULL, NULL, 'view', 73, 74),
+(40, 37, NULL, NULL, 'add', 75, 76),
+(41, 37, NULL, NULL, 'edit', 77, 78),
+(42, 37, NULL, NULL, 'delete', 79, 80),
+(43, 1, NULL, NULL, 'States', 82, 93),
+(44, 43, NULL, NULL, 'index', 83, 84),
+(45, 43, NULL, NULL, 'view', 85, 86),
+(46, 43, NULL, NULL, 'add', 87, 88),
+(47, 43, NULL, NULL, 'edit', 89, 90),
+(48, 43, NULL, NULL, 'delete', 91, 92),
+(49, 1, NULL, NULL, 'Teams', 94, 105),
+(50, 49, NULL, NULL, 'index', 95, 96),
+(51, 49, NULL, NULL, 'view', 97, 98),
+(52, 49, NULL, NULL, 'add', 99, 100),
+(53, 49, NULL, NULL, 'edit', 101, 102),
+(54, 49, NULL, NULL, 'delete', 103, 104),
+(55, 1, NULL, NULL, 'Users', 106, 149),
+(58, 55, NULL, NULL, 'index', 111, 112),
+(59, 55, NULL, NULL, 'view', 113, 114),
+(60, 55, NULL, NULL, 'add', 115, 116),
+(61, 55, NULL, NULL, 'edit', 117, 118),
+(62, 55, NULL, NULL, 'delete', 119, 120),
+(63, 55, NULL, NULL, 'permission', 121, 122),
+(64, 1, NULL, NULL, 'Visits', 150, 163),
+(65, 64, NULL, NULL, 'index', 151, 152),
+(66, 64, NULL, NULL, 'view', 153, 154),
+(67, 64, NULL, NULL, 'add', 155, 156),
+(68, 64, NULL, NULL, 'edit', 157, 158),
+(69, 64, NULL, NULL, 'delete', 159, 160),
+(73, 55, NULL, NULL, 'allow_access', 135, 136),
+(74, 64, NULL, NULL, 'copy', 161, 162),
+(76, 1, NULL, NULL, 'Parameters', 174, 185),
+(83, 76, NULL, NULL, 'email', 175, 176),
+(85, 76, NULL, NULL, 'saveConfig', 177, 178),
+(86, 76, NULL, NULL, 'testEmail', 179, 180),
+(87, 76, NULL, NULL, 'sendMail', 181, 182),
+(88, 76, NULL, NULL, 'password', 183, 184);
 
 -- --------------------------------------------------------
 
@@ -115,6 +122,7 @@ INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `
 -- Estrutura da tabela `aros`
 --
 
+DROP TABLE IF EXISTS `aros`;
 CREATE TABLE IF NOT EXISTS `aros` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) DEFAULT NULL,
@@ -126,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `aros` (
   PRIMARY KEY (`id`),
   KEY `idx_aros_lft_rght` (`lft`,`rght`),
   KEY `idx_aros_alias` (`alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `aros`
@@ -146,6 +154,7 @@ INSERT INTO `aros` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `
 -- Estrutura da tabela `aros_acos`
 --
 
+DROP TABLE IF EXISTS `aros_acos`;
 CREATE TABLE IF NOT EXISTS `aros_acos` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `aro_id` int(10) NOT NULL,
@@ -157,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `aros_acos` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`),
   KEY `idx_aco_id` (`aco_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `aros_acos`
@@ -295,6 +304,7 @@ INSERT INTO `aros_acos` (`id`, `aro_id`, `aco_id`, `_create`, `_read`, `_update`
 -- Estrutura da tabela `cities`
 --
 
+DROP TABLE IF EXISTS `cities`;
 CREATE TABLE IF NOT EXISTS `cities` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -319,6 +329,7 @@ INSERT INTO `cities` (`id`, `name`, `short_distance`, `state_id`) VALUES
 -- Estrutura da tabela `courses`
 --
 
+DROP TABLE IF EXISTS `courses`;
 CREATE TABLE IF NOT EXISTS `courses` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -340,6 +351,7 @@ INSERT INTO `courses` (`id`, `name`, `type_of_academic_period`, `amount_of_acade
 -- Estrutura da tabela `disciplines`
 --
 
+DROP TABLE IF EXISTS `disciplines`;
 CREATE TABLE IF NOT EXISTS `disciplines` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -362,6 +374,7 @@ INSERT INTO `disciplines` (`id`, `name`, `academic_period`, `course_id`) VALUES
 -- Estrutura da tabela `disciplines_teams`
 --
 
+DROP TABLE IF EXISTS `disciplines_teams`;
 CREATE TABLE IF NOT EXISTS `disciplines_teams` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `team_id` int(10) UNSIGNED NOT NULL,
@@ -384,12 +397,13 @@ INSERT INTO `disciplines_teams` (`id`, `team_id`, `discipline_id`) VALUES
 -- Estrutura da tabela `groups`
 --
 
+DROP TABLE IF EXISTS `groups`;
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `groups`
@@ -405,6 +419,7 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 -- Estrutura da tabela `refusals`
 --
 
+DROP TABLE IF EXISTS `refusals`;
 CREATE TABLE IF NOT EXISTS `refusals` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `created` datetime NOT NULL,
@@ -423,6 +438,7 @@ CREATE TABLE IF NOT EXISTS `refusals` (
 -- Estrutura da tabela `states`
 --
 
+DROP TABLE IF EXISTS `states`;
 CREATE TABLE IF NOT EXISTS `states` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -443,6 +459,7 @@ INSERT INTO `states` (`id`, `name`, `initials`) VALUES
 -- Estrutura da tabela `teams`
 --
 
+DROP TABLE IF EXISTS `teams`;
 CREATE TABLE IF NOT EXISTS `teams` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -462,6 +479,7 @@ INSERT INTO `teams` (`id`, `name`) VALUES
 -- Estrutura da tabela `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -480,7 +498,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `enabled`, `group_id`) VALUES
 (1, 'Administrator', 'admin@email.com', '$2a$10$s3WS37ypmUZyaQl4ik7oMOQhc2PNnahnjZLtH2hutqwXcdZKIr9pW', 1, 2),
 (4, 'Professor Um', 'prof@email.com', '$2a$10$Edn7Swzny30i3znkXfw53OS8aXIx2a7HNTCLWblTmeqLvwKR2jpw.', 1, 3),
-(5, 'Transporte', 'transporte@email.com', '$2a$10$uRhGEz5YdaNch2MBTcCXSeg7zwPoFncnO8A5Q2SN40fMRT5nXe8v2', 0, 2);
+(5, 'Transporte', 'transporte@email.com', '$2a$10$uRhGEz5YdaNch2MBTcCXSeg7zwPoFncnO8A5Q2SN40fMRT5nXe8v2', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -488,6 +506,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `enabled`, `group_id`) V
 -- Estrutura da tabela `visits`
 --
 
+DROP TABLE IF EXISTS `visits`;
 CREATE TABLE IF NOT EXISTS `visits` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `created` datetime NOT NULL,
@@ -505,21 +524,23 @@ CREATE TABLE IF NOT EXISTS `visits` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `city_id` int(10) UNSIGNED NOT NULL,
   `team_id` int(10) UNSIGNED NOT NULL,
+  `discipline_id` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `visits_user_id` (`user_id`),
   KEY `visits_city_id` (`city_id`),
-  KEY `visits_class_id` (`team_id`)
+  KEY `visits_class_id` (`team_id`),
+  KEY `discipline_id` (`discipline_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `visits`
 --
 
-INSERT INTO `visits` (`id`, `created`, `departure`, `arrival`, `destination`, `number_of_students`, `refund`, `transport`, `transport_cost`, `distance`, `objective`, `comments`, `status`, `user_id`, `city_id`, `team_id`) VALUES
-(18, '2016-10-25 20:15:17', '2017-05-26 20:20:00', '2017-05-26 22:30:00', 'AGORA SIM', 1, 1, 1, 1, 1, '1', '1', 1, 1, 1, 1),
-(19, '2016-10-26 00:07:50', '2016-10-25 20:30:00', '2016-10-26 12:00:00', 'Praia', 15, 50.55, 1, 500, 500, 'Tira Onda', 'Bagual', 1, 1, 1, 1),
-(20, '2016-10-26 00:29:52', '2010-10-10 10:10:00', '2002-02-20 20:20:00', 'asd', 1, 11, 0, 1, 1, '1', '1', 1, 1, 1, 1),
-(21, '2016-10-26 01:18:42', '2016-10-25 21:18:00', '2016-10-25 22:00:00', 'ULTIMO TESTE', 1, 1, 0, 1, 1, '1434', '1', 0, 1, 1, 1);
+INSERT INTO `visits` (`id`, `created`, `departure`, `arrival`, `destination`, `number_of_students`, `refund`, `transport`, `transport_cost`, `distance`, `objective`, `comments`, `status`, `user_id`, `city_id`, `team_id`, `discipline_id`) VALUES
+(18, '2016-10-25 20:15:17', '2017-05-26 20:20:00', '2017-05-26 22:30:00', 'AGORA SIM', 1, 1, 1, 1, 1, '1', '1', 1, 1, 1, 1, 1),
+(19, '2016-10-26 00:07:50', '2016-10-25 20:30:00', '2016-10-26 12:00:00', 'Praia', 15, 50.55, 1, 500, 500, 'Tira Onda', 'Bagual', 1, 1, 1, 1, 1),
+(20, '2016-10-26 00:29:52', '2010-10-10 10:10:00', '2002-02-20 20:20:00', 'asd', 1, 11, 0, 1, 1, '1', '1', 1, 1, 1, 1, 1),
+(21, '2016-10-26 01:18:42', '2016-10-25 21:18:00', '2016-10-25 22:00:00', 'ULTIMO TESTE', 1, 1, 0, 1, 1, '1434', '1', 0, 1, 1, 1, 1);
 
 --
 -- Constraints for dumped tables
@@ -563,6 +584,7 @@ ALTER TABLE `users`
 ALTER TABLE `visits`
   ADD CONSTRAINT `fk_visits_city_id` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_visits_class_id` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_visits_discipline_id` FOREIGN KEY (`discipline_id`) REFERENCES `disciplines` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_visits_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -20,6 +20,7 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 
 /**
  * Application Controller
@@ -61,20 +62,20 @@ class AppController extends Controller {
         'Cookie'
     );
     public $helpers = array('Html', 'Form', 'Session');
+    public $allowAction = array('logout', 'login', 'set_language');
 
     public function beforeFilter() {
         $this->Auth->unauthorizedRedirect = $this->referer();
         $this->Auth->authError = __('You are not authorized to access that location.');
 
-        $allowAction = array('logout', 'login', 'set_language');
 
-        $this->Auth->allow($allowAction);
+        $this->Auth->allow($this->allowAction);
 
         if ($this->Session->check('Config.language')) {
             Configure::write('Config.language', $this->Session->read('Config.language'));
         }
 
-        if (!$this->Auth->loggedIn() && !in_array($this->action, $allowAction)) {
+        if (!$this->Auth->loggedIn() && !in_array($this->action, $this->allowAction)) {
             $this->Auth->authError = false;
             return $this->redirect($this->Auth->logout());
         }
@@ -147,7 +148,94 @@ class AppController extends Controller {
                 $menus[$k]['allow'] = $this->Acl->check(array('User' => $this->Auth->user()), $menu['controller'].'/'.$menu['action']);
             }
 
-            $this->set('menus', $menus);
+            $toolbars = array(
+                array(
+                    'title' => __('Welcome, ').$this->Auth->user('name').'<b class="caret"></b>',
+                    'id' => 'user',
+                    'allow' => false,
+                    'subs' => array(
+                        array(
+                            'title' => __('Profile'),
+                            'controller' => 'users',
+                            'action' => 'view',
+                            'id' => $this->Auth->user('id'),
+                            'allow' => false,
+                        ),
+                        array(
+                            'title' => __('Logout'),
+                            'controller' => 'users',
+                            'action' => 'logout',
+                            'id' => null,
+                            'allow' => false,
+                        ),
+                    ),
+                ),
+                array(
+                    'title' => '<i class="fa fa-cog fa-2x"></i><b class="caret"></b>',
+                    'id' => 'parameter',
+                    'allow' => false,
+                    'subs' => array(
+                        array(
+                            'title' => __('E-mail'),
+                            'controller' => 'parameters',
+                            'action' => 'email',
+                            'id' => null,
+                            'allow' => false,
+                        ),
+                        array(
+                            'title' => __('Password'),
+                            'controller' => 'parameters',
+                            'action' => 'password',
+                            'id' => null,
+                            'allow' => false,
+                        ),
+                    ),
+                ),
+            );
+
+            foreach ($toolbars as $k => $toolbar) {
+                foreach ($toolbar['subs'] as $l => $sub) {
+                    if (in_array($sub['action'], $this->allowAction)) {
+                        $toolbars[$k]['subs'][$l]['allow'] = true;
+                    } else {
+                        $toolbars[$k]['subs'][$l]['allow'] = $this->Acl->check(array('User' => $this->Auth->user()), $sub['controller'].'/'.$sub['action']);
+                    }
+                    if ($toolbars[$k]['subs'][$l]['allow']) {
+                        $toolbars[$k]['allow'] = true;
+                    }
+                }
+            }
+
+            $this->set(compact('menus', 'toolbars'));
+        }
+    }
+
+    protected function sendMail($options = array()){
+        try {
+            $Email = new CakeEmail();
+            $configEmail = array(
+                    'host' => Configure::read('Parameter.Email.ssl').Configure::read('Parameter.Email.host'),
+                    'port' => Configure::read('Parameter.Email.port'),
+                    'timeout' => Configure::read('Parameter.Email.timeout'),
+                    'username' => Configure::read('Parameter.Email.username'),
+                    'password' => Configure::read('Parameter.Email.password'),
+                    'transport' => 'Smtp',
+                    'charset' => 'utf-8',
+                    'headerCharset' => 'utf-8',
+                    'from' => array(Configure::read('Parameter.Email.fromEmail') => Configure::read('Parameter.Email.fromName')),
+                    'tls' => Configure::read('Parameter.Email.tls'),
+                    'to' => $options['to'],
+                    'emailFormat' => 'html',
+                    'template' => $options['template'],
+                    'viewVars' => $options,
+                    'subject' => $options['subject'],
+                );
+            $Email->config($configEmail);
+            $Email->send();
+
+            return true;
+        } catch (Exception $e) {
+            return false;
         }
     }
 }

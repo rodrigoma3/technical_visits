@@ -23,7 +23,9 @@
 
 		echo $this->Html->script(array(
 									'jquery-1.12.4.min',
-									'bootstrap-dropdown',
+									// 'bootstrap-dropdown',
+									'bootstrap',
+									// 'templatevamp/bootstrap-2.0.2',
 									'templatevamp/excanvas.min',
 									'templatevamp/chart.min',
 									'templatevamp/base',
@@ -54,19 +56,28 @@
 					);
 			?>
 	      <div class="nav-collapse">
-	        <ul class="nav pull-right">
-	          <li class="dropdown" id="fat-menu">
-				  <?php echo $this->Html->link(
-				  		__('Welcome, ').$this->Session->read('Auth.User.name').'<b class="caret"></b>',
-						'#',
-						array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'escape' => false, 'role' => 'button', 'id' => 'drop3', 'aria-haspopup' => 'true', 'aria-expanded' => 'false')
-					); ?>
-				<ul class="dropdown-menu" aria-labelledby="drop3">
-	              <li><?php echo $this->Html->link(__('Profile'), array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id'))); ?></li>
-	              <li><?php echo $this->Html->link(__('Logout'), array('controller' => 'users', 'action' => 'logout')); ?></li>
-	            </ul>
-	          </li>
-	        </ul>
+			  <?php if (!empty($toolbars)): ?>
+				  <ul class="nav pull-right">
+					  <?php foreach ($toolbars as $toolbar): ?>
+						  <?php if ($toolbar['allow']): ?>
+							  <li class="dropdown" id="fat-menu">
+								  <?php echo $this->Html->link(
+									  $toolbar['title'],
+									  '#',
+									  array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'escape' => false, 'role' => 'button', 'id' => $toolbar['id'], 'aria-haspopup' => 'true', 'aria-expanded' => 'false')
+								  ); ?>
+								  <ul class="dropdown-menu" aria-labelledby="<?php echo $toolbar['id']; ?>">
+									  <?php foreach ($toolbar['subs'] as $sub): ?>
+										  <?php if ($sub['allow']): ?>
+											  <li><?php echo $this->Html->link($sub['title'], array('controller' => $sub['controller'], 'action' => $sub['action'], $sub['id'])); ?></li>
+										  <?php endif; ?>
+									  <?php endforeach; ?>
+								  </ul>
+							  </li>
+						  <?php endif; ?>
+					  <?php endforeach; ?>
+				  </ul>
+			  <?php endif; ?>
 			<div class="pull-right">
 				<?php
 					if (Configure::read('Config.language') == 'pt-br') {
@@ -96,7 +107,6 @@
 	  </div>
 	  <!-- /navbar-inner -->
 	</div>
-
 	<div class="subnavbar">
 		<?php if (!empty($menus)): ?>
 			<div class="subnavbar-inner">

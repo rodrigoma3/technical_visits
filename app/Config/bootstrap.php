@@ -26,7 +26,7 @@
 Cache::config('default', array('engine' => 'File'));
 
 // Custom configuration files
-Configure::load('preferences');
+Configure::load('parameters');
 
 /**
  * The settings below can be used to set additional paths to models, views and controllers.

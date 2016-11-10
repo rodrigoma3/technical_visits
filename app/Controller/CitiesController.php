@@ -4,16 +4,8 @@ App::uses('AppController', 'Controller');
  * Cities Controller
  *
  * @property City $City
- * @property PaginatorComponent $Paginator
  */
 class CitiesController extends AppController {
-
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
 
 /**
  * index method
