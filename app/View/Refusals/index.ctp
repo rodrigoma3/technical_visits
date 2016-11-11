@@ -34,7 +34,7 @@
 	<tr>
 		<td></td>
 		<td><?php echo h($refusal['Refusal']['id']); ?>&nbsp;</td>
-		<td><?php echo h($refusal['Refusal']['date']); ?>&nbsp;</td>
+		<td><?php echo h($refusal['Refusal']['created']); ?>&nbsp;</td>
 		<td><?php echo h($refusal['Refusal']['reason']); ?>&nbsp;</td>
 		<td><?php echo h($refusal['Refusal']['type']); ?>&nbsp;</td>
 		<td>

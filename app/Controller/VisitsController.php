@@ -38,6 +38,7 @@ class VisitsController extends AppController {
  */
 	public function index() {
 		// debug(Configure::read());
+		$this->set('courses', $this->Visit->Discipline->Course->find('list'));
 		$this->Visit->recursive = 2;
 		$this->set('visits', $this->Visit->find('all'));
 	}
@@ -53,6 +54,7 @@ class VisitsController extends AppController {
 		if (!$this->Visit->exists($id)) {
 			throw new NotFoundException(__('Invalid visit'));
 		}
+		$this->set('courses', $this->Visit->Discipline->Course->find('list'));
 		$this->Visit->recursive = 2;
 		$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 		$this->set('visit', $this->Visit->find('first', $options));
@@ -78,7 +80,9 @@ class VisitsController extends AppController {
 		$users = $this->Visit->User->find('list');
 		$cities = $this->Visit->City->find('list');
 		$teams = $this->Visit->Team->find('list');
-		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses'));
+		$disciplines = $this->Visit->Discipline->find('list');
+		$courses = $this->Visit->Discipline->Course->find('list');
+		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses', 'disciplines', 'courses'));
 	}
 
 /**
@@ -103,27 +107,35 @@ class VisitsController extends AppController {
 			$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 			$this->request->data = $this->Visit->find('first', $options);
 		}
-		debug($this->request->data['Visit']); //TODO AQUI
 		$transports = $this->Visit->getEnums('transport');
 		$statuses = $this->Visit->getEnums('status');
 		$users = $this->Visit->User->find('list');
 		$cities = $this->Visit->City->find('list');
 		$teams = $this->Visit->Team->find('list');
-		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses'));
+		$disciplines = $this->Visit->Discipline->find('list');
+		$courses = $this->Visit->Discipline->Course->find('list');
+		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses', 'disciplines', 'courses'));
 	}
 
 	public function copy($id = null){
 		if (!$this->Visit->exists($id)) {
 			throw new NotFoundException(__('Invalid visit'));
 		}
+		$this->Visit->recursive = -1;
 		$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 		$this->request->data = $this->Visit->find('first', $options);
+		unset($this->request->data['Visit']['id']);
+		unset($this->request->data['Visit']['created']);
+		unset($this->request->data['Visit']['departure']);
+		unset($this->request->data['Visit']['arrival']);
 		$transports = $this->Visit->getEnums('transport');
 		$statuses = $this->Visit->getEnums('status');
 		$users = $this->Visit->User->find('list');
 		$cities = $this->Visit->City->find('list');
 		$teams = $this->Visit->Team->find('list');
-		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses'));
+		$disciplines = $this->Visit->Discipline->find('list');
+		$courses = $this->Visit->Discipline->Course->find('list');
+		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses', 'disciplines', 'courses'));
 		$this->render('add');
 	}
 

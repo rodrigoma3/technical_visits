@@ -80,6 +80,16 @@
 			<?php echo $this->Html->link($visit['City']['State']['name'], array('controller' => 'states', 'action' => 'view', $visit['City']['State']['id'])); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Course'); ?></dt>
+		<dd>
+			<?php echo $this->Html->link($courses[$visit['Team']['Discipline'][0]['course_id']], array('controller' => 'courses', 'action' => 'view', $visit['Team']['Discipline'][0]['course_id'])); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Discipline'); ?></dt>
+		<dd>
+			<?php echo $this->Html->link($visit['Discipline']['name'], array('controller' => 'disciplines', 'action' => 'view', $visit['Visit']['discipline_id'])); ?>
+			&nbsp;
+		</dd>
 		<dt><?php echo __('Team'); ?></dt>
 		<dd>
 			<?php echo $this->Html->link($visit['Team']['name'], array('controller' => 'teams', 'action' => 'view', $visit['Team']['id'])); ?>
