@@ -51,23 +51,23 @@
 			<?php
 				echo $this->Html->link(
 						__('Technical Visits'),
-						array('controller' => 'posts', 'action' => 'index'),
+						array('controller' => 'visits', 'action' => 'index'),
 						array('escape' => false, 'class' => 'brand')
 					);
 			?>
 	      <div class="nav-collapse">
-			  <?php if (!empty($toolbars)): ?>
+			  <?php if (!empty($topmenus)): ?>
 				  <ul class="nav pull-right">
-					  <?php foreach ($toolbars as $toolbar): ?>
-						  <?php if ($toolbar['allow']): ?>
+					  <?php foreach ($topmenus as $topmenu): ?>
+						  <?php if ($topmenu['allow']): ?>
 							  <li class="dropdown" id="fat-menu">
 								  <?php echo $this->Html->link(
-									  $toolbar['title'],
+									  $topmenu['title'],
 									  '#',
-									  array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'escape' => false, 'role' => 'button', 'id' => $toolbar['id'], 'aria-haspopup' => 'true', 'aria-expanded' => 'false')
+									  array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'escape' => false, 'role' => 'button', 'id' => $topmenu['id'], 'aria-haspopup' => 'true', 'aria-expanded' => 'false')
 								  ); ?>
-								  <ul class="dropdown-menu" aria-labelledby="<?php echo $toolbar['id']; ?>">
-									  <?php foreach ($toolbar['subs'] as $sub): ?>
+								  <ul class="dropdown-menu" aria-labelledby="<?php echo $topmenu['id']; ?>">
+									  <?php foreach ($topmenu['subs'] as $sub): ?>
 										  <?php if ($sub['allow']): ?>
 											  <li><?php echo $this->Html->link($sub['title'], array('controller' => $sub['controller'], 'action' => $sub['action'], $sub['id'])); ?></li>
 										  <?php endif; ?>
@@ -85,7 +85,7 @@
 					} else {
 						echo $this->Html->link(
 								$this->Html->image('flags-country/Brazil.ico', array('alt' => 'Brazil', 'border' => '0', 'id' => 'flag-country')),
-								array('controller' => 'groups', 'action' => 'set_language', 'pt-br'),
+								array('controller' => 'parameters', 'action' => 'set_language', 'pt-br'),
 								array('escape' => false)
 							);
 					}
@@ -94,7 +94,7 @@
 					} else {
 						echo $this->Html->link(
 								$this->Html->image('flags-country/United States.ico', array('alt' => 'Estados Unidos', 'border' => '0', 'id' => 'flag-country')),
-								array('controller' => 'groups', 'action' => 'set_language', 'en-us'),
+								array('controller' => 'parameters', 'action' => 'set_language', 'en-us'),
 								array('escape' => false)
 							);
 					}

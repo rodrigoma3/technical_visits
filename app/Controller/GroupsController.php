@@ -244,31 +244,4 @@ class GroupsController extends AppController {
 		$this->set('group', $group);
 		$this->set('jstreeData', json_encode($perms));
 	}
-
-/**
- * rebuilt method
- *
- * @return void
- */
-	public function rebuilt(){
-		$command = '-app '.APP.' AclExtras.AclExtras aco_sync';
-		$args = explode(' ', $command);
-		$dispatcher = new ShellDispatcher($args, false);
-		$dispatcher->dispatch();
-		$this->Acl->Aco->deleteAll(array('alias' => array('AclExtras', 'login', 'logout', 'set_language')), false);
-		$this->Flash->success(__('Rebuild Aco Tree (Actions & Controllers) has been completed.'));
-		return $this->redirect(array('action' => 'index'));
-	}
-
-/**
- * set_language method
- *
- * @param string $option
- * @return void
- */
-	public function set_language($option = null){
-		$this->Session->write('Config.language', $option);
-		return $this->redirect($this->referer());
-	}
-
 }

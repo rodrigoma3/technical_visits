@@ -1,8 +1,8 @@
 <?php
 $config = array (
-  'Parameter' => 
+  'Parameter' =>
   array (
-    'Email' => 
+    'Email' =>
     array (
       'host' => 'smtp.gmail.com',
       'port' => '587',
@@ -15,12 +15,26 @@ $config = array (
       'fromEmail' => 'rodrigo.ma3@gmail.com',
       'replyTo' => '',
     ),
-    'Password' => 
+    'Password' =>
     array (
-      'size' => '6',
-      'uppercase' => '0',
+      'size' => '8',
+      'uppercase' => '1',
       'number' => '1',
       'symbol' => '0',
+    ),
+    'Transport' =>
+    array (
+      'cost_per_km' => '4.99',
+    ),
+    'System' =>
+    array (
+      'allowed_actions' =>
+      array(
+        'AclExtras',
+        'login',
+        'logout',
+        'set_language',
+      ),
     ),
   ),
 );

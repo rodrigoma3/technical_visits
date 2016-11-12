@@ -53,7 +53,6 @@
 	<!-- /widget-header -->
 	<div class="widget-content actions">
         <?php echo $this->Html->link(__('New Group'), array('action' => 'add'), array('class' => 'btn btn-success')); ?>
-        <?php echo $this->Html->link(__('Rebuild Aco Tree (Actions & Controllers)'), array('action' => 'rebuilt'), array('class' => 'btn btn-info')); ?>
     </div>
 <!-- /widget-content -->
 </div>

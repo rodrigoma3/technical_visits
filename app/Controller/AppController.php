@@ -62,20 +62,19 @@ class AppController extends Controller {
         'Cookie'
     );
     public $helpers = array('Html', 'Form', 'Session');
-    public $allowAction = array('logout', 'login', 'set_language');
 
     public function beforeFilter() {
         $this->Auth->unauthorizedRedirect = $this->referer();
         $this->Auth->authError = __('You are not authorized to access that location.');
 
 
-        $this->Auth->allow($this->allowAction);
+        $this->Auth->allow(Configure::read('Parameter.System.allowed_actions'));
 
         if ($this->Session->check('Config.language')) {
             Configure::write('Config.language', $this->Session->read('Config.language'));
         }
 
-        if (!$this->Auth->loggedIn() && !in_array($this->action, $this->allowAction)) {
+        if (!$this->Auth->loggedIn() && !in_array($this->action, Configure::read('Parameter.System.allowed_actions'))) {
             $this->Auth->authError = false;
             return $this->redirect($this->Auth->logout());
         }
@@ -148,7 +147,7 @@ class AppController extends Controller {
                 $menus[$k]['allow'] = $this->Acl->check(array('User' => $this->Auth->user()), $menu['controller'].'/'.$menu['action']);
             }
 
-            $toolbars = array(
+            $topmenus = array(
                 array(
                     'title' => __('Welcome, ').$this->Auth->user('name').'<b class="caret"></b>',
                     'id' => 'user',
@@ -189,47 +188,65 @@ class AppController extends Controller {
                             'id' => null,
                             'allow' => false,
                         ),
+                        array(
+                            'title' => __('Cost per km'),
+                            'controller' => 'parameters',
+                            'action' => 'cost_per_km',
+                            'id' => null,
+                            'allow' => false,
+                        ),
+                        array(
+                            'title' => __('System'),
+                            'controller' => 'parameters',
+                            'action' => 'system',
+                            'id' => null,
+                            'allow' => false,
+                        ),
                     ),
                 ),
             );
 
-            foreach ($toolbars as $k => $toolbar) {
-                foreach ($toolbar['subs'] as $l => $sub) {
-                    if (in_array($sub['action'], $this->allowAction)) {
-                        $toolbars[$k]['subs'][$l]['allow'] = true;
+            foreach ($topmenus as $k => $topmenu) {
+                foreach ($topmenu['subs'] as $l => $sub) {
+                    if (in_array($sub['action'], Configure::read('Parameter.System.allowed_actions'))) {
+                        $topmenus[$k]['subs'][$l]['allow'] = true;
                     } else {
-                        $toolbars[$k]['subs'][$l]['allow'] = $this->Acl->check(array('User' => $this->Auth->user()), $sub['controller'].'/'.$sub['action']);
+                        $topmenus[$k]['subs'][$l]['allow'] = $this->Acl->check(array('User' => $this->Auth->user()), $sub['controller'].'/'.$sub['action']);
                     }
-                    if ($toolbars[$k]['subs'][$l]['allow']) {
-                        $toolbars[$k]['allow'] = true;
+                    if ($topmenus[$k]['subs'][$l]['allow']) {
+                        $topmenus[$k]['allow'] = true;
                     }
                 }
             }
 
-            $this->set(compact('menus', 'toolbars'));
+            $this->set(compact('menus', 'topmenus'));
         }
     }
 
     protected function sendMail($options = array()){
         try {
+            $parameter = Configure::read('Parameter.Email');
             $Email = new CakeEmail();
             $configEmail = array(
-                    'host' => Configure::read('Parameter.Email.ssl').Configure::read('Parameter.Email.host'),
-                    'port' => Configure::read('Parameter.Email.port'),
-                    'timeout' => Configure::read('Parameter.Email.timeout'),
-                    'username' => Configure::read('Parameter.Email.username'),
-                    'password' => Configure::read('Parameter.Email.password'),
+                    'host' => $parameter['ssl'].$parameter['host'],
+                    'port' => $parameter['port'],
+                    'timeout' => $parameter['timeout'],
+                    'username' => $parameter['username'],
+                    'password' => $parameter['password'],
                     'transport' => 'Smtp',
                     'charset' => 'utf-8',
                     'headerCharset' => 'utf-8',
-                    'from' => array(Configure::read('Parameter.Email.fromEmail') => Configure::read('Parameter.Email.fromName')),
-                    'tls' => Configure::read('Parameter.Email.tls'),
+                    'from' => array($parameter['fromEmail'] => $parameter['fromName']),
+                    'tls' => $parameter['tls'],
                     'to' => $options['to'],
                     'emailFormat' => 'html',
                     'template' => $options['template'],
                     'viewVars' => $options,
                     'subject' => $options['subject'],
                 );
+            if ($parameter['replyTo']) {
+                $Email->replyTo($parameter['replyTo']);
+            }
             $Email->config($configEmail);
             $Email->send();
 
