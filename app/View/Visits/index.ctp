@@ -8,49 +8,49 @@
         	<thead>
             	<tr>
                     <th></th>
-            	                	<th><?php echo __('Id'); ?></th>
-            	                	<th><?php echo __('Departure'); ?></th>
-            	                	<th><?php echo __('Arrival'); ?></th>
-            	                	<th><?php echo __('Destination'); ?></th>
-            	                	<th><?php echo __('Students'); ?></th>
-            	                	<th><?php echo __('Refund'); ?></th>
-            	                	<th><?php echo __('Transport'); ?></th>
-            	                	<th><?php echo __('Transport Cost'); ?></th>
-            	                	<th><?php echo __('Distance'); ?></th>
-            	                	<th><?php echo __('Objective'); ?></th>
-            	                	<th><?php echo __('Comments'); ?></th>
-            	                	<th><?php echo __('Status'); ?></th>
-            	                	<th><?php echo __('User'); ?></th>
-            	                	<th><?php echo __('City'); ?></th>
-                                <th><?php echo __('State'); ?></th>
-            	                	<th><?php echo __('Course'); ?></th>
-            	                	<th><?php echo __('Discipline'); ?></th>
-            	                	<th><?php echo __('Team'); ?></th>
-            	                	<th><?php echo __('Actions'); ?></th>
+                	<th><?php echo __('Id'); ?></th>
+                	<th><?php echo __('Departure'); ?></th>
+                	<th><?php echo __('Arrival'); ?></th>
+                	<th><?php echo __('Destination'); ?></th>
+                	<th><?php echo __('Students'); ?></th>
+                	<th><?php echo __('Refund'); ?></th>
+                	<th><?php echo __('Transport'); ?></th>
+                	<th><?php echo __('Transport Cost'); ?></th>
+                	<th><?php echo __('Distance'); ?></th>
+                	<th><?php echo __('Objective'); ?></th>
+                	<th><?php echo __('Comments'); ?></th>
+                	<th><?php echo __('Status'); ?></th>
+                	<th><?php echo __('User'); ?></th>
+                	<th><?php echo __('City'); ?></th>
+                    <th><?php echo __('State'); ?></th>
+                	<th><?php echo __('Course'); ?></th>
+                	<th><?php echo __('Discipline'); ?></th>
+                	<th><?php echo __('Team'); ?></th>
+                	<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</thead>
         	<tfoot>
             	<tr>
                     <th></th>
-            	            		<th><?php echo __('id'); ?></th>
-            	            		<th><?php echo __('departure'); ?></th>
-            	            		<th><?php echo __('arrival'); ?></th>
-            	            		<th><?php echo __('destination'); ?></th>
-            	            		<th><?php echo __('number_of_students'); ?></th>
-            	            		<th><?php echo __('refund'); ?></th>
-            	            		<th><?php echo __('transport'); ?></th>
-            	            		<th><?php echo __('transport_cost'); ?></th>
-            	            		<th><?php echo __('distance'); ?></th>
-            	            		<th><?php echo __('objective'); ?></th>
-            	            		<th><?php echo __('comments'); ?></th>
-            	            		<th><?php echo __('status'); ?></th>
-            	            		<th><?php echo __('user_id'); ?></th>
-            	            		<th><?php echo __('city_id'); ?></th>
-            	            		<th><?php echo __('state_id'); ?></th>
-            	            		<th><?php echo __('course_id'); ?></th>
-            	            		<th><?php echo __('discipline_id'); ?></th>
-            	            		<th><?php echo __('team_id'); ?></th>
-            	            		<th><?php echo __('Actions'); ?></th>
+            		<th><?php echo __('id'); ?></th>
+            		<th><?php echo __('departure'); ?></th>
+            		<th><?php echo __('arrival'); ?></th>
+            		<th><?php echo __('destination'); ?></th>
+            		<th><?php echo __('number_of_students'); ?></th>
+            		<th><?php echo __('refund'); ?></th>
+            		<th><?php echo __('transport'); ?></th>
+            		<th><?php echo __('transport_cost'); ?></th>
+            		<th><?php echo __('distance'); ?></th>
+            		<th><?php echo __('objective'); ?></th>
+            		<th><?php echo __('comments'); ?></th>
+            		<th><?php echo __('status'); ?></th>
+            		<th><?php echo __('user_id'); ?></th>
+            		<th><?php echo __('city_id'); ?></th>
+            		<th><?php echo __('state_id'); ?></th>
+            		<th><?php echo __('course_id'); ?></th>
+            		<th><?php echo __('discipline_id'); ?></th>
+            		<th><?php echo __('team_id'); ?></th>
+            		<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</tfoot>
         	<tbody>
@@ -92,7 +92,7 @@
 			<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('action' => 'edit', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn')); ?>
 			<?php echo $this->Html->link('<i class="fa fa-copy"></i> '.__('Copy'), array('action' => 'copy', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn')); ?>
 			<?php echo $this->Html->link('<i class="fa fa-trash"></i> '.__('Cancel'), array('controller' => 'refusals','action' => 'cancel', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to cancel # %s?', $visit['Visit']['id']))); ?>
-		</td>
+        </td>
 	</tr>
 <?php endforeach; ?>
         	</tbody>

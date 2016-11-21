@@ -12,22 +12,24 @@ class Visit extends AppModel {
 
 	private $enum = array(
 		'transport' => array(
-			0 => 'Own',
-			1 => 'Campus',
-			2 => 'Outsourced',
+			0 => 'Undefined',
+			1 => 'Own',
+			2 => 'Campus',
+			3 => 'Outsourced',
 		),
 		'status' => array(
 			0 => 'Opening',
 			1 => 'Awaiting transport',
-			2 => 'Pre approved',
+			2 => 'Waiting for approval',
 			3 => 'Awaiting realization',
-			4 => 'Awaiting report and update transport',
+			4 => 'Awaiting report and transport update',
 			5 => 'Awaiting report',
-			6 => 'Awaiting evaluation report and update transport',
-			7 => 'Awaiting evaluation report',
-			8 => 'Awaiting update transport',
+			6 => 'Waiting for report evaluation and transport update',
+			7 => 'Waiting for report evaluation',
+			8 => 'Waiting for transport update',
 			9 => 'Completed',
 			10 => 'Canceled',
+			11 => 'Disapproved visit',
 		),
 	);
 

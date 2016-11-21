@@ -10,9 +10,10 @@ class Refusal extends AppModel {
 
 	private $enum = array(
 		'type' => array(
-			0 => 'Visit',
-			1 => 'Report',
-			2 => 'Cancel',
+			0 => 'Visit canceled',
+			1 => 'Disapproved visit',
+			2 => 'Disapproved report',
+			3 => 'Disapproved change',
 		),
 	);
 
@@ -92,16 +93,6 @@ class Refusal extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'date' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
 		'reason' => array(
 			'notBlank' => array(
 				'rule' => array('notBlank'),

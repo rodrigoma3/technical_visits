@@ -28,6 +28,6 @@ div.input label {
     font-weight: bold;
 }
 
-.btn-success {
+.btn-success, .btn-danger {
     margin-right: 15px;
 }

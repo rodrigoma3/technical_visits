@@ -97,9 +97,12 @@
 		</dd>
 		</dl>
 		<div class="form-actions">
-					<?php echo $this->Html->link(__('List Visits'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
-		<?php echo $this->Html->link(__('Edit Visit'), array('action' => 'edit', $visit['Visit']['id']), array('class' => 'btn')); ?>
-		<?php echo $this->Form->postLink(__('Delete Visit'), array('action' => 'delete', $visit['Visit']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $visit['Visit']['id']))); ?>
+			<?php echo $this->Form->postLink('<i class="fa fa-thumbs-o-up"></i> '.__('Approve Visit'), array('action' => 'approve_visit', $visit['Visit']['id']), array('class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
+			<?php echo $this->Form->postLink('<i class="fa fa-thumbs-o-up"></i> '.__('Pre Approve Visit'), array('action' => 'pre_approve_visit', $visit['Visit']['id']), array('class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
+			<?php echo $this->Html->link('<i class="fa fa-thumbs-o-down"></i> '.__('Disapprove Visit'), array('controller' => 'refusals', 'action' => 'disapproved_visit', $visit['Visit']['id']), array('class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to disapprove # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
+			<?php echo $this->Html->link(__('List Visits'), array('action' => 'index'), array('class' => 'btn btn-primary')); ?>
+			<?php echo $this->Html->link(__('Edit Visit'), array('action' => 'edit', $visit['Visit']['id']), array('class' => 'btn')); ?>
+			<?php echo $this->Form->postLink(__('Delete Visit'), array('action' => 'delete', $visit['Visit']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $visit['Visit']['id']))); ?>
 		</div>
 	</div>
 <!-- /widget-content -->
@@ -141,7 +144,7 @@
 		<tr>
 			<td></td>
 			<td><?php echo $refusal['id']; ?></td>
-			<td><?php echo $refusal['date']; ?></td>
+			<td><?php echo $refusal['created']; ?></td>
 			<td><?php echo $refusal['reason']; ?></td>
 			<td><?php echo $refusal['type']; ?></td>
 			<td><?php echo $refusal['user_id']; ?></td>

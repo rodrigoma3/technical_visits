@@ -1,7 +1,7 @@
 <div class="widget refusals form">
-	<?php echo $this->Form->create('Refusal',['url'=>'add']); ?>
+	<?php echo $this->Form->create('Refusal', ['url' => 'add']); ?>
 	<div class="widget-header">
-		<h3><?php echo __('Add Refusal'); ?></h3>
+		<h3><?php echo __('New refusal'); ?></h3>
 	</div>
 	<!-- /widget-header -->
 	<div class="widget-content">

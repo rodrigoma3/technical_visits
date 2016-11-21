@@ -54,8 +54,8 @@ class VisitsController extends AppController {
 		if (!$this->Visit->exists($id)) {
 			throw new NotFoundException(__('Invalid visit'));
 		}
-		$this->set('courses', $this->Visit->Discipline->Course->find('list'));
 		$this->Visit->recursive = 2;
+		$this->set('courses', $this->Visit->Discipline->Course->find('list'));
 		$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 		$this->set('visit', $this->Visit->find('first', $options));
 	}
@@ -156,6 +156,42 @@ class VisitsController extends AppController {
 			$this->Flash->success(__('The visit has been deleted.'));
 		} else {
 			$this->Flash->error(__('The visit could not be deleted. Please, try again.'));
+		}
+		return $this->redirect(array('action' => 'index'));
+	}
+
+	public function pre_approve_visit($id = null) {
+		$this->Visit->id = $id;
+		if (!$this->Visit->exists()) {
+			throw new NotFoundException(__('Invalid visit'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Visit->field('transport') == '0') {
+				$s = '1';
+			} else {
+				$s = '2';
+			}
+			if ($this->Visit->saveField('status', $s)) {
+				$this->Flash->success(__('The visit has been pre approved.'));
+			} else {
+				$this->Flash->error(__('Pre approval could not be saved. Please, try again.'));
+			}
+		}
+		return $this->redirect(array('action' => 'index'));
+	}
+
+	public function approve_visit($id = null) {
+		$this->Visit->id = $id;
+		if (!$this->Visit->exists()) {
+			throw new NotFoundException(__('Invalid visit'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Visit->saveField('status', '3')) {
+				$this->Flash->success(__('The visit has been approved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Flash->error(__('Approval could not be saved. Please, try again.'));
+			}
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
