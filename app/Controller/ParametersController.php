@@ -62,7 +62,7 @@ class ParametersController extends AppController{
         } elseif ($this->request->query('to') !== null) {
             if (!empty($this->request->query('to'))) {
                 $options['to'] = $this->request->query('to');
-                $options['template'] = 'testEmail';
+                $options['template'] = 'test_email';
                 $options['subject'] = __('Test email - Technical Visits');
                 if ($this->sendMail($options)) {
                     $this->Flash->success(__('Test email successfully sent.'));
