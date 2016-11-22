@@ -46,6 +46,18 @@ class RefusalsController extends AppController {
 				switch ($this->request->data[$this->Refusal->alias]['type']) {
 					case '0':
 						$this->Refusal->Visit->saveField('status', '10');
+							// $options['to'] = Configure::read('Parameter.Email.fromEmail');
+							$options['to'] = 'giba_fernando@hotmail.com';
+							$options['template'] = 'visit_canceled';
+							$options['subject'] = __('Visit has been Canceled! - Technical Visits');
+							$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
+							if ($this->sendMail($options)) {
+									$this->Flash->success(__('Test email successfully sent.'));
+									$emailSendFlag = true;
+							} else {
+									$this->Flash->error(__('Could not send test email.'));
+									$emailSendFlag = false;
+							}
 						break;
 					case '1':
 						$this->Refusal->Visit->saveField('status', '11');
@@ -61,7 +73,12 @@ class RefusalsController extends AppController {
 
 						break;
 				}
-				$this->Flash->success(__('The refusal has been saved.'));
+
+				if($emailSendFlag){
+					$this->Flash->success(__('The refusal has been saved.'));
+				}else{
+					$this->Flash->warning(__('The refusal has been saved, but the system failed to send the Administrator a notification e-mail.'));
+				}
 				return $this->redirect(array('controller'=>'visits','action' => 'index'));
 			} else {
 				$this->Flash->error(__('The refusal could not be saved. Please, try again.'));
