@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 21-Nov-2016 às 18:03
+-- Generation Time: 22-Nov-2016 às 18:05
 -- Versão do servidor: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -39,14 +39,14 @@ CREATE TABLE IF NOT EXISTS `acos` (
   PRIMARY KEY (`id`),
   KEY `idx_acos_lft_rght` (`lft`,`rght`),
   KEY `idx_acos_alias` (`alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `acos`
 --
 
 INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `rght`) VALUES
-(1, NULL, NULL, NULL, 'controllers', 1, 218),
+(1, NULL, NULL, NULL, 'controllers', 1, 236),
 (2, 1, NULL, NULL, 'Cities', 2, 13),
 (3, 2, NULL, NULL, 'index', 3, 4),
 (4, 2, NULL, NULL, 'view', 5, 6),
@@ -88,33 +88,34 @@ INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `
 (52, 49, NULL, NULL, 'add', 97, 98),
 (53, 49, NULL, NULL, 'edit', 99, 100),
 (54, 49, NULL, NULL, 'delete', 101, 102),
-(55, 1, NULL, NULL, 'Users', 104, 159),
+(55, 1, NULL, NULL, 'Users', 104, 167),
 (58, 55, NULL, NULL, 'index', 109, 110),
 (59, 55, NULL, NULL, 'view', 111, 112),
 (60, 55, NULL, NULL, 'add', 113, 114),
 (61, 55, NULL, NULL, 'edit', 115, 116),
 (62, 55, NULL, NULL, 'delete', 117, 118),
 (63, 55, NULL, NULL, 'permission', 119, 120),
-(64, 1, NULL, NULL, 'Visits', 160, 177),
-(65, 64, NULL, NULL, 'index', 161, 162),
-(66, 64, NULL, NULL, 'view', 163, 164),
-(67, 64, NULL, NULL, 'add', 165, 166),
-(68, 64, NULL, NULL, 'edit', 167, 168),
-(69, 64, NULL, NULL, 'delete', 169, 170),
+(64, 1, NULL, NULL, 'Visits', 168, 187),
+(65, 64, NULL, NULL, 'index', 169, 170),
+(66, 64, NULL, NULL, 'view', 171, 172),
+(67, 64, NULL, NULL, 'add', 173, 174),
+(68, 64, NULL, NULL, 'edit', 175, 176),
 (73, 55, NULL, NULL, 'allow_access', 133, 134),
-(74, 64, NULL, NULL, 'copy', 171, 172),
-(76, 1, NULL, NULL, 'Parameters', 188, 205),
-(83, 76, NULL, NULL, 'email', 189, 190),
-(88, 76, NULL, NULL, 'password', 191, 192),
-(89, 76, NULL, NULL, 'cost_per_km', 193, 194),
-(90, 76, NULL, NULL, 'system', 195, 196),
-(91, 76, NULL, NULL, 'rebuilt', 197, 198),
+(74, 64, NULL, NULL, 'copy', 177, 178),
+(76, 1, NULL, NULL, 'Parameters', 198, 219),
+(83, 76, NULL, NULL, 'email', 199, 200),
+(88, 76, NULL, NULL, 'password', 201, 202),
+(89, 76, NULL, NULL, 'cost_per_km', 203, 204),
+(90, 76, NULL, NULL, 'system', 205, 206),
+(91, 76, NULL, NULL, 'rebuilt', 207, 208),
 (93, 37, NULL, NULL, 'cancel', 71, 72),
 (98, 37, NULL, NULL, 'disapproved_visit', 73, 74),
 (99, 37, NULL, NULL, 'disapproved_report', 75, 76),
 (100, 37, NULL, NULL, 'disapproved_change', 77, 78),
-(103, 64, NULL, NULL, 'pre_approve_visit', 173, 174),
-(108, 64, NULL, NULL, 'approve_visit', 175, 176);
+(103, 64, NULL, NULL, 'pre_approve_visit', 179, 180),
+(108, 64, NULL, NULL, 'approve_visit', 181, 182),
+(113, 64, NULL, NULL, 'deliver_report', 183, 184),
+(118, 64, NULL, NULL, 'downloadfile', 185, 186);
 
 -- --------------------------------------------------------
 
@@ -228,7 +229,6 @@ INSERT INTO `aros_acos` (`id`, `aro_id`, `aco_id`, `_create`, `_read`, `_update`
 (66, 1, 66, '1', '1', '1', '1'),
 (67, 1, 67, '1', '1', '1', '1'),
 (68, 1, 68, '1', '1', '1', '1'),
-(69, 1, 69, '1', '1', '1', '1'),
 (70, 1, 70, '1', '1', '1', '1'),
 (71, 3, 1, '-1', '-1', '-1', '-1'),
 (72, 3, 2, '-1', '-1', '-1', '-1'),
@@ -283,8 +283,7 @@ INSERT INTO `aros_acos` (`id`, `aro_id`, `aco_id`, `_create`, `_read`, `_update`
 (126, 3, 65, '1', '1', '1', '1'),
 (127, 3, 66, '1', '1', '1', '1'),
 (128, 3, 67, '1', '1', '1', '1'),
-(129, 3, 68, '1', '1', '1', '1'),
-(130, 3, 69, '1', '1', '1', '1');
+(129, 3, 68, '1', '1', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -506,6 +505,7 @@ CREATE TABLE IF NOT EXISTS `visits` (
   `objective` varchar(255) NOT NULL,
   `comments` varchar(255) NOT NULL,
   `status` int(10) UNSIGNED NOT NULL,
+  `report` varchar(255) NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `city_id` int(10) UNSIGNED NOT NULL,
   `team_id` int(10) UNSIGNED NOT NULL,
@@ -521,11 +521,11 @@ CREATE TABLE IF NOT EXISTS `visits` (
 -- Extraindo dados da tabela `visits`
 --
 
-INSERT INTO `visits` (`id`, `created`, `departure`, `arrival`, `destination`, `number_of_students`, `refund`, `transport`, `transport_cost`, `distance`, `objective`, `comments`, `status`, `user_id`, `city_id`, `team_id`, `discipline_id`) VALUES
-(18, '2016-10-25 20:15:17', '2017-05-26 20:20:00', '2017-05-26 22:30:00', 'AGORA SIM', 1, 1, 1, 1, 1, '1', '1', 10, 1, 1, 1, 1),
-(19, '2016-10-26 00:07:50', '2016-10-25 20:30:00', '2016-10-26 12:00:00', 'Praia', 15, 50.55, 1, 500, 500, 'Tira Onda', 'Bagual', 1, 1, 1, 1, 1),
-(20, '2016-10-26 00:29:52', '2010-10-10 10:10:00', '2002-02-20 20:20:00', 'asd', 1, 11, 0, 1, 1, '1', '1', 1, 1, 1, 1, 1),
-(21, '2016-10-26 01:18:42', '2016-10-25 21:18:00', '2016-10-25 22:00:00', 'ULTIMO TESTE', 1, 1, 0, 1, 1, '1434', '1', 0, 1, 1, 1, 1);
+INSERT INTO `visits` (`id`, `created`, `departure`, `arrival`, `destination`, `number_of_students`, `refund`, `transport`, `transport_cost`, `distance`, `objective`, `comments`, `status`, `report`, `user_id`, `city_id`, `team_id`, `discipline_id`) VALUES
+(18, '2016-10-25 20:15:17', '2017-05-26 20:20:00', '2017-05-26 22:30:00', 'AGORA SIM', 1, 1, 1, 1, 1, '1', '1', 10, '', 1, 1, 1, 1),
+(19, '2016-10-26 00:07:50', '2016-10-25 20:30:00', '2016-10-26 12:00:00', 'Praia', 15, 50.55, 1, 500, 500, 'Tira Onda', 'Bagual', 4, '', 1, 1, 1, 1),
+(20, '2016-10-26 00:29:52', '2010-10-10 10:10:00', '2002-02-20 20:20:00', 'asd', 1, 11, 0, 1, 1, '1', '1', 1, '', 1, 1, 1, 1),
+(21, '2016-10-26 01:18:42', '2016-10-25 21:18:00', '2016-10-25 22:00:00', 'ULTIMO TESTE', 1, 1, 0, 1, 1, '1434', '1', 0, '', 1, 1, 1, 1);
 
 --
 -- Constraints for dumped tables
