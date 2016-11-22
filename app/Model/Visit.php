@@ -1,5 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('File', 'Utility');
+App::uses('Folder', 'Utility');
 /**
  * Visit Model
  *
@@ -259,7 +261,71 @@ class Visit extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'report' => array(
+			'extension' => array(
+				'rule' => array('extension', array('odt', 'docx', 'doc', 'pdf', 'zip', '7z', 'rar')),
+		        'message' => 'Please supply a valid file: "odt", "docx", "doc", "pdf", "zip", "7z", "rar"'
+			),
+			'fileSize' => array(
+				'rule' => array('fileSize', '<=', '2MB'),
+        		'message' => 'Report must be less than 2MB'
+			),
+			'uploadError' => array(
+				'rule' => 'uploadError',
+        		'message' => 'Something went wrong with the upload.'
+			),
+			'isUploadedFile' => array(
+				'rule' => 'isUploadedFile',
+				'message' => 'Something went wrong with the upload.'
+			),
+		),
 	);
+
+	public function isUploadedFile($params) {
+	    $val = array_shift($params);
+	    if ((isset($val['error']) && $val['error'] == 0) ||
+	        (!empty( $val['tmp_name']) && $val['tmp_name'] != 'none')
+	    ) {
+	        return is_uploaded_file($val['tmp_name']);
+	    }
+	    return false;
+	}
+
+	public function beforeSave($options = array()){
+        if(isset($this->data[$this->alias]['report']) && !empty($this->data[$this->alias]['report'])) {
+            $this->data[$this->alias]['report'] = $this->upload($this->data[$this->alias]['report']);
+        }
+		return true;
+    }
+
+	public function upload($attach = array()) {
+		$dir = WWW_ROOT . Configure::read('Parameter.System.dirReportFiles') . DS;
+		if (!is_dir($dir)){
+			$folder = new Folder();
+			$folder->create($dir);
+		}
+
+		$attach_info = pathinfo($dir . $attach['name']);
+		$name = strtolower(Inflector::slug($attach_info['filename'],'-')).'.'.$attach_info['extension'];
+		$count = 2;
+		while (file_exists($dir.$name)) {
+			$name = strtolower(Inflector::slug($attach_info['filename'],'-')).'-'.$count.'.'.$attach_info['extension'];
+			$count++;
+			// debug($name);
+		}
+
+		$file = new File($attach['tmp_name']);
+		$file->copy($dir . $name);
+		$file->close();
+
+		if ($this->field('report') != '') {
+			$fileOld = new File($dir.$this->field('report'));
+			$fileOld->delete();
+			$fileOld->close();
+		}
+
+		return $name;
+    }
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 

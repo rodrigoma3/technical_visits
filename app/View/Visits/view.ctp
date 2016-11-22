@@ -95,11 +95,17 @@
 			<?php echo $this->Html->link($visit['Team']['name'], array('controller' => 'teams', 'action' => 'view', $visit['Team']['id'])); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Report'); ?></dt>
+		<dd>
+			<?php echo $this->Html->link($visit['Visit']['report'], array('controller' => 'visits', 'action' => 'downloadfile', $visit['Visit']['id']), array('escape' => false)); ?>
+			&nbsp;
+		</dd>
 		</dl>
 		<div class="form-actions">
 			<?php echo $this->Form->postLink('<i class="fa fa-thumbs-o-up"></i> '.__('Approve Visit'), array('action' => 'approve_visit', $visit['Visit']['id']), array('class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
 			<?php echo $this->Form->postLink('<i class="fa fa-thumbs-o-up"></i> '.__('Pre Approve Visit'), array('action' => 'pre_approve_visit', $visit['Visit']['id']), array('class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
 			<?php echo $this->Html->link('<i class="fa fa-thumbs-o-down"></i> '.__('Disapprove Visit'), array('controller' => 'refusals', 'action' => 'disapproved_visit', $visit['Visit']['id']), array('class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to disapprove # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
+			<?php echo $this->Html->link('<i class="fa fa-paper-plane-o"></i> '.__('Deliver report'), '#deliverReport', array('class' => 'btn btn-success', 'role' => 'button', 'data-toggle' => 'modal', 'escape' => false)); ?>
 			<?php echo $this->Html->link(__('List Visits'), array('action' => 'index'), array('class' => 'btn btn-primary')); ?>
 			<?php echo $this->Html->link(__('Edit Visit'), array('action' => 'edit', $visit['Visit']['id']), array('class' => 'btn')); ?>
 			<?php echo $this->Form->postLink(__('Delete Visit'), array('action' => 'delete', $visit['Visit']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $visit['Visit']['id']))); ?>
@@ -162,4 +168,25 @@
 			<?php echo $this->Html->link(__('New Refusal'), array('controller' => 'refusals', 'action' => 'add'), array('class' => 'btn btn-success')); ?>		</div>
 	</div>
 <!-- /widget-content -->
+</div>
+
+<!-- Modal -->
+<div id="deliverReport" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deliverReportLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="deliverReportLabel"><?php echo __('Deliver report'); ?></h3>
+	</div>
+	<div class="modal-body">
+		<?php
+			echo $this->Form->create('Visit', array('type' => 'file', 'url' => 'deliver_report'));
+			echo $this->Form->input('id', array('value' => $visit['Visit']['id']));
+			echo $this->Form->file('report');
+		 ?>
+	</div>
+	<div class="modal-footer">
+		<?php
+			echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false));
+			echo $this->Form->button(__('Close'), array('data-dismiss' => 'modal', 'aria-hidden' => 'true', 'class' => 'btn'));
+		 ?>
+	</div>
 </div>
