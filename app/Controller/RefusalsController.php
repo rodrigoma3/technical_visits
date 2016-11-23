@@ -46,16 +46,17 @@ class RefusalsController extends AppController {
 				switch ($this->request->data[$this->Refusal->alias]['type']) {
 					case '0':
 						$this->Refusal->Visit->saveField('status', '10');
-							// $options['to'] = Configure::read('Parameter.Email.fromEmail');
-							$options['to'] = 'giba_fernando@hotmail.com';
+						$visitOptions = array('conditions' => array('Visit.' . $this->Refusal->Visit->primaryKey => $this->request->data[$this->Refusal->alias]['visit_id']));
+						$visitInfo = $this->Refusal->Visit->find('first', $visitOptions);
+							// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // TODO HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+							$options['to'] = 'giba_fernando@hotmail.com'; // TODO EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
 							$options['template'] = 'visit_canceled';
-							$options['subject'] = __('Visit has been Canceled! - Technical Visits');
+							$options['subject'] = __('Visit to %s has been Canceled! - Technical Visits', $visitInfo['Visit']['destination']);
 							$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
+							$options['v'] = $visitInfo;
 							if ($this->sendMail($options)) {
-									$this->Flash->success(__('Test email successfully sent.'));
 									$emailSendFlag = true;
 							} else {
-									$this->Flash->error(__('Could not send test email.'));
 									$emailSendFlag = false;
 							}
 						break;
