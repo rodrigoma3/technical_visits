@@ -56,6 +56,7 @@ class VisitsController extends AppController {
 		}
 		$this->Visit->recursive = 2;
 		$this->set('courses', $this->Visit->Discipline->Course->find('list'));
+		$this->set('refusal_types', $this->Visit->Refusal->getEnums('type'));
 		$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 		$this->set('visit', $this->Visit->find('first', $options));
 	}
@@ -189,6 +190,22 @@ class VisitsController extends AppController {
 			if ($this->Visit->saveField('status', '3')) {
 				$this->Flash->success(__('The visit has been approved.'));
 				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Flash->error(__('Approval could not be saved. Please, try again.'));
+			}
+		}
+		return $this->redirect(array('action' => 'index'));
+	}
+
+	public function approve_report($id = null) {
+		$this->Visit->id = $id;
+		if (!$this->Visit->exists()) {
+			throw new NotFoundException(__('Invalid visit'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			$s = $this->Visit->field('status') + 2;
+			if ($this->Visit->saveField('status', $s)) {
+				$this->Flash->success(__('The visit report has been approved.'));
 			} else {
 				$this->Flash->error(__('Approval could not be saved. Please, try again.'));
 			}

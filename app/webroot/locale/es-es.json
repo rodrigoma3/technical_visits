@@ -25,6 +25,15 @@
 		"sSortDescending": ": Activar para ordenar la columna de manera descendente"
 	},
     "oLocale": {
-        "All": "Todos"
+        "All": "Todos",
+		"nonSelectedListLabel": "No seleccionado",
+		"selectedListLabel": "Seleccionado",
+		"filterTextClear": "Mostrar todos",
+		"filterPlaceHolder": "filtro",
+		"moveAllLabel": "Mover todo",
+		"removeAllLabel": "Retire todo",
+		"infoText": "Mostrando toda {0}",
+		"infoTextFiltered": "<span class='label label-warning'>Filtrada</span> {0} de {1}",
+		"infoTextEmpty": "Lista vacía"
     }
 }

@@ -96,4 +96,34 @@ class CitiesController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+
+/**
+ * cities_short_distance method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function cities_short_distance() {
+		if ($this->request->is(array('post', 'put'))) {
+			$conditions = array($this->City->alias.'.id' => $this->request->data[$this->City->alias]['cities']);
+			if ($this->City->updateAll(array($this->City->alias.'.short_distance' => 0))) {
+				if ($this->City->updateAll(array($this->City->alias.'.short_distance' => 1), $conditions)) {
+					$this->Flash->success(__('The cities short distance has been saved.'));
+					return $this->redirect(array('action' => 'cities_short_distance'));
+				} else {
+					$this->Flash->error(__('The cities short distance could not be saved. Please, try again.'));
+				}
+			} else {
+				$this->Flash->error(__('The cities short distance could not be saved. Please, try again.'));
+			}
+		} else {
+			$options = array('conditions' => array($this->City->alias.'.short_distance' => 1));
+			$list = $this->City->find('list', $options);
+			$this->request->data[$this->City->alias]['cities'] = array_keys($list);
+		}
+		$cities = $this->City->find('list');
+		$this->set(compact('cities'));
+	}
+
 }

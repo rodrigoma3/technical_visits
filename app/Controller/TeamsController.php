@@ -29,6 +29,7 @@ class TeamsController extends AppController {
 		if (!$this->Team->exists($id)) {
 			throw new NotFoundException(__('Invalid team'));
 		}
+		$this->Team->recursive = 2;
 		$options = array('conditions' => array('Team.' . $this->Team->primaryKey => $id));
 		$this->set('team', $this->Team->find('first', $options));
 	}

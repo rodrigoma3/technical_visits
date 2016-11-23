@@ -105,6 +105,8 @@
 			<?php echo $this->Form->postLink('<i class="fa fa-thumbs-o-up"></i> '.__('Approve Visit'), array('action' => 'approve_visit', $visit['Visit']['id']), array('class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
 			<?php echo $this->Form->postLink('<i class="fa fa-thumbs-o-up"></i> '.__('Pre Approve Visit'), array('action' => 'pre_approve_visit', $visit['Visit']['id']), array('class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
 			<?php echo $this->Html->link('<i class="fa fa-thumbs-o-down"></i> '.__('Disapprove Visit'), array('controller' => 'refusals', 'action' => 'disapproved_visit', $visit['Visit']['id']), array('class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to disapprove # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
+			<?php echo $this->Form->postLink('<i class="fa fa-thumbs-o-up"></i> '.__('Approve Report'), array('action' => 'approve_report', $visit['Visit']['id']), array('class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
+			<?php echo $this->Html->link('<i class="fa fa-thumbs-o-down"></i> '.__('Disapprove Report'), array('controller' => 'refusals', 'action' => 'disapproved_report', $visit['Visit']['id']), array('class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to disapprove # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
 			<?php echo $this->Html->link('<i class="fa fa-paper-plane-o"></i> '.__('Deliver report'), '#deliverReport', array('class' => 'btn btn-success', 'role' => 'button', 'data-toggle' => 'modal', 'escape' => false)); ?>
 			<?php echo $this->Html->link(__('List Visits'), array('action' => 'index'), array('class' => 'btn btn-primary')); ?>
 			<?php echo $this->Html->link(__('Edit Visit'), array('action' => 'edit', $visit['Visit']['id']), array('class' => 'btn')); ?>
@@ -124,44 +126,41 @@
 			<thead>
 				<tr>
 					<th></th>
-							<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Date'); ?></th>
-		<th><?php echo __('Reason'); ?></th>
-		<th><?php echo __('Type'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th><?php echo __('Visit Id'); ?></th>
+					<th><?php echo __('Id'); ?></th>
+					<th><?php echo __('Date'); ?></th>
+					<th><?php echo __('Reason'); ?></th>
+					<th><?php echo __('Type'); ?></th>
+					<th><?php echo __('User'); ?></th>
 					<th><?php echo __('Actions'); ?></th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
 					<th></th>
-							<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Date'); ?></th>
-		<th><?php echo __('Reason'); ?></th>
-		<th><?php echo __('Type'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th><?php echo __('Visit Id'); ?></th>
+					<th><?php echo __('Id'); ?></th>
+					<th><?php echo __('Date'); ?></th>
+					<th><?php echo __('Reason'); ?></th>
+					<th><?php echo __('Type'); ?></th>
+					<th><?php echo __('User'); ?></th>
 					<th><?php echo __('Actions'); ?></th>
 				</tr>
 			</tfoot>
 			<tbody>
-					<?php foreach ($visit['Refusal'] as $refusal): ?>
-		<tr>
-			<td></td>
-			<td><?php echo $refusal['id']; ?></td>
-			<td><?php echo $refusal['created']; ?></td>
-			<td><?php echo $refusal['reason']; ?></td>
-			<td><?php echo $refusal['type']; ?></td>
-			<td><?php echo $refusal['user_id']; ?></td>
-			<td><?php echo $refusal['visit_id']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('controller' => 'refusals', 'action' => 'view', $refusal['id']), array('escape' => false, 'class' => 'btn')); ?>
-				<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('controller' => 'refusals', 'action' => 'edit', $refusal['id']), array('escape' => false, 'class' => 'btn')); ?>
-				<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('controller' => 'refusals', 'action' => 'delete', $refusal['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $refusal['id']))); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
+				<?php foreach ($visit['Refusal'] as $refusal): ?>
+					<tr>
+						<td></td>
+						<td><?php echo $refusal['id']; ?></td>
+						<td><?php echo $refusal['created']; ?></td>
+						<td><?php echo $refusal['reason']; ?></td>
+						<td><?php echo $refusal_types[$refusal['type']]; ?></td>
+						<td><?php echo $refusal['User']['name']; ?></td>
+						<td class="actions">
+							<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('controller' => 'refusals', 'action' => 'view', $refusal['id']), array('escape' => false, 'class' => 'btn')); ?>
+							<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('controller' => 'refusals', 'action' => 'edit', $refusal['id']), array('escape' => false, 'class' => 'btn')); ?>
+							<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('controller' => 'refusals', 'action' => 'delete', $refusal['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $refusal['id']))); ?>
+						</td>
+					</tr>
+				<?php endforeach; ?>
 			</tbody>
 		</table>
 		<div class="form-actions">

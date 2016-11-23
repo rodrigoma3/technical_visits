@@ -196,6 +196,13 @@ class AppController extends Controller {
                             'allow' => false,
                         ),
                         array(
+                            'title' => __('Cities short distance'),
+                            'controller' => 'cities',
+                            'action' => 'cities_short_distance',
+                            'id' => null,
+                            'allow' => false,
+                        ),
+                        array(
                             'title' => __('System'),
                             'controller' => 'parameters',
                             'action' => 'system',
@@ -248,9 +255,8 @@ class AppController extends Controller {
                 $Email->replyTo($parameter['replyTo']);
             }
             $Email->config($configEmail);
-            $Email->send();
+            return $Email->send();
 
-            return true;
         } catch (Exception $e) {
             return false;
         }

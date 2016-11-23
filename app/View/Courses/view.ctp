@@ -17,7 +17,7 @@
 		</dd>
 		<dt><?php echo __('Type Of Academic Period'); ?></dt>
 		<dd>
-			<?php echo h($course['Course']['type_of_academic_period']); ?>
+			<?php echo h($course['TypeOfAcademicPeriod']['name']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Amount Of Academic Periods'); ?></dt>
@@ -45,20 +45,18 @@
 			<thead>
 				<tr>
 					<th></th>
-							<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Academic Period'); ?></th>
-		<th><?php echo __('Course Id'); ?></th>
+					<th><?php echo __('Id'); ?></th>
+					<th><?php echo __('Name'); ?></th>
+					<th><?php echo __('Academic Period'); ?></th>
 					<th><?php echo __('Actions'); ?></th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
 					<th></th>
-							<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Academic Period'); ?></th>
-		<th><?php echo __('Course Id'); ?></th>
+					<th><?php echo __('Id'); ?></th>
+					<th><?php echo __('Name'); ?></th>
+					<th><?php echo __('Academic Period'); ?></th>
 					<th><?php echo __('Actions'); ?></th>
 				</tr>
 			</tfoot>
@@ -69,7 +67,6 @@
 			<td><?php echo $discipline['id']; ?></td>
 			<td><?php echo $discipline['name']; ?></td>
 			<td><?php echo $discipline['academic_period']; ?></td>
-			<td><?php echo $discipline['course_id']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('controller' => 'disciplines', 'action' => 'view', $discipline['id']), array('escape' => false, 'class' => 'btn')); ?>
 				<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('controller' => 'disciplines', 'action' => 'edit', $discipline['id']), array('escape' => false, 'class' => 'btn')); ?>

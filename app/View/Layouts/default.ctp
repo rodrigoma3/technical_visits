@@ -18,6 +18,7 @@
 									'/DataTables-1_10_12/extensions/Responsive/css/responsive.dataTables.min',
 									'/DataTables-1_10_12/extensions/Select/css/select.dataTables.min',
 									'jsTree/style.min',
+									'bootstrap-duallistbox.min',
 									'custom',
 		));
 
@@ -33,6 +34,7 @@
 									'/DataTables-1_10_12/extensions/Responsive/js/dataTables.responsive.min',
 									'/DataTables-1_10_12/extensions/Select/js/dataTables.select.min',
 									'jsTree/jstree.min',
+									'jquery.bootstrap-duallistbox.min',
 									'custom',
 		));
 
@@ -137,18 +139,20 @@
 		<div class="main-inner">
 			<div class="container">
 				<div class="row">
-					<?php echo $this->Flash->render('auth'); ?>
+					<div class="span12">
+						<?php echo $this->Flash->render('auth', array('element' => 'Flash\error')); ?>
 
-					<?php echo $this->Flash->render(); ?>
+						<?php echo $this->Flash->render(); ?>
 
-					<?php echo $this->fetch('content'); ?>
+						<?php echo $this->fetch('content'); ?>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<script type="text/javascript">
-		var lang = "<?php echo Router::url('/DataTables-1_10_12/locale/').Configure::read('Config.language').'.json'; ?>";
+		var lang = "<?php echo Router::url('/locale/').Configure::read('Config.language').'.json'; ?>";
 	</script>
 
 
