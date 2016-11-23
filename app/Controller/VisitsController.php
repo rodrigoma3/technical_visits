@@ -179,7 +179,23 @@ class VisitsController extends AppController {
 			$this->request->data[$this->Visit->alias]['user_id'] = $this->Auth->user('id');
 			// $this->request->data[$this->Visit->alias]['status'] = '0';
 			if ($this->Visit->save($this->request->data)) {
-				$this->Flash->success(__('The visit has been saved.'));
+				$visitOptions = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
+				$visitInfo = $this->Visit->find('first', $visitOptions);
+					// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // TODO HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+					$options['to'] = 'giba_fernando@hotmail.com'; // TODO EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+					$options['template'] = 'visit_edited';
+					$options['subject'] = __('Visit to %s has been Edited! - Technical Visits', $visitInfo['Visit']['destination']);
+					$options['v'] = $visitInfo;
+					if ($this->sendMail($options)) {
+							$emailSendFlag = true;
+					} else {
+							$emailSendFlag = false;
+					}
+				if($emailSendFlag){
+					$this->Flash->success(__('The visit has been saved.'));
+				}else{
+					$this->Flash->warning(__('The visit has been saved, but the system failed to send the Administrator a notification e-mail.'));
+				}
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Flash->error(__('The visit could not be saved. Please, try again.'));
