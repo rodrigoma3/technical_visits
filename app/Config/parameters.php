@@ -24,7 +24,8 @@ $config = array (
     ),
     'Transport' =>
     array (
-      'cost_per_km' => '4.99',
+      'cost_per_km_campus' => '4.99',
+      'cost_per_km_outsourced' => '4.99',
     ),
     'System' =>
     array (

@@ -1,13 +1,30 @@
 
 $(document).ready(function() {
-    // var locale = [];
-    // $.getJSON( lang, function( data ) {
-    //     json = JSON.stringify(data.oLocale); //convert to json string
-    //     // console.log(json);
-    //     locale = $.parseJSON(json); //convert to javascript array
-    //     // console.log(locale['All']);
-    // });
+
     String.prototype.stripHTML = function() {return this.replace(/<.*?>/g, '');}
+
+    $('option').each(function(index) {
+        if ($(this).val() === '') {
+            $(this).attr('disabled', true);
+        }
+    });
+
+    $( "#VisitDistance" ).keyup(function() {
+        switch ($( "#VisitTransport" ).val()) {
+            case 2:
+                $( "#cost_per_km_campus" ).html();
+                break;
+            case 3:
+                $( "#cost_per_km_outsourced" ).html();
+                break;
+            default:
+
+        }
+    });
+
+    $( "#VisitTransport" ).change(function() {
+
+    });
 
     // BEGIN: dataTables
     var table = $('table#dataTables').DataTable({
@@ -92,16 +109,83 @@ $(document).ready(function() {
         $('.box1').removeClass('col-md-6').addClass('span5');
         $('.box2').removeClass('col-md-6').addClass('span5');
         $('button.move').html('<i class="fa fa-arrow-right"></i>');
-        $('button.moveall').html('<i class="fa fa-arrow-right"></i><i class="fa fa-arrow-right"></i>');
+        $('button.moveall').html('<i class="fa fa-arrow-right"></i>&nbsp;<i class="fa fa-arrow-right"></i>');
         $('button.remove').html('<i class="fa fa-arrow-left"></i>');
-        $('button.removeall').html('<i class="fa fa-arrow-left"></i><i class="fa fa-arrow-left"></i>');
+        $('button.removeall').html('<i class="fa fa-arrow-left"></i>&nbsp;<i class="fa fa-arrow-left"></i>');
 
         //in ajax mode, remove remaining elements before leaving page
         $(document).one('ajaxloadstart.page', function(e) {
             $('#duallist').bootstrapDualListbox('destroy');
         });
-
     });
     // END: bootstrap-duallistbox
+
+    // BEGIN: ajax
+    $(function(){
+        $('#VisitStates').change(function(){
+            var state = $(this).val();
+            $.ajax({
+                url: $(location).attr('href'),
+                type: 'GET',
+                data: {"state_id": state},
+                success: function(data){
+                    $('#VisitCityId').children('option[value!=""]').each(function(index) {
+                        $(this).remove();
+                    });
+                    var obj = jQuery.parseJSON(data);
+                    $.each(obj, function(i,v) {
+                        $('#VisitCityId').append('<option value="'+i+'">'+v+'</option>');
+                    });
+                },
+                error: function(){
+
+                }
+            });
+            return false;
+        });
+        $('#VisitCourse').change(function(){
+            var course = $(this).val();
+            $.ajax({
+                url: $(location).attr('href'),
+                type: 'GET',
+                data: {"course_id": course},
+                success: function(data){
+                    $('#VisitDisciplineId').children('option[value!=""]').each(function(index) {
+                        $(this).remove();
+                    });
+                    var obj = jQuery.parseJSON(data);
+                    $.each(obj, function(i,v) {
+                        $('#VisitDisciplineId').append('<option value="'+i+'">'+v+'</option>');
+                    });
+                },
+                error: function(){
+
+                }
+            });
+            return false;
+        });
+        $('#VisitDisciplineId').change(function(){
+            var discipline = $(this).val();
+            $.ajax({
+                url: $(location).attr('href'),
+                type: 'GET',
+                data: {"discipline_id": discipline},
+                success: function(data){
+                    $('#VisitTeamId').children('option[value!=""]').each(function(index) {
+                        $(this).remove();
+                    });
+                    var obj = jQuery.parseJSON(data);
+                    $.each(obj, function(i,v) {
+                        $('#VisitTeamId').append('<option value="'+i+'">'+v+'</option>');
+                    });
+                },
+                error: function(){
+
+                }
+            });
+            return false;
+        });
+    });
+    // END: ajax
 
 } );
