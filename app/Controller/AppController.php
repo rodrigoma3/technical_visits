@@ -67,6 +67,7 @@ class AppController extends Controller {
         $this->Auth->unauthorizedRedirect = $this->referer();
         $this->Auth->authError = __('You are not authorized to access that location.');
 
+        CakeNumber::addFormat('BRL', array('thousands' => '.', 'decimals' => ','));
 
         $this->Auth->allow(Configure::read('Parameter.System.allowed_actions'));
 

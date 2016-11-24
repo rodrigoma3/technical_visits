@@ -93,6 +93,7 @@
 			<?php echo $this->Html->link('<i class="fa fa-copy"></i> '.__('Copy'), array('action' => 'copy', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn')); ?>
 			<?php echo $this->Html->link('<i class="fa fa-trash"></i> '.__('Cancel'), array('controller' => 'refusals','action' => 'cancel', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to cancel # %s?', $visit['Visit']['id']))); ?>
 			<?php echo $this->Html->link('<i class="fa fa-truck"></i> '.__('Transport'), array('action' => 'transport_update', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn')); ?>
+            <?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Review change'), array('action' => 'review_change', $visit['Visit']['id']), array('escape' => false, 'class' => 'btn')); ?>
         </td>
 	</tr>
 <?php endforeach; ?>

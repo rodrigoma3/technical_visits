@@ -38,7 +38,7 @@ class VisitsController extends AppController {
  */
 	public function index() {
 		$this->Visit->recursive = 2;
-		$this->set('visits', $this->Visit->find('all'));
+		$this->set('visits', $this->Visit->find('all', array('conditions' => array($this->Visit->alias.'.visit_id_edit' => 0))));
 		$this->set('courses', $this->Visit->Discipline->Course->find('list'));
 	}
 
@@ -96,58 +96,25 @@ class VisitsController extends AppController {
  * @return void
  */
 	public function add() {
-		if($this->request->is('ajax')){
-			$this->autoRender = false;
-			if ($this->request->query('state_id') !== null) {
-				$options = array('conditions' => array($this->Visit->City->alias.'.state_id' => $this->request->query('state_id')));
-				$result = $this->Visit->City->find('list', $options);
-			}
-			if ($this->request->query('course_id') !== null) {
-				$options = array('conditions' => array($this->Visit->Discipline->alias.'.course_id' => $this->request->query('course_id')));
-				$result = $this->Visit->Discipline->find('list', $options);
-			}
-			if ($this->request->query('discipline_id') !== null) {
-				$options = array(
-					'conditions' => array($this->Visit->Team->DisciplinesTeam->alias.'.discipline_id' => $this->request->query('discipline_id')),
-					'joins' => array(
-						array(
-							'table' => $this->Visit->Team->DisciplinesTeam->table,
-							'alias' => $this->Visit->Team->DisciplinesTeam->alias,
-							'type' => 'INNER',
-							'conditions' => array(
-								$this->Visit->Team->alias.'.id = '.$this->Visit->Team->DisciplinesTeam->alias.'.team_id'
-							)
-				        )
-					));
-				$result = $this->Visit->Team->find('list', $options);
-			}
-			return json_encode($result);
-		} elseif ($this->request->is('post')) {
-			$this->request->data[$this->Visit->alias]['user_id'] = $this->Auth->user('id');
-			$this->request->data[$this->Visit->alias]['status'] = '0';
-			$this->Visit->create();
-			if ($this->Visit->save($this->request->data)) {
-				$this->Flash->success(__('The visit has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Flash->error(__('The visit could not be saved. Please, try again.'));
-			}
-		}
-		$states = $this->Visit->City->State->find('list');
-		$courses = $this->Visit->Discipline->Course->find('list');
-		$this->set(compact('states', 'courses'));
-	}
-
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
-		if (!$this->Visit->exists($id)) {
-			throw new NotFoundException(__('Invalid visit'));
+		if ($this->Session->read('copy')) {
+			$this->request->data = $this->Session->read('copy');
+			$this->Session->delete('copy');
+			$options = array(
+				'conditions' => array($this->Visit->Team->DisciplinesTeam->alias.'.discipline_id' => $this->request->data[$this->Visit->alias]['discipline_id']),
+				'joins' => array(
+					array(
+						'table' => $this->Visit->Team->DisciplinesTeam->table,
+						'alias' => $this->Visit->Team->DisciplinesTeam->alias,
+						'type' => 'INNER',
+						'conditions' => array(
+							$this->Visit->Team->alias.'.id = '.$this->Visit->Team->DisciplinesTeam->alias.'.team_id'
+						)
+					)
+				));
+			$teams = $this->Visit->Team->find('list', $options);
+			$cities = $this->Visit->City->find('list', array('conditions' => array('state_id' => $this->request->data[$this->Visit->alias]['states'])));
+			$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
+			$this->set(compact('teams', 'cities', 'disciplines'));
 		}
 		if($this->request->is('ajax')){
 			$this->autoRender = false;
@@ -177,97 +144,160 @@ class VisitsController extends AppController {
 			return json_encode($result);
 		} elseif ($this->request->is(array('post', 'put'))) {
 			$this->request->data[$this->Visit->alias]['user_id'] = $this->Auth->user('id');
-			// $this->request->data[$this->Visit->alias]['status'] = '0';
+			$this->request->data[$this->Visit->alias]['status'] = '0';
+			$this->Visit->create();
 			if ($this->Visit->save($this->request->data)) {
-				$visitOptions = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
-				$visitInfo = $this->Visit->find('first', $visitOptions);
-					// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // TODO HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
-					$options['to'] = 'giba_fernando@hotmail.com'; // TODO EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
-					$options['template'] = 'visit_edited';
-					$options['subject'] = __('Visit to %s has been Edited! - Technical Visits', $visitInfo['Visit']['destination']);
-					$options['v'] = $visitInfo;
-					if ($this->sendMail($options)) {
-							$emailSendFlag = true;
-					} else {
-							$emailSendFlag = false;
-					}
-				if($emailSendFlag){
-					$this->Flash->success(__('The visit has been saved.'));
-				}else{
-					$this->Flash->warning(__('The visit has been saved, but the system failed to send the Administrator a notification e-mail.'));
-				}
+				$this->Flash->success(__('The visit has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Flash->error(__('The visit could not be saved. Please, try again.'));
 			}
-		} else {
-			$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
-			$this->request->data = $this->Visit->find('first', $options);
-			$this->request->data[$this->Visit->alias]['states'] = $this->request->data[$this->Visit->City->alias]['state_id'];
-			$this->request->data[$this->Visit->alias]['course'] = $this->request->data[$this->Visit->Discipline->alias]['course_id'];
 		}
-		$options = array(
-			'conditions' => array($this->Visit->Team->DisciplinesTeam->alias.'.discipline_id' => $this->request->data[$this->Visit->alias]['discipline_id']),
-			'joins' => array(
-				array(
-					'table' => $this->Visit->Team->DisciplinesTeam->table,
-					'alias' => $this->Visit->Team->DisciplinesTeam->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->Visit->Team->alias.'.id = '.$this->Visit->Team->DisciplinesTeam->alias.'.team_id'
-					)
-				)
-			));
-		$teams = $this->Visit->Team->find('list', $options);
-		$cities = $this->Visit->City->find('list', array('conditions' => array('state_id' => $this->request->data[$this->Visit->alias]['states'])));
-		$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
 		$states = $this->Visit->City->State->find('list');
 		$courses = $this->Visit->Discipline->Course->find('list');
-		$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses'));
+		$this->set(compact('states', 'courses'));
+	}
+
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		if (!$this->Visit->exists($id)) {
+			throw new NotFoundException(__('Invalid visit'));
+		}
+		$visit = $this->Visit->findById($id);
+		if ($visit[$this->Visit->alias]['status'] < 4) {
+			if($this->request->is('ajax')){
+				$this->autoRender = false;
+				if ($this->request->query('state_id') !== null) {
+					$options = array('conditions' => array($this->Visit->City->alias.'.state_id' => $this->request->query('state_id')));
+					$result = $this->Visit->City->find('list', $options);
+				}
+				if ($this->request->query('course_id') !== null) {
+					$options = array('conditions' => array($this->Visit->Discipline->alias.'.course_id' => $this->request->query('course_id')));
+					$result = $this->Visit->Discipline->find('list', $options);
+				}
+				if ($this->request->query('discipline_id') !== null) {
+					$options = array(
+						'conditions' => array($this->Visit->Team->DisciplinesTeam->alias.'.discipline_id' => $this->request->query('discipline_id')),
+						'joins' => array(
+							array(
+								'table' => $this->Visit->Team->DisciplinesTeam->table,
+								'alias' => $this->Visit->Team->DisciplinesTeam->alias,
+								'type' => 'INNER',
+								'conditions' => array(
+									$this->Visit->Team->alias.'.id = '.$this->Visit->Team->DisciplinesTeam->alias.'.team_id'
+								)
+					        )
+						));
+					$result = $this->Visit->Team->find('list', $options);
+				}
+				return json_encode($result);
+			} elseif ($this->request->is(array('post', 'put'))) {
+				// BEGIN
+				if ($visit[$this->Visit->alias]['status'] !== '0') {
+					$options = array('conditions' => array($this->Visit->alias.'.id' => $id), 'recursive' => -1);
+					$data = $this->Visit->find('first', $options);
+					if ($data[$this->Visit->alias]['transport'] > 1) {
+						if ($this->request->data[$this->Visit->alias]['transport'] === '1') {
+							$this->request->data[$this->Visit->alias]['transport_cost'] = '0';
+							$this->request->data[$this->Visit->alias]['distance'] = '0';
+						} else {
+							unset($this->request->data[$this->Visit->alias]['transport']);
+						}
+					}
+					if ($this->request->data[$this->Visit->alias]['city_id'] !== $data[$this->Visit->alias]['city_id']) {
+						$data[$this->Visit->alias]['refund'] = '0';
+					}
+					foreach ($this->request->data[$this->Visit->alias] as $field => $content) {
+						$data[$this->Visit->alias][$field] = $content;
+					}
+					$data[$this->Visit->alias]['visit_id_edit'] = $id;
+					unset($data[$this->Visit->alias]['id']);
+					unset($data[$this->Visit->alias]['created']);
+					unset($data[$this->Visit->alias]['modified']);
+					unset($data[$this->Visit->alias]['report']);
+					$this->request->data = $data;
+					$this->Visit->create();
+				}
+				// debug('CREATED');
+				// debug($data);
+				// debug($this->request->data);
+				// exit;
+				if ($this->Visit->save($this->request->data)) {
+					// $visitOptions = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
+					// 	$visitInfo = $this->Visit->find('first', $visitOptions);
+	 			// 		// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+	 			// 		$options['to'] = 'giba_fernando@hotmail.com'; // EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+	 			// 		$options['template'] = 'visit_edited';
+	 			// 		$options['subject'] = __('Visit to %s has been Edited! - Technical Visits', $visitInfo['Visit']['destination']);
+	 			// 		$options['v'] = $visitInfo;
+	 			// 		if ($this->sendMail($options)) {
+	 			// 				$emailSendFlag = true;
+	 			// 		} else {
+	 			// 				$emailSendFlag = false;
+	 			// 		}
+					// 	if($emailSendFlag){
+						if (isset($data) && !empty($data)) {
+							$this->Visit->id = $id;
+							$this->Visit->saveField('status', '12');
+							$this->Flash->success(__('The change of visit has been saved. Wait for the changes to be reviewed.'));
+						} else {
+							$this->Flash->success(__('The visit has been saved.'));
+						}
+					// 	}else{
+	 			// 		$this->Flash->warning(__('The visit has been saved, but the system failed to send the Administrator a notification e-mail.'));
+					// 	}
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Flash->error(__('The visit could not be saved. Please, try again.'));
+				}
+
+				// END
+			} else {
+				$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
+				$this->request->data = $this->Visit->find('first', $options);
+				$this->request->data[$this->Visit->alias]['states'] = $this->request->data[$this->Visit->City->alias]['state_id'];
+				$this->request->data[$this->Visit->alias]['course'] = $this->request->data[$this->Visit->Discipline->alias]['course_id'];
+			}
+			$options = array(
+				'conditions' => array($this->Visit->Team->DisciplinesTeam->alias.'.discipline_id' => $this->request->data[$this->Visit->alias]['discipline_id']),
+				'joins' => array(
+					array(
+						'table' => $this->Visit->Team->DisciplinesTeam->table,
+						'alias' => $this->Visit->Team->DisciplinesTeam->alias,
+						'type' => 'INNER',
+						'conditions' => array(
+							$this->Visit->Team->alias.'.id = '.$this->Visit->Team->DisciplinesTeam->alias.'.team_id'
+						)
+					)
+				));
+			$teams = $this->Visit->Team->find('list', $options);
+			$cities = $this->Visit->City->find('list', array('conditions' => array('state_id' => $this->request->data[$this->Visit->alias]['states'])));
+			$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
+			$states = $this->Visit->City->State->find('list');
+			$courses = $this->Visit->Discipline->Course->find('list');
+			$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses'));
+		} else {
+			return $this->redirect(array('action' => 'index'));
+		}
 	}
 
 	public function copy($id = null){
 		if (!$this->Visit->exists($id)) {
 			throw new NotFoundException(__('Invalid visit'));
 		}
-		$this->Visit->recursive = -1;
 		$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
-		$this->request->data = $this->Visit->find('first', $options);
-		unset($this->request->data['Visit']['id']);
-		unset($this->request->data['Visit']['created']);
-		unset($this->request->data['Visit']['departure']);
-		unset($this->request->data['Visit']['arrival']);
-		$transports = $this->Visit->getEnums('transport');
-		$statuses = $this->Visit->getEnums('status');
-		$users = $this->Visit->User->find('list');
-		$cities = $this->Visit->City->find('list');
-		$teams = $this->Visit->Team->find('list');
-		$disciplines = $this->Visit->Discipline->find('list');
-		$courses = $this->Visit->Discipline->Course->find('list');
-		$this->set(compact('users', 'cities', 'teams', 'transports', 'statuses', 'disciplines', 'courses'));
-		$this->render('add');
+		$copy = $this->Visit->find('first', $options);
+		$copy[$this->Visit->alias]['states'] = $copy[$this->Visit->City->alias]['state_id'];
+		$copy[$this->Visit->alias]['course'] = $copy[$this->Visit->Discipline->alias]['course_id'];
+		$this->Session->write('copy', $copy);
+		return $this->redirect(array('action' => 'add'));
 	}
-
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	// public function delete($id = null) {
-	// 	$this->Visit->id = $id;
-	// 	if (!$this->Visit->exists()) {
-	// 		throw new NotFoundException(__('Invalid visit'));
-	// 	}
-	// 	$this->request->allowMethod('post', 'delete');
-	// 	if ($this->Visit->delete()) {
-	// 		$this->Flash->success(__('The visit has been deleted.'));
-	// 	} else {
-	// 		$this->Flash->error(__('The visit could not be deleted. Please, try again.'));
-	// 	}
-	// 	return $this->redirect(array('action' => 'index'));
-	// }
 
 	public function pre_approve_visit($id = null) {
 		$this->Visit->id = $id;
@@ -373,44 +403,78 @@ class VisitsController extends AppController {
 		if (!$this->Visit->exists()) {
 			throw new NotFoundException(__('Invalid visit'));
 		}
+		if (in_array($this->Visit->field('status'), array(1, 4, 6, 8))) {
+			if ($this->request->is(array('post', 'put'))) {
+				$data[$this->Visit->alias]['id'] = $this->request->data[$this->Visit->alias]['id'];
+				$data[$this->Visit->alias]['transport'] = $this->request->data[$this->Visit->alias]['transport'];
+				$data[$this->Visit->alias]['distance'] = $this->request->data[$this->Visit->alias]['distance'];
+				$data[$this->Visit->alias]['transport_cost'] = $this->request->data[$this->Visit->alias]['transport_cost'];
+				$data[$this->Visit->alias]['status'] = $this->Visit->field('status') + 1;
+				if ($this->Visit->save($data)) {
+					$this->Flash->success(__('The visit has been saved.'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Flash->error(__('The visit could not be saved. Please, try again.'));
+				}
+			} else {
+				$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
+				$this->request->data = $this->Visit->find('first', $options);
+				$this->request->data[$this->Visit->alias]['states'] = $this->request->data[$this->Visit->City->alias]['state_id'];
+				$this->request->data[$this->Visit->alias]['course'] = $this->request->data[$this->Visit->Discipline->alias]['course_id'];
+			}
+			$options = array(
+				'conditions' => array($this->Visit->Team->DisciplinesTeam->alias.'.discipline_id' => $this->request->data[$this->Visit->alias]['discipline_id']),
+				'joins' => array(
+					array(
+						'table' => $this->Visit->Team->DisciplinesTeam->table,
+						'alias' => $this->Visit->Team->DisciplinesTeam->alias,
+						'type' => 'INNER',
+						'conditions' => array(
+							$this->Visit->Team->alias.'.id = '.$this->Visit->Team->DisciplinesTeam->alias.'.team_id'
+						)
+					)
+				));
+				$teams = $this->Visit->Team->find('list', $options);
+				$cities = $this->Visit->City->find('list', array('conditions' => array('state_id' => $this->request->data[$this->Visit->alias]['states'])));
+				$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
+				$states = $this->Visit->City->State->find('list');
+				$courses = $this->Visit->Discipline->Course->find('list');
+				$statuses = $this->Visit->getEnums('status');
+				$transports = $this->Visit->getEnums('transport');
+				unset($transports[0]);
+				unset($transports[1]);
+				$cost_per_km = '';
+				foreach (Configure::read('Parameter.Transport') as $k => $v) {
+					$cost_per_km .= Inflector::humanize($k).' R$ <b id="'.$k.'">'.CakeNumber::currency($v, 'BRL').'</b></br>';
+				}
+				$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses', 'transports', 'cost_per_km', 'statuses'));
+		} else {
+			return $this->redirect(array('action' => 'index'));
+		}
+	}
+
+	public function review_change($id = null) {
+		$change = $this->Visit->find('first', array('conditions' => array($this->Visit->alias.'.visit_id_edit' => $id)));
+		if (empty($change)) {
+			$this->Flash->error(__('There are no changes to review for this visit.'));
+			return $this->redirect(array('action' => 'index'));
+		}
+		$this->request->data = $change;
 		if ($this->request->is(array('post', 'put'))) {
-			$this->request->data[$this->Visit->alias]['status'] = $this->Visit->field('status') + 1;
+			$this->request->data[$this->Visit->alias]['id'] => $id;
+			unset($this->request->data[$this->Visit->alias]['visit_id_edit']);
+			unset($this->request->data[$this->Visit->alias]['created']);
+			unset($this->request->data[$this->Visit->alias]['modified']);
+			unset($this->request->data[$this->Visit->alias]['report']);
+			if ($this->request->data[$this->Visit->alias]['transport'] === '1') {
+				$this->request->data[$this->Visit->alias]['status'] = '2';
+			}
 			if ($this->Visit->save($this->request->data)) {
 				$this->Flash->success(__('The visit has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Flash->error(__('The visit could not be saved. Please, try again.'));
 			}
-		} else {
-			$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
-			$this->request->data = $this->Visit->find('first', $options);
-			$this->request->data[$this->Visit->alias]['states'] = $this->request->data[$this->Visit->City->alias]['state_id'];
-			$this->request->data[$this->Visit->alias]['course'] = $this->request->data[$this->Visit->Discipline->alias]['course_id'];
 		}
-		$options = array(
-			'conditions' => array($this->Visit->Team->DisciplinesTeam->alias.'.discipline_id' => $this->request->data[$this->Visit->alias]['discipline_id']),
-			'joins' => array(
-				array(
-					'table' => $this->Visit->Team->DisciplinesTeam->table,
-					'alias' => $this->Visit->Team->DisciplinesTeam->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->Visit->Team->alias.'.id = '.$this->Visit->Team->DisciplinesTeam->alias.'.team_id'
-					)
-				)
-			));
-		$teams = $this->Visit->Team->find('list', $options);
-		$cities = $this->Visit->City->find('list', array('conditions' => array('state_id' => $this->request->data[$this->Visit->alias]['states'])));
-		$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
-		$states = $this->Visit->City->State->find('list');
-		$courses = $this->Visit->Discipline->Course->find('list');
-		$transports = $this->Visit->getEnums('transport');
-		unset($transports[0]);
-		unset($transports[1]);
-		$cost_per_km = '';
-		foreach (Configure::read('Parameter.Transport') as $k => $v) {
-			$cost_per_km .= Inflector::humanize($k).' R$ <b id="'.$k.'">'.$v.'</b></br>';
-		}
-		$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses', 'transports', 'cost_per_km'));
 	}
 }

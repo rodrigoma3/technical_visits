@@ -20,7 +20,7 @@ class Visit extends AppModel {
 			3 => 'Outsourced',
 		),
 		'status' => array(
-			0 => 'Opening',
+			0 => 'Open',
 			1 => 'Awaiting transport',
 			2 => 'Waiting for approval',
 			3 => 'Awaiting realization',
@@ -32,6 +32,7 @@ class Visit extends AppModel {
 			9 => 'Completed',
 			10 => 'Canceled',
 			11 => 'Disapproved visit',
+			12 => 'Requested change on visit',
 		),
 	);
 

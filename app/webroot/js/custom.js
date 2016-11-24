@@ -9,21 +9,16 @@ $(document).ready(function() {
         }
     });
 
-    $( "#VisitDistance" ).keyup(function() {
-        switch ($( "#VisitTransport" ).val()) {
-            case 2:
-                $( "#cost_per_km_campus" ).html();
-                break;
-            case 3:
-                $( "#cost_per_km_outsourced" ).html();
-                break;
-            default:
-
+    $('#VisitDistance, #VisitTransport').on('change keyup', function() {
+        var distance = parseFloat($('#VisitDistance').val());
+        var cost = 0;
+        var transport = $('#VisitTransport').val();
+        if (transport === '2') {
+            cost = parseFloat($('#cost_per_km_campus').html());
+        } else if (transport === '3') {
+            cost = parseFloat($('#cost_per_km_outsourced').html());
         }
-    });
-
-    $( "#VisitTransport" ).change(function() {
-
+        $('#VisitTransportCost').val(parseFloat(cost * distance).toFixed(2));
     });
 
     // BEGIN: dataTables
