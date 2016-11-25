@@ -42,3 +42,13 @@ input {
     -webkit-border-radius: 4px 0 0 4px !important;
     border-radius: 4px 0 0 4px !important;
 }
+
+.progress-green .bar {
+    background-color: darkcyan !important;
+}
+
+.progress {
+    background-image: -webkit-linear-gradient(top, #00ba8b, #00ba8b);
+    height: 6px;
+    margin-bottom: 0 !important;
+}

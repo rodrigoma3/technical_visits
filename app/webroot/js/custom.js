@@ -1,4 +1,8 @@
 
+$(window).load(function() {
+    progressBar();
+});
+
 $(document).ready(function() {
 
     String.prototype.stripHTML = function() {return this.replace(/<.*?>/g, '');}
@@ -26,17 +30,23 @@ $(document).ready(function() {
         $(this).html('<i class="fa fa-spinner fa-pulse fa-fw"></i>'+$(this).html());
     });
 
+    $('a').on('click', function() {
+        progressBar();
+    });
+
     // BEGIN: dataTables
     var table = $('table#dataTables').DataTable({
         "language": {
             "url": lang
         },
         "scrollX": true,
-        "lengthMenu": [10, 25, 50, -1],
+        "lengthMenu": [[10, 25, 50, -1], ["10", "25", "50", function ( dt, button, config ) { return dt.i18n( 'oLocale.all', 'All' ); }]],
         initComplete: function () {
+            var qtdColumns = this.api().columns().count();
             this.api().columns().every( function () {
                 var column = this;
-                var select = $('<select><option value=""></option></select>')
+                if (column.index() !== 0 && column.index() !== (qtdColumns-1)) {
+                    var select = $('<select><option value=""></option></select>')
                     .appendTo( $(column.footer()).empty() )
                     .on( 'change', function () {
                         var val = $.fn.dataTable.util.escapeRegex(
@@ -44,28 +54,21 @@ $(document).ready(function() {
                         );
 
                         column
-                            .search( val ? '^'+val+'$' : '', true, false )
-                            .draw();
+                        .search( val ? '^'+val+'$' : '', true, false )
+                        .draw();
                     } );
-                var texts = [];
-                column.data().unique().sort().each( function ( d, j ) {
-                    var i = d.stripHTML();
-                    if (texts.indexOf(i) === -1) {
-                        texts.push(i);
-                        select.append( '<option value="'+i+'">'+i+'</option>' );
-                    }
-                } );
+                    var texts = [];
+                    column.data().unique().sort().each( function ( d, j ) {
+                        var i = d.stripHTML();
+                        if (texts.indexOf(i) === -1) {
+                            texts.push(i);
+                            select.append( '<option value="'+i+'">'+i+'</option>' );
+                        }
+                    } );
+                }
             } );
-
-            $.getJSON( lang, function( data ) {
-                $('.dt-button-collection a.dt-button').each(function() {
-                    if ($(this).children('span').html() === -1) {
-                        $(this).children('span').html(data.oLocale['All']);
-                    }
-                });
-                // $('select[name=dataTables_length] option[value=-1]').html(data.oLocale['All']);
-            });
         },
+        colReorder: true,
         dom: 'Bfrtip',
         responsive: {
             details: {
@@ -89,17 +92,79 @@ $(document).ready(function() {
                 extend: 'colvis',
                 // text: 'Show all',
                 // show: ':hidden'
-                postfixButtons: [ 'colvisRestore' ],
+                columns: ':not(:first-child)+:not(:last-child)',
+                postfixButtons: [
+                    'colvisRestore',
+                    {
+                        extend: 'colvisGroup',
+                        text: function ( dt, button, config ) {
+                            return dt.i18n( 'oLocale.showAll', 'Show all' );
+                        },
+                        show: ':hidden'
+                    },
+                    {
+                        extend: 'colvisGroup',
+                        text: function ( dt, button, config ) {
+                            return dt.i18n( 'oLocale.showNone', 'Show none' );
+                        },
+                        hide: ':visible,:hidden'
+                    }
+                ],
                 // collectionLayout: 'fixed three-column'
             },
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+                extend: 'collection',
+                text: function ( dt, button, config ) {
+                    return dt.i18n( 'oLocale.export', 'Export' );
+                },
+                autoClose: true,
+                buttons: [
+                    {
+                        extend: 'copy',
+                        target: ':visible',
+                        exportOptions: {
+                            columns: ':not(:last-child)+:not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        target: ':visible',
+                        exportOptions: {
+                            columns: ':not(:last-child)+:not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        target: ':visible',
+                        exportOptions: {
+                            columns: ':not(:last-child)+:not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        target: ':visible',
+                        exportOptions: {
+                            columns: ':not(:last-child)+:not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        target: ':visible',
+                        exportOptions: {
+                            columns: ':not(:last-child)+:not(:last-child)',
+                        }
+                    }
+                ]
+            },
+            {
+                text: function ( dt, button, config ) {
+                    return dt.i18n( 'oLocale.resetColReorder', 'Reset column order' );
+                },
+                action: function ( e, dt, node, config ) {
+                    dt.colReorder.reset();
+                }
+            }
         ],
-        // colVis: {
-        //     restore: "Restore",
-        //     showAll: "Show all",
-        //     showNone: "Show none",
-        //     activate: "mouseover"
-        // }
     });
 
     $('#dataTables tbody')
@@ -114,33 +179,35 @@ $(document).ready(function() {
 
     // BEGIN: bootstrap-duallistbox
     jQuery(function($){
-        var duallist = $('#duallist').bootstrapDualListbox({
-            filterOnValues: true,
-        });
-        $.getJSON( lang, function( data ) {
-            $('#duallist').bootstrapDualListbox('setNonSelectedListLabel', data.oLocale['nonSelectedListLabel']);
-            $('#duallist').bootstrapDualListbox('setSelectedListLabel', data.oLocale['selectedListLabel']);
-            $('#duallist').bootstrapDualListbox('setFilterTextClear', data.oLocale['filterTextClear']);
-            $('#duallist').bootstrapDualListbox('setFilterPlaceHolder', data.oLocale['filterPlaceHolder']);
-            $('#duallist').bootstrapDualListbox('setMoveAllLabel', data.oLocale['moveAllLabel']);
-            $('#duallist').bootstrapDualListbox('setRemoveAllLabel', data.oLocale['removeAllLabel']);
-            $('#duallist').bootstrapDualListbox('setInfoText', data.oLocale['infoText']);
-            $('#duallist').bootstrapDualListbox('setInfoTextFiltered', data.oLocale['infoTextFiltered']);
-            $('#duallist').bootstrapDualListbox('setInfoTextEmpty', data.oLocale['infoTextEmpty']);
-            $('#duallist').bootstrapDualListbox('refresh');
-        });
+        if ($('#duallist').length) {
+            var duallist = $('#duallist').bootstrapDualListbox({
+                filterOnValues: true,
+            });
+            $.getJSON( lang, function( data ) {
+                $('#duallist').bootstrapDualListbox('setNonSelectedListLabel', data.oLocale['nonSelectedListLabel']);
+                $('#duallist').bootstrapDualListbox('setSelectedListLabel', data.oLocale['selectedListLabel']);
+                $('#duallist').bootstrapDualListbox('setFilterTextClear', data.oLocale['filterTextClear']);
+                $('#duallist').bootstrapDualListbox('setFilterPlaceHolder', data.oLocale['filterPlaceHolder']);
+                $('#duallist').bootstrapDualListbox('setMoveAllLabel', data.oLocale['moveAllLabel']);
+                $('#duallist').bootstrapDualListbox('setRemoveAllLabel', data.oLocale['removeAllLabel']);
+                $('#duallist').bootstrapDualListbox('setInfoText', data.oLocale['infoText']);
+                $('#duallist').bootstrapDualListbox('setInfoTextFiltered', data.oLocale['infoTextFiltered']);
+                $('#duallist').bootstrapDualListbox('setInfoTextEmpty', data.oLocale['infoTextEmpty']);
+                $('#duallist').bootstrapDualListbox('refresh');
+            });
 
-        $('.box1').removeClass('col-md-6').addClass('span5');
-        $('.box2').removeClass('col-md-6').addClass('span5');
-        $('button.move').html('<i class="fa fa-arrow-right"></i>');
-        $('button.moveall').html('<i class="fa fa-arrow-right"></i>&nbsp;<i class="fa fa-arrow-right"></i>');
-        $('button.remove').html('<i class="fa fa-arrow-left"></i>');
-        $('button.removeall').html('<i class="fa fa-arrow-left"></i>&nbsp;<i class="fa fa-arrow-left"></i>');
+            $('.box1').removeClass('col-md-6').addClass('span5');
+            $('.box2').removeClass('col-md-6').addClass('span5');
+            $('button.move').html('<i class="fa fa-arrow-right"></i>');
+            $('button.moveall').html('<i class="fa fa-arrow-right"></i>&nbsp;<i class="fa fa-arrow-right"></i>');
+            $('button.remove').html('<i class="fa fa-arrow-left"></i>');
+            $('button.removeall').html('<i class="fa fa-arrow-left"></i>&nbsp;<i class="fa fa-arrow-left"></i>');
 
-        //in ajax mode, remove remaining elements before leaving page
-        $(document).one('ajaxloadstart.page', function(e) {
-            $('#duallist').bootstrapDualListbox('destroy');
-        });
+            //in ajax mode, remove remaining elements before leaving page
+            $(document).one('ajaxloadstart.page', function(e) {
+                $('#duallist').bootstrapDualListbox('destroy');
+            });
+        }
     });
     // END: bootstrap-duallistbox
 
@@ -213,3 +280,20 @@ $(document).ready(function() {
     // END: ajax
 
 } );
+
+function progressBar() {
+    $('body').prepend('<div class="progress progress-striped active progress-green"><div class="bar"></div></div>');
+    var w = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+        if (w >= 99) {
+            clearInterval(id);
+            $(document).ready(function() {
+                $('.progress').remove();
+            });
+        } else {
+            w++;
+            $('.progress .bar').css('width', w + '%');
+        }
+    }
+}

@@ -18,6 +18,7 @@
 									'/DataTables-1_10_12/extensions/Responsive/css/responsive.dataTables.min',
 									'/DataTables-1_10_12/extensions/Select/css/select.dataTables.min',
 									'/DataTables-1_10_12/extensions/Buttons/css/buttons.dataTables.min',
+									'/DataTables-1_10_12/extensions/ColReorder/css/colReorder.dataTables.min',
 									'jsTree/style.min',
 									'bootstrap-duallistbox.min',
 									'custom',
@@ -39,6 +40,7 @@
 									'/DataTables-1_10_12/extensions/Buttons/js/buttons.flash.min',
 									'/DataTables-1_10_12/extensions/Buttons/js/buttons.html5.min',
 									'/DataTables-1_10_12/extensions/Buttons/js/buttons.print.min',
+									'/DataTables-1_10_12/extensions/ColReorder/js/dataTables.colReorder.min',
 									'jszip.min',
 									'pdfmake/pdfmake.min',
 									'pdfmake/vfs_fonts',
@@ -143,6 +145,7 @@
 		<?php endif; ?>
 	<!-- /subnavbar-inner -->
 	</div>
+
 
 	<div class="main">
 		<div class="main-inner">

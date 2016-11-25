@@ -2,7 +2,6 @@
 
 {
 	"sProcessing":     "Procesando...",
-	"sLengthMenu":     "Mostrar _MENU_",
 	"sZeroRecords":    "No se encontraron resultados",
 	"sEmptyTable":     "Ningún dato disponible en esta tabla",
 	"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
@@ -24,11 +23,29 @@
 		"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
 		"sSortDescending": ": Activar para ordenar la columna de manera descendente"
 	},
+	"decimal": ".",
+    "thousands": ",",
 	"buttons": {
-		"colvis": "Ver colunas (es-es)"
+		"colvis": "Ver colunas (es-es)",
+		"colvisRestore": "Restaurar colunas (es-es)",
+		"pageLength": {
+            "_": "Mostrando %d linhas (es-es)",
+            "-1": "Mostrando tudo (es-es)"
+        },
+		"copy": "Copiar (es-es)",
+		"copyTitle": "Copiado para área de transferencia (es-es)",
+		"copySuccess": {
+			"_": "Copiado %d linhas (es-es)",
+			"1": "Copiado 1 linha (es-es)"
+		},
+        "print": "Imprimir (es-es)"
 	},
     "oLocale": {
-        "All": "Todos",
+		"all": "Tudo (es-es)",
+        "showAll": "Mostrar tudo (es-es)",
+        "showNone": "Mostrar nenhum (es-es)",
+        "resetColReorder": "Resetar ordem das colunas (es-es)",
+        "export": "Exportar (es-es)",
 		"nonSelectedListLabel": "No seleccionado",
 		"selectedListLabel": "Seleccionado",
 		"filterTextClear": "Mostrar todos",

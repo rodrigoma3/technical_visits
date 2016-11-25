@@ -7,7 +7,6 @@
 	"sInfoFiltered":   "(filtered from _MAX_ total entries)",
 	"sInfoPostFix":    "",
 	"sInfoThousands":  ",",
-	"sLengthMenu":     "Show _MENU_",
 	"sLoadingRecords": "Loading...",
 	"sProcessing":     "Processing...",
 	"sSearch": "_INPUT_",
@@ -23,12 +22,29 @@
 		"sSortAscending":  ": activate to sort column ascending",
 		"sSortDescending": ": activate to sort column descending"
 	},
+	"decimal": ".",
+    "thousands": ",",
 	"buttons": {
 		"colvis": "Column visibility",
-		"colvisRestore": "Restore visibility"
+		"colvisRestore": "Restore visibility",
+		"pageLength": {
+            "_": "Show %d rows",
+            "-1": "Show all"
+        },
+		"copy": "Copy",
+		"copyTitle": "Copy to clipboard",
+		"copySuccess": {
+			"_": "Copied %d lines",
+			"1": "Copied 1 line"
+		},
+        "print": "Print"
 	},
 	"oLocale": {
-        "All": "All",
+		"all": "All",
+        "showAll": "Show all",
+        "showNone": "Show none",
+		"resetColReorder": "Reset column order",
+        "export": "Export",
 		"nonSelectedListLabel": "Non-selected",
 		"selectedListLabel": "Selected",
 		"filterTextClear": "Show all",
