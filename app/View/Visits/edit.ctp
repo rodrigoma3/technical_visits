@@ -1,7 +1,11 @@
 <div class="widget visits form">
 	<?php echo $this->Form->create('Visit'); ?>
 	<div class="widget-header">
-		<h3><?php echo __('Edit Visit'); ?></h3>
+		<h3><?php if ($change) {
+			echo __('Requested change on visit');
+		} else {
+			echo __('Edit Visit');
+		}?></h3>
 	</div>
 	<!-- /widget-header -->
 	<div class="widget-content">
@@ -21,7 +25,12 @@
 			echo $this->Form->input('comments');
 		?>
 		<div class="form-actions">
-			<?php echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false)); ?>
+			<?php if ($change): ?>
+				<?php echo $this->Form->end(array('label' => '<i class="fa fa-thumbs-o-up"></i> '.__('Approve change'), 'class' => 'btn btn-success', 'div' => false, 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
+				<?php echo $this->Html->link('<i class="fa fa-thumbs-o-down"></i> '.__('Disapprove change'), array('controller' => 'refusals', 'action' => 'disapproved_change', $visit['Visit']['id']), array('class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to disapprove # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
+			<?php else: ?>
+				<?php echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false)); ?>
+			<?php endif; ?>
 			<?php echo $this->Html->link(__('Cancel'), $this->request->referer(), array('class' => 'btn')); ?>
 		</div>
 	</div>

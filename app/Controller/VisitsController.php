@@ -166,11 +166,17 @@ class VisitsController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		if (!$this->Visit->exists($id)) {
+		$change = false;
+		if ($this->Session->read('change')) {
+			$this->request->data = $this->Session->read('change');
+			$this->Session->delete('change');
+			$change = true;
+			$id = $this->request->data[$this->Visit->alias]['visit_id_edit'];
+		} elseif (!$this->Visit->exists($id)) {
 			throw new NotFoundException(__('Invalid visit'));
 		}
 		$visit = $this->Visit->findById($id);
-		if ($visit[$this->Visit->alias]['status'] < 4) {
+		if ($visit[$this->Visit->alias]['status'] < 4 || $visit[$this->Visit->alias]['status'] == 12) {
 			if($this->request->is('ajax')){
 				$this->autoRender = false;
 				if ($this->request->query('state_id') !== null) {
@@ -259,8 +265,10 @@ class VisitsController extends AppController {
 
 				// END
 			} else {
-				$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
-				$this->request->data = $this->Visit->find('first', $options);
+				if (!$change) {
+					$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
+					$this->request->data = $this->Visit->find('first', $options);
+				}
 				$this->request->data[$this->Visit->alias]['states'] = $this->request->data[$this->Visit->City->alias]['state_id'];
 				$this->request->data[$this->Visit->alias]['course'] = $this->request->data[$this->Visit->Discipline->alias]['course_id'];
 			}
@@ -281,7 +289,7 @@ class VisitsController extends AppController {
 			$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
 			$states = $this->Visit->City->State->find('list');
 			$courses = $this->Visit->Discipline->Course->find('list');
-			$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses'));
+			$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses', 'change'));
 		} else {
 			return $this->redirect(array('action' => 'index'));
 		}
@@ -459,22 +467,23 @@ class VisitsController extends AppController {
 			$this->Flash->error(__('There are no changes to review for this visit.'));
 			return $this->redirect(array('action' => 'index'));
 		}
-		$this->request->data = $change;
-		if ($this->request->is(array('post', 'put'))) {
-			$this->request->data[$this->Visit->alias]['id'] = $id;
-			unset($this->request->data[$this->Visit->alias]['visit_id_edit']);
-			unset($this->request->data[$this->Visit->alias]['created']);
-			unset($this->request->data[$this->Visit->alias]['modified']);
-			unset($this->request->data[$this->Visit->alias]['report']);
-			if ($this->request->data[$this->Visit->alias]['transport'] === '1') {
-				$this->request->data[$this->Visit->alias]['status'] = '2';
-			}
-			if ($this->Visit->save($this->request->data)) {
-				$this->Flash->success(__('The visit has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Flash->error(__('The visit could not be saved. Please, try again.'));
-			}
-		}
+		$this->Session->write('change', $change);
+		// if ($this->request->is(array('post', 'put'))) {
+		// 	$this->request->data[$this->Visit->alias]['id'] = $id;
+		// 	unset($this->request->data[$this->Visit->alias]['visit_id_edit']);
+		// 	unset($this->request->data[$this->Visit->alias]['created']);
+		// 	unset($this->request->data[$this->Visit->alias]['modified']);
+		// 	unset($this->request->data[$this->Visit->alias]['report']);
+		// 	if ($this->request->data[$this->Visit->alias]['transport'] === '1') {
+		// 		$this->request->data[$this->Visit->alias]['status'] = '2';
+		// 	}
+		// 	if ($this->Visit->save($this->request->data)) {
+		// 		$this->Flash->success(__('The visit has been saved.'));
+		// 		return $this->redirect(array('action' => 'index'));
+		// 	} else {
+		// 		$this->Flash->error(__('The visit could not be saved. Please, try again.'));
+		// 	}
+		// }
+		return $this->redirect(array('action' => 'edit'));
 	}
 }
