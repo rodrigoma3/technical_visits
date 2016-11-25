@@ -7,7 +7,7 @@
     "sInfoFiltered": "(Filtrados de _MAX_ registros)",
     "sInfoPostFix": "",
     "sInfoThousands": ".",
-    "sLengthMenu": "Mostrar _MENU_ registros",
+    "sLengthMenu": "Mostrar _MENU_",
     "sLoadingRecords": "Carregando...",
     "sProcessing": "Processando...",
     "sZeroRecords": "Nenhum registro encontrado",
@@ -23,6 +23,9 @@
         "sSortAscending": ": Ordenar colunas de forma ascendente",
         "sSortDescending": ": Ordenar colunas de forma descendente"
     },
+	"buttons": {
+		"colvis": "Ver colunas"
+	},
     "oLocale": {
         "All": "Todos",
 		"nonSelectedListLabel": "Não selecionados",

@@ -7,7 +7,7 @@
 	"sInfoFiltered":   "(filtered from _MAX_ total entries)",
 	"sInfoPostFix":    "",
 	"sInfoThousands":  ",",
-	"sLengthMenu":     "Show _MENU_ entries",
+	"sLengthMenu":     "Show _MENU_",
 	"sLoadingRecords": "Loading...",
 	"sProcessing":     "Processing...",
 	"sSearch": "_INPUT_",
@@ -22,6 +22,10 @@
 	"oAria": {
 		"sSortAscending":  ": activate to sort column ascending",
 		"sSortDescending": ": activate to sort column descending"
+	},
+	"buttons": {
+		"colvis": "Column visibility",
+		"colvisRestore": "Restore visibility"
 	},
 	"oLocale": {
         "All": "All",

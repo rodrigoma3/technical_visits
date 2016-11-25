@@ -461,7 +461,7 @@ class VisitsController extends AppController {
 		}
 		$this->request->data = $change;
 		if ($this->request->is(array('post', 'put'))) {
-			$this->request->data[$this->Visit->alias]['id'] => $id;
+			$this->request->data[$this->Visit->alias]['id'] = $id;
 			unset($this->request->data[$this->Visit->alias]['visit_id_edit']);
 			unset($this->request->data[$this->Visit->alias]['created']);
 			unset($this->request->data[$this->Visit->alias]['modified']);

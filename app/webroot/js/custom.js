@@ -21,6 +21,11 @@ $(document).ready(function() {
         $('#VisitTransportCost').val(parseFloat(cost * distance).toFixed(2));
     });
 
+    $('.btn').on('click', function() {
+        $(this).children('i').remove();
+        $(this).html('<i class="fa fa-spinner fa-pulse fa-fw"></i>'+$(this).html());
+    });
+
     // BEGIN: dataTables
     var table = $('table#dataTables').DataTable({
         "language": {
@@ -53,28 +58,52 @@ $(document).ready(function() {
             } );
 
             $.getJSON( lang, function( data ) {
-                $('select[name=dataTables_length] option[value=-1]').html(data.oLocale['All']);
+                $('.dt-button-collection a.dt-button').each(function() {
+                    if ($(this).children('span').html() === -1) {
+                        $(this).children('span').html(data.oLocale['All']);
+                    }
+                });
+                // $('select[name=dataTables_length] option[value=-1]').html(data.oLocale['All']);
             });
         },
+        dom: 'Bfrtip',
         responsive: {
             details: {
                 type: 'column',
                 target: 'tr'
             }
         },
-        columnDefs: [{
-            className: 'control',
-            orderable: false,
-            targets: 0
-        }],
+        columnDefs: [
+            {
+                className: 'control',
+                orderable: false,
+                targets: 0
+            },
+            { responsivePriority: 1, targets: 1 },
+            { responsivePriority: 2, targets: -1 }
+        ],
         order: [ 1, 'asc' ],
+        buttons: [
+            'pageLength',
+            {
+                extend: 'colvis',
+                // text: 'Show all',
+                // show: ':hidden'
+                postfixButtons: [ 'colvisRestore' ],
+                // collectionLayout: 'fixed three-column'
+            },
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        // colVis: {
+        //     restore: "Restore",
+        //     showAll: "Show all",
+        //     showNone: "Show none",
+        //     activate: "mouseover"
+        // }
     });
 
     $('#dataTables tbody')
         .on( 'mouseenter', 'td:not(.child)', function () {
-            // if (true) {
-            //
-            // }
             var colIdx = table.cell(this).index().column;
 
             $( table.cells().nodes() ).removeClass( 'highlight' );
