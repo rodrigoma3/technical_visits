@@ -150,27 +150,6 @@ class AppController extends Controller {
 
             $topmenus = array(
                 array(
-                    'title' => __('Welcome, ').$this->Auth->user('name').'<b class="caret"></b>',
-                    'id' => 'user',
-                    'allow' => false,
-                    'subs' => array(
-                        array(
-                            'title' => __('Profile'),
-                            'controller' => 'users',
-                            'action' => 'view',
-                            'id' => $this->Auth->user('id'),
-                            'allow' => false,
-                        ),
-                        array(
-                            'title' => __('Logout'),
-                            'controller' => 'users',
-                            'action' => 'logout',
-                            'id' => null,
-                            'allow' => false,
-                        ),
-                    ),
-                ),
-                array(
                     'title' => '<i class="fa fa-cog fa-2x"></i><b class="caret"></b>',
                     'id' => 'parameter',
                     'allow' => false,
@@ -207,6 +186,27 @@ class AppController extends Controller {
                             'title' => __('System'),
                             'controller' => 'parameters',
                             'action' => 'system',
+                            'id' => null,
+                            'allow' => false,
+                        ),
+                    ),
+                ),
+                array(
+                    'title' => __('Welcome, ').$this->Auth->user('name').'<b class="caret"></b>',
+                    'id' => 'user',
+                    'allow' => false,
+                    'subs' => array(
+                        array(
+                            'title' => __('Profile'),
+                            'controller' => 'users',
+                            'action' => 'view',
+                            'id' => $this->Auth->user('id'),
+                            'allow' => false,
+                        ),
+                        array(
+                            'title' => __('Logout'),
+                            'controller' => 'users',
+                            'action' => 'logout',
                             'id' => null,
                             'allow' => false,
                         ),

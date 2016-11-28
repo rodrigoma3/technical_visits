@@ -5,6 +5,10 @@
 	<title>
 		<?php echo $this->fetch('title'); ?>
 	</title>
+	<script type="text/javascript">
+		var lang = "<?php echo Router::url('/locale/').Configure::read('Config.language').'.json'; ?>";
+	</script>
+	
 	<?php
 		echo $this->Html->meta('icon');
 
@@ -46,6 +50,7 @@
 									'pdfmake/vfs_fonts',
 									'jsTree/jstree.min',
 									'jquery.bootstrap-duallistbox.min',
+									'dataTables.default',
 									'custom',
 		));
 
@@ -162,11 +167,6 @@
 			</div>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		var lang = "<?php echo Router::url('/locale/').Configure::read('Config.language').'.json'; ?>";
-	</script>
-
 
 	<?php if (isset($jstreeData)) { ?>
 	    <script type="text/javascript">

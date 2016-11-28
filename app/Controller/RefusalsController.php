@@ -46,19 +46,19 @@ class RefusalsController extends AppController {
 				switch ($this->request->data[$this->Refusal->alias]['type']) {
 					case '0':
 						$this->Refusal->Visit->saveField('status', '10');
-						$visitOptions = array('conditions' => array('Visit.' . $this->Refusal->Visit->primaryKey => $this->request->data[$this->Refusal->alias]['visit_id']));
-						$visitInfo = $this->Refusal->Visit->find('first', $visitOptions);
-							// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // TODO HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
-							$options['to'] = 'giba_fernando@hotmail.com'; // TODO EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
-							$options['template'] = 'visit_canceled';
-							$options['subject'] = __('Visit to %s has been Canceled! - Technical Visits', $visitInfo['Visit']['destination']);
-							$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
-							$options['v'] = $visitInfo;
-							if ($this->sendMail($options)) {
-									$emailSendFlag = true;
-							} else {
-									$emailSendFlag = false;
-							}
+						// $visitOptions = array('conditions' => array('Visit.' . $this->Refusal->Visit->primaryKey => $this->request->data[$this->Refusal->alias]['visit_id']));
+						// $visitInfo = $this->Refusal->Visit->find('first', $visitOptions);
+						// 	// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // TODO HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+						// 	$options['to'] = 'giba_fernando@hotmail.com'; // TODO EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+						// 	$options['template'] = 'visit_canceled';
+						// 	$options['subject'] = __('Visit to %s has been Canceled! - Technical Visits', $visitInfo['Visit']['destination']);
+						// 	$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
+						// 	$options['v'] = $visitInfo;
+						// 	if ($this->sendMail($options)) {
+						// 			$emailSendFlag = true;
+						// 	} else {
+						// 			$emailSendFlag = false;
+						// 	}
 						break;
 					case '1':
 						$this->Refusal->Visit->saveField('status', '11');
@@ -68,7 +68,10 @@ class RefusalsController extends AppController {
 						$this->Refusal->Visit->saveField('status', $s);
 						break;
 					case '3':
-						// $this->Refusal->Visit->saveField('status', '10');
+						$visitEdit = $this->Refusal->Visit->find('first', array('conditions' => array($this->Refusal->Visit->alias.'.visit_id_edit' => $this->request->data[$this->Refusal->alias]['visit_id'])));
+						$this->Refusal->Visit->saveField('status', $visitEdit[$this->Refusal->Visit->alias]['status']);
+						$this->Refusal->Visit->deleteAll(array($this->Refusal->Visit->alias.'.visit_id_edit' => $this->request->data[$this->Refusal->alias]['visit_id']), false);
+						// enviar email
 						break;
 					default:
 
@@ -135,51 +138,4 @@ class RefusalsController extends AppController {
 		$this->render('add');
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	// public function edit($id = null) {
-	// 	if (!$this->Refusal->exists($id)) {
-	// 		throw new NotFoundException(__('Invalid refusal'));
-	// 	}
-	// 	if ($this->request->is(array('post', 'put'))) {
-	// 		if ($this->Refusal->save($this->request->data)) {
-	// 			$this->Flash->success(__('The refusal has been saved.'));
-	// 			return $this->redirect(array('action' => 'index'));
-	// 		} else {
-	// 			$this->Flash->error(__('The refusal could not be saved. Please, try again.'));
-	// 		}
-	// 	} else {
-	// 		$options = array('conditions' => array('Refusal.' . $this->Refusal->primaryKey => $id));
-	// 		$this->request->data = $this->Refusal->find('first', $options);
-	// 	}
-	// 	$users = $this->Refusal->User->find('list');
-	// 	$visits = $this->Refusal->Visit->find('list');
-	// 	$this->set(compact('users', 'visits'));
-	// }
-
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	// public function delete($id = null) {
-	// 	$this->Refusal->id = $id;
-	// 	if (!$this->Refusal->exists()) {
-	// 		throw new NotFoundException(__('Invalid refusal'));
-	// 	}
-	// 	$this->request->allowMethod('post', 'delete');
-	// 	if ($this->Refusal->delete()) {
-	// 		$this->Flash->success(__('The refusal has been deleted.'));
-	// 	} else {
-	// 		$this->Flash->error(__('The refusal could not be deleted. Please, try again.'));
-	// 	}
-	// 	return $this->redirect(array('action' => 'index'));
-	// }
 }
