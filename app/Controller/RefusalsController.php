@@ -62,10 +62,9 @@ class RefusalsController extends AppController {
 						break;
 					case '1':
 						$this->Refusal->Visit->saveField('status', '11');
-							// $options['to'] = $visitInfo['User']['email'];
-							$options['to'] = 'giba_fernando@hotmail.com';
+							$options['to'] = $visitInfo['User']['email'];
 							$options['template'] = 'visit_desaproved';
-							$options['subject'] = __('Visit to %s has been Desaproved! - Technical Visits', $visitInfo['Visit']['destination']);
+							$options['subject'] = __('Your visit to %s has been Desaproved! - Technical Visits', $visitInfo['Visit']['destination']);
 							$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
 							$options['adminEmail'] = $this->Auth->user('email');
 							$options['v'] = $visitInfo;
@@ -78,6 +77,17 @@ class RefusalsController extends AppController {
 					case '2':
 						$s = $this->Refusal->Visit->field('status') - 2;
 						$this->Refusal->Visit->saveField('status', $s);
+							$options['to'] = $visitInfo['User']['email'];
+							$options['template'] = 'report_desaproved';
+							$options['subject'] = __('Report Desaproved! Visit to %s - Technical Visits', $visitInfo['Visit']['destination']);
+							$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
+							$options['adminEmail'] = $this->Auth->user('email');
+							$options['v'] = $visitInfo;
+							if ($this->sendMail($options)) {
+									$emailSendFlag = true;
+							} else {
+									$emailSendFlag = false;
+							}
 						break;
 					case '3':
 						$visitEdit = $this->Refusal->Visit->find('first', array('conditions' => array($this->Refusal->Visit->alias.'.visit_id_edit' => $this->request->data[$this->Refusal->alias]['visit_id'])));
