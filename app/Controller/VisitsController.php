@@ -522,4 +522,20 @@ class VisitsController extends AppController {
 
 		$this->render('edit');
 	}
+
+	public function notify_report(){
+		$visits = $this->Visit->find('all', array('conditions' => array(
+			$this->Visit->alias.'.status' => array(4,5),$this->Visit->alias.'.report' => '')));
+		$reportNotifyDayParam = 3; // TODO AQUI BUSCAR PARAMETRO DE QTS DIAS APÓS TERMINO DA VISITA PARA ENVIAR NOTIFICAÇÃO DO RELATÓRIO
+		foreach($visits as $v){
+			if((strtotime($v['Visit']['arrival']) + $reportNotifyDayParam * 86400) < time()){
+				$options['to'] = $v['User']['email'];
+				$options['template'] = 'report_missing';
+				$options['subject'] = __('Your visit to %s is missing report! - Technical Visits', $v['Visit']['destination']);
+				$options['v'] = $v;
+				$this->sendMail($options);
+			}
+		}
+		die;
+	}
 }
