@@ -43,11 +43,11 @@ class RefusalsController extends AppController {
 			$this->Refusal->create();
 			if ($this->Refusal->save($this->request->data)) {
 				$this->Refusal->Visit->id = $this->request->data[$this->Refusal->alias]['visit_id'];
+				$visitOptions = array('conditions' => array('Visit.' . $this->Refusal->Visit->primaryKey => $this->request->data[$this->Refusal->alias]['visit_id']));
+				$visitInfo = $this->Refusal->Visit->find('first', $visitOptions);
 				switch ($this->request->data[$this->Refusal->alias]['type']) {
 					case '0':
 						$this->Refusal->Visit->saveField('status', '10');
-						$visitOptions = array('conditions' => array('Visit.' . $this->Refusal->Visit->primaryKey => $this->request->data[$this->Refusal->alias]['visit_id']));
-						$visitInfo = $this->Refusal->Visit->find('first', $visitOptions);
 							// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // TODO HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
 							$options['to'] = 'giba_fernando@hotmail.com'; // TODO EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
 							$options['template'] = 'visit_canceled';
@@ -62,6 +62,18 @@ class RefusalsController extends AppController {
 						break;
 					case '1':
 						$this->Refusal->Visit->saveField('status', '11');
+							// $options['to'] = $visitInfo['User']['email'];
+							$options['to'] = 'giba_fernando@hotmail.com';
+							$options['template'] = 'visit_desaproved';
+							$options['subject'] = __('Visit to %s has been Desaproved! - Technical Visits', $visitInfo['Visit']['destination']);
+							$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
+							$options['adminEmail'] = $this->Auth->user('email');
+							$options['v'] = $visitInfo;
+							if ($this->sendMail($options)) {
+									$emailSendFlag = true;
+							} else {
+									$emailSendFlag = false;
+							}
 						break;
 					case '2':
 						$s = $this->Refusal->Visit->field('status') - 2;
