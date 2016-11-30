@@ -46,19 +46,19 @@ class RefusalsController extends AppController {
 				switch ($this->request->data[$this->Refusal->alias]['type']) {
 					case '0':
 						$this->Refusal->Visit->saveField('status', '10');
-						// $visitOptions = array('conditions' => array('Visit.' . $this->Refusal->Visit->primaryKey => $this->request->data[$this->Refusal->alias]['visit_id']));
-						// $visitInfo = $this->Refusal->Visit->find('first', $visitOptions);
-						// 	// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // TODO HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
-						// 	$options['to'] = 'giba_fernando@hotmail.com'; // TODO EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
-						// 	$options['template'] = 'visit_canceled';
-						// 	$options['subject'] = __('Visit to %s has been Canceled! - Technical Visits', $visitInfo['Visit']['destination']);
-						// 	$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
-						// 	$options['v'] = $visitInfo;
-						// 	if ($this->sendMail($options)) {
-						// 			$emailSendFlag = true;
-						// 	} else {
-						// 			$emailSendFlag = false;
-						// 	}
+						$visitOptions = array('conditions' => array('Visit.' . $this->Refusal->Visit->primaryKey => $this->request->data[$this->Refusal->alias]['visit_id']));
+						$visitInfo = $this->Refusal->Visit->find('first', $visitOptions);
+							// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // TODO HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+							$options['to'] = 'giba_fernando@hotmail.com'; // TODO EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+							$options['template'] = 'visit_canceled';
+							$options['subject'] = __('Visit to %s has been Canceled! - Technical Visits', $visitInfo['Visit']['destination']);
+							$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
+							$options['v'] = $visitInfo;
+							if ($this->sendMail($options)) {
+									$emailSendFlag = true;
+							} else {
+									$emailSendFlag = false;
+							}
 						break;
 					case '1':
 						$this->Refusal->Visit->saveField('status', '11');

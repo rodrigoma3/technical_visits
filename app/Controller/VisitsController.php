@@ -228,19 +228,19 @@ class VisitsController extends AppController {
 					$this->Visit->create();
 				}
 				if ($this->Visit->save($this->request->data)) {
-					// $visitOptions = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
-					// 	$visitInfo = $this->Visit->find('first', $visitOptions);
-	 			// 		// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
-	 			// 		$options['to'] = 'giba_fernando@hotmail.com'; // EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
-	 			// 		$options['template'] = 'visit_edited';
-	 			// 		$options['subject'] = __('Visit to %s has been Edited! - Technical Visits', $visitInfo['Visit']['destination']);
-	 			// 		$options['v'] = $visitInfo;
-	 			// 		if ($this->sendMail($options)) {
-	 			// 				$emailSendFlag = true;
-	 			// 		} else {
-	 			// 				$emailSendFlag = false;
-	 			// 		}
-					// 	if($emailSendFlag){
+					$visitOptions = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
+						$visitInfo = $this->Visit->find('first', $visitOptions);
+	 					// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+	 					$options['to'] = 'giba_fernando@hotmail.com'; // EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+	 					$options['template'] = 'visit_edited';
+	 					$options['subject'] = __('Visit to %s has been Edited! - Technical Visits', $visitInfo['Visit']['destination']);
+	 					$options['v'] = $visitInfo;
+	 					if ($this->sendMail($options)) {
+	 							$emailSendFlag = true;
+	 					} else {
+	 							$emailSendFlag = false;
+	 					}
+						if($emailSendFlag){
 						if (isset($data) && !empty($data)) {
 							$this->Visit->id = $id;
 							$this->Visit->saveField('status', '12');
@@ -248,16 +248,16 @@ class VisitsController extends AppController {
 						} else {
 							$this->Flash->success(__('The visit has been saved.'));
 						}
-					// 	}else{
-	 			// 		$this->Flash->warning(__('The visit has been saved, but the system failed to send the Administrator a notification e-mail.'));
-					// 	}
+						}else{
+							$this->Flash->warning(__('The visit has been saved, but the system failed to send the Administrator a notification e-mail.'));
+						}
 					return $this->redirect(array('action' => 'index'));
 				} else {
 					$this->Flash->error(__('The visit could not be saved. Please, try again.'));
 				}
 			} else {
-				// $options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
-				// $this->request->data = $this->Visit->find('first', $options);
+				$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
+				$this->request->data = $this->Visit->find('first', $options);
 				$this->request->data = $visit;
 				$this->request->data[$this->Visit->alias]['states'] = $this->request->data[$this->Visit->City->alias]['state_id'];
 				$this->request->data[$this->Visit->alias]['course'] = $this->request->data[$this->Visit->Discipline->alias]['course_id'];
