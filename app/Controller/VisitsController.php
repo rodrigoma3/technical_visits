@@ -524,9 +524,8 @@ class VisitsController extends AppController {
 	}
 
 	public function notify_report(){
-		$visits = $this->Visit->find('all', array('conditions' => array(
-			$this->Visit->alias.'.status' => array(4,5),$this->Visit->alias.'.report' => '')));
-		$reportNotifyDayParam = 3; // TODO AQUI BUSCAR PARAMETRO DE QTS DIAS APÓS TERMINO DA VISITA PARA ENVIAR NOTIFICAÇÃO DO RELATÓRIO
+		$visits = $this->Visit->find('all', array('conditions' => array($this->Visit->alias.'.status' => array(4,5))));
+		$reportNotifyDayParam = Configure::read('Parameter.System.notify_report');
 		foreach($visits as $v){
 			if((strtotime($v['Visit']['arrival']) + $reportNotifyDayParam * 86400) < time()){
 				$options['to'] = $v['User']['email'];
