@@ -27,9 +27,9 @@
 		</dd>
 		</dl>
 		<div class="form-actions">
-					<?php echo $this->Html->link(__('List Disciplines'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
-		<?php echo $this->Html->link(__('Edit Discipline'), array('action' => 'edit', $discipline['Discipline']['id']), array('class' => 'btn')); ?>
-		<?php echo $this->Form->postLink(__('Delete Discipline'), array('action' => 'delete', $discipline['Discipline']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $discipline['Discipline']['id']))); ?>
+			<?php echo $this->Html->link(__('List Disciplines'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
+			<?php echo $this->Html->link(__('Edit Discipline'), array('action' => 'edit', $discipline['Discipline']['id']), array('class' => 'btn')); ?>
+			<?php echo $this->Form->postLink(__('Delete Discipline'), array('action' => 'delete', $discipline['Discipline']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $discipline['Discipline']['id']))); ?>
 		</div>
 	</div>
 <!-- /widget-content -->
@@ -65,9 +65,9 @@
 			<td><?php echo $team['id']; ?></td>
 			<td><?php echo $team['name']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('controller' => 'teams', 'action' => 'view', $team['id']), array('escape' => false, 'class' => 'btn')); ?>
-				<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('controller' => 'teams', 'action' => 'edit', $team['id']), array('escape' => false, 'class' => 'btn')); ?>
-				<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('controller' => 'teams', 'action' => 'delete', $team['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $team['id']))); ?>
+				<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('controller' => 'teams', 'action' => 'view', $team['id']), array('escape' => false, 'title' => 'View')); ?>
+				<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('controller' => 'teams', 'action' => 'edit', $team['id']), array('escape' => false, 'title' => 'Edit')); ?>
+				<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'teams', 'action' => 'delete', $team['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $team['id']))); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

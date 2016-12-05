@@ -68,9 +68,9 @@
 			<td><?php echo $discipline['name']; ?></td>
 			<td><?php echo $discipline['academic_period']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('controller' => 'disciplines', 'action' => 'view', $discipline['id']), array('escape' => false, 'class' => 'btn')); ?>
-				<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('controller' => 'disciplines', 'action' => 'edit', $discipline['id']), array('escape' => false, 'class' => 'btn')); ?>
-				<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('controller' => 'disciplines', 'action' => 'delete', $discipline['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $discipline['id']))); ?>
+				<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('controller' => 'disciplines', 'action' => 'view', $discipline['id']), array('escape' => false, 'title' => 'View')); ?>
+				<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('controller' => 'disciplines', 'action' => 'edit', $discipline['id']), array('escape' => false, 'title' => 'Edit')); ?>
+				<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'disciplines', 'action' => 'delete', $discipline['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $discipline['id']))); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

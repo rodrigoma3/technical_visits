@@ -18,7 +18,8 @@
 				echo $this->Form->input('replyTo');
 			?>
 		<div class="form-actions">
-			<?php echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false)); ?>
+			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>
+			<?php echo $this->Form->end(); ?>
 			<?php echo $this->Html->link(__('Cancel'), $this->request->referer(), array('class' => 'btn')); ?>
 			<!-- Button to trigger modal -->
 			<?php echo $this->Html->link(__('Test'), '#testEmailSending', array('class' => 'btn btn-info', 'role' => 'button', 'data-toggle' => 'modal')); ?>
@@ -40,9 +41,8 @@
 		 ?>
 	</div>
 	<div class="modal-footer">
-		<?php
-			echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false));
-			echo $this->Form->button(__('Close'), array('data-dismiss' => 'modal', 'aria-hidden' => 'true', 'class' => 'btn'));
-		 ?>
+		<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>
+		<?php echo $this->Form->end(); ?>
+		<?php echo $this->Form->button(__('Close'), array('data-dismiss' => 'modal', 'aria-hidden' => 'true', 'class' => 'btn')); ?>
 	</div>
 </div>

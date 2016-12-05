@@ -61,8 +61,6 @@ $(document).ready(function() {
             'pageLength',
             {
                 extend: 'colvis',
-                // text: 'Show all',
-                // show: ':hidden'
                 columns: ':not(:first-child)+:not(:last-child)',
                 postfixButtons: [
                     'colvisRestore',

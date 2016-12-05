@@ -41,12 +41,12 @@
 			<?php echo $this->Form->postLink($user['Enabled']['name'], array('action' => 'allow_access', $user['User']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('action' => 'view', $user['User']['id']), array('escape' => false, 'class' => 'btn')); ?>
-			<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('action' => 'edit', $user['User']['id']), array('escape' => false, 'class' => 'btn')); ?>
+			<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $user['User']['id']), array('escape' => false, 'title' => 'View')); ?>
+			<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $user['User']['id']), array('escape' => false, 'title' => 'Edit')); ?>
             <?php if (empty($user['Visit'])): ?>
-                <?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('action' => 'delete', $user['User']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $user['User']['id']))); ?>
+                <?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('action' => 'delete', $user['User']['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $user['User']['id']))); ?>
             <?php endif; ?>
-            <?php echo $this->Html->link('<i class="fa fa-key"></i> '.__('Permission'), array('action' => 'permission', $user['User']['id']), array('escape' => false, 'class' => 'btn')); ?>
+            <?php echo $this->Html->link('<i class="fa fa-lg fa-key"></i>&nbsp;', array('action' => 'permission', $user['User']['id']), array('escape' => false, 'title' => 'Permission')); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

@@ -8,7 +8,7 @@
 	<script type="text/javascript">
 		var lang = "<?php echo Router::url('/locale/').Configure::read('Config.language').'.json'; ?>";
 	</script>
-	
+
 	<?php
 		echo $this->Html->meta('icon');
 
@@ -51,6 +51,7 @@
 									'jsTree/jstree.min',
 									'jquery.bootstrap-duallistbox.min',
 									'dataTables.default',
+									'jquery.isloading.min',
 									'custom',
 		));
 

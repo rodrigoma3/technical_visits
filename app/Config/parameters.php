@@ -37,7 +37,8 @@ $config = array (
         3 => 'set_language',
       ),
       'dirReportFiles' => 'files\\reports',
-      'notify_report' => '3'
+      'notifyPendingReport' => '3',
+      'notifyUpcomingVisits' => '3'
     ),
   ),
 );

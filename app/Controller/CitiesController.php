@@ -86,13 +86,19 @@ class CitiesController extends AppController {
 	public function delete($id = null) {
 		$this->City->id = $id;
 		if (!$this->City->exists()) {
-			throw new NotFoundException(__('Invalid city'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->City->delete()) {
-			$this->Flash->success(__('The city has been deleted.'));
+			$this->Flash->error(__('Invalid city'));
 		} else {
-			$this->Flash->error(__('The city could not be deleted. Please, try again.'));
+			$this->request->allowMethod('post', 'delete');
+			$count = $this->City->Visit->find('count', array('conditions' => array('City.id' => $id)));
+			if ($count < 1) {
+				if ($this->City->delete()) {
+					$this->Flash->success(__('The city has been deleted.'));
+				} else {
+					$this->Flash->error(__('The city could not be deleted. Please, try again.'));
+				}
+			} else {
+				$this->Flash->error(__('The city could not be deleted because there are tied visits.'));
+			}
 		}
 		return $this->redirect(array('action' => 'index'));
 	}

@@ -10,7 +10,8 @@
 				echo $this->Form->input('cost_per_km_outsourced', array('type' => 'number', 'min' => 1, 'step' => '0.01'));
 			?>
 		<div class="form-actions">
-			<?php echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false)); ?>
+			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>
+			<?php echo $this->Form->end(); ?>
 			<?php echo $this->Html->link(__('Cancel'), $this->request->referer(), array('class' => 'btn')); ?>
 		</div>
 	</div>

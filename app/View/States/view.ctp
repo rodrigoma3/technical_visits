@@ -22,9 +22,9 @@
 			</dd>
 		</dl>
 		<div class="form-actions">
-					<?php echo $this->Html->link(__('List States'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
-		<?php echo $this->Html->link(__('Edit State'), array('action' => 'edit', $state['State']['id']), array('class' => 'btn')); ?>
-		<?php echo $this->Form->postLink(__('Delete State'), array('action' => 'delete', $state['State']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $state['State']['id']))); ?>
+			<?php echo $this->Html->link(__('List States'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
+			<?php echo $this->Html->link(__('Edit State'), array('action' => 'edit', $state['State']['id']), array('class' => 'btn')); ?>
+			<?php echo $this->Form->postLink(__('Delete State'), array('action' => 'delete', $state['State']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $state['State']['id']))); ?>
 		</div>
 	</div>
 <!-- /widget-content -->
@@ -69,9 +69,9 @@
 				} ?>
 			</td>
 			<td class="actions">
-				<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('controller' => 'cities', 'action' => 'view', $city['id']), array('escape' => false, 'class' => 'btn')); ?>
-				<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('controller' => 'cities', 'action' => 'edit', $city['id']), array('escape' => false, 'class' => 'btn')); ?>
-				<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('controller' => 'cities', 'action' => 'delete', $city['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $city['id']))); ?>
+				<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('controller' => 'cities', 'action' => 'view', $city['id']), array('escape' => false, 'title' => 'View')); ?>
+				<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('controller' => 'cities', 'action' => 'edit', $city['id']), array('escape' => false, 'title' => 'Edit')); ?>
+				<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'cities', 'action' => 'delete', $city['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $city['id']))); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

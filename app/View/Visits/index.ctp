@@ -93,15 +93,12 @@
 		<td class="actions">
             <?php echo $this->Html->link('<i class="fa fa-lg fa-copy"></i>&nbsp;', array('action' => 'copy', $visit['Visit']['id']), array('escape' => false, 'title' => __('Copy'))); ?>
 			<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $visit['Visit']['id']), array('escape' => false, 'title' => __('View'))); ?>
-            <?php if ($visit['Visit']['user_id'] == $this->Session->read('Auth.User.id')): ?>
+            <?php if ($visit['Visit']['user_id'] == $this->Session->read('Auth.User.id') && $visit['Visit']['status'] < 4): ?>
                 <?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $visit['Visit']['id']), array('escape' => false, 'title' => __('Edit'))); ?>
                 <?php echo $this->Html->link('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'refusals','action' => 'cancel', $visit['Visit']['id']), array('escape' => false, 'confirm' => __('Are you sure you want to cancel # %s?', $visit['Visit']['id']), 'title' => __('Cancel'))); ?>
             <?php endif; ?>
             <?php if (in_array($visit['Visit']['status'], array(1,4,6,8)) && $transportUpdater): ?>
                 <?php echo $this->Html->link('<i class="fa fa-lg fa-truck"></i>&nbsp;', array('action' => 'transport_update', $visit['Visit']['id']), array('escape' => false, 'title' => __('Transport'))); ?>
-            <?php endif; ?>
-            <?php if ($visit['Visit']['status'] == '12' && $reviewerChange): ?>
-                <?php echo $this->Html->link('<i class="fa fa-lg fa-pencil-square-o"></i>', array('action' => 'review_change', $visit['Visit']['id']), array('escape' => false, 'title' => __('Review change'))); ?>
             <?php endif; ?>
         </td>
 	</tr>

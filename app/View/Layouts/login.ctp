@@ -33,6 +33,7 @@
 									'/DataTables-1_10_12/extensions/Responsive/js/dataTables.responsive.min',
 									'/DataTables-1_10_12/extensions/Select/js/dataTables.select.min',
 									'jsTree/jstree.min',
+									'jquery.isloading.min',
 									'custom',
 		));
 

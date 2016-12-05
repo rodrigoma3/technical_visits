@@ -34,9 +34,9 @@
 		<td><?php echo h($course['TypeOfAcademicPeriod']['name']); ?>&nbsp;</td>
 		<td><?php echo h($course['Course']['amount_of_academic_periods']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('action' => 'view', $course['Course']['id']), array('escape' => false, 'class' => 'btn')); ?>
-			<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('action' => 'edit', $course['Course']['id']), array('escape' => false, 'class' => 'btn')); ?>
-			<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('action' => 'delete', $course['Course']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $course['Course']['id']))); ?>
+			<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $course['Course']['id']), array('title' => 'View', 'escape' => false)); ?>
+			<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $course['Course']['id']), array('title' => 'Edit', 'escape' => false)); ?>
+			<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('action' => 'delete', $course['Course']['id']), array('title' => 'Delete', 'escape' => false, 'confirm' => __('Are you sure you want to delete # %s?', $course['Course']['id']))); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

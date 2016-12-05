@@ -8,31 +8,6 @@ App::uses('AppController', 'Controller');
 class RefusalsController extends AppController {
 
 /**
- * index method
- *
- * @return void
- */
-	public function index() {
-		$this->Refusal->recursive = 0;
-		$this->set('refusals', $this->Refusal->find('all'));
-	}
-
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Refusal->exists($id)) {
-			throw new NotFoundException(__('Invalid refusal'));
-		}
-		$options = array('conditions' => array('Refusal.' . $this->Refusal->primaryKey => $id));
-		$this->set('refusal', $this->Refusal->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void
@@ -89,12 +64,6 @@ class RefusalsController extends AppController {
 									$emailSendFlag = false;
 							}
 						break;
-					case '3':
-						$visitEdit = $this->Refusal->Visit->find('first', array('conditions' => array($this->Refusal->Visit->alias.'.visit_id_edit' => $this->request->data[$this->Refusal->alias]['visit_id'])));
-						$this->Refusal->Visit->saveField('status', $visitEdit[$this->Refusal->Visit->alias]['status']);
-						$this->Refusal->Visit->deleteAll(array($this->Refusal->Visit->alias.'.visit_id_edit' => $this->request->data[$this->Refusal->alias]['visit_id']), false);
-						// enviar email
-						break;
 					default:
 
 						break;
@@ -148,16 +117,4 @@ class RefusalsController extends AppController {
 		$this->request->data[$this->Refusal->alias]['visit_id'] = $id;
 		$this->render('add');
 	}
-
-	public function disapproved_change($id = null){
-		$this->Refusal->Visit->id = $id;
-		if (!$this->Refusal->Visit->exists()) {
-			$this->Flash->error(__('Invalid visit'));
-			return $this->redirect(array('controller'=>'visits','action' => 'index'));
-		}
-		$this->request->data[$this->Refusal->alias]['type'] = '3';
-		$this->request->data[$this->Refusal->alias]['visit_id'] = $id;
-		$this->render('add');
-	}
-
 }

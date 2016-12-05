@@ -15,5 +15,6 @@
             echo $this->Form->input('remember_me', array('label' => __('Keep me signed in'), 'type' => 'checkbox', 'class' => 'field login-checkbox'));
         ?>
     </span>
-    <?php echo $this->Form->end(array('label' => __('Login'), 'class' => 'button btn btn-success btn-large', 'div' => false)); ?>
+    <?php echo $this->Form->button(__('Login'), array('type' => 'submit', 'class' => 'button btn btn-success btn-large', 'div' => false)); ?>
+    <?php echo $this->Form->end(); ?>
 </div> <!-- .actions -->

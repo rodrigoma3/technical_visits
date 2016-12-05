@@ -12,8 +12,9 @@
 		echo $this->Form->input('amount_of_academic_periods', array('min' => $maxAcademicPeriod));
 	?>
 		<div class="form-actions">
-					<?php echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false)); ?>
-		<?php echo $this->Html->link(__('Cancel'), $this->request->referer(), array('class' => 'btn')); ?>
+			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>
+			<?php echo $this->Form->end(); ?>
+			<?php echo $this->Html->link(__('Cancel'), $this->request->referer(), array('class' => 'btn')); ?>
 		</div>
 	</div>
 <!-- /widget-content -->

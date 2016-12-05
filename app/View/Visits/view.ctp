@@ -151,7 +151,7 @@
 					<th><?php echo __('Reason'); ?></th>
 					<th><?php echo __('Type'); ?></th>
 					<th><?php echo __('User'); ?></th>
-					<th><?php echo __('Actions'); ?></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tfoot>
@@ -162,7 +162,7 @@
 					<th><?php echo __('Reason'); ?></th>
 					<th><?php echo __('Type'); ?></th>
 					<th><?php echo __('User'); ?></th>
-					<th><?php echo __('Actions'); ?></th>
+					<th></th>
 				</tr>
 			</tfoot>
 			<tbody>
@@ -174,17 +174,11 @@
 						<td><?php echo $refusal['reason']; ?></td>
 						<td><?php echo $refusal_types[$refusal['type']]; ?></td>
 						<td><?php echo $refusal['User']['name']; ?></td>
-						<td class="actions">
-							<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('controller' => 'refusals', 'action' => 'view', $refusal['id']), array('escape' => false, 'class' => 'btn')); ?>
-							<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('controller' => 'refusals', 'action' => 'edit', $refusal['id']), array('escape' => false, 'class' => 'btn')); ?>
-							<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('controller' => 'refusals', 'action' => 'delete', $refusal['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $refusal['id']))); ?>
-						</td>
+						<td></td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-		<div class="form-actions">
-			<?php echo $this->Html->link(__('New Refusal'), array('controller' => 'refusals', 'action' => 'add'), array('class' => 'btn btn-success')); ?>		</div>
 	</div>
 <!-- /widget-content -->
 </div>
@@ -203,9 +197,8 @@
 		 ?>
 	</div>
 	<div class="modal-footer">
-		<?php
-			echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false));
-			echo $this->Form->button(__('Close'), array('data-dismiss' => 'modal', 'aria-hidden' => 'true', 'class' => 'btn'));
-		 ?>
+		<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>
+		<?php echo $this->Form->end(); ?>
+		<?php echo $this->Form->button(__('Close'), array('data-dismiss' => 'modal', 'aria-hidden' => 'true', 'class' => 'btn')); ?>
 	</div>
 </div>

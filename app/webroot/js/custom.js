@@ -26,8 +26,22 @@ $(document).ready(function() {
     });
 
     $('.btn').on('click', function() {
-        $(this).children('i').remove();
-        $(this).html('<i class="fa fa-spinner fa-pulse fa-fw"></i>'+$(this).html());
+        var elem = $(this);
+        if (!elem.is('input')) {
+            elem.isLoading();
+            var content = elem.html();
+            elem.children('i').remove();
+            elem.html('<i class="fa fa-spinner fa-pulse fa-fw"></i>'+elem.html());
+            $(document).ready(function() {
+                setTimeout( function(){
+
+                    // Deactivate the loading plugin
+                    elem.isLoading( "hide" );
+
+                    elem.html(content);
+                }, 500 );
+            });
+        }
     });
 
     $('a').on('click', function() {
@@ -159,7 +173,9 @@ function progressBar() {
         if (w >= 99) {
             clearInterval(id);
             $(document).ready(function() {
-                $('.progress').remove();
+                setTimeout( function() {
+                    $('.progress').remove();
+                }, 200);
             });
         } else {
             w++;

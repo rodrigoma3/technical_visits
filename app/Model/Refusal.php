@@ -13,7 +13,6 @@ class Refusal extends AppModel {
 			0 => 'Visit canceled',
 			1 => 'Disapproved visit',
 			2 => 'Disapproved report',
-			3 => 'Disapproved change',
 		),
 	);
 

@@ -31,12 +31,12 @@
 		<td><?php echo h($group['Group']['name']); ?>&nbsp;</td>
 		<td><?php echo h($group['Group']['description']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('action' => 'view', $group['Group']['id']), array('escape' => false, 'class' => 'btn')); ?>
-			<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('action' => 'edit', $group['Group']['id']), array('escape' => false, 'class' => 'btn')); ?>
+			<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $group['Group']['id']), array('escape' => false, 'title' => 'View')); ?>
+			<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $group['Group']['id']), array('escape' => false, 'title' => 'Edit')); ?>
             <?php if (empty($group['User'])): ?>
-                <?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('action' => 'delete', $group['Group']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $group['Group']['id']))); ?>
+                <?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('action' => 'delete', $group['Group']['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $group['Group']['id']))); ?>
             <?php endif; ?>
-            <?php echo $this->Html->link('<i class="fa fa-key"></i> '.__('Permission'), array('action' => 'permission', $group['Group']['id']), array('escape' => false, 'class' => 'btn')); ?>
+            <?php echo $this->Html->link('<i class="fa fa-lg fa-key"></i>&nbsp;', array('action' => 'permission', $group['Group']['id']), array('escape' => false, 'title' => 'Permission')); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

@@ -31,9 +31,9 @@
 		</dd>
 		</dl>
 		<div class="form-actions">
-					<?php echo $this->Html->link(__('List Cities'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
-		<?php echo $this->Html->link(__('Edit City'), array('action' => 'edit', $city['City']['id']), array('class' => 'btn')); ?>
-		<?php echo $this->Form->postLink(__('Delete City'), array('action' => 'delete', $city['City']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $city['City']['id']))); ?>
+			<?php echo $this->Html->link(__('List Cities'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
+			<?php echo $this->Html->link(__('Edit City'), array('action' => 'edit', $city['City']['id']), array('class' => 'btn')); ?>
+			<?php echo $this->Form->postLink(__('Delete City'), array('action' => 'delete', $city['City']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $city['City']['id']))); ?>
 		</div>
 	</div>
 <!-- /widget-content -->

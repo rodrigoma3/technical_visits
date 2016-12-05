@@ -24,7 +24,8 @@
 			echo $this->Form->input('transport_cost', ['readonly' => true, 'between' => '<span class="add-on add-on-left">R$</span>', 'div' => 'input text input-prepend input-append', 'escape' => false, 'after' => '<p class="help-block">'.$cost_per_km.'</p>']);
 		?>
 		<div class="form-actions">
-			<?php echo $this->Form->end(array('label' => __('Submit'), 'class' => 'btn btn-success', 'div' => false)); ?>
+			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>
+			<?php echo $this->Form->end(); ?>
 			<?php echo $this->Html->link(__('Cancel'), $this->request->referer(), array('class' => 'btn')); ?>
 		</div>
 	</div>
@@ -108,7 +109,6 @@
 			<?php echo $this->Html->link('<i class="fa fa-lg fa-copy"></i>&nbsp;', array('action' => 'copy', $visit['Visit']['id']), array('escape' => false, 'title' => __('Copy'))); ?>
 			<?php echo $this->Html->link('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'refusals','action' => 'cancel', $visit['Visit']['id']), array('escape' => false, 'confirm' => __('Are you sure you want to cancel # %s?', $visit['Visit']['id']), 'title' => __('Cancel'))); ?>
 			<?php echo $this->Html->link('<i class="fa fa-lg fa-truck"></i>&nbsp;', array('action' => 'transport_update', $visit['Visit']['id']), array('escape' => false, 'title' => __('Transport'))); ?>
-            <?php echo $this->Html->link('<i class="fa fa-lg fa-pencil-square-o"></i>', array('action' => 'review_change', $visit['Visit']['id']), array('escape' => false, 'title' => __('Review change'))); ?>
         </td>
 	</tr>
 <?php endforeach; ?>

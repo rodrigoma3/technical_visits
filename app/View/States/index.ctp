@@ -8,35 +8,35 @@
         	<thead>
             	<tr>
                     <th></th>
-            	                	<th><?php echo __('Id'); ?></th>
-            	                	<th><?php echo __('Name'); ?></th>
-            	                	<th><?php echo __('Initials'); ?></th>
-            	                	<th><?php echo __('Actions'); ?></th>
+                	<th><?php echo __('Id'); ?></th>
+                	<th><?php echo __('Name'); ?></th>
+                	<th><?php echo __('Initials'); ?></th>
+                	<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</thead>
         	<tfoot>
             	<tr>
                     <th></th>
-            	            		<th><?php echo __('Id'); ?></th>
-            	            		<th><?php echo __('Name'); ?></th>
-            	            		<th><?php echo __('Initials'); ?></th>
-            	            		<th><?php echo __('Actions'); ?></th>
+            		<th><?php echo __('Id'); ?></th>
+            		<th><?php echo __('Name'); ?></th>
+            		<th><?php echo __('Initials'); ?></th>
+            		<th><?php echo __('Actions'); ?></th>
             	</tr>
         	</tfoot>
         	<tbody>
             	<?php foreach ($states as $state): ?>
-	<tr>
-		<td></td>
-		<td><?php echo h($state['State']['id']); ?>&nbsp;</td>
-		<td><?php echo h($state['State']['name']); ?>&nbsp;</td>
-		<td><?php echo h($state['State']['initials']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link('<i class="fa fa-eye"></i> '.__('View'), array('action' => 'view', $state['State']['id']), array('escape' => false, 'class' => 'btn')); ?>
-			<?php echo $this->Html->link('<i class="fa fa-pencil"></i> '.__('Edit'), array('action' => 'edit', $state['State']['id']), array('escape' => false, 'class' => 'btn')); ?>
-			<?php echo $this->Form->postLink('<i class="fa fa-trash"></i> '.__('Delete'), array('action' => 'delete', $state['State']['id']), array('escape' => false, 'class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $state['State']['id']))); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
+                	<tr>
+                		<td></td>
+                		<td><?php echo h($state['State']['id']); ?>&nbsp;</td>
+                		<td><?php echo h($state['State']['name']); ?>&nbsp;</td>
+                		<td><?php echo h($state['State']['initials']); ?>&nbsp;</td>
+                		<td class="actions">
+                			<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $state['State']['id']), array('escape' => false, 'title' => 'View')); ?>
+                			<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $state['State']['id']), array('escape' => false, 'title' => 'Edit')); ?>
+                			<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('action' => 'delete', $state['State']['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $state['State']['id']))); ?>
+                		</td>
+                	</tr>
+                <?php endforeach; ?>
         	</tbody>
     	</table>
     </div>
