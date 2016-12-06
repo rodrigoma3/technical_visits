@@ -23,8 +23,7 @@ class RefusalsController extends AppController {
 				switch ($this->request->data[$this->Refusal->alias]['type']) {
 					case '0':
 						$this->Refusal->Visit->saveField('status', '10');
-							// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // TODO HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
-							$options['to'] = 'giba_fernando@hotmail.com'; // TODO EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
+							$options['to'] = Configure::read('Parameter.Email.fromEmail');
 							$options['template'] = 'visit_canceled';
 							$options['subject'] = __('Visit to %s has been Canceled! - Technical Visits', $visitInfo['Visit']['destination']);
 							$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];

@@ -207,10 +207,9 @@ class VisitsController extends AppController {
 				if ($this->Visit->save($this->request->data)) {
 					$visitOptions = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 					$visitInfo = $this->Visit->find('first', $visitOptions);
- 					// $options['to'] = Configure::read('Parameter.Email.fromEmail'); // HABILITAR ESTA LINHA QD SISTEMA ESTIVER PRONTO
- 					$options['to'] = 'giba_fernando@hotmail.com'; // EXCLUIR ESTA LINHA QD SISTEMA ESTIVER PRONTO
- 					$options['template'] = 'visit_edited';
- 					$options['subject'] = __('Visit to %s has been Edited! - Technical Visits', $visitInfo['Visit']['destination']);
+ 					$options['to'] = Configure::read('Parameter.Email.fromEmail');
+ 					$options['template'] = 'visit_changed';
+ 					$options['subject'] = __('Visit to %s has been Changed! - Technical Visits', $visitInfo['Visit']['destination']);
  					$options['v'] = $visitInfo;
  					if ($this->sendMail($options)) {
  							$emailSendFlag = true;

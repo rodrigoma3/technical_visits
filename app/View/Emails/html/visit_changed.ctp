@@ -1,6 +1,6 @@
 <h1><?php echo __('%s has edited a visit!', $v['User']['name']); ?></h1>
 <br>
-<h3><?php echo __('The visit on %s to %s has been edited.', $v['Visit']['departure'], $v['Visit']['destination']); ?></h3>
+<h3><?php echo __('The visit on %s to %s has been changed.', $v['Visit']['departure'], $v['Visit']['destination']); ?></h3>
 <br>
 <br>
 <br>
