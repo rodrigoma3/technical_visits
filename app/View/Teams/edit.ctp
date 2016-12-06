@@ -8,7 +8,7 @@
 			<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('name');
-		echo $this->Form->input('Discipline');
+		echo $this->Form->input('Discipline', array('after' => ' '.$this->Form->button(__('Clear'), array('type' => 'button', 'class' => 'select-clear btn btn-small btn-default'))));
 	?>
 		<div class="form-actions">
 			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>

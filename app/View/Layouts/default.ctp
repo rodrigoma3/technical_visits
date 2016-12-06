@@ -25,10 +25,12 @@
 									'/DataTables-1_10_12/extensions/ColReorder/css/colReorder.dataTables.min',
 									'jsTree/style.min',
 									'bootstrap-duallistbox.min',
+									'/select2-4_0_3/css/select2.min',
 									'custom',
 		));
 
 		echo $this->Html->script(array(
+									// 'jquery-2.0.3.min',
 									'jquery-1.12.4.min',
 									// 'bootstrap-dropdown',
 									'bootstrap',
@@ -52,6 +54,7 @@
 									'jquery.bootstrap-duallistbox.min',
 									'dataTables.default',
 									'jquery.isloading.min',
+									'/select2-4_0_3/js/select2.min',
 									'custom',
 		));
 

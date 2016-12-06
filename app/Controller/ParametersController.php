@@ -134,7 +134,23 @@ class ParametersController extends AppController{
     }
 
     public function system(){
-
+        if ($this->request->is(array('post', 'put'))) {
+            $this->Parameter->set($this->request->data);
+            if ($this->Parameter->validates()) {
+                $data['System'] = $this->request->data[$this->Parameter->name];
+                if ($this->saveConfig($data)) {
+                    $this->Flash->success(__('The parameters has been saved.'));
+                } else {
+                    $this->Flash->error(__('The parameters could not be saved. Please, try again.'));
+                }
+            } else {
+                $errors = $this->Parameter->validationErrors;
+            }
+        }
+        if (empty($errors)) {
+            $this->request->data[$this->Parameter->name] = Configure::read('Parameter.System');
+        }
+        $this->set('rebuilt', $this->Acl->check(array('User' => $this->Auth->user()), 'parameters/rebuilt'));
     }
 
 /**

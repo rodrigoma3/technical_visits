@@ -6,8 +6,8 @@
 	<!-- /widget-header -->
 	<div class="widget-content">
 			<?php
-				echo $this->Form->input('cost_per_km_campus', array('type' => 'number', 'min' => 1, 'step' => '0.01'));
-				echo $this->Form->input('cost_per_km_outsourced', array('type' => 'number', 'min' => 1, 'step' => '0.01'));
+				echo $this->Form->input('costPerKmCampus', array('type' => 'number', 'min' => 1, 'step' => '0.01'));
+				echo $this->Form->input('costPerKmOutsourced', array('type' => 'number', 'min' => 1, 'step' => '0.01'));
 			?>
 		<div class="form-actions">
 			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>

@@ -15,12 +15,14 @@ $(document).ready(function() {
 
     $('#VisitDistance, #VisitTransport').on('change keyup', function() {
         var distance = parseFloat($('#VisitDistance').val());
+        // console.log(distance);
         var cost = 0;
         var transport = $('#VisitTransport').val();
+        // console.log(transport);
         if (transport === '2') {
-            cost = parseFloat($('#cost_per_km_campus').html());
+            cost = parseFloat($('#costPerKmCampus').html().replace('.','').replace(',','.'));
         } else if (transport === '3') {
-            cost = parseFloat($('#cost_per_km_outsourced').html());
+            cost = parseFloat($('#costPerKmOutsourced').html().replace('.','').replace(',','.'));
         }
         $('#VisitTransportCost').val(parseFloat(cost * distance).toFixed(2));
     });
@@ -46,6 +48,12 @@ $(document).ready(function() {
 
     $('a').on('click', function() {
         progressBar();
+    });
+
+    $('select:not(#duallist)').select2();
+
+    $(".select-clear").on("click", function () {
+        $(this).parent().children('select').val(null).trigger("change");
     });
 
     // BEGIN: dataTables

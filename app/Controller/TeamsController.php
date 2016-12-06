@@ -49,7 +49,24 @@ class TeamsController extends AppController {
 				$this->Flash->error(__('The team could not be saved. Please, try again.'));
 			}
 		}
-		$disciplines = $this->Team->Discipline->find('list');
+		$options = array(
+			'fields' => array(
+				$this->Team->Discipline->alias.'.id',
+				$this->Team->Discipline->alias.'.name',
+				$this->Team->Discipline->Course->alias.'.name'
+			),
+			'joins' => array(
+				array(
+					'table' => $this->Team->Discipline->Course->table,
+					'alias' => $this->Team->Discipline->Course->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Team->Discipline->alias.'.course_id = '.$this->Team->Discipline->Course->alias.'.id'
+					)
+				),
+			)
+		);
+		$disciplines = $this->Team->Discipline->find('list', $options);
 		$this->set(compact('disciplines'));
 	}
 

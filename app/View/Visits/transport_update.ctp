@@ -21,7 +21,7 @@
 			echo $this->Form->input('comments', ['disabled' => true]);
 			echo $this->Form->input('transport', ['empty' => __('(choose one)')]);
 			echo $this->Form->input('distance', ['min' => 1, 'after' => '<span class="add-on">km</span>', 'div' => 'input text input-prepend input-append', 'escape' => false]);
-			echo $this->Form->input('transport_cost', ['readonly' => true, 'between' => '<span class="add-on add-on-left">R$</span>', 'div' => 'input text input-prepend input-append', 'escape' => false, 'after' => '<p class="help-block">'.$cost_per_km.'</p>']);
+			echo $this->Form->input('transport_cost', ['readonly' => true, 'between' => '<span class="add-on add-on-left">R$</span>', 'div' => 'input text input-prepend input-append', 'escape' => false, 'after' => '<p class="help-block">'.$costPerKm.'</p>']);
 		?>
 		<div class="form-actions">
 			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>

@@ -411,8 +411,8 @@ class VisitsController extends AppController {
 				$transports = $this->Visit->getEnums('transport');
 				unset($transports[0]);
 				unset($transports[1]);
-				$cost_per_km = 'Cost Per Km Campus R$ <b id="cost_per_km_campus">'.CakeNumber::currency(Configure::read('Parameter.Transport.cost_per_km_campus'), 'BRL').'</b></br>';
-				$cost_per_km .= 'Cost Per Km Outsourced R$ <b id="cost_per_km_outsourced">'.CakeNumber::currency(Configure::read('Parameter.Transport.cost_per_km_outsourced'), 'BRL').'</b>';
+				$costPerKm = 'Cost Per Km Campus R$ <b id="costPerKmCampus">'.CakeNumber::currency(Configure::read('Parameter.Transport.costPerKmCampus'), 'BRL').'</b></br>';
+				$costPerKm .= 'Cost Per Km Outsourced R$ <b id="costPerKmOutsourced">'.CakeNumber::currency(Configure::read('Parameter.Transport.costPerKmOutsourced'), 'BRL').'</b>';
 				$options = array(
 					'conditions' => array(
 						$this->Visit->alias.'.departure >=' => date('Y-m-d', strtotime($this->request->data[$this->Visit->alias]['departure'])),
@@ -423,7 +423,7 @@ class VisitsController extends AppController {
 					'recursive' => 2
 				);
 				$visits = $this->Visit->find('all', $options);
-				$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses', 'transports', 'cost_per_km', 'statuses', 'visits'));
+				$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses', 'transports', 'costPerKm', 'statuses', 'visits'));
 		} else {
 			return $this->redirect(array('action' => 'index'));
 		}
