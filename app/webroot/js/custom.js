@@ -50,8 +50,9 @@ $(document).ready(function() {
         progressBar();
     });
 
-    $('select:not(#duallist)').select2();
-
+    if ($('select:not(#duallist)').length) {
+        $('select:not(#duallist)').select2();
+    }
     $(".select-clear").on("click", function () {
         $(this).parent().children('select').val(null).trigger("change");
     });
@@ -100,6 +101,13 @@ $(document).ready(function() {
                 $('#duallist').bootstrapDualListbox('destroy');
             });
         }
+
+        $(document).on('click', '.login-extra a[data-target]', function(e) {
+       		e.preventDefault();
+       		var target = $(this).data('target');
+       		$('.widget-box.visible').removeClass('visible');//hide others
+       		$(target).addClass('visible');//show target
+       	 });
     });
     // END: bootstrap-duallistbox
 
@@ -140,6 +148,7 @@ $(document).ready(function() {
                     $.each(obj, function(i,v) {
                         $('#VisitDisciplineId').append('<option value="'+i+'">'+v+'</option>');
                     });
+                    $('#VisitDisciplineId').change();
                 },
                 error: function(){
 

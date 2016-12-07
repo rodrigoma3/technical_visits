@@ -50,26 +50,33 @@
 			<?php echo $this->Html->link($visit['City']['State']['name'], array('controller' => 'states', 'action' => 'view', $visit['City']['State']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Distance'); ?></dt>
-		<dd>
-			<?php echo h($visit['Visit']['distance']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Transport'); ?></dt>
 		<dd>
 			<?php echo h($visit['Transport']['name']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Transport Cost'); ?></dt>
-		<dd>
-			<?php echo h($visit['Visit']['transport_cost']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Refund'); ?></dt>
-		<dd>
-			<?php echo h($visit['Visit']['refund']); ?>
-			&nbsp;
-		</dd>
+		<?php if ($visit['Visit']['transport'] > 1): ?>
+			<dt><?php echo __('Distance'); ?></dt>
+			<dd>
+				<?php echo h($visit['Visit']['distance']); ?>
+				&nbsp;
+			</dd>
+			<dt><?php echo __('Transport Cost'); ?></dt>
+			<dd>
+				<?php echo h($visit['Visit']['transport_cost']); ?>
+				&nbsp;
+			</dd>
+		<?php endif; ?>
+		<?php if ($preApproveVisit && $visit['City']['short_distance'] == false): ?>
+			<?php echo $this->Form->create('Visit', array('url' => 'pre_approve_visit/'.$visit['Visit']['id'])); ?>
+			<?php echo $this->Form->input('refund', array('min' => 0, 'step' => '0.01', 'value' => '0')); ?>
+		<?php else: ?>
+			<dt><?php echo __('Refund'); ?></dt>
+			<dd>
+				<?php echo h($visit['Visit']['refund']); ?>
+				&nbsp;
+			</dd>
+		<?php endif; ?>
 		<dt><?php echo __('Objective'); ?></dt>
 		<dd>
 			<?php echo h($visit['Visit']['objective']); ?>
@@ -105,18 +112,24 @@
 			<?php echo h($visit['Visit']['number_of_students']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Report'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($visit['Visit']['report'], array('controller' => 'visits', 'action' => 'downloadfile', $visit['Visit']['id']), array('escape' => false)); ?>
-			&nbsp;
-		</dd>
+		<?php if ($visit['Visit']['report'] != ''): ?>
+			<dt><?php echo __('Report'); ?></dt>
+			<dd>
+				<?php echo $this->Html->link($visit['Visit']['report'], array('controller' => 'visits', 'action' => 'download_report', $visit['Visit']['id']), array('escape' => false)); ?>
+				&nbsp;
+			</dd>
+		<?php endif; ?>
 		</dl>
 		<div class="form-actions">
 			<?php if ($approveVisit): ?>
 				<?php echo $this->Form->postLink('<i class="fa fa-thumbs-o-up"></i> '.__('Approve Visit'), array('action' => 'approve_visit', $visit['Visit']['id']), array('class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
 			<?php endif; ?>
 			<?php if ($preApproveVisit): ?>
-				<?php echo $this->Form->postLink('<i class="fa fa-thumbs-o-up"></i> '.__('Pre Approve Visit'), array('action' => 'pre_approve_visit', $visit['Visit']['id']), array('class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
+				<!-- <?php echo $this->Form->postLink('<i class="fa fa-thumbs-o-up"></i> '.__('Pre Approve Visit'), array('action' => 'pre_approve_visit', $visit['Visit']['id']), array('class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?> -->
+				<?php echo $this->Form->button('<i class="fa fa-thumbs-o-up"></i> '.__('Pre Approve Visit'), array('type' => 'submit', 'class' => 'btn btn-success', 'confirm' => __('Are you sure you want to approve # %s?', $visit['Visit']['id']), 'escape' => false)); ?>
+				<?php if ($visit['City']['short_distance'] == false): ?>
+					<?php echo $this->Form->end(); ?>
+				<?php endif; ?>
 			<?php endif; ?>
 			<?php if ($approveVisit || $preApproveVisit): ?>
 				<?php echo $this->Html->link('<i class="fa fa-thumbs-o-down"></i> '.__('Disapprove Visit'), array('controller' => 'refusals', 'action' => 'disapproved_visit', $visit['Visit']['id']), array('class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to disapprove # %s?', $visit['Visit']['id']), 'escape' => false)); ?>

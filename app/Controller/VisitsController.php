@@ -41,7 +41,9 @@ class VisitsController extends AppController {
 		$visits = $this->Visit->find('all');
 		$courses = $this->Visit->Discipline->Course->find('list');
 		$transportUpdater = $this->Acl->check(array('User' => $this->Auth->user()), $this->Visit->table.'/transport_update');
-		$this->set(compact('visits', 'courses', 'transportUpdater'));
+		$invalidatorVisit = $this->Acl->check(array('User' => $this->Auth->user()), $this->Visit->table.'/invalidate_visit');
+		$informationUpdater = $this->Acl->check(array('User' => $this->Auth->user()), $this->Visit->table.'/information_update');
+		$this->set(compact('visits', 'courses', 'transportUpdater', 'invalidatorVisit', 'informationUpdater'));
 	}
 
 /**
@@ -247,7 +249,7 @@ class VisitsController extends AppController {
 			$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
 			$states = $this->Visit->City->State->find('list');
 			$courses = $this->Visit->Discipline->Course->find('list');
-			$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses', 'change'));
+			$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses'));
 		} else {
 			$this->Flash->error(__('The visit is invalid or can not be changed.'));
 			return $this->redirect(array('action' => 'index'));
@@ -266,18 +268,83 @@ class VisitsController extends AppController {
 		return $this->redirect(array('action' => 'add'));
 	}
 
+	public function information_update($id = null) {
+		$this->Visit->id = $id;
+		if (!$this->Visit->exists()) {
+			$this->Flash->error(__('Invalid visit'));
+			return $this->redirect(array('action' => 'index'));
+		}
+		if($this->request->is('ajax')){
+			$this->autoRender = false;
+			if ($this->request->query('state_id') !== null) {
+				$options = array('conditions' => array($this->Visit->City->alias.'.state_id' => $this->request->query('state_id')));
+				$result = $this->Visit->City->find('list', $options);
+			}
+			if ($this->request->query('course_id') !== null) {
+				$options = array('conditions' => array($this->Visit->Discipline->alias.'.course_id' => $this->request->query('course_id')));
+				$result = $this->Visit->Discipline->find('list', $options);
+			}
+			if ($this->request->query('discipline_id') !== null) {
+				$options = array(
+					'conditions' => array($this->Visit->Team->DisciplinesTeam->alias.'.discipline_id' => $this->request->query('discipline_id')),
+					'joins' => array(
+						array(
+							'table' => $this->Visit->Team->DisciplinesTeam->table,
+							'alias' => $this->Visit->Team->DisciplinesTeam->alias,
+							'type' => 'INNER',
+							'conditions' => array(
+								$this->Visit->Team->alias.'.id = '.$this->Visit->Team->DisciplinesTeam->alias.'.team_id'
+							)
+						)
+					));
+				$result = $this->Visit->Team->find('list', $options);
+			}
+			return json_encode($result);
+		} elseif ($this->request->is(array('post', 'put'))) {
+			if ($this->Visit->save($this->request->data)) {
+				$this->Flash->success(__('The visit has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Flash->error(__('The visit could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->Visit->read();
+			$this->request->data[$this->Visit->alias]['states'] = $this->request->data[$this->Visit->City->alias]['state_id'];
+			$this->request->data[$this->Visit->alias]['course'] = $this->request->data[$this->Visit->Discipline->alias]['course_id'];
+		}
+		$options = array(
+			'conditions' => array($this->Visit->Team->DisciplinesTeam->alias.'.discipline_id' => $this->request->data[$this->Visit->alias]['discipline_id']),
+			'joins' => array(
+				array(
+					'table' => $this->Visit->Team->DisciplinesTeam->table,
+					'alias' => $this->Visit->Team->DisciplinesTeam->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Visit->Team->alias.'.id = '.$this->Visit->Team->DisciplinesTeam->alias.'.team_id'
+					)
+				)
+			));
+		$teams = $this->Visit->Team->find('list', $options);
+		$cities = $this->Visit->City->find('list', array('conditions' => array('state_id' => $this->request->data[$this->Visit->alias]['states'])));
+		$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
+		$states = $this->Visit->City->State->find('list');
+		$courses = $this->Visit->Discipline->Course->find('list');
+		$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses'));
+	}
+
 	public function pre_approve_visit($id = null) {
 		$this->Visit->id = $id;
 		if (!$this->Visit->exists()) {
-			throw new NotFoundException(__('Invalid visit'));
+			$this->Flash->error(__('Invalid visit'));
+			return $this->redirect(array('action' => 'index'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Visit->field('transport') == '0') {
-				$s = '1';
+				$this->request->data[$this->Visit->alias]['status'] = '1';
 			} else {
-				$s = '2';
+				$this->request->data[$this->Visit->alias]['status'] = '2';
 			}
-			if ($this->Visit->saveField('status', $s)) {
+			if ($this->Visit->save($this->request->data)) {
 				$this->Flash->success(__('The visit has been pre approved.'));
 			} else {
 				$this->Flash->error(__('Pre approval could not be saved. Please, try again.'));
@@ -348,7 +415,7 @@ class VisitsController extends AppController {
 		return $this->redirect($this->referer());
 	}
 
-	public function downloadfile($id = null) {
+	public function download_report($id = null) {
 		$this->Visit->id = $id;
 		if (!$this->Visit->exists()) {
 			throw new NotFoundException(__('Invalid visit'));

@@ -52,3 +52,7 @@ input {
     height: 6px;
     margin-bottom: 0 !important;
 }
+
+.widget-box:not(.visible) {
+    display: none;
+}

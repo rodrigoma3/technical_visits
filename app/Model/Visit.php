@@ -25,7 +25,7 @@ class Visit extends AppModel {
 			1 => 'Awaiting transport',
 			2 => 'Waiting for approval',
 			3 => 'Awaiting realization',
-			4 => 'Awaiting report and transport update',
+			4 => 'Awaiting report, information update and transport update',
 			5 => 'Awaiting report',
 			6 => 'Waiting for report evaluation and transport update',
 			7 => 'Waiting for report evaluation',

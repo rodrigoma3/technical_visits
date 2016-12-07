@@ -66,6 +66,26 @@ class UsersController extends AppController {
 		$this->redirect($this->Auth->logout());
 	}
 
+	public function reset_password($token = null) {
+		// if (!is_null($token)) {
+		// 	# code...
+		// } else {
+			$user = $this->User->find('first', array('conditions' => array($this->User->alias.'.email' => $this->request->data[$this->User->alias]['email'])));
+			if (!empty($user)) {
+				// gerar senha
+				$options['to'] = $user[$this->User->alias]['email'];
+				$options['template'] = 'password_generate';
+				$options['subject'] = __('Your password was generate! - Technical Visits');
+				$options['user'] = $user;
+				if ($this->sendMail($options)) {
+						$emailSendFlag = true;
+				} else {
+						$emailSendFlag = false;
+				}
+			}
+		// }
+	}
+
 /**
  * index method
  *

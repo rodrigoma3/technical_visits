@@ -95,6 +95,17 @@ class RefusalsController extends AppController {
 		$this->render('add');
 	}
 
+	public function invalidate_visit($id = null){
+		$this->Refusal->Visit->id = $id;
+		if (!$this->Refusal->Visit->exists()) {
+			$this->Flash->error(__('Invalid visit'));
+			return $this->redirect(array('controller'=>'visits','action' => 'index'));
+		}
+		$this->request->data[$this->Refusal->alias]['type'] = '3';
+		$this->request->data[$this->Refusal->alias]['visit_id'] = $id;
+		$this->render('add');
+	}
+
 	public function disapproved_visit($id = null){
 		$this->Refusal->Visit->id = $id;
 		if (!$this->Refusal->Visit->exists()) {

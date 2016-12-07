@@ -99,21 +99,7 @@
 
 					<?php echo $this->Flash->render(); ?>
 
-					<div class="account-container">
-
-						<div class="content clearfix">
-
-							<?php echo $this->fetch('content'); ?>
-
-						</div> <!-- /content -->
-
-					</div> <!-- /account-container -->
-
-					<div class="login-extra">
-						<?php echo $this->Html->link(__('Reset Password'), array('controller' => 'users', 'action' => 'reset_password')); ?>
-						<!-- <a href="#">Reset Password</a> -->
-					</div> <!-- /login-extra -->
-
+					<?php echo $this->fetch('content'); ?>
 				</div>
 			</div>
 		</div>
