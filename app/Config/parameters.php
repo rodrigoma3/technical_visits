@@ -10,17 +10,10 @@ $config = array (
       'ssl' => '',
       'timeout' => '30',
       'username' => 'technical.visits@bol.com.br',
-      'password' => '1q2w3e4r',
+      'password' => 'NjFlYzdmZmE1YjZjOGY1NGJmZjE0ZmVkZDI2ZTlkM2EwY2Q3YjhhZDcwY2M2MGQ2ZWQzYjc1NDI0Njk5ZGE2ZK7wLhNGK/mIWNOa85g8wjK5DiplPVwGNibGrjBQNKMI',
       'fromName' => 'Technical Visits',
       'fromEmail' => 'technical.visits@bol.com.br',
       'replyTo' => '',
-    ),
-    'Password' =>
-    array (
-      'size' => '8',
-      'uppercase' => '1',
-      'number' => '1',
-      'symbol' => '0',
     ),
     'Transport' =>
     array (
@@ -35,14 +28,15 @@ $config = array (
         1 => 'login',
         2 => 'logout',
         3 => 'set_language',
-        4 => 'reset_password',
+        4 => 'update_password',
         5 => 'notify_upcoming_visits',
         6 => 'made_visits',
         7 => 'notify_pending_report',
       ),
       'dirReportFiles' => 'files\\reports',
       'notifyPendingReport' => '3',
-      'notifyUpcomingVisits' => '3'
+      'notifyUpcomingVisits' => '3',
+      'updatePassword' => 'http://localhost/technical_visits/users/update_password/',
     ),
   ),
 );

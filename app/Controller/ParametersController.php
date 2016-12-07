@@ -20,17 +20,19 @@ class ParametersController extends AppController{
                     if ($parameter === 'Email') {
                         switch ($key) {
                             case 'ssl':
-                            if ($value) {
-                                $value = 'ssl://';
-                            } else {
-                                $value = '';
-                            }
-                            break;
+                                if ($value) {
+                                    $value = 'ssl://';
+                                } else {
+                                    $value = '';
+                                }
+                                break;
                             case 'password':
-                            if (empty($value)) {
-                                $value = Configure::read('Parameter.'.$parameter.'.'.$key);
-                            }
-                            break;
+                                if (empty($value)) {
+                                    $value = Configure::read('Parameter.'.$parameter.'.'.$key);
+                                } else {
+                                    $value = $this->encrypt($value);
+                                }
+                                break;
 
                             default:
                             break;
@@ -46,7 +48,7 @@ class ParametersController extends AppController{
         }
     }
 
-    public function email(){
+    public function email(){ // senha do email = 1q2w3e4r
         if ($this->request->is(array('post', 'put'))) {
             $this->Parameter->set($this->request->data);
             if($this->Parameter->validates()){
@@ -93,25 +95,6 @@ class ParametersController extends AppController{
             unset($this->request->data[$this->Parameter->name]['password']);
         }
 
-    }
-
-    public function password(){
-        if ($this->request->is(array('post', 'put'))) {
-            $this->Parameter->set($this->request->data);
-            if ($this->Parameter->validates()) {
-                $data['Password'] = $this->request->data[$this->Parameter->name];
-                if ($this->saveConfig($data)) {
-                    $this->Flash->success(__('The parameters has been saved.'));
-                } else {
-                    $this->Flash->error(__('The parameters could not be saved. Please, try again.'));
-                }
-            } else {
-                $errors = $this->Parameter->validationErrors;
-            }
-        }
-        if (empty($errors)) {
-            $this->request->data[$this->Parameter->name] = Configure::read('Parameter.Password');
-        }
     }
 
     public function cost_per_km(){

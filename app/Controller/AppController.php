@@ -79,7 +79,6 @@ class AppController extends Controller {
             $this->Auth->authError = false;
             return $this->redirect($this->Auth->logout());
         }
-
     }
 
     public function beforeRender() {
@@ -162,13 +161,6 @@ class AppController extends Controller {
                             'allow' => false,
                         ),
                         array(
-                            'title' => __('Password'),
-                            'controller' => 'parameters',
-                            'action' => 'password',
-                            'id' => null,
-                            'allow' => false,
-                        ),
-                        array(
                             'title' => __('Cost per km'),
                             'controller' => 'parameters',
                             'action' => 'cost_per_km',
@@ -199,8 +191,8 @@ class AppController extends Controller {
                         array(
                             'title' => __('Profile'),
                             'controller' => 'users',
-                            'action' => 'view',
-                            'id' => $this->Auth->user('id'),
+                            'action' => 'profile',
+                            'id' => null,
                             'allow' => false,
                         ),
                         array(
@@ -240,7 +232,7 @@ class AppController extends Controller {
                     'port' => $parameter['port'],
                     'timeout' => $parameter['timeout'],
                     'username' => $parameter['username'],
-                    'password' => $parameter['password'],
+                    'password' => $this->decrypt($parameter['password']),
                     'transport' => 'Smtp',
                     'charset' => 'utf-8',
                     'headerCharset' => 'utf-8',
@@ -261,5 +253,13 @@ class AppController extends Controller {
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    protected function encrypt($string = null) {
+        return base64_encode(Security::encrypt($string, Configure::read('Security.salt')));
+    }
+
+    protected function decrypt($string = null) {
+        return Security::decrypt(base64_decode($string), Configure::read('Security.salt'));
     }
 }

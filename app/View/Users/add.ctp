@@ -1,7 +1,7 @@
 <div class="widget users form">
 	<?php echo $this->Form->create('User'); ?>
 	<div class="widget-header">
-		<h3><?php echo __('Add User'); ?></h3>
+		<h3><?php echo __('New User'); ?></h3>
 	</div>
 	<!-- /widget-header -->
 	<div class="widget-content">
@@ -9,6 +9,7 @@
 		echo $this->Form->input('name');
 		echo $this->Form->input('email');
 		echo $this->Form->input('password');
+		echo $this->Form->input('confirm_password', array('type' => 'password'));
 		echo $this->Form->input('group_id');
 	?>
 		<div class="form-actions">

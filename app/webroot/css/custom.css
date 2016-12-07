@@ -53,6 +53,29 @@ input {
     margin-bottom: 0 !important;
 }
 
-.widget-box:not(.visible) {
+/*.widget-box:not(.visible) {
     display: none;
+    transform: scale(0,1) translate(-150px);
+}*/
+
+.widget-box {
+    visibility: hidden;
+    position: fixed;
+    -webkit-transform: scale(0,1) translate(-150px);
+}
+
+.widget-box.visible {
+    visibility: visible;
+    position: relative;
+    z-index: auto;
+    transform: scale(1,1) translate(0);
+    -webkit-transition: -webkit-transform .3s ease;
+}
+
+.form-error {
+    border-color: red !important;
+}
+
+.error-message {
+    color: red;
 }

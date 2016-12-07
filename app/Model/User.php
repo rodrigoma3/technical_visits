@@ -71,13 +71,13 @@ class User extends AppModel {
 	}
 
 	public function afterFind($results, $primary = false) {
-		if (Router::getParams()['action'] !== 'login') {
-			foreach($results as $key => $value) {
-				if(isset($results[$key][$this->alias]['password'])) {
-					unset($results[$key][$this->alias]['password']);
-				}
-			}
-		}
+		// if (Router::getParams()['action'] !== 'login') {
+		// 	foreach($results as $key => $value) {
+		// 		if(isset($results[$key][$this->alias]['password'])) {
+		// 			unset($results[$key][$this->alias]['password']);
+		// 		}
+		// 	}
+		// }
 	    foreach ($results as $key => $val) {
 			if (!is_null($val)) {
 				if ($key === 'prev' || $key === 'next') {
@@ -154,15 +154,37 @@ class User extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
-		'password' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
+			'isUnique' => array(
+				'rule' => array('isUnique'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
-				'on' => 'create', // Limit validation to 'create' or 'update' operations
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'current_password' => array(
+			'notBlank' => array(
+				'rule' => array('notBlank'),
+				'message' => 'This field can not be left blank',
+			),
+			// 'length' => array(
+			// 	'rule'    => array('minLength', 4),
+			// 	'message' => 'É necessário possuir ao menos 4 caracteres'
+			// ),
+			'required' => array(
+				'rule'    => 'confirmCurrentPassword',
+				'message' => 'Wrong password',
+			),
+		),
+		'password' => array(
+			'required' => array(
+				'rule'    => array('equalToField','confirm_password'),
+				'message' => 'Password and password confirmation are not the same',
+				'allowEmpty' => true,
+				// 'required' => false,
+				//'last' => false, // Stop validation after this rule
+				// 'on' => 'update', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'group_id' => array(
@@ -176,6 +198,36 @@ class User extends AppModel {
 			),
 		),
 	);
+
+	public function equalToField($check, $otherfield) {
+		$fname = '';
+		foreach ($check as $key => $value){
+			$fname = $key;
+			break;
+		}
+		if ($this->data[$this->alias][$otherfield] === $this->data[$this->alias][$fname]) {
+			return true;
+		} else {
+			$this->invalidate($otherfield, null);
+			return false;
+		}
+
+	}
+
+	public function confirmCurrentPassword($check) {
+		$fname = '';
+		foreach ($check as $key => $value){
+			$fname = $key;
+			break;
+		}
+		$user = $this->findById($this->id);
+		$newHash = Security::hash($this->data[$this->alias][$fname], 'blowfish', $user[$this->alias]['password']);
+		if($newHash === $user[$this->alias]['password']){
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -237,28 +289,8 @@ class User extends AppModel {
 		return $this->query("DELETE FROM aros_acos WHERE aro_id = $aroId");
 	}
 
-	public function equaltofield($check,$otherfield) {
-		$fname = '';
-		foreach ($check as $key => $value){
-			$fname = $key;
-			break;
-		}
-		if ($this->data['User'][$otherfield] === $this->data['User'][$fname]) {
-			return true;
-		} else {
-			$this->invalidate($otherfield, null);
-			return false;
-		}
-
+	public function token() {
+		return Security::hash(uniqid(rand(), true));
 	}
 
-	public function confirmCurrentPassword() {
-		$usuario = $this->findById($this->id);
-		$newHash = Security::hash($this->data['User']['currentPassword'], 'blowfish', $usuario['User']['password']);
-		if($newHash === $usuario['User']['password']){
-			return true;
-		} else {
-			return false;
-		}
-	}
 }

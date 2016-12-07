@@ -57,6 +57,8 @@ $(document).ready(function() {
         $(this).parent().children('select').val(null).trigger("change");
     });
 
+    $('.form-error:first').focus();
+
     // BEGIN: dataTables
     var table = $('table#dataTables').DataTable();
 

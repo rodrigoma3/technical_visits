@@ -66,24 +66,54 @@ class UsersController extends AppController {
 		$this->redirect($this->Auth->logout());
 	}
 
-	public function reset_password($token = null) {
-		// if (!is_null($token)) {
-		// 	# code...
-		// } else {
-			$user = $this->User->find('first', array('conditions' => array($this->User->alias.'.email' => $this->request->data[$this->User->alias]['email'])));
-			if (!empty($user)) {
-				// gerar senha
-				$options['to'] = $user[$this->User->alias]['email'];
-				$options['template'] = 'password_generate';
-				$options['subject'] = __('Your password was generate! - Technical Visits');
-				$options['user'] = $user;
-				if ($this->sendMail($options)) {
-						$emailSendFlag = true;
+	public function update_password($token = null) {
+		$this->layout = 'login';
+		if ($this->request->is(array('post', 'put'))) {
+			if (isset($this->request->data[$this->User->alias]['password']) && !empty($this->request->data[$this->User->alias]['password'])) {
+				$this->request->data[$this->User->alias]['token'] = '';
+				if ($this->User->save($this->request->data)) {
+					$this->Flash->success(__('The password has been saved.'));
+					$token = null;
 				} else {
-						$emailSendFlag = false;
+					$this->Flash->error(__('The password could not be saved. Please, try again.'));
+				}
+			} else {
+				$user = $this->User->find('first', array('conditions' => array($this->User->alias.'.email' => $this->request->data[$this->User->alias]['email'])));
+				if (!empty($user)) {
+					$token = $this->User->token();
+					$this->User->id = $user[$this->User->alias]['id'];
+					if ($this->User->saveField('token', $token)) {
+						$options['to'] = $this->User->field('email');
+						$options['template'] = 'update_password';
+						$options['subject'] = __('Update password - Technical Visits');
+						$options['user'] = $this->User->read();
+						$options['link'] = Configure::read('Parameter.System.updatePassword');
+						if ($this->sendMail($options)) {
+							$this->Flash->success(__('The password update email sent successfully.'));
+						} else {
+							$this->Flash->warning(__('Could not send email for password update. Please, try again in a few minutes.'));
+						}
+					} else {
+						$this->Flash->error(__('Your password update permission could not be generated. Please, try again in a few minutes.'));
+					}
+					$token = null;
+				} else {
+					$this->Flash->error(__('No users found. Please, try again.'));
 				}
 			}
-		// }
+		}
+		if (!is_null($token)) {
+			$user = $this->User->find('first', array('conditions' => array($this->User->alias.'.token' => $token)));
+			if (empty($user)) {
+				$this->Flash->error(__('Invalid token'));
+				return $this->redirect(array('action' => 'login'));
+			} else {
+				$this->request->data = $user;
+				unset($this->request->data[$this->User->alias]['password']);
+			}
+		} else {
+			return $this->redirect(array('action' => 'login'));
+		}
 	}
 
 /**
@@ -117,12 +147,29 @@ class UsersController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			if (empty($this->request->data[$this->User->alias]['password'])) {
+				unset($this->request->data[$this->User->alias]['password']);
+				unset($this->request->data[$this->User->alias]['confirm_password']);
+				$this->request->data[$this->User->alias]['token'] = $this->User->token();
+			}
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
-				$this->Flash->success(__('The user has been saved.'));
+				$user = $this->User->read();
+				$options['to'] = $user[$this->User->alias]['email'];
+				$options['template'] = 'update_password';
+				$options['subject'] = __('Update password - Technical Visits');
+				$options['user'] = $user;
+				$options['link'] = Configure::read('Parameter.System.updatePassword');
+				if ($this->sendMail($options)) {
+					$this->Flash->success(__('The user has been saved.'));
+				} else {
+					$this->Flash->warning(__('The user has been saved but could not send email for password update.'));
+				}
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The user could not be saved. Please, try again.'));
+				$this->Flash->error(__('The user could not be saved. Please, try again in a few minutes.'));
+				unset($this->request->data[$this->User->alias]['password']);
+				unset($this->request->data[$this->User->alias]['confirm_password']);
 			}
 		}
 		$groups = $this->User->Group->find('list');
@@ -148,14 +195,40 @@ class UsersController extends AppController {
 				$this->Flash->success(__('The user has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The user could not be saved. Please, try again.'));
+				$this->Flash->error(__('The user could not be saved. Please, try again in a few minutes.'));
 			}
 		} else {
 			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
 			$this->request->data = $this->User->find('first', $options);
+			unset($this->request->data[$this->User->alias]['password']);
 		}
 		$groups = $this->User->Group->find('list');
 		$this->set(compact('groups'));
+	}
+
+	public function profile() {
+		$this->User->id = $this->Auth->user('id');
+		if (!$this->User->exists()) {
+			$this->Flash->error(__('Invalid user'));
+			return $this->redirect(array('/'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if (empty($this->request->data[$this->User->alias]['password'])) {
+				unset($this->request->data[$this->User->alias]['current_password']);
+				unset($this->request->data[$this->User->alias]['password']);
+				unset($this->request->data[$this->User->alias]['confirm_password']);
+			}
+			unset($this->request->data[$this->User->alias]['group_id']);
+			if ($this->User->save($this->request->data)) {
+				$this->Flash->success(__('The user has been saved.'));
+			} else {
+				$this->Flash->error(__('The user could not be saved. Please, try again in a few minutes.'));
+			}
+		} else {
+			$this->request->data = $this->User->read();
+			$this->request->data[$this->User->alias]['group'] = $this->request->data[$this->User->Group->alias]['name'];
+			unset($this->request->data[$this->User->alias]['password']);
+		}
 	}
 
 /**
@@ -166,20 +239,25 @@ class UsersController extends AppController {
  * @return void
  */
 	public function delete($id = null) {
-		$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		$user = $this->User->read();
-		if (empty($user[$this->User->Visit->alias])) {
-			$this->request->allowMethod('post', 'delete');
-			if ($this->User->delete()) {
-				$this->Flash->success(__('The user has been deleted.'));
-			} else {
-				$this->Flash->error(__('The user could not be deleted. Please, try again.'));
-			}
+		if ($id === $this->Auth->user('id')) {
+			$this->Flash->error(__('You can not delete yourself.'));
 		} else {
-			$this->Flash->warning(__('The user could not be deleted because it is tied to a visit.'));
+			$this->User->id = $id;
+			if (!$this->User->exists()) {
+				$this->Flash->error(__('Invalid user'));
+			} else {
+				$user = $this->User->read();
+				if (empty($user[$this->User->Visit->alias])) {
+					$this->request->allowMethod('post', 'delete');
+					if ($this->User->delete()) {
+						$this->Flash->success(__('The user has been deleted.'));
+					} else {
+						$this->Flash->error(__('The user could not be deleted. Please, try again in a few minutes.'));
+					}
+				} else {
+					$this->Flash->warning(__('The user could not be deleted because it is tied to a visit.'));
+				}
+			}
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
@@ -205,7 +283,7 @@ class UsersController extends AppController {
 		if ($this->User->saveField('enabled', $enabled)) {
 			$this->Flash->success(__('The user has been saved.'));
 		} else {
-			$this->Flash->error(__('The user could not be saved. Please, try again.'));
+			$this->Flash->error(__('The user could not be saved. Please, try again in a few minutes.'));
 		}
 		return $this->redirect($this->referer());
 	}

@@ -29,7 +29,7 @@
     </div> <!-- /account-container -->
 
     <div class="login-extra">
-        <?php echo $this->Html->link(__('Reset Password'), array('#'), array('data-target' => '#forgot-box')); ?>
+        <?php echo $this->Html->link(__('Forgot Password'), array('#'), array('data-target' => '#forgot-box')); ?>
         <!-- <a href="#">Reset Password</a> -->
     </div> <!-- /login-extra -->
 </div>
@@ -39,7 +39,7 @@
 
         <div class="content clearfix">
 
-            <?php echo $this->Form->create('User', array('url' => 'reset_password')); ?>
+            <?php echo $this->Form->create('User', array('url' => 'update_password')); ?>
             <h1><?php echo __('Retrieve Password'); ?></h1>
 
             <div class="login-fields">
