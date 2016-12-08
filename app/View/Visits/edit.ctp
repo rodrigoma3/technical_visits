@@ -12,10 +12,10 @@
 			echo $this->Form->input('arrival', ['type'=>'datetime-local']);
 			echo $this->Form->input('destination');
 			echo $this->Form->input('states', ['empty' => __('(choose one)')]);
-			echo $this->Form->input('city_id', ['empty' => __('(choose a state)')]);
+			echo $this->Form->input('city_id', ['empty' => __('(choose a state before)')]);
 			echo $this->Form->input('course', ['empty' => __('(choose one)')]);
-			echo $this->Form->input('discipline_id', ['empty' => __('(choose a course)')]);
-			echo $this->Form->input('team_id', ['empty' => __('(choose a discipline)')]);
+			echo $this->Form->input('discipline_id', ['empty' => __('(choose a course before)')]);
+			echo $this->Form->input('team_id', ['empty' => __('(choose a discipline before)')]);
 			echo $this->Form->input('number_of_students', ['min' => 1]);
 			echo $this->Form->input('objective');
 			echo $this->Form->input('comments');

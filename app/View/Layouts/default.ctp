@@ -25,7 +25,6 @@
 									'/DataTables-1_10_12/extensions/ColReorder/css/colReorder.dataTables.min',
 									'jsTree/style.min',
 									'bootstrap-duallistbox.min',
-									'/select2-4_0_3/css/select2.min',
 									'custom',
 		));
 
@@ -51,10 +50,9 @@
 									'pdfmake/pdfmake.min',
 									'pdfmake/vfs_fonts',
 									'jsTree/jstree.min',
-									'jquery.bootstrap-duallistbox.min',
+									'jquery.bootstrap-duallistbox',
 									'dataTables.default',
 									'jquery.isloading.min',
-									'/select2-4_0_3/js/select2.min',
 									'custom',
 		));
 

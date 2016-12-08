@@ -31,6 +31,14 @@ class Group extends AppModel {
 				'rule'	  => array('minLength', 2),
 				'message' => 'At least 2 characters',
 			),
+			'isUnique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'This name is already in use',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 		),
 		'description' => array(
 			// 'simplechars' => array(

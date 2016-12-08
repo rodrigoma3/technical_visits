@@ -26,6 +26,14 @@ class State extends AppModel {
 				'rule'	  => array('minLength', 2),
 				'message' => 'At least 2 characters',
 			),
+			'isUnique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'This name is already in use',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 		),
 		'initials' => array(
 			'alphaNumeric'   => array(
@@ -35,6 +43,14 @@ class State extends AppModel {
 			'lengthBetween'   => array(
 				'rule'	  => array('lengthBetween', 2, 2),
 				'message' => 'Must have 2 characters',
+			),
+			'isUnique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'This initial is already in use',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 	);

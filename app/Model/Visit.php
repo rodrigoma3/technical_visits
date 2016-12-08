@@ -106,6 +106,17 @@ class Visit extends AppModel {
 		return $return;
 	}
 
+	public function beforeValidate($options = array()){
+		parent::beforeValidate($options);
+
+		$this->validate['transport']['allowedChoice']['rule'][1] = array_keys($this->getEnums('transport'));
+		$this->validate['status']['allowedChoice']['rule'][1] = array_keys($this->getEnums('status'));
+		$this->validate['user_id']['allowedChoice']['rule'][1] = array_keys($this->User->find('list'));
+		$this->validate['city_id']['allowedChoice']['rule'][1] = array_keys($this->City->find('list'));
+		$this->validate['team_id']['allowedChoice']['rule'][1] = array_keys($this->Team->find('list'));
+		$this->validate['discipline_id']['allowedChoice']['rule'][1] = array_keys($this->Discipline->find('list'));
+	}
+
 /**
  * Validation rules
  *
@@ -115,7 +126,7 @@ class Visit extends AppModel {
 		'departure' => array(
 			'datetime' => array(
 				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
+				'message' => 'Invalid date',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -125,7 +136,7 @@ class Visit extends AppModel {
 		'arrival' => array(
 			'datetime' => array(
 				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
+				'message' => 'Invalid date',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -133,19 +144,25 @@ class Visit extends AppModel {
 			),
 		),
 		'destination' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
+			'minLength'   => array(
+				'rule'	  => array('minLength', 2),
+				'message' => 'At least 2 characters',
+			),
+		),
+		'number_of_students' => array(
+			'naturalNumber' => array(
+				'rule' => array('naturalNumber'),
+				'message' => 'Only natural numbers (greater than zero)',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'number_of_students' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
+		'number_of_students_present' => array(
+			'naturalNumber' => array(
+				'rule' => array('naturalNumber'),
+				'message' => 'Only natural numbers (greater than zero)',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -155,19 +172,19 @@ class Visit extends AppModel {
 		'refund' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
+				'message' => 'Enter a valid numerical value',
+				// 'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'transport' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
@@ -175,7 +192,7 @@ class Visit extends AppModel {
 		'cost_transport' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
+				'message' => 'Enter a valid numerical value',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -185,7 +202,7 @@ class Visit extends AppModel {
 		'distance' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
+				'message' => 'Enter a valid numerical value',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -193,71 +210,77 @@ class Visit extends AppModel {
 			),
 		),
 		'objective' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'comments' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			'minLength'   => array(
+				'rule'	  => array('minLength', 2),
+				'message' => 'At least 2 characters',
 			),
 		),
 		'status' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'user_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'state_id' => array(
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'city_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'team_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'discipline_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'course_id' => array(
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),

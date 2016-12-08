@@ -7,10 +7,9 @@ $(document).ready(function() {
 
     String.prototype.stripHTML = function() {return this.replace(/<.*?>/g, '');}
 
-    $('option').each(function(index) {
-        if ($(this).val() === '') {
-            $(this).attr('disabled', true);
-        }
+    disabledOptionEmpty();
+    $('select').on('change', function() {
+        disabledOptionEmpty();
     });
 
     $('#VisitDistance, #VisitTransport').on('change keyup', function() {
@@ -48,13 +47,6 @@ $(document).ready(function() {
 
     $('a').on('click', function() {
         progressBar();
-    });
-
-    if ($('select:not(#duallist)').length) {
-        $('select:not(#duallist)').select2();
-    }
-    $(".select-clear").on("click", function () {
-        $(this).parent().children('select').val(null).trigger("change");
     });
 
     $('.form-error:first').focus();
@@ -117,66 +109,90 @@ $(document).ready(function() {
     $(function(){
         $('#VisitStates').change(function(){
             var state = $(this).val();
-            $.ajax({
-                url: $(location).attr('href'),
-                type: 'GET',
-                data: {"state_id": state},
-                success: function(data){
-                    $('#VisitCityId').children('option[value!=""]').each(function(index) {
-                        $(this).remove();
-                    });
-                    var obj = jQuery.parseJSON(data);
-                    $.each(obj, function(i,v) {
-                        $('#VisitCityId').append('<option value="'+i+'">'+v+'</option>');
-                    });
-                },
-                error: function(){
+            if (state !== null) {
+                $.ajax({
+                    url: $(location).attr('href'),
+                    type: 'GET',
+                    data: {"state_id": state},
+                    success: function(data){
+                        $('#VisitCityId').children('option').each(function(index) {
+                            if ($(this).val() != '') {
+                                $(this).remove();
+                            } else {
+                                $(this).html($('#VisitStates').children('option[value=""]').html());
+                            }
+                        });
+                        var obj = jQuery.parseJSON(data);
+                        $.each(obj, function(i,v) {
+                            $('#VisitCityId').append('<option value="'+i+'">'+v+'</option>');
+                        });
+                    },
+                    error: function(){
 
-                }
-            });
+                    }
+                });
+            }
             return false;
         });
         $('#VisitCourse').change(function(){
             var course = $(this).val();
-            $.ajax({
-                url: $(location).attr('href'),
-                type: 'GET',
-                data: {"course_id": course},
-                success: function(data){
-                    $('#VisitDisciplineId').children('option[value!=""]').each(function(index) {
-                        $(this).remove();
-                    });
-                    var obj = jQuery.parseJSON(data);
-                    $.each(obj, function(i,v) {
-                        $('#VisitDisciplineId').append('<option value="'+i+'">'+v+'</option>');
-                    });
-                    $('#VisitDisciplineId').change();
-                },
-                error: function(){
+            if (course !== null) {
+                $.ajax({
+                    url: $(location).attr('href'),
+                    type: 'GET',
+                    data: {"course_id": course},
+                    success: function(data){
+                        // $('#VisitDisciplineId').children('option[value!=""]').each(function(index) {
+                        //     $(this).remove();
+                        // });
+                        $('#VisitDisciplineId').children('option').each(function(index) {
+                            if ($(this).val() != '') {
+                                $(this).remove();
+                            } else {
+                                $(this).html($('#VisitCourse').children('option[value=""]').html());
+                            }
+                        });
+                        var obj = jQuery.parseJSON(data);
+                        $.each(obj, function(i,v) {
+                            $('#VisitDisciplineId').append('<option value="'+i+'">'+v+'</option>');
+                        });
+                        $('#VisitDisciplineId').change();
+                    },
+                    error: function(){
 
-                }
-            });
+                    }
+                });
+            }
             return false;
         });
         $('#VisitDisciplineId').change(function(){
             var discipline = $(this).val();
-            $.ajax({
-                url: $(location).attr('href'),
-                type: 'GET',
-                data: {"discipline_id": discipline},
-                success: function(data){
-                    $('#VisitTeamId').children('option[value!=""]').each(function(index) {
-                        $(this).remove();
-                    });
-                    var obj = jQuery.parseJSON(data);
-                    $.each(obj, function(i,v) {
-                        $('#VisitTeamId').append('<option value="'+i+'">'+v+'</option>');
-                    });
-                },
-                error: function(){
+            if (discipline !== null) {
+                $.ajax({
+                    url: $(location).attr('href'),
+                    type: 'GET',
+                    data: {"discipline_id": discipline},
+                    success: function(data){
+                        // $('#VisitTeamId').children('option[value!=""]').each(function(index) {
+                        //     $(this).remove();
+                        // });
+                        $('#VisitTeamId').children('option').each(function(index) {
+                            if ($(this).val() != '') {
+                                $(this).remove();
+                            } else {
+                                $(this).html($('#VisitDisciplineId').children('option[value=""]').html());
+                            }
+                        });
+                        var obj = jQuery.parseJSON(data);
+                        $.each(obj, function(i,v) {
+                            $('#VisitTeamId').append('<option value="'+i+'">'+v+'</option>');
+                        });
+                    },
+                    error: function(){
 
-                }
-            });
+                    }
+                });
+            }
             return false;
         });
     });
@@ -201,4 +217,10 @@ function progressBar() {
             $('.progress .bar').css('width', w + '%');
         }
     }
+}
+
+function disabledOptionEmpty() {
+    $('option[value=""]').each(function() {
+        $(this).attr('disabled', true);
+    });
 }
