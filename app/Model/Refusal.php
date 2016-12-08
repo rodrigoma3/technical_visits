@@ -87,6 +87,14 @@ class Refusal extends AppModel {
 		return $return;
 	}
 
+	public function beforeValidate($options = array()){
+		parent::beforeValidate($options);
+
+		$this->validate['type']['allowedChoice']['rule'][1] = array_keys($this->getEnums('type'));
+		$this->validate['user_id']['allowedChoice']['rule'][1] = array_keys($this->User->find('list'));
+		$this->validate['visit_id']['allowedChoice']['rule'][1] = array_keys($this->Visit->find('list'));
+	}
+
 /**
  * Validation rules
  *
@@ -94,41 +102,37 @@ class Refusal extends AppModel {
  */
 	public $validate = array(
 		'reason' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			'minLength'   => array(
+				'rule'	  => array('minLength', 2),
+				'message' => 'At least 2 characters',
 			),
 		),
 		'type' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'user_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'visit_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),

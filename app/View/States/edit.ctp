@@ -8,7 +8,7 @@
 			<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('name');
-		echo $this->Form->input('initials');
+		echo $this->Form->input('initials', array('min' => 2, 'max' => 2));
 	?>
 		<div class="form-actions">
 			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>

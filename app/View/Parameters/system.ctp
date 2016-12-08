@@ -8,6 +8,7 @@
 			<?php
 				echo $this->Form->input('notifyPendingReport', array('type' => 'number', 'min' => 1, 'after' => ' '.__('days')));
 				echo $this->Form->input('notifyUpcomingVisits', array('type' => 'number', 'min' => 1, 'after' => ' '.__('days')));
+				echo $this->Form->input('updatePassword');
 			?>
 		<div class="form-actions">
 			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>

@@ -129,6 +129,12 @@ class User extends AppModel {
 		return $return;
 	}
 
+	public function beforeValidate($options = array()){
+		parent::beforeValidate($options);
+
+		$this->validate['group_id']['allowedChoice']['rule'][1] = array_keys($this->Group->find('list'));
+	}
+
 /**
  * Validation rules
  *
@@ -136,19 +142,23 @@ class User extends AppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
+			'simplechars' => array(
+				'rule'    => '/^[A-Za-zÀ-ú0-9\ ]*$/i',
+				'message' => 'Only letters, accentuation, numbers and space " "',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+			'minLength'   => array(
+				'rule'	  => array('minLength', 2),
+				'message' => 'At least 2 characters',
+			),
 		),
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
-				//'message' => 'Your custom message here',
+				'message' => 'Enter a valid email',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -156,7 +166,7 @@ class User extends AppModel {
 			),
 			'isUnique' => array(
 				'rule' => array('isUnique'),
-				//'message' => 'Your custom message here',
+				'message' => 'This email is already in use',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -164,14 +174,6 @@ class User extends AppModel {
 			),
 		),
 		'current_password' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				'message' => 'This field can not be left blank',
-			),
-			// 'length' => array(
-			// 	'rule'    => array('minLength', 4),
-			// 	'message' => 'É necessário possuir ao menos 4 caracteres'
-			// ),
 			'required' => array(
 				'rule'    => 'confirmCurrentPassword',
 				'message' => 'Wrong password',
@@ -181,16 +183,38 @@ class User extends AppModel {
 			'required' => array(
 				'rule'    => array('equalToField','confirm_password'),
 				'message' => 'Password and password confirmation are not the same',
-				'allowEmpty' => true,
+				// 'allowEmpty' => true,
 				// 'required' => false,
 				//'last' => false, // Stop validation after this rule
 				// 'on' => 'update', // Limit validation to 'create' or 'update' operations
 			),
+			'minLength'   => array(
+				'rule'	  => array('minLength', 4),
+				'message' => 'At least 4 characters',
+				// 'allowEmpty' => true,
+			),
+		),
+		'confirm_password' => array(
+			'minLength'   => array(
+				'rule'	  => array('minLength', 4),
+				'message' => 'At least 4 characters',
+				// 'allowEmpty' => true,
+			),
 		),
 		'group_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
+			'allowedChoice' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Choose one of the options',
+				'allowEmpty' => false,
+				// 'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'enabled' => array(
+			'boolean' => array(
+				'rule' => array('boolean'),
+				'message' => 'Boolean options only',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule

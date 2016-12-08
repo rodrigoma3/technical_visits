@@ -17,7 +17,7 @@ $config = array (
     ),
     'Transport' =>
     array (
-      'costPerKmCampus' => '2.15',
+      'costPerKmCampus' => '3.34',
       'costPerKmOutsourced' => '3.40',
     ),
     'System' =>
@@ -36,7 +36,7 @@ $config = array (
       'dirReportFiles' => 'files\\reports',
       'notifyPendingReport' => '3',
       'notifyUpcomingVisits' => '3',
-      'updatePassword' => 'http://localhost/technical_visits/users/update_password/',
+      'updatePassword' => 'http://localhost/technical_visits/users/update_password',
     ),
   ),
 );

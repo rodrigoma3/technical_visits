@@ -83,11 +83,16 @@ class UsersController extends AppController {
 					$token = $this->User->token();
 					$this->User->id = $user[$this->User->alias]['id'];
 					if ($this->User->saveField('token', $token)) {
+						$link = Configure::read('Parameter.System.updatePassword');
+						if (substr(Configure::read('Parameter.System.updatePassword'), -1) !== '/') {
+							$link .= '/';
+						}
+						$link .= $token;
 						$options['to'] = $this->User->field('email');
 						$options['template'] = 'update_password';
 						$options['subject'] = __('Update password - Technical Visits');
 						$options['user'] = $this->User->read();
-						$options['link'] = Configure::read('Parameter.System.updatePassword');
+						$options['link'] = $link;
 						if ($this->sendMail($options)) {
 							$this->Flash->success(__('The password update email sent successfully.'));
 						} else {
@@ -213,12 +218,6 @@ class UsersController extends AppController {
 			return $this->redirect(array('/'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if (empty($this->request->data[$this->User->alias]['password'])) {
-				unset($this->request->data[$this->User->alias]['current_password']);
-				unset($this->request->data[$this->User->alias]['password']);
-				unset($this->request->data[$this->User->alias]['confirm_password']);
-			}
-			unset($this->request->data[$this->User->alias]['group_id']);
 			if ($this->User->save($this->request->data)) {
 				$this->Flash->success(__('The user has been saved.'));
 			} else {
@@ -226,9 +225,12 @@ class UsersController extends AppController {
 			}
 		} else {
 			$this->request->data = $this->User->read();
-			$this->request->data[$this->User->alias]['group'] = $this->request->data[$this->User->Group->alias]['name'];
-			unset($this->request->data[$this->User->alias]['password']);
 		}
+		unset($this->request->data[$this->User->alias]['current_password']);
+		unset($this->request->data[$this->User->alias]['password']);
+		unset($this->request->data[$this->User->alias]['confirm_password']);
+		$groups = $this->User->Group->find('list', array('conditions' => array($this->User->Group->alias.'.id' => $this->User->field('group_id'))));
+		$this->set(compact('groups'));
 	}
 
 /**

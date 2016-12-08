@@ -19,24 +19,28 @@ class Group extends AppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
+			'simplechars' => array(
+				'rule'    => '/^[A-Za-zÀ-ú0-9-\(\)\ \_]*$/i',
+				'message' => 'Only letters, accentuation, numbers, underline "_", space " ", parentheses "( )" and hyphen "-"',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'minLength'   => array(
+				'rule'	  => array('minLength', 2),
+				'message' => 'At least 2 characters',
 			),
 		),
 		'description' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+			// 'simplechars' => array(
+			// 	'rule'    => '/^[A-Za-zÀ-ú0-9-\(\)\ \_]*$/i',
+			// 	'message' => 'Only simple characters, numbers, underline "_", space " ", parentheses "( )" and hyphen "-"',
+			// 	'allowEmpty' => true,
+			// 	'required' => false,
+			// 	//'last' => false, // Stop validation after this rule
+			// 	//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			// ),
 		),
 	);
 
