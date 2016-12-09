@@ -107,33 +107,6 @@ $(document).ready(function() {
 
     // BEGIN: ajax
     $(function(){
-        $('#VisitStates').on('change', function(){
-            var state = $(this).val();
-            if (state !== null) {
-                $.ajax({
-                    url: $(location).attr('href'),
-                    type: 'GET',
-                    data: {"state_id": state},
-                    success: function(data){
-                        $('#VisitCityId').children('option').each(function(index) {
-                            if ($(this).val() != '') {
-                                $(this).remove();
-                            } else {
-                                $(this).html($('#VisitStates').children('option[value=""]').html());
-                            }
-                        });
-                        var obj = jQuery.parseJSON(data);
-                        $.each(obj, function(i,v) {
-                            $('#VisitCityId').append('<option value="'+i+'">'+v+'</option>');
-                        });
-                    },
-                    error: function(){
-
-                    }
-                });
-            }
-            return false;
-        });
         $('#VisitCourse').on('change', function(){
             var course = $(this).val();
             if (course !== null) {

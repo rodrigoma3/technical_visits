@@ -75,7 +75,7 @@
 			<?php echo $this->Html->link($visit['City']['name'], array('controller' => 'cities', 'action' => 'view', $visit['City']['id'])); ?>
         </td>
 		<td>
-            <?php echo $this->Html->link($visit['City']['State']['initials'], array('controller' => 'states', 'action' => 'view', $visit['City']['State']['id'])); ?>
+            <?php echo $this->Html->link($visit['City']['State']['name_initial'], array('controller' => 'states', 'action' => 'view', $visit['City']['State']['id'])); ?>
 		</td>
         <td>
 			<?php echo $this->Html->link($courses[$visit['Team']['Discipline'][0]['course_id']], array('controller' => 'courses', 'action' => 'view', $visit['Team']['Discipline'][0]['course_id'])); ?>

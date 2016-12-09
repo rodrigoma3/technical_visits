@@ -325,4 +325,73 @@ class User extends AppModel {
 		return Security::hash(uniqid(rand(), true));
 	}
 
+	public function usersWithPermission($options = array()) {
+		if (empty($options)) {
+			return array();
+		}
+
+		$controllerId = $this->query("SELECT `id` FROM `acos` WHERE `alias` = '".$options['controller']."'");
+		if (empty($controllerId)) {
+			return array();
+		}
+		$controllerId = $controllerId[0]['acos']['id'];
+		$actionId = $this->query("SELECT `id` FROM `acos` WHERE `alias` = '".$options['action']."' AND `parent_id` = $controllerId");
+		if (empty($actionId)) {
+			return array();
+		}
+		$actionId = $actionId[0]['acos']['id'];
+
+		$usersWithoutPermission = $this->query(
+			"SELECT `Aro`.`foreign_key`
+			FROM `aros` AS `Aro` WHERE `Aro`.`id`
+			IN (SELECT `AA`.`aro_id` FROM `aros_acos` AS `AA`
+				INNER JOIN `acos` AS `Aco` ON (`AA`.`aco_id` = `Aco`.`id`)
+				WHERE (`AA`.`_update` = '-1' OR `AA`.`_create` = '-1' OR `AA`.`_read` = '-1' OR `AA`.`_delete` = '-1')
+				AND `Aro`.`model` = 'USER'
+				AND `Aco`.`id` = '$actionId')
+			");
+		$listUsersWithoutPermission = array();
+		foreach ($usersWithoutPermission as $i) {
+			$listUsersWithoutPermission[] = $i['Aro']['foreign_key'];
+		}
+
+		$usersGroupsWithPermission = $this->query(
+			"SELECT `Aro`.`model`, `Aro`.`foreign_key`
+			FROM `aros` AS `Aro`
+			WHERE `Aro`.`id`
+			IN (SELECT `AA`.`aro_id`
+				FROM `aros_acos` AS `AA`
+				INNER JOIN `acos` AS `Aco` ON (`AA`.`aco_id` = `Aco`.`id`)
+				WHERE (`AA`.`_update` = '1' OR `AA`.`_create` = '1' OR `AA`.`_read` = '1' OR `AA`.`_delete` = '1')
+				AND `Aco`.`id` = '$actionId')
+			");
+
+		$groupId = array();
+		$userId = array();
+		foreach ($usersGroupsWithPermission as $i) {
+			if ($i['Aro']['model'] === 'Group') {
+				$groupId[] = $i['Aro']['foreign_key'];
+			} else {
+				$userId[] = $i['Aro']['foreign_key'];
+			}
+		}
+
+		$ops = array(
+			'conditions' => array(
+				'OR' => array(
+					$this->alias.'.id' => $userId,
+					$this->alias.'.group_id' => $groupId,
+				),
+				'NOT' => array(
+					$this->alias.'.id' => $listUsersWithoutPermission,
+				),
+			),
+			'recursive' => -1
+		);
+		unset($options['action']);
+		unset($options['controller']);
+		$options = array_merge($options, $ops);
+		return $this->find('all', $options);
+	}
+
 }

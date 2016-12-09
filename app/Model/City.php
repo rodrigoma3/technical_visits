@@ -56,6 +56,26 @@ class City extends AppModel {
 		),
 	);
 
+	public function superlist() {
+		$options = array(
+			'fields' => array(
+				$this->alias.'.id',
+				$this->alias.'.name',
+				$this->State->alias.'.name',
+				$this->State->alias.'.initials',
+			),
+			'recursive' => 0,
+			'order' => array($this->State->alias.'.name' => 'asc'),
+		);
+		$res = $this->find('all', $options);
+		$citiesPerState = array();
+		foreach ($res as $r) {
+			$state = $r[$this->State->alias]['name'].' - '.$r[$this->State->alias]['initials'];
+			$citiesPerState[$state][$r[$this->alias]['id']] = $r[$this->alias]['name'];
+		}
+		return $citiesPerState;
+    }
+
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**

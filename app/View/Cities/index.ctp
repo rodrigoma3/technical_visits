@@ -39,7 +39,7 @@
                             } ?>
                         </td>
                 		<td>
-                			<?php echo $this->Html->link($city['State']['name'], array('controller' => 'states', 'action' => 'view', $city['State']['id'])); ?>
+                			<?php echo $this->Html->link($city['State']['name_initial'], array('controller' => 'states', 'action' => 'view', $city['State']['id'])); ?>
                 		</td>
                 		<td class="actions">
                 			<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $city['City']['id']), array('title' => __('View'), 'escape' => false)); ?>

@@ -77,7 +77,7 @@ class AppController extends Controller {
 
         if (!$this->Auth->loggedIn() && !in_array($this->action, Configure::read('Parameter.System.allowed_actions'))) {
             $this->Auth->authError = false;
-            return $this->redirect($this->Auth->logout());
+            // return $this->redirect($this->Auth->logout());
         }
     }
 

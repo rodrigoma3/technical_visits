@@ -23,7 +23,8 @@ class RefusalsController extends AppController {
 				switch ($this->request->data[$this->Refusal->alias]['type']) {
 					case '0':
 						$this->Refusal->Visit->saveField('status', '10');
-							$options['to'] = Configure::read('Parameter.Email.fromEmail');
+							$users = $this->Refusal->User->usersWithPermission(array('controller' => 'visits', 'action' => 'transport_update', 'fields' => array($this->Refusal->User->alias.'.email')));
+							$options['to'] = implode(',', Set::classicExtract($users, '{n}.'.$this->Refusal->User->alias.'.email'));
 							$options['template'] = 'visit_canceled';
 							$options['subject'] = __('Visit to %s has been Canceled! - Technical Visits', $visitInfo['Visit']['destination']);
 							$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];

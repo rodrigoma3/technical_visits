@@ -47,7 +47,7 @@
 		</dd>
 		<dt><?php echo __('State'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($visit['City']['State']['name'], array('controller' => 'states', 'action' => 'view', $visit['City']['State']['id'])); ?>
+			<?php echo $this->Html->link($visit['City']['State']['name_initial'], array('controller' => 'states', 'action' => 'view', $visit['City']['State']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Transport'); ?></dt>

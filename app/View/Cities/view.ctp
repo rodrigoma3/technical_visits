@@ -26,7 +26,7 @@
 		</dd>
 		<dt><?php echo __('State'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($city['State']['name'], array('controller' => 'states', 'action' => 'view', $city['State']['id'])); ?>
+			<?php echo $this->Html->link($city['State']['name_initial'], array('controller' => 'states', 'action' => 'view', $city['State']['id'])); ?>
 			&nbsp;
 		</dd>
 		</dl>

@@ -122,10 +122,6 @@ class VisitsController extends AppController {
 		}
 		if($this->request->is('ajax')){
 			$this->autoRender = false;
-			if ($this->request->query('state_id') !== null) {
-				$options = array('conditions' => array($this->Visit->City->alias.'.state_id' => $this->request->query('state_id')));
-				$result = $this->Visit->City->find('list', $options);
-			}
 			if ($this->request->query('course_id') !== null) {
 				$options = array('conditions' => array($this->Visit->Discipline->alias.'.course_id' => $this->request->query('course_id')));
 				$result = $this->Visit->Discipline->find('list', $options);
@@ -169,12 +165,11 @@ class VisitsController extends AppController {
 					)
 				));
 			$teams = $this->Visit->Team->find('list', $options);
-			$cities = $this->Visit->City->find('list', array('conditions' => array('state_id' => $this->request->data[$this->Visit->alias]['states'])));
 			$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
 		}
-		$states = $this->Visit->City->State->find('list');
+		$cities = $this->Visit->City->superlist();
 		$courses = $this->Visit->Discipline->Course->find('list');
-		$this->set(compact('states', 'courses', 'teams', 'cities', 'disciplines'));
+		$this->set(compact('courses', 'teams', 'cities', 'disciplines'));
 	}
 
 /**
@@ -193,10 +188,6 @@ class VisitsController extends AppController {
 		if ($visit[$this->Visit->alias]['status'] < 4) {
 			if($this->request->is('ajax')){
 				$this->autoRender = false;
-				if ($this->request->query('state_id') !== null) {
-					$options = array('conditions' => array($this->Visit->City->alias.'.state_id' => $this->request->query('state_id')));
-					$result = $this->Visit->City->find('list', $options);
-				}
 				if ($this->request->query('course_id') !== null) {
 					$options = array('conditions' => array($this->Visit->Discipline->alias.'.course_id' => $this->request->query('course_id')));
 					$result = $this->Visit->Discipline->find('list', $options);
@@ -224,7 +215,8 @@ class VisitsController extends AppController {
 				if ($this->Visit->save($this->request->data)) {
 					$visitOptions = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 					$visitInfo = $this->Visit->find('first', $visitOptions);
- 					$options['to'] = Configure::read('Parameter.Email.fromEmail');
+					$users = $this->Visit->User->usersWithPermission(array('controller' => 'visits', 'action' => 'transport_update', 'fields' => array($this->Visit->User->alias.'.email')));
+					$options['to'] = implode(',', Set::classicExtract($users, '{n}.'.$this->Visit->User->alias.'.email'));
  					$options['template'] = 'visit_changed';
  					$options['subject'] = __('Visit to %s has been Changed! - Technical Visits', $visitInfo['Visit']['destination']);
  					$options['v'] = $visitInfo;
@@ -244,7 +236,6 @@ class VisitsController extends AppController {
 				}
 			} else {
 				$this->request->data = $visit;
-				$this->request->data[$this->Visit->alias]['states'] = $this->request->data[$this->Visit->City->alias]['state_id'];
 				$this->request->data[$this->Visit->alias]['course'] = $this->request->data[$this->Visit->Discipline->alias]['course_id'];
 			}
 			$options = array(
@@ -260,11 +251,10 @@ class VisitsController extends AppController {
 					)
 				));
 			$teams = $this->Visit->Team->find('list', $options);
-			$cities = $this->Visit->City->find('list', array('conditions' => array('state_id' => $this->request->data[$this->Visit->alias]['states'])));
+			$cities = $this->Visit->City->superlist();
 			$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
-			$states = $this->Visit->City->State->find('list');
 			$courses = $this->Visit->Discipline->Course->find('list');
-			$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses'));
+			$this->set(compact('teams', 'cities', 'disciplines', 'courses'));
 		} else {
 			$this->Flash->error(__('The visit is invalid or can not be changed.'));
 			return $this->redirect(array('action' => 'index'));
@@ -277,7 +267,6 @@ class VisitsController extends AppController {
 		}
 		$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 		$copy = $this->Visit->find('first', $options);
-		$copy[$this->Visit->alias]['states'] = $copy[$this->Visit->City->alias]['state_id'];
 		$copy[$this->Visit->alias]['course'] = $copy[$this->Visit->Discipline->alias]['course_id'];
 		$this->Session->write('copy', $copy);
 		return $this->redirect(array('action' => 'add'));

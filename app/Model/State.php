@@ -7,6 +7,13 @@ App::uses('AppModel', 'Model');
  */
 class State extends AppModel {
 
+	public function __construct($id = false, $table = null, $ds = null) {
+	    parent::__construct($id, $table, $ds);
+	    $this->virtualFields['name_initial'] = sprintf(
+	        'CONCAT(%s.name, " - ", %s.initials)', $this->alias, $this->alias
+	    );
+	}
+
 /**
  * Validation rules
  *

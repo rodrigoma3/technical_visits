@@ -128,24 +128,7 @@ class CitiesController extends AppController {
 			$list = $this->City->find('list', $options);
 			$this->request->data[$this->City->alias]['cities'] = array_keys($list);
 		}
-		$options = array(
-			'fields' => array(
-				$this->City->alias.'.id',
-				$this->City->alias.'.name',
-				$this->City->State->alias.'.name'
-			),
-			'joins' => array(
-				array(
-					'table' => $this->City->State->table,
-					'alias' => $this->City->State->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->City->alias.'.state_id = '.$this->City->State->alias.'.id'
-					)
-				),
-			)
-		);
-		$cities = $this->City->find('list', $options);
+		$cities = $this->City->superlist();
 		$this->set(compact('cities'));
 	}
 
