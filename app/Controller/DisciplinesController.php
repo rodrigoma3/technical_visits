@@ -14,7 +14,6 @@ class DisciplinesController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Discipline->recursive = 0;
 		$this->set('disciplines', $this->Discipline->find('all'));
 	}
 
@@ -94,7 +93,8 @@ class DisciplinesController extends AppController {
 	public function delete($id = null) {
 		$this->Discipline->id = $id;
 		if (!$this->Discipline->exists()) {
-			throw new NotFoundException(__('Invalid discipline'));
+			$this->Flash->error(__('Invalid discipline'));
+			return $this->redirect(array('action' => 'index'));
 		}
 		$options = array('conditions' => array('discipline_id' => $id));
 		if ($this->Discipline->DisciplinesTeam->find('count', $options) == 0) {

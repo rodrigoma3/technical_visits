@@ -44,7 +44,9 @@
                 		<td class="actions">
                 			<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $city['City']['id']), array('title' => __('View'), 'escape' => false)); ?>
                 			<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $city['City']['id']), array('title' => __('Edit'), 'escape' => false)); ?>
-                			<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('action' => 'delete', $city['City']['id']), array('title' => __('Delete'), 'escape' => false, 'confirm' => __('Are you sure you want to delete # %s?', $city['City']['id']))); ?>
+                            <?php if (empty($city['Visit'])): ?>
+                                <?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('action' => 'delete', $city['City']['id']), array('title' => __('Delete'), 'escape' => false, 'confirm' => __('Are you sure you want to delete # %s?', $city['City']['id']))); ?>
+                            <?php endif; ?>
                 		</td>
                 	</tr>
                 <?php endforeach; ?>

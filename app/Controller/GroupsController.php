@@ -96,7 +96,8 @@ class GroupsController extends AppController {
 	public function delete($id = null) {
 		$this->Group->id = $id;
 		if (!$this->Group->exists()) {
-			throw new NotFoundException(__('Invalid group'));
+			$this->Flash->error(__('Invalid group'));
+			return $this->redirect(array('action' => 'index'));
 		}
 		$group = $this->Group->read();
 		if (empty($group[$this->Group->User->alias])) {

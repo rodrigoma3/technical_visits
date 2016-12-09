@@ -29,7 +29,9 @@
 		<div class="form-actions">
 			<?php echo $this->Html->link(__('List Disciplines'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
 			<?php echo $this->Html->link(__('Edit Discipline'), array('action' => 'edit', $discipline['Discipline']['id']), array('class' => 'btn')); ?>
-			<?php echo $this->Form->postLink(__('Delete Discipline'), array('action' => 'delete', $discipline['Discipline']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $discipline['Discipline']['id']))); ?>
+			<?php if (empty($discipline['Visit']) && empty($discipline['Team'])): ?>
+				<?php echo $this->Form->postLink(__('Delete Discipline'), array('action' => 'delete', $discipline['Discipline']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $discipline['Discipline']['id']))); ?>
+			<?php endif; ?>
 		</div>
 	</div>
 <!-- /widget-content -->

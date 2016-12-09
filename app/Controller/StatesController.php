@@ -13,7 +13,6 @@ class StatesController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->State->recursive = 0;
 		$this->set('states', $this->State->find('all'));
 	}
 
@@ -82,7 +81,8 @@ class StatesController extends AppController {
 	public function delete($id = null) {
 		$this->State->id = $id;
 		if (!$this->State->exists()) {
-			throw new NotFoundException(__('Invalid state'));
+			$this->Flash->error(__('Invalid state'));
+			return $this->redirect(array('action' => 'index'));
 		}
 		$options = array('conditions' => array($this->State->alias.'.'.$this->State->primaryKey => $id));
 		if ($this->State->City->find('count', $options) === 0) {

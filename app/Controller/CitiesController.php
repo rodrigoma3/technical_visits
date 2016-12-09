@@ -13,7 +13,6 @@ class CitiesController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->City->recursive = 0;
 		$this->set('cities', $this->City->find('all'));
 	}
 

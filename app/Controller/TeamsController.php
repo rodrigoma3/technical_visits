@@ -106,7 +106,8 @@ class TeamsController extends AppController {
 	public function delete($id = null) {
 		$this->Team->id = $id;
 		if (!$this->Team->exists()) {
-			throw new NotFoundException(__('Invalid team'));
+			$this->Flash->error(__('Invalid team'));
+			return $this->redirect(array('action' => 'index'));
 		}
 		$team = $this->Team->read();
 		if (empty($team[$this->Team->Visit->alias])) {

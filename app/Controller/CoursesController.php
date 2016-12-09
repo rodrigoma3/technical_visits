@@ -13,7 +13,6 @@ class CoursesController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Course->recursive = 0;
 		$this->set('courses', $this->Course->find('all'));
 	}
 
@@ -73,7 +72,7 @@ class CoursesController extends AppController {
 			$options = array('conditions' => array($this->Course->alias.'.'.$this->Course->primaryKey => $id));
 			$this->request->data = $this->Course->find('first', $options);
 		}
-		
+
 		$options['fields'] = array('MAX(academic_period) AS max_academic_period');
 		$maxAcademicPeriod = $this->Course->Discipline->find('first', $options);
 		$maxAcademicPeriod = $maxAcademicPeriod[0]['max_academic_period'];
@@ -95,7 +94,8 @@ class CoursesController extends AppController {
 	public function delete($id = null) {
 		$this->Course->id = $id;
 		if (!$this->Course->exists()) {
-			throw new NotFoundException(__('Invalid course'));
+			$this->Flash->error(__('Invalid course'));
+			return $this->redirect(array('action' => 'index'));
 		}
 		$options = array('conditions' => array($this->Course->alias.'.'.$this->Course->primaryKey => $id));
 		if ($this->Course->Discipline->find('count', $options) === 0) {

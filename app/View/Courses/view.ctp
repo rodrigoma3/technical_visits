@@ -27,9 +27,11 @@
 		</dd>
 		</dl>
 		<div class="form-actions">
-					<?php echo $this->Html->link(__('List Courses'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
-		<?php echo $this->Html->link(__('Edit Course'), array('action' => 'edit', $course['Course']['id']), array('class' => 'btn')); ?>
-		<?php echo $this->Form->postLink(__('Delete Course'), array('action' => 'delete', $course['Course']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $course['Course']['id']))); ?>
+			<?php echo $this->Html->link(__('List Courses'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
+			<?php echo $this->Html->link(__('Edit Course'), array('action' => 'edit', $course['Course']['id']), array('class' => 'btn')); ?>
+			<?php if (empty($course['Discipline'])): ?>
+				<?php echo $this->Form->postLink(__('Delete Course'), array('action' => 'delete', $course['Course']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $course['Course']['id']))); ?>
+			<?php endif; ?>
 		</div>
 	</div>
 <!-- /widget-content -->

@@ -36,7 +36,9 @@
 		<td class="actions">
 			<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $course['Course']['id']), array('title' => 'View', 'escape' => false)); ?>
 			<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $course['Course']['id']), array('title' => 'Edit', 'escape' => false)); ?>
-			<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('action' => 'delete', $course['Course']['id']), array('title' => 'Delete', 'escape' => false, 'confirm' => __('Are you sure you want to delete # %s?', $course['Course']['id']))); ?>
+            <?php if (empty($course['Discipline'])): ?>
+                <?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('action' => 'delete', $course['Course']['id']), array('title' => 'Delete', 'escape' => false, 'confirm' => __('Are you sure you want to delete # %s?', $course['Course']['id']))); ?>
+            <?php endif; ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

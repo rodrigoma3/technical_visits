@@ -24,7 +24,9 @@
 		<div class="form-actions">
 			<?php echo $this->Html->link(__('List States'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
 			<?php echo $this->Html->link(__('Edit State'), array('action' => 'edit', $state['State']['id']), array('class' => 'btn')); ?>
-			<?php echo $this->Form->postLink(__('Delete State'), array('action' => 'delete', $state['State']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $state['State']['id']))); ?>
+			<?php if (empty($state['City'])): ?>
+				<?php echo $this->Form->postLink(__('Delete State'), array('action' => 'delete', $state['State']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $state['State']['id']))); ?>
+			<?php endif; ?>
 		</div>
 	</div>
 <!-- /widget-content -->
