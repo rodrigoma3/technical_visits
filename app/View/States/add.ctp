@@ -1,7 +1,7 @@
 <div class="widget states form">
 	<?php echo $this->Form->create('State'); ?>
 	<div class="widget-header">
-		<h3><?php echo __('Add State'); ?></h3>
+		<h3><?php echo __('New State'); ?></h3>
 	</div>
 	<!-- /widget-header -->
 	<div class="widget-content">
