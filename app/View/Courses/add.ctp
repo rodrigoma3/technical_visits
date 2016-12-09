@@ -1,7 +1,7 @@
 <div class="widget courses form">
 	<?php echo $this->Form->create('Course'); ?>
 	<div class="widget-header">
-		<h3><?php echo __('Add Course'); ?></h3>
+		<h3><?php echo __('New Course'); ?></h3>
 	</div>
 	<!-- /widget-header -->
 	<div class="widget-content">

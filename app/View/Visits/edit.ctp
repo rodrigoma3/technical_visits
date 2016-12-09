@@ -8,8 +8,8 @@
 		<?php
 			echo $this->Form->input('id');
 			echo $this->Form->input('transport', ['type' => 'checkbox', 'label' => __('Own transport')]);
-			echo $this->Form->input('departure', ['type'=>'datetime-local']);
-			echo $this->Form->input('arrival', ['type'=>'datetime-local']);
+			echo $this->Form->input('departure', ['type'=>'datetime-local', 'min' => date('Y-m-d\TH:i', strtotime('+ 1 day'))]);
+			echo $this->Form->input('arrival', ['type'=>'datetime-local', 'min' => date('Y-m-d\TH:i', strtotime('+ 1 day'))]);
 			echo $this->Form->input('destination');
 			echo $this->Form->input('states', ['empty' => __('(choose one)')]);
 			echo $this->Form->input('city_id', ['empty' => __('(choose a state before)')]);

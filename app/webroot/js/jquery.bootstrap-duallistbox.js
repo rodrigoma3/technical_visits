@@ -143,7 +143,7 @@
         if (ingroup) {
             var $grp = $item.parent();
             var label = $grp.attr('label');
-            var grpin = list.find('optgroup[label=' + label + ']');
+            var grpin = list.find('optgroup[label="' + label + '"]');
             if (grpin.length == 0) {
                 grpin = $('<optgroup/>').attr('label', label).on('click', { dlb: dualListbox }, selected? unselectGroup: selectGroup);
                 list.append(grpin);
@@ -160,20 +160,28 @@
     refreshInfo(dualListbox);
   }
 
-  function filter(dualListbox, selectIndex) {
+  function filter(dualListbox, selectIndex, moveToTop) {
     if (!dualListbox.settings.showFilterInputs) {
       return;
     }
 
     saveSelections(dualListbox, selectIndex);
 
-    dualListbox.elements['select'+selectIndex].empty().scrollTop(0);
-    var regex = new RegExp($.trim(dualListbox.elements['filterInput'+selectIndex].val()), 'gi'),
-      allOptions = dualListbox.element.find('option'),
-      options = dualListbox.element;
+    // dualListbox.elements['select'+selectIndex].empty().scrollTop(0);
+    // var regex = new RegExp($.trim(dualListbox.elements['filterInput'+selectIndex].val()), 'gi'),
+    //   allOptions = dualListbox.element.find('option'),
+    //   options = dualListbox.element;
+    if (moveToTop != false) {
+        dualListbox.elements['select' + selectIndex].empty().scrollTop(0);
+    } else {
+        dualListbox.elements['select' + selectIndex].empty();
+    }
+    var regex = new RegExp($.trim(dualListbox.elements['filterInput' + selectIndex].val()), 'gi'),
+    options = dualListbox.element;
 
     if (selectIndex === 1) {
-      options = allOptions.not(':selected');
+    //   options = allOptions.not(':selected');
+        options = options.find('option').not(':selected');
     } else  {
       options = options.find('option:selected');
     }
@@ -181,11 +189,34 @@
     options.each(function(index, item) {
       var $item = $(item),
         isFiltered = true;
-      if (item.text.match(regex) || (dualListbox.settings.filterOnValues && $item.attr('value').match(regex) ) ) {
-        isFiltered = false;
-        dualListbox.elements['select'+selectIndex].append($item.clone(true).prop('selected', $item.data('_selected')));
-      }
-      allOptions.eq($item.data('original-index')).data('filtered'+selectIndex, isFiltered);
+        var ingroup = $item.parent().is('optgroup');
+
+        if (item.text.match(regex) || (ingroup &&
+            $item.parent().attr('label').match(regex)) ||
+            (dualListbox.settings.filterOnValues &&
+                $item.attr('value').match(regex) )) {
+                    isFiltered = false;
+                    var list = dualListbox.elements['select' + selectIndex];
+                    var tip = list;
+
+                    if (ingroup) {
+                        var $grp = $item.parent();
+                        var label = $grp.attr('label');
+                        var grpin = list.find('optgroup[label="' + label + '"]');
+                        if (grpin.length == 0) {
+                            grpin = $('<optgroup/>').attr('label', label).on('click', { dlb: dualListbox }, (selectIndex === 1) ? selectGroup : unselectGroup);
+                            list.append(grpin);
+                        }
+                        tip = grpin;
+                    }
+                    tip.append($item.clone(true).prop('selected', $item.data('_selected')));
+                }
+                dualListbox.element.find('option').eq($item.data('original-index')).data('filtered'+selectIndex, isFiltered);
+    //   if (item.text.match(regex) || (dualListbox.settings.filterOnValues && $item.attr('value').match(regex) ) ) {
+    //     isFiltered = false;
+    //     dualListbox.elements['select'+selectIndex].append($item.clone(true).prop('selected', $item.data('_selected')));
+    //   }
+    //   allOptions.eq($item.data('original-index')).data('filtered'+selectIndex, isFiltered);
     });
 
     refreshInfo(dualListbox);
@@ -194,8 +225,9 @@
   function saveSelections(dualListbox, selectIndex) {
     var options = dualListbox.element.find('option');
     dualListbox.elements['select'+selectIndex].find('option').each(function(index, item) {
-      var $item = $(item);
-      options.eq($item.data('original-index')).data('_selected', $item.prop('selected'));
+        var $item = $(item);
+    //   options.eq($item.data('original-index')).data('_selected', $item.prop('selected'));
+        dualListbox.element.find('option').eq($item.data('original-index')).data('_selected', $item.prop('selected'));
     });
   }
 
@@ -219,9 +251,36 @@
   }
 
   function sortOptions(select) {
-    select.find('option').sort(function(a, b) {
-      return ($(a).data('original-index') > $(b).data('original-index')) ? 1 : -1;
-    }).appendTo(select);
+    // select.find('option').sort(function(a, b) {
+    //   return ($(a).data('original-index') > $(b).data('original-index')) ? 1 : -1;
+    // }).appendTo(select);
+    var $newgroups = $();
+    var options = select.find('option');
+
+    options.sort(function(a, b) {
+        return ($(a).data('original-index') > $(b).data('original-index')) ? 1 : -1;
+    });
+    options.each(function (index, item) {
+        var $item = $(item);
+        var tip = select;
+        var ingroup = $item.parent().is('optgroup');
+        if (ingroup) {
+            var $grp = $item.parent();
+            var label = $grp.attr('label');
+            var grpin = select.find('optgroup[label="' + label + '"]');
+            if (grpin.length == 0) {
+                grpin = $('<optgroup/>').attr('label', label);
+                $newgroups.append(grpin);
+                select.append(grpin);
+            }
+            else {
+                grpin.appendTo(select);
+            }
+            tip = grpin;
+        }
+        $item.appendTo(tip);
+    });
+    return $newgroups;
   }
 
   function clearSelections(dualListbox) {
@@ -231,6 +290,7 @@
   }
 
   function move(dualListbox) {
+      var scrollPos = dualListbox.elements.select1.scrollTop();
     if (dualListbox.settings.preserveSelectionOnMove === 'all' && !dualListbox.settings.moveOnSelect) {
       saveSelections(dualListbox, 1);
       saveSelections(dualListbox, 2);
@@ -246,11 +306,13 @@
     });
 
     refreshSelects(dualListbox);
+    dualListbox.elements.select1.scrollTop(scrollPos);
     triggerChangeEvent(dualListbox);
     if(dualListbox.settings.sortByInputOrder){
         sortOptionsByInputOrder(dualListbox.elements.select2);
     } else {
-        sortOptions(dualListbox.elements.select2);
+        // sortOptions(dualListbox.elements.select2);
+        sortOptions(dualListbox.elements.select2).on('click', {dlb: dualListbox}, unselectGroup);
     }
   }
 
@@ -271,11 +333,34 @@
 
     refreshSelects(dualListbox);
     triggerChangeEvent(dualListbox);
-    sortOptions(dualListbox.elements.select1);
+    // sortOptions(dualListbox.elements.select1);
+    sortOptions(dualListbox.elements.select1).on('click', { dlb: dualListbox }, selectGroup);
     if(dualListbox.settings.sortByInputOrder){
         sortOptionsByInputOrder(dualListbox.elements.select2);
     }
   }
+
+    function selectGroup(e) {
+        $(this).find('option').each(function (index, item) {
+            var $item = $(item);
+            if (!$item.data('filtered1')) {
+                changeSelectionState(e.data.dlb, $item.data('original-index'), true);
+            }
+        });
+        move(e.data.dlb);
+        e.preventDefault();
+    }
+
+    function unselectGroup(e) {
+        $(this).find('option').each(function (index, item) {
+            var $item = $(item);
+            if (!$item.data('filtered2')) {
+                changeSelectionState(e.data.dlb, $item.data('original-index'), false);
+            }
+        });
+        remove(e.data.dlb);
+        e.preventDefault();
+    }
 
   function moveAll(dualListbox) {
     if (dualListbox.settings.preserveSelectionOnMove === 'all' && !dualListbox.settings.moveOnSelect) {
@@ -383,7 +468,12 @@
         '   <label></label>' +
         '   <span class="info-container">' +
         '     <span class="info"></span>' +
-        '     <button type="button" class="btn clear1 pull-right"></button>' +
+        '     <button type="button" class="btn clear1 pull-right">' +
+        '       <span class="fa-stack fa-lg">' +
+        '         <i class="fa fa-filter fa-stack-1x"></i>' +
+        '         <i class="fa fa-ban fa-stack-2x text-danger"></i>' +
+        '       </span>' +
+        '     </button>' +
         '   </span>' +
         '   <input class="filter" type="text">' +
         '   <div class="btn-group buttons">' +
@@ -401,7 +491,12 @@
         '   <label></label>' +
         '   <span class="info-container">' +
         '     <span class="info"></span>' +
-        '     <button type="button" class="btn clear2 pull-right"></button>' +
+        '     <button type="button" class="btn clear2 pull-right">' +
+        '       <span class="fa-stack fa-lg">' +
+        '         <i class="fa fa-filter fa-stack-1x"></i>' +
+        '         <i class="fa fa-ban fa-stack-2x text-danger"></i>' +
+        '       </span>' +
+        '     </button>' +
         '   </span>' +
         '   <input class="filter" type="text">' +
         '   <div class="btn-group buttons">' +
@@ -487,6 +582,7 @@
 
       bindEvents(this);
       refreshSelects(this);
+      this.setSelectOnGroup(this.settings.selectOnGroup);
 
       return this.element;
     },
@@ -503,7 +599,7 @@
       } else {
         this.container.removeClass('row-fluid bs2compatible').addClass('row');
         this.container.find('.box1, .box2').removeClass('span6').addClass('col-md-6');
-        this.container.find('.clear1, .clear2').removeClass('btn-mini').addClass('btn-default btn-xs');
+        // this.container.find('.clear1, .clear2').removeClass('btn-mini').addClass('btn-default btn-xs');
         this.container.find('input, select').addClass('form-control');
         this.container.find('.btn').addClass('btn-default');
         this.container.find('.moveall > i, .move > i').removeClass('icon-arrow-right').addClass('glyphicon glyphicon-arrow-right');
@@ -649,6 +745,22 @@
         refreshSelects(this);
       }
       return this.element;
+    },
+    setSelectOnGroup: function(value, refresh) {
+        this.settings.selectOnGroup = value;
+        if (this.settings.selectOnGroup) {
+            this.container.addClass('selectongroup');
+            this.elements.select1.find('optgroup').on('click', { dlb: this }, selectGroup);
+            this.elements.select2.find('optgroup').on('click', { dlb: this }, unselectGroup);
+        } else {
+            this.container.removeClass('selectongroup');
+            this.elements.select1.find('optgroup').off('click', selectGroup);
+            this.elements.select2.find('optgroup').off('click', unselectGroup);
+        }
+        if (refresh) {
+            refreshSelects(this);
+        }
+        return this.element;
     },
     setShowFilterInputs: function(value, refresh) {
       if (!value) {

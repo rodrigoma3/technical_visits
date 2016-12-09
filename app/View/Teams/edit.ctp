@@ -5,11 +5,11 @@
 	</div>
 	<!-- /widget-header -->
 	<div class="widget-content">
-			<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('name');
-		echo $this->Form->input('Discipline', array('after' => ' '.$this->Form->button(__('Clear'), array('type' => 'button', 'class' => 'select-clear btn btn-small btn-default'))));
-	?>
+		<?php
+			echo $this->Form->input('id');
+			echo $this->Form->input('name');
+			echo $this->Form->input('Discipline', array('id' => 'duallist', 'size' => '10'));
+		?>
 		<div class="form-actions">
 			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>
 			<?php echo $this->Form->end(); ?>

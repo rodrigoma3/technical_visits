@@ -6,7 +6,7 @@
 	<!-- /widget-header -->
 	<div class="widget-content">
 		<?php
-			echo $this->Form->input('cities', array('label' => false, 'id' => 'duallist', 'size' => '5', 'multiple' => true));
+			echo $this->Form->input('cities', array('label' => false, 'id' => 'duallist', 'size' => '10', 'multiple' => true));
 		?>
 		<div class="form-actions">
 			<?php echo $this->Form->button(__('Submit'), array('type' => 'submit', 'class' => 'btn btn-success', 'div' => false)); ?>

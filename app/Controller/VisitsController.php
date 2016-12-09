@@ -156,10 +156,25 @@ class VisitsController extends AppController {
 			} else {
 				$this->Flash->error(__('The visit could not be saved. Please, try again.'));
 			}
+			$options = array(
+				'conditions' => array($this->Visit->Team->DisciplinesTeam->alias.'.discipline_id' => $this->request->data[$this->Visit->alias]['discipline_id']),
+				'joins' => array(
+					array(
+						'table' => $this->Visit->Team->DisciplinesTeam->table,
+						'alias' => $this->Visit->Team->DisciplinesTeam->alias,
+						'type' => 'INNER',
+						'conditions' => array(
+							$this->Visit->Team->alias.'.id = '.$this->Visit->Team->DisciplinesTeam->alias.'.team_id'
+						)
+					)
+				));
+			$teams = $this->Visit->Team->find('list', $options);
+			$cities = $this->Visit->City->find('list', array('conditions' => array('state_id' => $this->request->data[$this->Visit->alias]['states'])));
+			$disciplines = $this->Visit->Discipline->find('list', array('conditions' => array('course_id' => $this->request->data[$this->Visit->alias]['course'])));
 		}
 		$states = $this->Visit->City->State->find('list');
 		$courses = $this->Visit->Discipline->Course->find('list');
-		$this->set(compact('states', 'courses'));
+		$this->set(compact('states', 'courses', 'teams', 'cities', 'disciplines'));
 	}
 
 /**

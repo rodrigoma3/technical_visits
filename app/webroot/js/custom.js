@@ -107,7 +107,7 @@ $(document).ready(function() {
 
     // BEGIN: ajax
     $(function(){
-        $('#VisitStates').change(function(){
+        $('#VisitStates').on('change', function(){
             var state = $(this).val();
             if (state !== null) {
                 $.ajax({
@@ -134,7 +134,7 @@ $(document).ready(function() {
             }
             return false;
         });
-        $('#VisitCourse').change(function(){
+        $('#VisitCourse').on('change', function(){
             var course = $(this).val();
             if (course !== null) {
                 $.ajax({
@@ -142,9 +142,6 @@ $(document).ready(function() {
                     type: 'GET',
                     data: {"course_id": course},
                     success: function(data){
-                        // $('#VisitDisciplineId').children('option[value!=""]').each(function(index) {
-                        //     $(this).remove();
-                        // });
                         $('#VisitDisciplineId').children('option').each(function(index) {
                             if ($(this).val() != '') {
                                 $(this).remove();
@@ -165,7 +162,7 @@ $(document).ready(function() {
             }
             return false;
         });
-        $('#VisitDisciplineId').change(function(){
+        $('#VisitDisciplineId').on('change', function(){
             var discipline = $(this).val();
             if (discipline !== null) {
                 $.ajax({
@@ -173,9 +170,6 @@ $(document).ready(function() {
                     type: 'GET',
                     data: {"discipline_id": discipline},
                     success: function(data){
-                        // $('#VisitTeamId').children('option[value!=""]').each(function(index) {
-                        //     $(this).remove();
-                        // });
                         $('#VisitTeamId').children('option').each(function(index) {
                             if ($(this).val() != '') {
                                 $(this).remove();
