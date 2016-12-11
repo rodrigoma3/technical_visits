@@ -215,9 +215,10 @@ class VisitsController extends AppController {
 				if ($this->Visit->save($this->request->data)) {
 					$visitOptions = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
 					$visitInfo = $this->Visit->find('first', $visitOptions);
-					$users = $this->Visit->User->usersWithPermission(array('controller' => 'visits', 'action' => 'transport_update', 'fields' => array($this->Visit->User->alias.'.email')));
-					$options['to'] = implode(',', Set::classicExtract($users, '{n}.'.$this->Visit->User->alias.'.email'));
- 					$options['template'] = 'visit_changed';
+					$users = $this->Visit->User->usersAllowed('visits', 'transport_update', $this->Acl, array('fields' => array($this->Visit->User->alias.'.email')));
+					$emails = implode(',', Set::classicExtract($users, '{n}.'.$this->Visit->User->alias.'.email'));
+					$options['to'] = $emails;
+					$options['template'] = 'visit_changed';
  					$options['subject'] = __('Visit to %s has been Changed! - Technical Visits', $visitInfo['Visit']['destination']);
  					$options['v'] = $visitInfo;
  					if ($this->sendMail($options)) {

@@ -1,6 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('AuthComponent', 'Controller/Component');
+App::uses('Acl', 'Controller/Component');
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 /**
  * User Model
@@ -325,73 +326,126 @@ class User extends AppModel {
 		return Security::hash(uniqid(rand(), true));
 	}
 
-	public function usersWithPermission($options = array()) {
-		if (empty($options)) {
+	public function usersAllowed($controller = null, $action = null, $acl = null, $options = array()) {
+		if (is_null($controller) || is_null($action) || is_null($acl)) {
 			return array();
 		}
 
-		$controllerId = $this->query("SELECT `id` FROM `acos` WHERE `alias` = '".$options['controller']."'");
-		if (empty($controllerId)) {
-			return array();
-		}
-		$controllerId = $controllerId[0]['acos']['id'];
-		$actionId = $this->query("SELECT `id` FROM `acos` WHERE `alias` = '".$options['action']."' AND `parent_id` = $controllerId");
-		if (empty($actionId)) {
-			return array();
-		}
-		$actionId = $actionId[0]['acos']['id'];
+		$optionsAcoControllerId = array(
+			'conditions' => array(
+				'Aco.alias' => $controller,
+			),
+			'fields' => array(
+				'Aco.id'
+			),
+			'recursive' => -1
+		);
+		$acoControllerId = $acl->Aco->find('first', $optionsAcoControllerId);
+		// debug($acoControllerId);
+		$acoControllerId = $acoControllerId['Aco']['id'];
+		// debug($acoControllerId);
 
-		$usersWithoutPermission = $this->query(
-			"SELECT `Aro`.`foreign_key`
-			FROM `aros` AS `Aro` WHERE `Aro`.`id`
-			IN (SELECT `AA`.`aro_id` FROM `aros_acos` AS `AA`
-				INNER JOIN `acos` AS `Aco` ON (`AA`.`aco_id` = `Aco`.`id`)
-				WHERE (`AA`.`_update` = '-1' OR `AA`.`_create` = '-1' OR `AA`.`_read` = '-1' OR `AA`.`_delete` = '-1')
-				AND `Aro`.`model` = 'USER'
-				AND `Aco`.`id` = '$actionId')
-			");
-		$listUsersWithoutPermission = array();
-		foreach ($usersWithoutPermission as $i) {
-			$listUsersWithoutPermission[] = $i['Aro']['foreign_key'];
-		}
+		$optionsAcoActionId = array(
+			'conditions' => array(
+				'Aco.alias' => $action,
+				'Aco.parent_id' => $acoControllerId,
+			),
+			'fields' => array(
+				'Aco.id'
+			),
+			'recursive' => -1
+		);
+		$acoActionId = $acl->Aco->find('first', $optionsAcoActionId);
+		// debug($acoActionId);
+		$acoActionId = $acoActionId['Aco']['id'];
+		// debug($acoActionId);
 
-		$usersGroupsWithPermission = $this->query(
-			"SELECT `Aro`.`model`, `Aro`.`foreign_key`
-			FROM `aros` AS `Aro`
-			WHERE `Aro`.`id`
-			IN (SELECT `AA`.`aro_id`
-				FROM `aros_acos` AS `AA`
-				INNER JOIN `acos` AS `Aco` ON (`AA`.`aco_id` = `Aco`.`id`)
-				WHERE (`AA`.`_update` = '1' OR `AA`.`_create` = '1' OR `AA`.`_read` = '1' OR `AA`.`_delete` = '1')
-				AND `Aco`.`id` = '$actionId')
-			");
+		$optionsAroIdsDanied = array(
+			'conditions' => array(
+				'Permission.aco_id' => $acoActionId,
+				'AND' => array(
+					'Permission._create' => '-1',
+					'Permission._read' => '-1',
+					'Permission._update' => '-1',
+					'Permission._delete' => '-1',
+				),
+			),
+			'fields' => array(
+				'Permission.aro_id'
+			),
+		);
+		$arosIdsDanied = $acl->Aco->Permission->find('all', $optionsAroIdsDanied);
+		// debug($arosIdsDanied);
+		$arosIdsDanied = Set::classicExtract($arosIdsDanied, '{n}.'.$acl->Aco->Permission->alias.'.aro_id');
+		// debug($arosIdsDanied);
 
-		$groupId = array();
-		$userId = array();
-		foreach ($usersGroupsWithPermission as $i) {
-			if ($i['Aro']['model'] === 'Group') {
-				$groupId[] = $i['Aro']['foreign_key'];
-			} else {
-				$userId[] = $i['Aro']['foreign_key'];
-			}
-		}
+		$optionsUsersDanied = array(
+			'conditions' => array(
+				'Aro.id' => $arosIdsDanied,
+				'Aro.model' => 'USER',
+			),
+			'fields' => array(
+				'Aro.foreign_key'
+			),
+			'recursive' => -1
+		);
+		$usersDanied = $acl->Aro->find('all', $optionsUsersDanied);
+		// debug($usersDanied);
+		$usersDanied = Set::classicExtract($usersDanied, '{n}.'.$acl->Aro->alias.'.foreign_key');
+		// debug($usersDanied);
 
-		$ops = array(
+		$optionsAroIdsAllowed = array(
+			'conditions' => array(
+				'Permission.aco_id' => $acoActionId,
+				'AND' => array(
+					'Permission._create' => '1',
+					'Permission._read' => '1',
+					'Permission._update' => '1',
+					'Permission._delete' => '1',
+				),
+			),
+			'fields' => array(
+				'Permission.aro_id'
+			),
+		);
+		$arosIdsAllowed = $acl->Aco->Permission->find('all', $optionsAroIdsAllowed);
+		// debug($arosIdsAllowed);
+		$arosIdsAllowed = Set::classicExtract($arosIdsAllowed, '{n}.'.$acl->Aco->Permission->alias.'.aro_id');
+		// debug($arosIdsAllowed);
+
+		$optionsUsersGroupsAllowed = array(
+			'conditions' => array(
+				'Aro.id' => $arosIdsAllowed,
+			),
+			'fields' => array(
+				'Aro.model',
+				'Aro.foreign_key',
+			),
+			'recursive' => -1
+		);
+		$usersGroupsAllowed = $acl->Aro->find('all', $optionsUsersGroupsAllowed);
+		// debug($usersGroupsAllowed);
+		$groupsId = Set::extract('/'.$acl->Aro->alias.'[model=Group]/foreign_key', $usersGroupsAllowed);
+		$usersId = Set::extract('/'.$acl->Aro->alias.'[model=User]/foreign_key', $usersGroupsAllowed);
+		// debug($groupsId);
+		// debug($usersId);
+
+		$optionsUsersAllowed = array(
 			'conditions' => array(
 				'OR' => array(
-					$this->alias.'.id' => $userId,
-					$this->alias.'.group_id' => $groupId,
+					$this->alias.'.id' => $usersId,
+					$this->alias.'.group_id' => $groupsId,
 				),
 				'NOT' => array(
-					$this->alias.'.id' => $listUsersWithoutPermission,
+					$this->alias.'.id' => $usersDanied,
 				),
 			),
 			'recursive' => -1
 		);
-		unset($options['action']);
-		unset($options['controller']);
-		$options = array_merge($options, $ops);
-		return $this->find('all', $options);
+		$optionsUsersAllowed = array_merge($options, $optionsUsersAllowed);
+		$users = $this->find('all', $optionsUsersAllowed);
+		// debug($users);
+		return $users;
 	}
 
 }

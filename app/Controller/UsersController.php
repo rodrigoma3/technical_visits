@@ -299,7 +299,8 @@ class UsersController extends AppController {
  */
 	public function permission($id = null) {
 		if (!$this->User->exists($id)) {
-			throw new NotFoundException(__('Invalid user'));
+			$this->Flash->success(__('Invalid user'));
+			return $this->redirect(array('action' => 'index'));
 		}
 		$this->User->id = $id;
 		$aroUser = $this->Acl->Aro->find('first', array('conditions' => array('foreign_key' => $this->User->id, 'model' => 'User')));
@@ -315,6 +316,7 @@ class UsersController extends AppController {
 				}
 			}
 			$this->Flash->success(__('The user permissions has been saved.'));
+			return $this->redirect(array('action' => 'index'));
 		}
 
 		$aroUser = $this->Acl->Aro->find('first', array('conditions' => array('foreign_key' => $this->User->id, 'model' => 'User')));

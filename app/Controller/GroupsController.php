@@ -141,10 +141,11 @@ class GroupsController extends AppController {
  * @return void
  */
 	public function permission($id = null) {
-		if (!$this->Group->exists($id)) {
-			throw new NotFoundException(__('Invalid group'));
-		}
 		$this->Group->id = $id;
+		if (!$this->Group->exists()) {
+			$this->Flash->success(__('Invalid group'));
+			return $this->redirect(array('action' => 'index'));
+		}
 
 		if ($this->request->is(array('post', 'put'))) {
 			$this->denyAll($this->Group);
@@ -153,6 +154,7 @@ class GroupsController extends AppController {
 				$this->Acl->allow($this->Group,$allow);
 			}
 			$this->Flash->success(__('The group permissions has been saved.'));
+			return $this->redirect(array('action' => 'index'));
 		}
 
 		$group = $this->Group->read();

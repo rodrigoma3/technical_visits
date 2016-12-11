@@ -23,17 +23,18 @@ class RefusalsController extends AppController {
 				switch ($this->request->data[$this->Refusal->alias]['type']) {
 					case '0':
 						$this->Refusal->Visit->saveField('status', '10');
-							$users = $this->Refusal->User->usersWithPermission(array('controller' => 'visits', 'action' => 'transport_update', 'fields' => array($this->Refusal->User->alias.'.email')));
-							$options['to'] = implode(',', Set::classicExtract($users, '{n}.'.$this->Refusal->User->alias.'.email'));
-							$options['template'] = 'visit_canceled';
-							$options['subject'] = __('Visit to %s has been Canceled! - Technical Visits', $visitInfo['Visit']['destination']);
-							$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
-							$options['v'] = $visitInfo;
-							if ($this->sendMail($options)) {
-									$emailSendFlag = true;
-							} else {
-									$emailSendFlag = false;
-							}
+						$users = $this->Refusal->User->usersAllowed('visits', 'transport_update', $this->Acl, array('fields' => array($this->Refusal->User->alias.'.email')));
+						$emails = implode(',', Set::classicExtract($users, '{n}.'.$this->Refusal->User->alias.'.email'));
+						$options['to'] = $emails;
+						$options['template'] = 'visit_canceled';
+						$options['subject'] = __('Visit to %s has been Canceled! - Technical Visits', $visitInfo['Visit']['destination']);
+						$options['reason'] = $this->request->data[$this->Refusal->alias]['reason'];
+						$options['v'] = $visitInfo;
+						if ($this->sendMail($options)) {
+								$emailSendFlag = true;
+						} else {
+								$emailSendFlag = false;
+						}
 						break;
 					case '1':
 						$this->Refusal->Visit->saveField('status', '11');
