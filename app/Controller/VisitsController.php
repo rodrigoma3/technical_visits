@@ -31,6 +31,10 @@ class VisitsController extends AppController {
 		}
 	}
 
+	public function dashboard() {
+		
+	}
+
 /**
  * index method
  *
