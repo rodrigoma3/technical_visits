@@ -23,27 +23,14 @@
     </div>
 </div>
 
-<!-- <div class="info-box">
-    <div class="row-fluid stats-box">
-        <div class="span12">
-            <div class="stats-box-title">Visits by status</div>
-            <div class="stats-box-all-info"><i class="icon-fa fa"></i><?php echo __('Total:'); ?> 555K</div>
-            <div class="wrap-chart">
-                <div class="chart" style="padding: 0px; position: relative;">
-                    <canvas id="bar-chart1" class="chart-holder" height="150" width="325" style="width: 325px; height: 150px;"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 <div class="widget widget-nopad">
     <div class="widget-content">
         <div class="widget big-stats-container">
             <div class="widget-content">
-                <div class="stats-box-title">Visits by status</div>
-                <div class="stats-box-all-info"><i class="icon-fa fa"></i><?php echo __('Total:'); ?> 555K</div>
+                <div class="stats-box-title"><?php echo __('Technical visits by status'); ?></div>
+                <div class="stats-box-all-info"><i class="icon-fa fa"></i><?php echo __('Total:'); ?> <?php echo array_sum(Set::classicExtract($stats, '{n}.quantity')); ?></div>
                 <div class="wrap-chart">
-                    <canvas id="myChart" class="chart-holder" height="150" width="325" style="width: 325px; height: 150px;"></canvas>
+                    <canvas id="visitsByStatus" class="chart-holder" height="150" width="325" style="width: 325px; height: 150px;"></canvas>
 
                 </div>
 
@@ -54,29 +41,27 @@
 </div>
 
 <script>
-var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, {
+var ctx = document.getElementById("visitsByStatus");
+var visitsByStatus = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: <?php echo json_encode(Set::classicExtract($stats, '{n}.title')); ?>,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: "<?php echo __('Technical Visits'); ?>",
+            data: <?php echo json_encode(Set::classicExtract($stats, '{n}.quantity')); ?>,
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'pink',
+                'blue',
+                'yellow',
+                'green',
+                'orange',
+                'purple',
+                'red',
+                'lightpink',
+                'turquoise',
+                'gold',
+                'lightgreen',
+                'violet',
             ],
             borderWidth: 1
         }]
