@@ -32,7 +32,36 @@ class VisitsController extends AppController {
 	}
 
 	public function dashboard() {
-		
+		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.user_id' => $this->Auth->user('id'),
+			),
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.user_id',
+				$this->Visit->alias.'.status',
+			),
+		);
+		$visits = $this->Visit->find('list', $options);
+		$total = $this->Visit->find('count', $options);
+
+		$status = $this->Visit->getEnums('status');
+		$stats = array();
+		foreach ($status as $id => $title) {
+			if (isset($visits[$id])) {
+				$quantity = count($visits[$id]);
+			} else {
+				$quantity = 0;
+			}
+			$percent = CakeNumber::toPercentage(($quantity/$total)*100);
+			$stats[] = array(
+				'title' => $title,
+				'percent' => $percent,
+				'quantity' => $quantity,
+			);
+		}
+
+		$this->set(compact('stats'));
 	}
 
 /**

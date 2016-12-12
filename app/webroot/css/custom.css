@@ -79,3 +79,11 @@ input {
 .error-message {
     color: red;
 }
+
+.main {
+    border-bottom: none;
+}
+
+/*------------------------------------------------------------------
+Bootstrap Admin Template by EGrappler.com
+------------------------------------------------------------------*/

@@ -26,6 +26,9 @@
 									'jsTree/style.min',
 									'bootstrap-duallistbox.min',
 									'custom',
+									'style',
+									'reports',
+									'dashboard',
 		));
 
 		echo $this->Html->script(array(
@@ -53,6 +56,7 @@
 									'jquery.bootstrap-duallistbox',
 									'dataTables.default',
 									'jquery.isloading.min',
+									'Chart.min',
 									'custom',
 		));
 
@@ -127,6 +131,7 @@
 	  </div>
 	  <!-- /navbar-inner -->
 	</div>
+
 	<div class="subnavbar">
 		<?php if (!empty($menus)): ?>
 			<div class="subnavbar-inner">
@@ -134,7 +139,7 @@
 					<ul class="mainnav">
 						<?php foreach ($menus as $menu): ?>
 							<?php if ($menu['allow']): ?>
-								<li <?php if ($this->params['controller'] == $menu['controller']) echo 'class="active"'; ?>>
+								<li <?php if ($this->params['controller'] == $menu['controller'] && $this->params['action'] == $menu['action']) echo 'class="active"'; ?>>
 									<?php
 									echo $this->Html->link(
 										$menu['icon'].'<span>'.$menu['title'].'</span>',
@@ -168,6 +173,26 @@
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="footer">
+
+		<div class="footer-inner">
+
+			<div class="container">
+
+				<div class="row">
+
+	    			<div class="span12">
+	    				<i class="fa fa-copyright"></i> 2016 by RMA3 &amp; Gibran Ibrahim.
+	    			</div> <!-- /span12 -->
+
+	    		</div> <!-- /row -->
+
+			</div> <!-- /container -->
+
+		</div> <!-- /footer-inner -->
+
 	</div>
 
 	<?php if (isset($jstreeData)) { ?>

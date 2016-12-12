@@ -105,12 +105,10 @@
 		</div>
 	</div>
 
-
-
 	<script type="text/javascript">
 		var lang = "<?php echo Router::url('/locale/').Configure::read('Config.language').'.json'; ?>";
 	</script>
 
-	<?php echo $this->element('sql_dump'); ?>
+	<?php //echo $this->element('sql_dump'); ?>
 </body>
 </html>

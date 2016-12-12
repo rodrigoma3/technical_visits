@@ -87,6 +87,13 @@ class AppController extends Controller {
         if ($this->Auth->user()) {
             $menus = array(
                 array(
+                    'title' => __('Dashboard'),
+                    'icon' => '<i class="fa fa-tachometer"></i>',
+                    'controller' => 'visits',
+                    'action' => 'dashboard',
+                    'allow' => false,
+                ),
+                array(
                     'title' => __('Visits'),
                     'icon' => '<i class="fa fa-calendar"></i>',
                     'controller' => 'visits',
@@ -264,7 +271,14 @@ class AppController extends Controller {
         return Security::decrypt(base64_decode($string), Configure::read('Security.salt'));
     }
 
-    protected function findPerms($views = array()) {
+    protected function findPerms($views = array(), $user = null) {
+        if (is_null($user)) {
+            if (!$this->Auth->loggedIn()) {
+                return array();
+            } else {
+                $user = $this->Auth->user();
+            }
+        }
         $perms = array();
 
         if (empty($views)) {
@@ -284,7 +298,7 @@ class AppController extends Controller {
         }
 
         foreach ($views as $view) {
-            $perms[Inflector::camelize($view['controller']).Inflector::camelize($view['action'])] = $this->Acl->check(array('User' => $this->Auth->user()), $view['controller'].'/'.$view['action']);
+            $perms[Inflector::camelize($view['controller']).Inflector::camelize($view['action'])] = $this->Acl->check(array('User' => $user), $view['controller'].'/'.$view['action']);
         }
 
         return $perms;
