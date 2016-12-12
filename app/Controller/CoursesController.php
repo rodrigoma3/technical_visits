@@ -13,7 +13,9 @@ class CoursesController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->set('courses', $this->Course->find('all'));
+
+		$courses = $this->Course->find('all');
+		$this->set(compact('courses'));
 	}
 
 /**
@@ -24,11 +26,14 @@ class CoursesController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->Course->exists($id)) {
-			throw new NotFoundException(__('Invalid course'));
+		$this->Course->id = $id;
+		if (!$this->Course->exists()) {
+			$this->Flash->error(__('Invalid course'));
+			return $this->redirect(array('action' => 'index'));
 		}
-		$options = array('conditions' => array($this->Course->alias.'.'.$this->Course->primaryKey => $id));
-		$this->set('course', $this->Course->find('first', $options));
+		$this->Course->recursive = 2;
+		$course = $this->Course->read();
+		$this->set(compact('course'));
 	}
 
 /**

@@ -24,10 +24,14 @@ class StatesController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->State->exists($id)) {
-			throw new NotFoundException(__('Invalid state'));
+		$this->State->id = $id;
+		if (!$this->State->exists()) {
+			$this->Flash->success(__('Invalid state'));
+			return $this->redirect(array('action' => 'index'));
 		}
-		$this->set('state', $this->State->findById($id));
+		$this->State->recursive = 2;
+		$state = $this->State->read();
+		$this->set(compact('state'));
 	}
 
 /**

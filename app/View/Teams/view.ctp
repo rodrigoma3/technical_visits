@@ -17,9 +17,15 @@
 			</dd>
 		</dl>
 		<div class="form-actions">
-			<?php echo $this->Html->link(__('List Teams'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
-			<?php echo $this->Html->link(__('Edit Team'), array('action' => 'edit', $team['Team']['id']), array('class' => 'btn')); ?>
-			<?php echo $this->Form->postLink(__('Delete Team'), array('action' => 'delete', $team['Team']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $team['Team']['id']))); ?>
+			<?php if ($perms['TeamsIndex']): ?>
+				<?php echo $this->Html->link(__('List Teams'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
+			<?php endif; ?>
+			<?php if ($perms['TeamsEdit']): ?>
+				<?php echo $this->Html->link(__('Edit Team'), array('action' => 'edit', $team['Team']['id']), array('class' => 'btn')); ?>
+			<?php endif; ?>
+			<?php if ($perms['TeamsDelete']): ?>
+				<?php echo $this->Form->postLink(__('Delete Team'), array('action' => 'delete', $team['Team']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $team['Team']['id']))); ?>
+			<?php endif; ?>
 		</div>
 	</div>
 <!-- /widget-content -->
@@ -53,24 +59,33 @@
 				</tr>
 			</tfoot>
 			<tbody>
-					<?php foreach ($team['Discipline'] as $discipline): ?>
-		<tr>
-			<td></td>
-			<td><?php echo $discipline['id']; ?></td>
-			<td><?php echo $discipline['name']; ?></td>
-			<td><?php echo $discipline['academic_period']; ?></td>
-			<td><?php echo $this->Html->link($discipline['Course']['name'], array('controller' => 'courses', 'action' => 'view', $discipline['Course']['id'])); ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('controller' => 'disciplines', 'action' => 'view', $discipline['id']), array('escape' => false, 'title' => 'View')); ?>
-				<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('controller' => 'disciplines', 'action' => 'edit', $discipline['id']), array('escape' => false, 'title' => 'Edit')); ?>
-				<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'disciplines', 'action' => 'delete', $discipline['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $discipline['id']))); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
+				<?php foreach ($team['Discipline'] as $discipline): ?>
+					<tr>
+						<td></td>
+						<td><?php echo $discipline['id']; ?></td>
+						<td><?php echo $discipline['name']; ?></td>
+						<td><?php echo $discipline['academic_period']; ?></td>
+						<td><?php echo $this->Html->link($discipline['Course']['name'], array('controller' => 'courses', 'action' => 'view', $discipline['Course']['id'])); ?></td>
+						<td class="actions">
+							<?php if ($perms['DisciplinesView']): ?>
+								<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('controller' => 'disciplines', 'action' => 'view', $discipline['id']), array('escape' => false, 'title' => 'View')); ?>
+							<?php endif; ?>
+							<?php if ($perms['DisciplinesEdit']): ?>
+								<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('controller' => 'disciplines', 'action' => 'edit', $discipline['id']), array('escape' => false, 'title' => 'Edit')); ?>
+							<?php endif; ?>
+							<?php if ($perms['DisciplinesDelete']): ?>
+								<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'disciplines', 'action' => 'delete', $discipline['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $discipline['id']))); ?>
+							<?php endif; ?>
+						</td>
+					</tr>
+				<?php endforeach; ?>
 			</tbody>
 		</table>
-		<div class="form-actions">
-			<?php echo $this->Html->link(__('New Discipline'), array('controller' => 'disciplines', 'action' => 'add'), array('class' => 'btn btn-success')); ?>		</div>
+		<?php if ($perms['DisciplinesAdd']): ?>
+			<div class="form-actions">
+				<?php echo $this->Html->link(__('New Discipline'), array('controller' => 'disciplines', 'action' => 'add'), array('class' => 'btn btn-success')); ?>
+			</div>
+		<?php endif; ?>
 	</div>
 <!-- /widget-content -->
 </div>

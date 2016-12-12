@@ -25,34 +25,42 @@
         	</tfoot>
         	<tbody>
             	<?php foreach ($groups as $group): ?>
-	<tr>
-		<td></td>
-		<td><?php echo h($group['Group']['id']); ?>&nbsp;</td>
-		<td><?php echo h($group['Group']['name']); ?>&nbsp;</td>
-		<td><?php echo h($group['Group']['description']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $group['Group']['id']), array('escape' => false, 'title' => 'View')); ?>
-			<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $group['Group']['id']), array('escape' => false, 'title' => 'Edit')); ?>
-            <?php if (empty($group['User'])): ?>
-                <?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('action' => 'delete', $group['Group']['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $group['Group']['id']))); ?>
-            <?php endif; ?>
-            <?php echo $this->Html->link('<i class="fa fa-lg fa-key"></i>&nbsp;', array('action' => 'permission', $group['Group']['id']), array('escape' => false, 'title' => 'Permission')); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
+                	<tr>
+                		<td></td>
+                		<td><?php echo h($group['Group']['id']); ?>&nbsp;</td>
+                		<td><?php echo h($group['Group']['name']); ?>&nbsp;</td>
+                		<td><?php echo h($group['Group']['description']); ?>&nbsp;</td>
+                		<td class="actions">
+                            <?php if ($perms['GroupsView']): ?>
+                                <?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $group['Group']['id']), array('escape' => false, 'title' => 'View')); ?>
+                            <?php endif; ?>
+                            <?php if ($perms['GroupsEdit']): ?>
+                                <?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $group['Group']['id']), array('escape' => false, 'title' => 'Edit')); ?>
+                            <?php endif; ?>
+                            <?php if (empty($group['User']) && $perms['GroupsDelete']): ?>
+                                <?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('action' => 'delete', $group['Group']['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $group['Group']['id']))); ?>
+                            <?php endif; ?>
+                            <?php if ($perms['GroupsPermission']): ?>
+                                <?php echo $this->Html->link('<i class="fa fa-lg fa-key"></i>&nbsp;', array('action' => 'permission', $group['Group']['id']), array('escape' => false, 'title' => 'Permission')); ?>
+                            <?php endif; ?>
+                		</td>
+                	</tr>
+                <?php endforeach; ?>
         	</tbody>
     	</table>
     </div>
 <!-- /widget-content -->
 </div>
 
-<div class="widget">
-	<div class="widget-header">
-		<h3><?php echo __('Actions'); ?></h3>
-	</div>
-	<!-- /widget-header -->
-	<div class="widget-content actions">
-        <?php echo $this->Html->link(__('New Group'), array('action' => 'add'), array('class' => 'btn btn-success')); ?>
+<?php if ($perms['GroupsAdd']): ?>
+    <div class="widget">
+        <div class="widget-header">
+            <h3><?php echo __('Actions'); ?></h3>
+        </div>
+        <!-- /widget-header -->
+        <div class="widget-content actions">
+            <?php echo $this->Html->link(__('New Group'), array('action' => 'add'), array('class' => 'btn btn-success')); ?>
+        </div>
+        <!-- /widget-content -->
     </div>
-<!-- /widget-content -->
-</div>
+<?php endif; ?>

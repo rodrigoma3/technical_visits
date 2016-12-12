@@ -40,10 +40,7 @@ class VisitsController extends AppController {
 		$this->Visit->recursive = 2;
 		$visits = $this->Visit->find('all');
 		$courses = $this->Visit->Discipline->Course->find('list');
-		$transportUpdater = $this->Acl->check(array('User' => $this->Auth->user()), $this->Visit->table.'/transport_update');
-		$invalidatorVisit = $this->Acl->check(array('User' => $this->Auth->user()), $this->Visit->table.'/invalidate_visit');
-		$informationUpdater = $this->Acl->check(array('User' => $this->Auth->user()), $this->Visit->table.'/information_update');
-		$this->set(compact('visits', 'courses', 'transportUpdater', 'invalidatorVisit', 'informationUpdater'));
+		$this->set(compact('visits', 'courses'));
 	}
 
 /**
@@ -54,44 +51,97 @@ class VisitsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->Visit->exists($id)) {
-			throw new NotFoundException(__('Invalid visit'));
+		$this->Visit->id = $id;
+		if (!$this->Visit->exists()) {
+			$this->Flash->error(__('Invalid visit'));
+			return $this->redirect(array('action' => 'index'));
 		}
 		$this->Visit->recursive = 2;
-		$options = array('conditions' => array('Visit.' . $this->Visit->primaryKey => $id));
-		$visit = $this->Visit->find('first', $options);
+		$visit = $this->Visit->read();
 		$courses = $this->Visit->Discipline->Course->find('list');
 		$refusal_types = $this->Visit->Refusal->getEnums('type');
 
-		$approveVisit = false;
-		$preApproveVisit = false;
-		$approveReport = false;
-		$deliverReport = false;
+		$perms = $this->findPerms();
+		$p = array(
+			'VisitsApproveVisit' => false,
+			'RefusalsDisapprovedVisit' => false,
+			'VisitsPreApproveVisit' => false,
+			'VisitsApproveReport' => false,
+			'VisitsDisapprovedReport' => false,
+			'VisitsDeliverReport' => false,
+		);
+		$perms = array_merge($perms, $p);
 
 		$status = $visit[$this->Visit->alias]['status'];
 		switch ($status) {
 			case '0':
-				$preApproveVisit = $this->Acl->check(array('User' => $this->Auth->user()), $this->Visit->table.'/pre_approve_visit');
+				$p = $this->findPerms(array(
+					array(
+						'controller' => $this->Visit->table,
+						'action' => 'pre_approve_visit',
+					),
+					array(
+						'controller' => $this->Visit->Refusal->table,
+						'action' => 'disapproved_visit',
+					),
+				));
+				$perms = array_merge($perms, $p);
 				break;
 			case '2':
-				$approveVisit = $this->Acl->check(array('User' => $this->Auth->user()), $this->Visit->table.'/approve_visit');
+				$p = $this->findPerms(array(
+					array(
+						'controller' => $this->Visit->table,
+						'action' => 'approve_visit',
+					),
+					array(
+						'controller' => $this->Visit->Refusal->table,
+						'action' => 'disapproved_visit',
+					),
+				));
+				$perms = array_merge($perms, $p);
 				break;
 			case '4':
 			case '5':
-				if ($visit[$this->Visit->alias]['user_id'] === $this->Auth->user('id')) $deliverReport = true;
+				if ($visit[$this->Visit->alias]['user_id'] === $this->Auth->user('id')) {
+					$p = $this->findPerms(array(
+						array(
+							'controller' => $this->Visit->table,
+							'action' => 'deliver_report',
+						),
+					));
+					$perms = array_merge($perms, $p);
+				}
 				break;
 			case '6':
 			case '7':
-				if ($visit[$this->Visit->alias]['user_id'] === $this->Auth->user('id')) $deliverReport = true;
-				$approveReport = $this->Acl->check(array('User' => $this->Auth->user()), $this->Visit->table.'/approve_report');
+				$options = array(
+					array(
+						'controller' => $this->Visit->table,
+						'action' => 'approve_report',
+					),
+					array(
+						'controller' => $this->Visit->Refusal->table,
+						'action' => 'disapproved_report',
+					),
+				);
+
+				if ($visit[$this->Visit->alias]['user_id'] === $this->Auth->user('id')) {
+					$options[] = array(
+						'controller' => $this->Visit->table,
+						'action' => 'deliver_report',
+					);
+				}
+
+				$p = $this->findPerms($options);
+				$perms = array_merge($perms, $p);
 				break;
 
 			default:
-				# code...
+
 				break;
 		}
 
-		$this->set(compact('visit', 'courses', 'refusal_types', 'approveVisit', 'preApproveVisit', 'approveReport', 'deliverReport'));
+		$this->set(compact('visit', 'courses', 'refusal_types', 'perms'));
 	}
 
 /**
@@ -494,7 +544,39 @@ class VisitsController extends AppController {
 					'recursive' => 2
 				);
 				$visits = $this->Visit->find('all', $options);
-				$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses', 'transports', 'costPerKm', 'statuses', 'visits'));
+
+				$perms = $this->findPerms(array(
+					array(
+						'controller' => $this->Visit->table,
+						'action' => 'copy',
+					),
+					array(
+						'controller' => $this->Visit->table,
+						'action' => 'view',
+					),
+					array(
+						'controller' => $this->Visit->table,
+						'action' => 'edit',
+					),
+					array(
+						'controller' => $this->Visit->table,
+						'action' => 'information_update',
+					),
+					array(
+						'controller' => $this->Visit->table,
+						'action' => 'transport_update',
+					),
+					array(
+						'controller' => $this->Visit->Refusal->table,
+						'action' => 'cancel',
+					),
+					array(
+						'controller' => $this->Visit->Refusal->table,
+						'action' => 'invalidate_visit',
+					),
+				));
+
+				$this->set(compact('teams', 'cities', 'disciplines', 'states', 'courses', 'transports', 'costPerKm', 'statuses', 'visits', 'perms'));
 		} else {
 			return $this->redirect(array('action' => 'index'));
 		}

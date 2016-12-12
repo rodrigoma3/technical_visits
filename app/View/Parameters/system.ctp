@@ -19,7 +19,7 @@
 <!-- /widget-content -->
 </div>
 
-<?php if ($rebuilt): ?>
+<?php if ($perms['ParametersRebuilt']): ?>
 	<div class="widget">
 		<div class="widget-header">
 			<h3><?php echo __('Actions'); ?></h3>

@@ -37,7 +37,8 @@ class GroupsController extends AppController {
  */
 	public function view($id = null) {
 		if (!$this->Group->exists($id)) {
-			throw new NotFoundException(__('Invalid group'));
+			$this->Flash->error(__('Invalid group'));
+			return $this->redirect(array('action' => 'index'));
 		}
 		$options = array('conditions' => array($this->Group->alias.'.'.$this->Group->primaryKey => $id));
 		$this->set('group', $this->Group->find('first', $options));

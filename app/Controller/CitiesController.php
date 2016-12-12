@@ -13,7 +13,8 @@ class CitiesController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->set('cities', $this->City->find('all'));
+		$cities = $this->City->find('all');
+		$this->set(compact('cities'));
 	}
 
 /**
@@ -24,10 +25,13 @@ class CitiesController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->City->exists($id)) {
-			throw new NotFoundException(__('Invalid city'));
+		$this->City->id = $id;
+		if (!$this->City->exists()) {
+			$this->Flash->error(__('Invalid city'));
+			return $this->redirect(array('action' => 'index'));
 		}
-		$this->set('city', $this->City->findById($id));
+		$city = $this->City->read();
+		$this->set(compact('city'));
 	}
 
 /**

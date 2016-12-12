@@ -22,8 +22,12 @@
 		</dd>
 		<dt><?php echo __('Group'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($user['Group']['name'], array('controller' => 'groups', 'action' => 'view', $user['Group']['id'])); ?>
-			&nbsp;
+			<?php if ($perms['GroupsView']): ?>
+				<?php echo $this->Html->link($user['Group']['name'], array('controller' => 'groups', 'action' => 'view', $user['Group']['id'])); ?>
+			<?php else: ?>
+				<?php echo h($user['Group']['name']); ?>
+				&nbsp;
+			<?php endif; ?>
 		</dd>
 		<dt><?php echo __('Enabled'); ?></dt>
 		<dd>
@@ -32,12 +36,18 @@
 		</dd>
 		</dl>
 		<div class="form-actions">
-			<?php echo $this->Html->link(__('List Users'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
-			<?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id']), array('class' => 'btn')); ?>
-			<?php if (empty($user['Visit'])): ?>
+			<?php if ($perms['UsersIndex']): ?>
+				<?php echo $this->Html->link(__('List Users'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
+			<?php endif; ?>
+			<?php if ($perms['UsersEdit']): ?>
+				<?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id']), array('class' => 'btn')); ?>
+			<?php endif; ?>
+			<?php if (empty($user['Visit']) && $perms['UsersDelete']): ?>
 				<?php echo $this->Form->postLink(__('Delete User'), array('action' => 'delete', $user['User']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $user['User']['id']))); ?>
 			<?php endif; ?>
-			<?php echo $this->Html->link(__('Permission'), array('action' => 'permission', $user['User']['id']), array('class' => 'btn')); ?>
+			<?php if ($perms['UsersPermission']): ?>
+				<?php echo $this->Html->link(__('Permission'), array('action' => 'permission', $user['User']['id']), array('class' => 'btn')); ?>
+			<?php endif; ?>
 		</div>
 	</div>
 <!-- /widget-content -->

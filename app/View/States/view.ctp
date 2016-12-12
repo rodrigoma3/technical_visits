@@ -22,9 +22,13 @@
 			</dd>
 		</dl>
 		<div class="form-actions">
-			<?php echo $this->Html->link(__('List States'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
-			<?php echo $this->Html->link(__('Edit State'), array('action' => 'edit', $state['State']['id']), array('class' => 'btn')); ?>
-			<?php if (empty($state['City'])): ?>
+			<?php if ($perms['StatesIndex']): ?>
+				<?php echo $this->Html->link(__('List States'), array('action' => 'index'), array('class' => 'btn btn-success')); ?>
+			<?php endif; ?>
+			<?php if ($perms['StatesEdit']): ?>
+				<?php echo $this->Html->link(__('Edit State'), array('action' => 'edit', $state['State']['id']), array('class' => 'btn')); ?>
+			<?php endif; ?>
+			<?php if (empty($state['City']) && $perms['StatesDelete']): ?>
 				<?php echo $this->Form->postLink(__('Delete State'), array('action' => 'delete', $state['State']['id']), array('class' => 'btn', 'confirm' => __('Are you sure you want to delete # %s?', $state['State']['id']))); ?>
 			<?php endif; ?>
 		</div>
@@ -58,29 +62,38 @@
 				</tr>
 			</tfoot>
 			<tbody>
-					<?php foreach ($state['City'] as $city): ?>
-		<tr>
-			<td></td>
-			<td><?php echo h($city['id']); ?></td>
-			<td><?php echo h($city['name']); ?></td>
-			<td>
-				<?php if ($city['short_distance']) {
-					echo __('Yes');
-				} else {
-					echo __('No');
-				} ?>
-			</td>
-			<td class="actions">
-				<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('controller' => 'cities', 'action' => 'view', $city['id']), array('escape' => false, 'title' => 'View')); ?>
-				<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('controller' => 'cities', 'action' => 'edit', $city['id']), array('escape' => false, 'title' => 'Edit')); ?>
-				<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'cities', 'action' => 'delete', $city['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $city['id']))); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
+				<?php foreach ($state['City'] as $city): ?>
+					<tr>
+						<td></td>
+						<td><?php echo h($city['id']); ?></td>
+						<td><?php echo h($city['name']); ?></td>
+						<td>
+							<?php if ($city['short_distance']) {
+								echo __('Yes');
+							} else {
+								echo __('No');
+							} ?>
+						</td>
+						<td class="actions">
+							<?php if ($perms['CitiesView']): ?>
+								<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('controller' => 'cities', 'action' => 'view', $city['id']), array('escape' => false, 'title' => 'View')); ?>
+							<?php endif; ?>
+							<?php if ($perms['CitiesEdit']): ?>
+								<?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('controller' => 'cities', 'action' => 'edit', $city['id']), array('escape' => false, 'title' => 'Edit')); ?>
+							<?php endif; ?>
+							<?php if (empty($city['Visit']) && $perms['CitiesDelete']): ?>
+								<?php echo $this->Form->postLink('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'cities', 'action' => 'delete', $city['id']), array('escape' => false, 'title' => 'Delete', 'confirm' => __('Are you sure you want to delete # %s?', $city['id']))); ?>
+							<?php endif; ?>
+						</td>
+					</tr>
+				<?php endforeach; ?>
 			</tbody>
 		</table>
-		<div class="form-actions">
-			<?php echo $this->Html->link(__('New City'), array('controller' => 'cities', 'action' => 'add'), array('class' => 'btn btn-success')); ?>		</div>
+		<?php if ($perms['CitiesAdd']): ?>
+			<div class="form-actions">
+				<?php echo $this->Html->link(__('New City'), array('controller' => 'cities', 'action' => 'add'), array('class' => 'btn btn-success')); ?>
+			</div>
+		<?php endif; ?>
 	</div>
 <!-- /widget-content -->
 </div>

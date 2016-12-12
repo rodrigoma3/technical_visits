@@ -69,41 +69,73 @@
 		<td><?php echo h($visit['Transport']['name']); ?>&nbsp;</td>
         <td><?php echo h($visit['Visit']['transport_cost']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($visit['User']['name'], array('controller' => 'users', 'action' => 'view', $visit['User']['id'])); ?>
+            <?php if ($perms['UsersView']): ?>
+                <?php echo $this->Html->link($visit['User']['name'], array('controller' => 'users', 'action' => 'view', $visit['User']['id'])); ?>
+            <?php else: ?>
+                <?php echo h($visit['User']['name']); ?>&nbsp;
+            <?php endif; ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($visit['City']['name'], array('controller' => 'cities', 'action' => 'view', $visit['City']['id'])); ?>
+            <?php if ($perms['CitiesView']): ?>
+                <?php echo $this->Html->link($visit['City']['name'], array('controller' => 'cities', 'action' => 'view', $visit['City']['id'])); ?>
+            <?php else: ?>
+                <?php echo h($visit['City']['name']); ?>&nbsp;
+            <?php endif; ?>
         </td>
 		<td>
-            <?php echo $this->Html->link($visit['City']['State']['name_initial'], array('controller' => 'states', 'action' => 'view', $visit['City']['State']['id'])); ?>
+            <?php if ($perms['StatesView']): ?>
+                <?php echo $this->Html->link($visit['City']['State']['name_initial'], array('controller' => 'states', 'action' => 'view', $visit['City']['State']['id'])); ?>
+            <?php else: ?>
+                <?php echo h($visit['City']['State']['name_initial']); ?>&nbsp;
+            <?php endif; ?>
 		</td>
         <td>
-			<?php echo $this->Html->link($courses[$visit['Team']['Discipline'][0]['course_id']], array('controller' => 'courses', 'action' => 'view', $visit['Team']['Discipline'][0]['course_id'])); ?>
+            <?php if ($perms['CoursesView']): ?>
+                <?php echo $this->Html->link($courses[$visit['Team']['Discipline'][0]['course_id']], array('controller' => 'courses', 'action' => 'view', $visit['Team']['Discipline'][0]['course_id'])); ?>
+            <?php else: ?>
+                <?php echo h($courses[$visit['Team']['Discipline'][0]['course_id']]); ?>&nbsp;
+            <?php endif; ?>
 		</td>
         <td>
-			<?php echo $this->Html->link($visit['Discipline']['name'], array('controller' => 'disciplines', 'action' => 'view', $visit['Visit']['discipline_id'])); ?>
+            <?php if ($perms['DisciplinesView']): ?>
+                <?php echo $this->Html->link($visit['Discipline']['name'], array('controller' => 'disciplines', 'action' => 'view', $visit['Visit']['discipline_id'])); ?>
+            <?php else: ?>
+                <?php echo h($visit['Discipline']['name']); ?>&nbsp;
+            <?php endif; ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($visit['Team']['name'], array('controller' => 'teams', 'action' => 'view', $visit['Team']['id'])); ?>
+            <?php if ($perms['TeamsView']): ?>
+                <?php echo $this->Html->link($visit['Team']['name'], array('controller' => 'teams', 'action' => 'view', $visit['Team']['id'])); ?>
+            <?php else: ?>
+                <?php echo h($visit['Team']['name']); ?>&nbsp;
+            <?php endif; ?>
 		</td>
         <td><?php echo h($visit['Visit']['number_of_students']); ?>&nbsp;</td>
         <td><?php echo h($visit['Visit']['refund']); ?>&nbsp;</td>
         <td><?php echo h($visit['Visit']['objective']); ?>&nbsp;</td>
         <td><?php echo h($visit['Visit']['comments']); ?>&nbsp;</td>
 		<td class="actions">
-            <?php echo $this->Html->link('<i class="fa fa-lg fa-copy"></i>&nbsp;', array('action' => 'copy', $visit['Visit']['id']), array('escape' => false, 'title' => __('Copy'))); ?>
-			<?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $visit['Visit']['id']), array('escape' => false, 'title' => __('View'))); ?>
-            <?php if ($visit['Visit']['user_id'] == $this->Session->read('Auth.User.id') && $visit['Visit']['status'] < 4): ?>
-                <?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $visit['Visit']['id']), array('escape' => false, 'title' => __('Edit'))); ?>
-                <?php echo $this->Html->link('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'refusals', 'action' => 'cancel', $visit['Visit']['id']), array('escape' => false, 'confirm' => __('Are you sure you want to cancel # %s?', $visit['Visit']['id']), 'title' => __('Cancel'))); ?>
+            <?php if ($perms['VisitsCopy']): ?>
+                <?php echo $this->Html->link('<i class="fa fa-lg fa-copy"></i>&nbsp;', array('action' => 'copy', $visit['Visit']['id']), array('escape' => false, 'title' => __('Copy'))); ?>
             <?php endif; ?>
-            <?php if ($visit['Visit']['status'] < 9 && $informationUpdater): ?>
+            <?php if ($perms['VisitsView']): ?>
+                <?php echo $this->Html->link('<i class="fa fa-lg fa-eye"></i>&nbsp;', array('action' => 'view', $visit['Visit']['id']), array('escape' => false, 'title' => __('View'))); ?>
+            <?php endif; ?>
+            <?php if ($visit['Visit']['user_id'] == $this->Session->read('Auth.User.id') && $visit['Visit']['status'] < 4): ?>
+                <?php if ($perms['VisitsEdit']): ?>
+                    <?php echo $this->Html->link('<i class="fa fa-lg fa-pencil"></i>&nbsp;', array('action' => 'edit', $visit['Visit']['id']), array('escape' => false, 'title' => __('Edit'))); ?>
+                <?php endif; ?>
+                <?php if ($perms['RefusalsCancel']): ?>
+                    <?php echo $this->Html->link('<i class="fa fa-lg fa-trash"></i>&nbsp;', array('controller' => 'refusals', 'action' => 'cancel', $visit['Visit']['id']), array('escape' => false, 'confirm' => __('Are you sure you want to cancel # %s?', $visit['Visit']['id']), 'title' => __('Cancel'))); ?>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if ($visit['Visit']['status'] < 9 && $perms['VisitsInformationUpdate']): ?>
                 <?php echo $this->Html->link('<i class="fa fa-lg fa-pencil-square-o"></i>&nbsp;', array('action' => 'information_update', $visit['Visit']['id']), array('escape' => false, 'title' => __('Update information'))); ?>
             <?php endif; ?>
-            <?php if (in_array($visit['Visit']['status'], array(1,4,6,8)) && $transportUpdater): ?>
+            <?php if (in_array($visit['Visit']['status'], array(1,4,6,8)) && $perms['VisitsTransportUpdate']): ?>
                 <?php echo $this->Html->link('<i class="fa fa-lg fa-truck"></i>&nbsp;', array('action' => 'transport_update', $visit['Visit']['id']), array('escape' => false, 'title' => __('Transport'))); ?>
             <?php endif; ?>
-            <?php if (in_array($visit['Visit']['status'], array(3,4,5)) && $invalidatorVisit): ?>
+            <?php if (in_array($visit['Visit']['status'], array(3,4,5)) && $perms['RefusalsInvalidateVisit']): ?>
                 <?php echo $this->Html->link('<i class="fa fa-lg fa-ban"></i>&nbsp;', array('controller' => 'refusals', 'action' => 'invalidate_visit', $visit['Visit']['id']), array('escape' => false, 'title' => __('Invalidate visit'))); ?>
             <?php endif; ?>
         </td>
@@ -115,15 +147,17 @@
 <!-- /widget-content -->
 </div>
 
-<div class="widget">
-	<div class="widget-header">
-		<h3><?php echo __('Actions'); ?></h3>
-	</div>
-	<!-- /widget-header -->
-	<div class="widget-content actions">
-        <?php echo $this->Html->link(__('New Visit'), array('action' => 'add'), array('class' => 'btn btn-success')); ?>	</div>
-<!-- /widget-content -->
-</div>
+<?php if ($perms['VisitsAdd']): ?>
+    <div class="widget">
+    	<div class="widget-header">
+    		<h3><?php echo __('Actions'); ?></h3>
+    	</div>
+    	<!-- /widget-header -->
+    	<div class="widget-content actions">
+                <?php echo $this->Html->link(__('New Visit'), array('action' => 'add'), array('class' => 'btn btn-success')); ?>	</div>
+    <!-- /widget-content -->
+    </div>
+<?php endif; ?>
 
 <script type="text/javascript">
     // Hide a columns

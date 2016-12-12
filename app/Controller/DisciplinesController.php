@@ -14,7 +14,8 @@ class DisciplinesController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->set('disciplines', $this->Discipline->find('all'));
+		$disciplines = $this->Discipline->find('all');
+		$this->set(compact('disciplines'));
 	}
 
 /**
@@ -25,11 +26,14 @@ class DisciplinesController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		if (!$this->Discipline->exists($id)) {
-			throw new NotFoundException(__('Invalid discipline'));
+		$this->Discipline->id = $id;
+		if (!$this->Discipline->exists()) {
+			$this->Flash->error(__('Invalid discipline'));
+			return $this->redirect(array('action' => 'index'));
 		}
-		$options = array('conditions' => array('Discipline.' . $this->Discipline->primaryKey => $id));
-		$this->set('discipline', $this->Discipline->find('first', $options));
+		$this->Discipline->recursive = 2;
+		$discipline = $this->Discipline->read();
+		$this->set(compact('discipline'));
 	}
 
 /**

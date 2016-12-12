@@ -133,7 +133,6 @@ class ParametersController extends AppController{
         if (empty($errors)) {
             $this->request->data[$this->Parameter->name] = Configure::read('Parameter.System');
         }
-        $this->set('rebuilt', $this->Acl->check(array('User' => $this->Auth->user()), 'parameters/rebuilt'));
     }
 
 /**

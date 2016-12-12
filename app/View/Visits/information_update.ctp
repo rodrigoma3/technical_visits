@@ -1,7 +1,7 @@
 <div class="widget visits form">
 	<?php echo $this->Form->create('Visit'); ?>
 	<div class="widget-header">
-		<h3><?php echo __('Edit Visit'); ?></h3>
+		<h3><?php echo __('Update Visit'); ?></h3>
 	</div>
 	<!-- /widget-header -->
 	<div class="widget-content">

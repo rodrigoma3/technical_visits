@@ -79,6 +79,7 @@ class AppController extends Controller {
             $this->Auth->authError = false;
             // return $this->redirect($this->Auth->logout());
         }
+        $this->set('perms', $this->findPerms());
     }
 
     public function beforeRender() {
@@ -261,5 +262,31 @@ class AppController extends Controller {
 
     protected function decrypt($string = null) {
         return Security::decrypt(base64_decode($string), Configure::read('Security.salt'));
+    }
+
+    protected function findPerms($views = array()) {
+        $perms = array();
+
+        if (empty($views)) {
+            $acosList = $this->Acl->Aco->find('list');
+    		foreach ($acosList as $acoId) {
+    			$tree = $this->Acl->Aco->getPath($acoId,'alias');
+    			$aliases = array();
+                foreach ($tree as $t) {
+                    if ($t['Aco']['alias'] !== 'controllers') {
+                        $aliases[] = $t['Aco']['alias'];
+                    }
+    			}
+                if (!empty($aliases) && count($aliases) == 2) {
+                    $views[] = array_combine(array('controller', 'action'), $aliases);
+                }
+    		}
+        }
+
+        foreach ($views as $view) {
+            $perms[Inflector::camelize($view['controller']).Inflector::camelize($view['action'])] = $this->Acl->check(array('User' => $this->Auth->user()), $view['controller'].'/'.$view['action']);
+        }
+
+        return $perms;
     }
 }

@@ -1,7 +1,7 @@
 
-$(window).load(function() {
-    progressBar();
-});
+// $(window).load(function() {
+//     progressBar();
+// });
 
 $(document).ready(function() {
 
@@ -45,9 +45,9 @@ $(document).ready(function() {
         }
     });
 
-    $('a').on('click', function() {
-        progressBar();
-    });
+    // $('a').on('click', function() {
+    //     progressBar();
+    // });
 
     $('.form-error:first').focus();
 
