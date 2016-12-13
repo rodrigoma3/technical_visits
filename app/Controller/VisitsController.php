@@ -66,7 +66,43 @@ class VisitsController extends AppController {
 			);
 		}
 
-		$this->set(compact('stats'));
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.destination AS title',
+				$this->Visit->alias.'.departure AS start',
+				$this->Visit->alias.'.arrival AS end',
+			),
+			'conditions' => array(
+				$this->Visit->alias.'.user_id' => $this->Auth->user('id'),
+				$this->Visit->alias.'.status < ' => '4',
+			),
+			'recursive' => -1
+		);
+		$eventsOpened = $this->Visit->find('all', $options);
+		$eventsOpened = Set::classicExtract($eventsOpened, '{n}.'.$this->Visit->alias);
+		$eventsOpened = Set::insert($eventsOpened, '{n}.color', 'blue');
+
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.destination AS title',
+				$this->Visit->alias.'.departure AS start',
+				$this->Visit->alias.'.arrival AS end',
+			),
+			'conditions' => array(
+				$this->Visit->alias.'.user_id' => $this->Auth->user('id'),
+				$this->Visit->alias.'.status > ' => '3',
+				$this->Visit->alias.'.status < ' => '10',
+			),
+			'recursive' => -1
+		);
+		$eventsHeld = $this->Visit->find('all', $options);
+		$eventsHeld = Set::classicExtract($eventsHeld, '{n}.'.$this->Visit->alias);
+		$eventsHeld = Set::insert($eventsHeld, '{n}.color', 'green');
+
+		$events = array_merge($eventsOpened, $eventsHeld);
+		$events = json_encode($events);
+
+		$this->set(compact('stats', 'events'));
 	}
 
 /**

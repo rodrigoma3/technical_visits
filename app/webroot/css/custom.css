@@ -84,6 +84,12 @@ input {
     border-bottom: none;
 }
 
-/*------------------------------------------------------------------
-Bootstrap Admin Template by EGrappler.com
-------------------------------------------------------------------*/
+#fullcalendar {
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+a div.fc-content {
+    background-color: transparent;
+}

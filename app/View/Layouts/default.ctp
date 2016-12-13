@@ -59,8 +59,9 @@
 									'dataTables.default',
 									'jquery.isloading.min',
 									'Chart.min',
-									'/fullcalendar-3_1_0/fullcalendar.min',
 									'/fullcalendar-3_1_0/lib/moment.min',
+									'/fullcalendar-3_1_0/fullcalendar.min',
+									'/fullcalendar-3_1_0/locale-all',
 									'custom',
 		));
 
