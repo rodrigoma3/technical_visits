@@ -1,8 +1,8 @@
 <?php
 $config = array (
-  'Parameter' =>
+  'Parameter' => 
   array (
-    'Email' =>
+    'Email' => 
     array (
       'host' => 'smtps.bol.com.br',
       'port' => '587',
@@ -15,14 +15,14 @@ $config = array (
       'fromEmail' => 'technical.visits@bol.com.br',
       'replyTo' => '',
     ),
-    'Transport' =>
+    'Transport' => 
     array (
-      'costPerKmCampus' => '3.34',
-      'costPerKmOutsourced' => '3.40',
+      'costPerKmCampus' => '1.15',
+      'costPerKmOutsourced' => '5.3',
     ),
-    'System' =>
+    'System' => 
     array (
-      'allowed_actions' =>
+      'allowed_actions' => 
       array (
         0 => 'AclExtras',
         1 => 'login',
