@@ -79,8 +79,10 @@ class VisitsController extends AppController {
 			'recursive' => -1
 		);
 		$eventsOpened = $this->Visit->find('all', $options);
-		$eventsOpened = Set::classicExtract($eventsOpened, '{n}.'.$this->Visit->alias);
-		$eventsOpened = Set::insert($eventsOpened, '{n}.color', 'blue');
+		if(!empty($eventsOpened)){
+				$eventsOpened = Set::classicExtract($eventsOpened, '{n}.'.$this->Visit->alias);
+				$eventsOpened = Set::insert($eventsOpened, '{n}.color', 'blue');
+		}
 
 		$options = array(
 			'fields' => array(
@@ -96,8 +98,10 @@ class VisitsController extends AppController {
 			'recursive' => -1
 		);
 		$eventsHeld = $this->Visit->find('all', $options);
-		$eventsHeld = Set::classicExtract($eventsHeld, '{n}.'.$this->Visit->alias);
-		$eventsHeld = Set::insert($eventsHeld, '{n}.color', 'green');
+		if(!empty($eventsHeld)){
+				$eventsHeld = Set::classicExtract($eventsHeld, '{n}.'.$this->Visit->alias);
+				$eventsHeld = Set::insert($eventsHeld, '{n}.color', 'green');
+		}
 
 		$events = array_merge($eventsOpened, $eventsHeld);
 		$events = json_encode($events);
