@@ -31,6 +31,7 @@
 									'reports',
 									'dashboard',
 		));
+		echo $this->Html->css('/fullcalendar-3_1_0/fullcalendar.print.min', array('media' => 'print'));
 
 		echo $this->Html->script(array(
 									// 'jquery-2.0.3.min',
@@ -59,7 +60,6 @@
 									'jquery.isloading.min',
 									'Chart.min',
 									'/fullcalendar-3_1_0/fullcalendar.min',
-									'/fullcalendar-3_1_0/lib/fullcalendar.print.min',
 									'/fullcalendar-3_1_0/lib/moment.min',
 									'custom',
 		));

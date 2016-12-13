@@ -46,7 +46,7 @@ class AppController extends Controller {
             ),
             'loginRedirect' => array(
                 'controller' => 'visits',
-                'action' => 'index',
+                'action' => 'dashboard',
             ),
             'logoutRedirect' => array(
                 'controller' => 'users',

@@ -53,7 +53,11 @@ class VisitsController extends AppController {
 			} else {
 				$quantity = 0;
 			}
-			$percent = CakeNumber::toPercentage(($quantity/$total)*100);
+			if ($total == 0) {
+				$percent = CakeNumber::toPercentage(0);
+			} else {
+				$percent = CakeNumber::toPercentage(($quantity/$total)*100);
+			}
 			$stats[] = array(
 				'title' => $title,
 				'percent' => $percent,
