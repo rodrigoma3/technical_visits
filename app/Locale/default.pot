@@ -1508,11 +1508,6 @@ msgstr ""
 msgid "Update information"
 msgstr ""
 
-#: View/Visits/index.ctp:139
-#: View/Visits/transport_update.ctp:158
-msgid "Invalidate visit"
-msgstr ""
-
 #: View/Visits/information_update.ctp:4
 msgid "Update Visit"
 msgstr ""
@@ -1773,3 +1768,98 @@ msgstr ""
 msgid "Something went wrong with the upload."
 msgstr ""
 
+#: Model/Visit.php:85
+msgid "Undefined"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Own"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Campus"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Outsourced"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Open"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Awaiting transport"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Waiting for approval"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Awaiting realization"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Awaiting report, information update and transport update"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Awaiting report"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Waiting for report evaluation and transport update"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Waiting for report evaluation"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Waiting for transport update"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Completed"
+msgstr ""
+
+#: Model/Visit.php:85
+msgid "Canceled"
+msgstr ""
+
+#: Model/Course.php:85
+msgid "Yearly"
+msgstr ""
+
+#: Model/Course.php:85
+msgid "Semiannual"
+msgstr ""
+
+#: Model/Refusal.php:85
+msgid "Visit canceled"
+msgstr ""
+
+#: Model/Refusal.php:85
+msgid "Disapproved visit"
+msgstr ""
+
+#: Model/Refusal.php:85
+msgid "Disapproved report"
+msgstr ""
+
+#: Model/User.php:128
+msgid "Invalidate visit"
+msgstr ""
+
+#: Model/User.php:128
+msgid "Deny"
+msgstr ""
+
+#: Model/User.php:128
+msgid "Allow"
+msgstr ""
+
+#: Model/User.php:128
+msgid "Inherit the group"
+msgstr ""
