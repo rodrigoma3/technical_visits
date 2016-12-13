@@ -666,4 +666,468 @@ class VisitsController extends AppController {
 		}
 		die;
 	}
+
+	public function general_analysis() {
+		$charts = array(
+			array(
+				'icon' => 'fa fa-pie-chart',
+				'title' => __('Total of visits x frequency of students'),
+				'controller' => 'visits',
+				'action' => 'visits_x_frequency_of_students',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-pie-chart',
+				'title' => __('Total of visits x long and short distance'),
+				'controller' => 'visits',
+				'action' => 'visits_x_long_short_distance',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Course x visits'),
+				'controller' => 'visits',
+				'action' => 'course_x_visits',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Course x mileage'),
+				'controller' => 'visits',
+				'action' => 'course_x_mileage',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Course x total cost'),
+				'controller' => 'visits',
+				'action' => 'course_x_cost',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('User x visits'),
+				'controller' => 'visits',
+				'action' => 'user_x_visits',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('User x mileage'),
+				'controller' => 'visits',
+				'action' => 'user_x_mileage',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('User x total cost'),
+				'controller' => 'visits',
+				'action' => 'user_x_cost',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Visits x status'),
+				'controller' => 'visits',
+				'action' => 'visits_x_status',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Visits x city'),
+				'controller' => 'visits',
+				'action' => 'visits_x_city',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Visits x destination'),
+				'controller' => 'visits',
+				'action' => 'visits_x_destination',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Mileage x total cost per type of transport'),
+				'controller' => 'visits',
+				'action' => 'mileage_x_cost_per_type_transport',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Total of visits x long and short distance per type of transport'),
+				'controller' => 'visits',
+				'action' => 'visits_x_long_short_distance_per_type_transport',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Total of visits x long and short distance x mileage per type of transport'),
+				'controller' => 'visits',
+				'action' => 'visits_x_long_short_distance_x_mileage_per_type_transport',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Total of visits x long and short distance x total cost per type of transport'),
+				'controller' => 'visits',
+				'action' => 'visits_x_long_short_distance_x_cost_per_type_transport',
+				'allow' => false,
+			),
+			array(
+				'icon' => 'fa fa-bar-chart',
+				'title' => __('Mileage x total cost per total of visits x long and short distance'),
+				'controller' => 'visits',
+				'action' => 'mileage_x_cost_per_visits_x_long_short_distance',
+				'allow' => false,
+			),
+		);
+
+		foreach ($charts as $k => $chart) {
+			$charts[$k]['allow'] = $this->Acl->check(array('User' => $this->Auth->user()), $chart['controller'].'/'.$chart['action']);
+		}
+
+		$this->set(compact('charts'));
+	}
+
+	public function visits_x_frequency_of_students() {
+		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.status > ' => '3',
+			),
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				'('.$this->Visit->alias.'.number_of_students_present/'.$this->Visit->alias.'.number_of_students*100) AS frequency',
+			),
+		);
+		$visits = $this->Visit->find('all', $options);
+		$frequency = array();
+		foreach ($visits as $visit) {
+			$frequency[($visit[0]['frequency'] > 75)][] = 1;
+		}
+
+		$frequency[0] = count($frequency[0]);
+		$frequency[1] = count($frequency[1]);
+
+		$data = json_encode(array($frequency[0], $frequency[1], ($frequency[0]+$frequency[1])));
+		$labels = json_encode(array(__('Less than 75%'), __('Greater than 75%'), __('Total technical visits')));
+		$backgroundColor = json_encode(array($this->randomColor(), $this->randomColor(), $this->randomColor()));
+		$this->set(compact('data', 'labels', 'backgroundColor'));
+	}
+
+	public function visits_x_long_short_distance() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.city_id',
+				$this->Visit->City->alias.'.short_distance',
+			),
+			'joins' => array(
+				array(
+					'table' => $this->Visit->City->table,
+					'alias' => $this->Visit->City->alias,
+					'type' => 'LEFT',
+					'conditions' => array(
+						$this->Visit->alias.'.city_id = '.$this->Visit->City->alias.'.id'
+					)
+				)
+			),
+		);
+		$visits = $this->Visit->find('list', $options);
+
+		$short = 0;
+		$long = 0;
+		if (isset($visits[0]) && !empty($visits[0])) {
+			$long = count($visits[0]);
+		}
+		if (isset($visits[1]) && !empty($visits[1])) {
+			$short = count($visits[1]);
+		}
+
+		$data = json_encode(array($short, $long, ($short+$long)));
+		$labels = json_encode(array(__('Short distance'), __('Long distance'), __('Total technical visits')));
+		$backgroundColor = json_encode(array($this->randomColor(), $this->randomColor(), $this->randomColor()));
+		$this->set(compact('data', 'labels', 'backgroundColor'));
+	}
+
+	public function visits_x_long_short_distance_per_type_transport() {
+
+	}
+
+	public function visits_x_long_short_distance_x_mileage_per_type_transport() {
+
+	}
+
+	public function visits_x_long_short_distance_x_cost_per_type_transport() {
+
+	}
+
+	public function mileage_x_cost_per_type_transport() {
+
+	}
+
+	public function mileage_x_cost_per_visits_x_long_short_distance() {
+
+	}
+
+	public function visits_x_city() {
+
+	}
+
+	public function visits_x_destination() {
+
+	}
+
+	public function visits_x_status() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.user_id',
+				$this->Visit->alias.'.status',
+			),
+		);
+		$visits = $this->Visit->find('list', $options);
+		$status = $this->Visit->getEnums('status');
+		$data = array();
+		$label = array();
+		foreach ($status as $id => $title) {
+			if (isset($visits[$id]) && !empty($visits[$id])) {
+				$data[] = count($visits[$id]);
+			} else {
+				$data[] = 0;
+			}
+			$label[] = $title;
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode($data);
+		$labels = json_encode($label);
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor'));
+	}
+
+	public function course_x_visits() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->Discipline->Course->alias.'.id',
+				$this->Visit->Discipline->Course->alias.'.name',
+			),
+			'joins' => array(
+				array(
+					'table' => $this->Visit->Discipline->table,
+					'alias' => $this->Visit->Discipline->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Visit->alias.'.discipline_id = '.$this->Visit->Discipline->alias.'.id'
+					)
+				),
+				array(
+					'table' => $this->Visit->Discipline->Course->table,
+					'alias' => $this->Visit->Discipline->Course->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Visit->Discipline->alias.'.course_id = '.$this->Visit->Discipline->Course->alias.'.id'
+					)
+				)
+			),
+		);
+		$visits = $this->Visit->find('list', $options);
+
+		$data = array();
+		$label = array();
+		$backgroundColor = array();
+		foreach ($visits as $course => $list) {
+			$data[] = count($list);
+			$label[] = $course;
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode($data);
+		$labels = json_encode($label);
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor'));
+	}
+
+	public function course_x_mileage() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.distance',
+				$this->Visit->Discipline->Course->alias.'.name',
+			),
+			'joins' => array(
+				array(
+					'table' => $this->Visit->Discipline->table,
+					'alias' => $this->Visit->Discipline->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Visit->alias.'.discipline_id = '.$this->Visit->Discipline->alias.'.id'
+					)
+				),
+				array(
+					'table' => $this->Visit->Discipline->Course->table,
+					'alias' => $this->Visit->Discipline->Course->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Visit->Discipline->alias.'.course_id = '.$this->Visit->Discipline->Course->alias.'.id'
+					)
+				)
+			),
+		);
+		$visits = $this->Visit->find('list', $options);
+
+		$data = array();
+		$label = array();
+		$backgroundColor = array();
+		foreach ($visits as $course => $list) {
+			$data[] = CakeNumber::precision(array_sum($list), 2);
+			$label[] = $course;
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode($data);
+		$labels = json_encode($label);
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor'));
+	}
+
+	public function course_x_cost() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.refund',
+				$this->Visit->alias.'.transport_cost',
+				$this->Visit->Discipline->Course->alias.'.name',
+			),
+			'joins' => array(
+				array(
+					'table' => $this->Visit->Discipline->Course->table,
+					'alias' => $this->Visit->Discipline->Course->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Visit->Discipline->alias.'.course_id = '.$this->Visit->Discipline->Course->alias.'.id'
+					)
+				)
+			),
+		);
+		$visits = $this->Visit->find('all', $options);
+
+		$tmp = array();
+		foreach ($visits as $visit) {
+			$sum = CakeNumber::precision(($visit[$this->Visit->alias]['refund'] + $visit[$this->Visit->alias]['transport_cost']), 2);
+			if (!isset($tmp[$visit[$this->Visit->Discipline->Course->alias]['name']]) || empty($tmp[$visit[$this->Visit->Discipline->Course->alias]['name']])) {
+				$tmp[$visit[$this->Visit->Discipline->Course->alias]['name']] = 0;
+			}
+			$tmp[$visit[$this->Visit->Discipline->Course->alias]['name']] = $tmp[$visit[$this->Visit->Discipline->Course->alias]['name']] + $sum;
+		}
+		for ($i=0; $i < count($tmp); $i++) {
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode(array_values($tmp));
+		$labels = json_encode(array_keys($tmp));
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor'));
+	}
+
+	public function user_x_visits() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.user_id',
+				$this->Visit->User->alias.'.name',
+			),
+			'joins' => array(
+				array(
+					'table' => $this->Visit->User->table,
+					'alias' => $this->Visit->User->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Visit->alias.'.user_id = '.$this->Visit->User->alias.'.id'
+					)
+				)
+			),
+		);
+		$visits = $this->Visit->find('list', $options);
+
+		$data = array();
+		$label = array();
+		$backgroundColor = array();
+		foreach ($visits as $user => $list) {
+			$data[] = count($list);
+			$label[] = $user;
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode($data);
+		$labels = json_encode($label);
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor'));
+	}
+
+	public function user_x_mileage() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.distance',
+				$this->Visit->User->alias.'.name',
+			),
+			'joins' => array(
+				array(
+					'table' => $this->Visit->User->table,
+					'alias' => $this->Visit->User->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Visit->alias.'.user_id = '.$this->Visit->User->alias.'.id'
+					)
+				)
+			),
+		);
+		$visits = $this->Visit->find('list', $options);
+
+		$data = array();
+		$label = array();
+		$backgroundColor = array();
+		foreach ($visits as $user => $list) {
+			$data[] = CakeNumber::precision(array_sum($list), 2);
+			$label[] = $user;
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode($data);
+		$labels = json_encode($label);
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor'));
+	}
+
+	public function user_x_cost() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.refund',
+				$this->Visit->alias.'.transport_cost',
+				$this->Visit->User->alias.'.name',
+			),
+		);
+		$visits = $this->Visit->find('all', $options);
+
+		$tmp = array();
+		foreach ($visits as $visit) {
+			$sum = CakeNumber::precision(($visit[$this->Visit->alias]['refund'] + $visit[$this->Visit->alias]['transport_cost']), 2);
+			if (!isset($tmp[$visit[$this->Visit->User->alias]['name']]) || empty($tmp[$visit[$this->Visit->User->alias]['name']])) {
+				$tmp[$visit[$this->Visit->User->alias]['name']] = 0;
+			}
+			$tmp[$visit[$this->Visit->User->alias]['name']] = $tmp[$visit[$this->Visit->User->alias]['name']] + $sum;
+		}
+		for ($i=0; $i < count($tmp); $i++) {
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode(array_values($tmp));
+		$labels = json_encode(array_keys($tmp));
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor'));
+	}
+
 }

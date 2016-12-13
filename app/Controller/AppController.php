@@ -149,6 +149,13 @@ class AppController extends Controller {
                     'action' => 'index',
                     'allow' => false,
                 ),
+                array(
+                    'title' => __('General analysis'),
+                    'icon' => '<i class="fa fa-signal"></i>',
+                    'controller' => 'visits',
+                    'action' => 'general_analysis',
+                    'allow' => false,
+                ),
             );
 
             foreach ($menus as $k => $menu) {
@@ -302,5 +309,9 @@ class AppController extends Controller {
         }
 
         return $perms;
+    }
+
+    public function randomColor() {
+        return '#'.substr(str_shuffle('ABCDEF0123456789'), 0, 6);
     }
 }
