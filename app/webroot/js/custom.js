@@ -33,15 +33,13 @@ $(document).ready(function() {
             var content = elem.html();
             elem.children('i').remove();
             elem.html('<i class="fa fa-spinner fa-pulse fa-fw"></i>'+elem.html());
-            $(document).ready(function() {
-                setTimeout( function(){
+            setTimeout( function(){
 
-                    // Deactivate the loading plugin
-                    elem.isLoading( "hide" );
+                // Deactivate the loading plugin
+                elem.isLoading( "hide" );
 
-                    elem.html(content);
-                }, 500 );
-            });
+                elem.html(content);
+            }, 500 );
         }
     });
 

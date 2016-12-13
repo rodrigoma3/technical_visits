@@ -49,20 +49,7 @@ var visitsByStatus = new Chart(ctx, {
         datasets: [{
             label: "<?php echo __('Technical Visits'); ?>",
             data: <?php echo json_encode(Set::classicExtract($stats, '{n}.quantity')); ?>,
-            backgroundColor: [
-                'pink',
-                'blue',
-                'yellow',
-                'green',
-                'orange',
-                'purple',
-                'red',
-                'lightpink',
-                'turquoise',
-                'gold',
-                'lightgreen',
-                'violet',
-            ],
+            backgroundColor: <?php echo json_encode(Set::classicExtract($stats, '{n}.backgroundColor')); ?>,
             borderWidth: 1
         }]
     },

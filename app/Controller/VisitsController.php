@@ -58,6 +58,7 @@ class VisitsController extends AppController {
 				'title' => $title,
 				'percent' => $percent,
 				'quantity' => $quantity,
+				'backgroundColor' => $this->randomColor(),
 			);
 		}
 
@@ -806,8 +807,16 @@ class VisitsController extends AppController {
 			$frequency[($visit[0]['frequency'] > 75)][] = 1;
 		}
 
-		$frequency[0] = count($frequency[0]);
-		$frequency[1] = count($frequency[1]);
+		if (isset($frequency[0]) && !empty($frequency[0])) {
+			$frequency[0] = count($frequency[0]);
+		} else {
+			$frequency[0] = 0;
+		}
+		if (isset($frequency[1]) && !empty($frequency[1])) {
+			$frequency[1] = count($frequency[1]);
+		} else {
+			$frequency[1] = 0;
+		}
 
 		$data = json_encode(array($frequency[0], $frequency[1], ($frequency[0]+$frequency[1])));
 		$labels = json_encode(array(__('Less than 75%'), __('Greater than 75%'), __('Total technical visits')));
@@ -851,31 +860,424 @@ class VisitsController extends AppController {
 	}
 
 	public function visits_x_long_short_distance_per_type_transport() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->City->alias.'.short_distance',
+				$this->Visit->alias.'.transport',
+			),
+			'joins' => array(
+				array(
+					'table' => $this->Visit->City->table,
+					'alias' => $this->Visit->City->alias,
+					'type' => 'LEFT',
+					'conditions' => array(
+						$this->Visit->alias.'.city_id = '.$this->Visit->City->alias.'.id'
+					)
+				)
+			),
+		);
+		$visits = $this->Visit->find('list', $options);
+		$transports = $this->Visit->getEnums('transport');
 
+		$tmb = array();
+		foreach ($visits as $transport => $distance) {
+			foreach ($distance as $id => $shortDistance) {
+				if (!isset($tmb[$transports[$transport]][$shortDistance]) || empty($tmb[$transports[$transport]][$shortDistance])) {
+					$tmb[$transports[$transport]][$shortDistance] = 0;
+				}
+				if (!isset($tmb[$transports[$transport]]['totalVisits']) || empty($tmb[$transports[$transport]]['totalVisits'])) {
+					$tmb[$transports[$transport]]['totalVisits'] = 0;
+				}
+				$tmb[$transports[$transport]][$shortDistance] = $tmb[$transports[$transport]][$shortDistance] + 1;
+				$tmb[$transports[$transport]]['totalVisits'] = $tmb[$transports[$transport]]['totalVisits'] + 1;
+			}
+		}
+		$shortDistanceFalse = array();
+		$shortDistanceTrue = array();
+		$totalVisits = array();
+		foreach ($tmb as $transportType => $content) {
+			$shortDistanceFalse[] = $content[false];
+			$shortDistanceTrue[] = $content[true];
+			$totalVisits[] = $content['totalVisits'];
+			$labels[] = $transportType;
+		}
+		$backgroundColorShortDistanceFalse = $this->randomColor();
+		$backgroundColorShortDistanceTrue = $this->randomColor();
+		$backgroundColorTotalVisits = $this->randomColor();
+		$datasets = array();
+		$datasets[] = array(
+			'label' => __('Long distance'),
+			'data' => $shortDistanceFalse,
+			'backgroundColor' => array($backgroundColorShortDistanceFalse, $backgroundColorShortDistanceFalse, $backgroundColorShortDistanceFalse, $backgroundColorShortDistanceFalse),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Short distance'),
+			'data' => $shortDistanceTrue,
+			'backgroundColor' => array($backgroundColorShortDistanceTrue, $backgroundColorShortDistanceTrue, $backgroundColorShortDistanceTrue, $backgroundColorShortDistanceTrue),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Total technical visits'),
+			'data' => $totalVisits,
+			'backgroundColor' => array($backgroundColorTotalVisits, $backgroundColorTotalVisits, $backgroundColorTotalVisits, $backgroundColorTotalVisits),
+			'borderWidth' => 1,
+		);
+
+		$datasets = json_encode($datasets);
+		$labels = json_encode($labels);
+		$this->set(compact('datasets', 'labels'));
 	}
 
 	public function visits_x_long_short_distance_x_mileage_per_type_transport() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.distance',
+				$this->Visit->City->alias.'.short_distance',
+				$this->Visit->alias.'.transport',
+			),
+		);
+		$visits = $this->Visit->find('all', $options);
 
+		$tmb = array();
+		foreach ($visits as $visit) {
+			if (!isset($tmb[$visit['Transport']['name']][$visit[$this->Visit->City->alias]['short_distance']]) || empty($tmb[$visit['Transport']['name']][$visit[$this->Visit->City->alias]['short_distance']])) {
+				$tmb[$visit['Transport']['name']][$visit[$this->Visit->City->alias]['short_distance']] = 0;
+			}
+			if (!isset($tmb[$visit['Transport']['name']]['totalVisits']) || empty($tmb[$visit['Transport']['name']]['totalVisits'])) {
+				$tmb[$visit['Transport']['name']]['totalVisits'] = 0;
+			}
+			if (!isset($tmb[$visit['Transport']['name']]['totalDistance']) || empty($tmb[$visit['Transport']['name']]['totalDistance'])) {
+				$tmb[$visit['Transport']['name']]['totalDistance'] = 0;
+			}
+			$tmb[$visit['Transport']['name']][$visit[$this->Visit->City->alias]['short_distance']] = $tmb[$visit['Transport']['name']][$visit[$this->Visit->City->alias]['short_distance']] + 1;
+			$tmb[$visit['Transport']['name']]['totalDistance'] = CakeNumber::precision($tmb[$visit['Transport']['name']]['totalDistance'] + $visit[$this->Visit->alias]['distance'], 2);
+			$tmb[$visit['Transport']['name']]['totalVisits'] = $tmb[$visit['Transport']['name']]['totalVisits'] + 1;
+		}
+		$shortDistanceFalse = array();
+		$shortDistanceTrue = array();
+		$totalDistance = array();
+		$totalVisits = array();
+		foreach ($tmb as $transportType => $content) {
+			$shortDistanceFalse[] = $content[false];
+			$shortDistanceTrue[] = $content[true];
+			$totalDistance[] = $content['totalDistance'];
+			$totalVisits[] = $content['totalVisits'];
+			$labels[] = $transportType;
+		}
+		$backgroundColorShortDistanceFalse = $this->randomColor();
+		$backgroundColorShortDistanceTrue = $this->randomColor();
+		$backgroundColorTotalDistance = $this->randomColor();
+		$backgroundColorTotalVisits = $this->randomColor();
+		$datasets = array();
+		$datasets[] = array(
+			'label' => __('Long distance'),
+			'data' => $shortDistanceFalse,
+			'backgroundColor' => array($backgroundColorShortDistanceFalse, $backgroundColorShortDistanceFalse, $backgroundColorShortDistanceFalse, $backgroundColorShortDistanceFalse),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Short distance'),
+			'data' => $shortDistanceTrue,
+			'backgroundColor' => array($backgroundColorShortDistanceTrue, $backgroundColorShortDistanceTrue, $backgroundColorShortDistanceTrue, $backgroundColorShortDistanceTrue),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Total distance'),
+			'data' => $totalDistance,
+			'backgroundColor' => array($backgroundColorTotalDistance, $backgroundColorTotalDistance, $backgroundColorTotalDistance, $backgroundColorTotalDistance),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Total technical visits'),
+			'data' => $totalVisits,
+			'backgroundColor' => array($backgroundColorTotalVisits, $backgroundColorTotalVisits, $backgroundColorTotalVisits, $backgroundColorTotalVisits),
+			'borderWidth' => 1,
+		);
+
+		$datasets = json_encode($datasets);
+		$labels = json_encode($labels);
+		$this->set(compact('datasets', 'labels'));
 	}
 
 	public function visits_x_long_short_distance_x_cost_per_type_transport() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.refund',
+				$this->Visit->alias.'.transport_cost',
+				$this->Visit->City->alias.'.short_distance',
+				$this->Visit->alias.'.transport',
+			),
+		);
+		$visits = $this->Visit->find('all', $options);
 
+		$tmb = array();
+		foreach ($visits as $visit) {
+			if (!isset($tmb[$visit['Transport']['name']][$visit[$this->Visit->City->alias]['short_distance']]) || empty($tmb[$visit['Transport']['name']][$visit[$this->Visit->City->alias]['short_distance']])) {
+				$tmb[$visit['Transport']['name']][$visit[$this->Visit->City->alias]['short_distance']] = 0;
+			}
+			if (!isset($tmb[$visit['Transport']['name']]['totalVisits']) || empty($tmb[$visit['Transport']['name']]['totalVisits'])) {
+				$tmb[$visit['Transport']['name']]['totalVisits'] = 0;
+			}
+			if (!isset($tmb[$visit['Transport']['name']]['totalCost']) || empty($tmb[$visit['Transport']['name']]['totalCost'])) {
+				$tmb[$visit['Transport']['name']]['totalCost'] = 0;
+			}
+			$tmb[$visit['Transport']['name']][$visit[$this->Visit->City->alias]['short_distance']] = $tmb[$visit['Transport']['name']][$visit[$this->Visit->City->alias]['short_distance']] + 1;
+			$tmb[$visit['Transport']['name']]['totalCost'] = CakeNumber::precision($tmb[$visit['Transport']['name']]['totalCost'] + $visit[$this->Visit->alias]['refund'] + $visit[$this->Visit->alias]['transport_cost'], 2);
+			$tmb[$visit['Transport']['name']]['totalVisits'] = $tmb[$visit['Transport']['name']]['totalVisits'] + 1;
+		}
+		$shortDistanceFalse = array();
+		$shortDistanceTrue = array();
+		$totalCost = array();
+		$totalVisits = array();
+		foreach ($tmb as $transportType => $content) {
+			$shortDistanceFalse[] = $content[false];
+			$shortDistanceTrue[] = $content[true];
+			$totalCost[] = $content['totalCost'];
+			$totalVisits[] = $content['totalVisits'];
+			$labels[] = $transportType;
+		}
+		$backgroundColorShortDistanceFalse = $this->randomColor();
+		$backgroundColorShortDistanceTrue = $this->randomColor();
+		$backgroundColorTotalCost = $this->randomColor();
+		$backgroundColorTotalVisits = $this->randomColor();
+		$datasets = array();
+		$datasets[] = array(
+			'label' => __('Long distance'),
+			'data' => $shortDistanceFalse,
+			'backgroundColor' => array($backgroundColorShortDistanceFalse, $backgroundColorShortDistanceFalse, $backgroundColorShortDistanceFalse, $backgroundColorShortDistanceFalse),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Short distance'),
+			'data' => $shortDistanceTrue,
+			'backgroundColor' => array($backgroundColorShortDistanceTrue, $backgroundColorShortDistanceTrue, $backgroundColorShortDistanceTrue, $backgroundColorShortDistanceTrue),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Total cost'),
+			'data' => $totalCost,
+			'backgroundColor' => array($backgroundColorTotalCost, $backgroundColorTotalCost, $backgroundColorTotalCost, $backgroundColorTotalCost),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Total technical visits'),
+			'data' => $totalVisits,
+			'backgroundColor' => array($backgroundColorTotalVisits, $backgroundColorTotalVisits, $backgroundColorTotalVisits, $backgroundColorTotalVisits),
+			'borderWidth' => 1,
+		);
+
+		$datasets = json_encode($datasets);
+		$labels = json_encode($labels);
+		$this->set(compact('datasets', 'labels'));
 	}
 
 	public function mileage_x_cost_per_type_transport() {
+		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.status > ' => '3',
+			),
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.distance',
+				$this->Visit->alias.'.refund',
+				$this->Visit->alias.'.transport_cost',
+				$this->Visit->alias.'.transport',
+			),
+		);
+		$visits = $this->Visit->find('all', $options);
 
+		$tmb = array();
+		foreach ($visits as $visit) {
+			$totalCost = CakeNumber::precision(($visit[$this->Visit->alias]['refund'] + $visit[$this->Visit->alias]['transport_cost']), 2);
+			if (!isset($tmb[$visit['Transport']['name']]['totalCost']) || empty($tmb[$visit['Transport']['name']]['totalCost'])) {
+				$tmb[$visit['Transport']['name']]['totalCost'] = 0;
+			}
+			if (!isset($tmb[$visit['Transport']['name']]['totalDistance']) || empty($tmb[$visit['Transport']['name']]['totalDistance'])) {
+				$tmb[$visit['Transport']['name']]['totalDistance'] = 0;
+			}
+			if (!isset($tmb[$visit['Transport']['name']]['totalVisits']) || empty($tmb[$visit['Transport']['name']]['totalVisits'])) {
+				$tmb[$visit['Transport']['name']]['totalVisits'] = 0;
+			}
+			$tmb[$visit['Transport']['name']]['totalCost'] = $tmb[$visit['Transport']['name']]['totalCost'] + $totalCost;
+			$tmb[$visit['Transport']['name']]['totalDistance'] = $tmb[$visit['Transport']['name']]['totalDistance'] + $visit[$this->Visit->alias]['distance'];
+			$tmb[$visit['Transport']['name']]['totalVisits'] = $tmb[$visit['Transport']['name']]['totalVisits'] + 1;
+		}
+		$totalCost = array();
+		$totalDistance = array();
+		$totalVisits = array();
+		foreach ($tmb as $transportType => $content) {
+			$totalCost[] = $content['totalCost'];
+			$totalDistance[] = $content['totalDistance'];
+			$totalVisits[] = $content['totalVisits'];
+			$labels[] = $transportType;
+		}
+		$backgroundColorTotalCost = $this->randomColor();
+		$backgroundColorTotalDistance = $this->randomColor();
+		$backgroundColorTotalVisits = $this->randomColor();
+		$datasets = array();
+		$datasets[] = array(
+			'label' => __('Total cost'),
+			'data' => $totalCost,
+			'backgroundColor' => array($backgroundColorTotalCost, $backgroundColorTotalCost, $backgroundColorTotalCost, $backgroundColorTotalCost),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Total distance'),
+			'data' => $totalDistance,
+			'backgroundColor' => array($backgroundColorTotalDistance, $backgroundColorTotalDistance, $backgroundColorTotalDistance, $backgroundColorTotalDistance),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Total technical visits'),
+			'data' => $totalVisits,
+			'backgroundColor' => array($backgroundColorTotalVisits, $backgroundColorTotalVisits, $backgroundColorTotalVisits, $backgroundColorTotalVisits),
+			'borderWidth' => 1,
+		);
+
+		$datasets = json_encode($datasets);
+		$labels = json_encode($labels);
+		$this->set(compact('datasets', 'labels'));
 	}
 
 	public function mileage_x_cost_per_visits_x_long_short_distance() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.distance',
+				$this->Visit->alias.'.refund',
+				$this->Visit->alias.'.transport_cost',
+				$this->Visit->City->alias.'.short_distance',
+			),
+		);
+		$visits = $this->Visit->find('all', $options);
 
+		$tmb = array();
+		foreach ($visits as $visit) {
+			if (!isset($tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalDistance']) || empty($tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalDistance'])) {
+				$tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalDistance'] = 0;
+			}
+			if (!isset($tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalCost']) || empty($tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalCost'])) {
+				$tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalCost'] = 0;
+			}
+			if (!isset($tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalVisits']) || empty($tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalVisits'])) {
+				$tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalVisits'] = 0;
+			}
+			if (!isset($tmb[3]['totalDistance']) || empty($tmb[3]['totalDistance'])) {
+				$tmb[3]['totalDistance'] = 0;
+			}
+			if (!isset($tmb[3]['totalCost']) || empty($tmb[3]['totalCost'])) {
+				$tmb[3]['totalCost'] = 0;
+			}
+			if (!isset($tmb[3]['totalVisits']) || empty($tmb[3]['totalVisits'])) {
+				$tmb[3]['totalVisits'] = 0;
+			}
+			$tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalDistance'] = CakeNumber::precision($tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalDistance'] + $visit[$this->Visit->alias]['distance'], 2);
+			$tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalCost'] = CakeNumber::precision($tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalCost'] + $visit[$this->Visit->alias]['refund'] + $visit[$this->Visit->alias]['transport_cost'], 2);
+			$tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalVisits'] = $tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalVisits'] + 1;
+			$tmb[3]['totalDistance'] = CakeNumber::precision($tmb[3]['totalDistance'] + $tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalDistance'], 2);
+			$tmb[3]['totalCost'] = CakeNumber::precision($tmb[3]['totalCost'] + $tmb[$visit[$this->Visit->City->alias]['short_distance']]['totalCost'], 2);
+			$tmb[3]['totalVisits'] = $tmb[3]['totalVisits'] + 1;
+		}
+		asort($tmb);
+		$totalDistance = array();
+		$totalCost = array();
+		$totalVisits = array();
+		foreach ($tmb as $label => $content) {
+			$totalDistance[] = $content['totalDistance'];
+			$totalCost[] = $content['totalCost'];
+			$totalVisits[] = $content['totalVisits'];
+			$labels[] = Set::enum($label, array(1 => __('Short distance'), 0 => __('Long distance'), 3 => __('Total Visits')));
+		}
+		$backgroundColorTotalDistance = $this->randomColor();
+		$backgroundColorTotalCost = $this->randomColor();
+		$backgroundColorTotalVisits = $this->randomColor();
+		$datasets = array();
+		$datasets[] = array(
+			'label' => __('Total cost'),
+			'data' => $totalCost,
+			'backgroundColor' => array($backgroundColorTotalCost, $backgroundColorTotalCost, $backgroundColorTotalCost),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Total distance'),
+			'data' => $totalDistance,
+			'backgroundColor' => array($backgroundColorTotalDistance, $backgroundColorTotalDistance, $backgroundColorTotalDistance),
+			'borderWidth' => 1,
+		);
+		$datasets[] = array(
+			'label' => __('Total technical visits'),
+			'data' => $totalVisits,
+			'backgroundColor' => array($backgroundColorTotalVisits, $backgroundColorTotalVisits, $backgroundColorTotalVisits),
+			'borderWidth' => 1,
+		);
+
+		$datasets = json_encode($datasets);
+		$labels = json_encode($labels);
+		$this->set(compact('datasets', 'labels'));
 	}
 
 	public function visits_x_city() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.city_id',
+				$this->Visit->City->alias.'.name',
+			),
+			'joins' => array(
+				array(
+					'table' => $this->Visit->City->table,
+					'alias' => $this->Visit->City->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Visit->alias.'.city_id = '.$this->Visit->City->alias.'.id'
+					)
+				)
+			),
+		);
+		$visits = $this->Visit->find('list', $options);
 
+		$data = array();
+		$label = array();
+		$backgroundColor = array();
+		foreach ($visits as $city => $list) {
+			$data[] = count($list);
+			$label[] = $city;
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode($data);
+		$labels = json_encode($label);
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor'));
 	}
 
 	public function visits_x_destination() {
+		$options = array(
+			'fields' => array(
+				$this->Visit->alias.'.id',
+				$this->Visit->alias.'.status',
+				$this->Visit->alias.'.destination',
+			),
+		);
+		$visits = $this->Visit->find('list', $options);
 
+		$data = array();
+		$label = array();
+		$backgroundColor = array();
+		foreach ($visits as $destination => $list) {
+			$data[] = count($list);
+			$label[] = $destination;
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode($data);
+		$labels = json_encode($label);
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor'));
 	}
 
 	public function visits_x_status() {

@@ -25,6 +25,7 @@
 									'/DataTables-1_10_12/extensions/ColReorder/css/colReorder.dataTables.min',
 									'jsTree/style.min',
 									'bootstrap-duallistbox.min',
+									'/fullcalendar-3_1_0/fullcalendar.min',
 									'custom',
 									'style',
 									'reports',
@@ -57,6 +58,9 @@
 									'dataTables.default',
 									'jquery.isloading.min',
 									'Chart.min',
+									'/fullcalendar-3_1_0/fullcalendar.min',
+									'/fullcalendar-3_1_0/lib/fullcalendar.print.min',
+									'/fullcalendar-3_1_0/lib/moment.min',
 									'custom',
 		));
 
