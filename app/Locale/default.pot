@@ -13,265 +13,544 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Controller/AppController.php:67
+#: Controller/AppController.php:68
 msgid "You are not authorized to access that location."
 msgstr ""
 
-#: Controller/AppController.php:89
+#: Controller/AppController.php:90
+msgid "Dashboard"
+msgstr ""
+
+#: Controller/AppController.php:97
 #: View/Visits/index.ctp:3
 msgid "Visits"
 msgstr ""
 
-#: Controller/AppController.php:96
+#: Controller/AppController.php:104
 #: View/Users/index.ctp:3
 msgid "Users"
 msgstr ""
 
-#: Controller/AppController.php:103
+#: Controller/AppController.php:111
 #: View/Groups/index.ctp:3
 msgid "Groups"
 msgstr ""
 
-#: Controller/AppController.php:110
+#: Controller/AppController.php:118
 #: View/Cities/view.ctp:3
-#: View/Visits/view.ctp:73
+#: View/Visits/index.ctp:21
+#: View/Visits/transport_update.ctp:52
+#: View/Visits/view.ctp:43
 msgid "City"
 msgstr ""
 
-#: Controller/AppController.php:117
+#: Controller/AppController.php:125
 #: View/States/index.ctp:3
 msgid "States"
 msgstr ""
 
-#: Controller/AppController.php:124
+#: Controller/AppController.php:132
 #: View/Teams/index.ctp:3
 msgid "Teams"
 msgstr ""
 
-#: Controller/AppController.php:131
+#: Controller/AppController.php:139
 #: View/Disciplines/index.ctp:3
 msgid "Disciplines"
 msgstr ""
 
-#: Controller/AppController.php:138
+#: Controller/AppController.php:146
 #: View/Courses/index.ctp:3
 msgid "Courses"
 msgstr ""
 
-#: Controller/CitiesController.php:37;70;97
+#: Controller/AppController.php:153
+#: View/Visits/general_analysis.ctp:3
+msgid "General analysis"
+msgstr ""
+
+#: Controller/AppController.php:172
+#: View/Users/login.ctp:12;47
+msgid "E-mail"
+msgstr ""
+
+#: Controller/AppController.php:179
+msgid "Cost per km"
+msgstr ""
+
+#: Controller/AppController.php:186
+msgid "Cities short distance"
+msgstr ""
+
+#: Controller/AppController.php:193
+msgid "System"
+msgstr ""
+
+#: Controller/AppController.php:202
+msgid "Welcome, "
+msgstr ""
+
+#: Controller/AppController.php:207
+msgid "Profile"
+msgstr ""
+
+#: Controller/AppController.php:214
+msgid "Logout"
+msgstr ""
+
+#: Controller/CitiesController.php:30;65;92
 msgid "Invalid city"
 msgstr ""
 
-#: Controller/CitiesController.php:51;74
+#: Controller/CitiesController.php:46;69
 msgid "The city has been saved."
 msgstr ""
 
-#: Controller/CitiesController.php:54;77
+#: Controller/CitiesController.php:49;72
 msgid "The city could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/CitiesController.php:101
+#: Controller/CitiesController.php:98
 msgid "The city has been deleted."
 msgstr ""
 
-#: Controller/CitiesController.php:103
+#: Controller/CitiesController.php:100
 msgid "The city could not be deleted. Please, try again."
 msgstr ""
 
-#: Controller/CoursesController.php:29;61;86
+#: Controller/CitiesController.php:103
+msgid "The city could not be deleted because there are tied visits."
+msgstr ""
+
+#: Controller/CitiesController.php:121
+msgid "The cities short distance has been saved."
+msgstr ""
+
+#: Controller/CitiesController.php:124;127
+msgid "The cities short distance could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/CoursesController.php:31;67;102
 msgid "Invalid course"
 msgstr ""
 
-#: Controller/CoursesController.php:44;65
+#: Controller/CoursesController.php:48;71
 msgid "The course has been saved."
 msgstr ""
 
-#: Controller/CoursesController.php:47;68
+#: Controller/CoursesController.php:51;74
 msgid "The course could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/CoursesController.php:90
+#: Controller/CoursesController.php:109
 msgid "The course has been deleted."
 msgstr ""
 
-#: Controller/CoursesController.php:92
+#: Controller/CoursesController.php:111
 msgid "The course could not be deleted. Please, try again."
 msgstr ""
 
-#: Controller/DisciplinesController.php:37;72;100
+#: Controller/CoursesController.php:114
+msgid "The course could not be deleted because it is tied to a discipline."
+msgstr ""
+
+#: Controller/DisciplinesController.php:31;70;100
 msgid "Invalid discipline"
 msgstr ""
 
-#: Controller/DisciplinesController.php:52;76
+#: Controller/DisciplinesController.php:48;74
 msgid "The discipline has been saved."
 msgstr ""
 
-#: Controller/DisciplinesController.php:55;79
+#: Controller/DisciplinesController.php:51;77
 msgid "The discipline could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/DisciplinesController.php:104
+#: Controller/DisciplinesController.php:107
 msgid "The discipline has been deleted."
 msgstr ""
 
-#: Controller/DisciplinesController.php:106
+#: Controller/DisciplinesController.php:109
 msgid "The discipline could not be deleted. Please, try again."
 msgstr ""
 
-#: Controller/GroupsController.php:48;81;106;147
+#: Controller/DisciplinesController.php:112
+msgid "The discipline could not be deleted because it is tied to a team."
+msgstr ""
+
+#: Controller/GroupsController.php:40;75;100;147
 msgid "Invalid group"
 msgstr ""
 
-#: Controller/GroupsController.php:64;85
+#: Controller/GroupsController.php:58;79
 msgid "The group has been saved."
 msgstr ""
 
-#: Controller/GroupsController.php:67;88
+#: Controller/GroupsController.php:61;82
 msgid "The group could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/GroupsController.php:111
+#: Controller/GroupsController.php:107
 msgid "The group has been deleted."
 msgstr ""
 
-#: Controller/GroupsController.php:113
+#: Controller/GroupsController.php:109
 msgid "The group could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/GroupsController.php:112
+msgid "The group could not be deleted because it is tied to a user."
 msgstr ""
 
 #: Controller/GroupsController.php:157
 msgid "The group permissions has been saved."
 msgstr ""
 
-#: Controller/GroupsController.php:262
+#: Controller/ParametersController.php:57;106;125
+msgid "The parameters has been saved."
+msgstr ""
+
+#: Controller/ParametersController.php:59;108;127
+msgid "The parameters could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/ParametersController.php:68
+msgid "Test email - Technical Visits"
+msgstr ""
+
+#: Controller/ParametersController.php:70
+msgid "Test email successfully sent."
+msgstr ""
+
+#: Controller/ParametersController.php:72
+msgid "Could not send test email."
+msgstr ""
+
+#: Controller/ParametersController.php:75
+msgid "Informed email is invalid or absent."
+msgstr ""
+
+#: Controller/ParametersController.php:149
 msgid "Rebuild Aco Tree (Actions & Controllers) has been completed."
 msgstr ""
 
-#: Controller/RefusalsController.php:37;72;100
-msgid "Invalid refusal"
+#: Controller/RefusalsController.php:30
+msgid "Visit to %s has been Canceled! - Technical Visits"
 msgstr ""
 
-#: Controller/RefusalsController.php:52;76
+#: Controller/RefusalsController.php:43
+msgid "Your visit to %s has been Desaproved! - Technical Visits"
+msgstr ""
+
+#: Controller/RefusalsController.php:58
+msgid "Report Desaproved! Visit to %s - Technical Visits"
+msgstr ""
+
+#: Controller/RefusalsController.php:74
 msgid "The refusal has been saved."
 msgstr ""
 
-#: Controller/RefusalsController.php:55;79
+#: Controller/RefusalsController.php:76
+msgid "The refusal has been saved, but the system failed to send the Administrator a notification e-mail."
+msgstr ""
+
+#: Controller/RefusalsController.php:80
 msgid "The refusal could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/RefusalsController.php:104
-msgid "The refusal has been deleted."
-msgstr ""
-
-#: Controller/RefusalsController.php:106
-msgid "The refusal could not be deleted. Please, try again."
-msgstr ""
-
-#: Controller/StatesController.php:29;60;85
-msgid "Invalid state"
-msgstr ""
-
-#: Controller/StatesController.php:43;64
-msgid "The state has been saved."
-msgstr ""
-
-#: Controller/StatesController.php:46;67
-msgid "The state could not be saved. Please, try again."
-msgstr ""
-
-#: Controller/StatesController.php:89
-msgid "The state has been deleted."
-msgstr ""
-
-#: Controller/StatesController.php:91
-msgid "The state could not be deleted. Please, try again."
-msgstr ""
-
-#: Controller/TeamsController.php:37;71;98
-msgid "Invalid team"
-msgstr ""
-
-#: Controller/TeamsController.php:52;75
-msgid "The team has been saved."
-msgstr ""
-
-#: Controller/TeamsController.php:55;78
-msgid "The team could not be saved. Please, try again."
-msgstr ""
-
-#: Controller/TeamsController.php:102
-msgid "The team has been deleted."
-msgstr ""
-
-#: Controller/TeamsController.php:104
-msgid "The team could not be deleted. Please, try again."
-msgstr ""
-
-#: Controller/UsersController.php:34
-msgid "You are logged in!"
-msgstr ""
-
-#: Controller/UsersController.php:49
-msgid "Your username or password was incorrect."
-msgstr ""
-
-#: Controller/UsersController.php:67
-msgid "Good-Bye"
-msgstr ""
-
-#: Controller/UsersController.php:90;124;151;171
-msgid "Invalid user"
-msgstr ""
-
-#: Controller/UsersController.php:105;128
-msgid "The user has been saved."
-msgstr ""
-
-#: Controller/UsersController.php:108;131
-msgid "The user could not be saved. Please, try again."
-msgstr ""
-
-#: Controller/UsersController.php:155
-msgid "The user has been deleted."
-msgstr ""
-
-#: Controller/UsersController.php:157
-msgid "The user could not be deleted. Please, try again."
-msgstr ""
-
-#: Controller/UsersController.php:186
-msgid "The user permissions has been saved."
-msgstr ""
-
-#: Controller/UsersController.php:213
-msgid "Deny"
-msgstr ""
-
-#: Controller/UsersController.php:213
-msgid "Allow"
-msgstr ""
-
-#: Controller/UsersController.php:213
-msgid "Inherit the group"
-msgstr ""
-
-#: Controller/VisitsController.php:38;74;103
+#: Controller/RefusalsController.php:88;92;103;114;125
+#: Controller/VisitsController.php:130;308;391;403;467;488;504;528;550;567
 msgid "Invalid visit"
 msgstr ""
 
-#: Controller/VisitsController.php:53;78
+#: Controller/StatesController.php:29;63;88
+msgid "Invalid state"
+msgstr ""
+
+#: Controller/StatesController.php:46;67
+msgid "The state has been saved."
+msgstr ""
+
+#: Controller/StatesController.php:49;70
+msgid "The state could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/StatesController.php:95
+msgid "The state has been deleted."
+msgstr ""
+
+#: Controller/StatesController.php:97
+msgid "The state could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/StatesController.php:100
+msgid "The state could not be deleted because it is tied to a city."
+msgstr ""
+
+#: Controller/TeamsController.php:30;82;109
+msgid "Invalid team"
+msgstr ""
+
+#: Controller/TeamsController.php:46;86
+msgid "The team has been saved."
+msgstr ""
+
+#: Controller/TeamsController.php:49;89
+msgid "The team could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/TeamsController.php:116
+msgid "The team has been deleted."
+msgstr ""
+
+#: Controller/TeamsController.php:118
+msgid "The team could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/TeamsController.php:121
+msgid "The team could not be deleted because it is tied to a visit."
+msgstr ""
+
+#: Controller/UsersController.php:27
+msgid "You are logged in!"
+msgstr ""
+
+#: Controller/UsersController.php:33
+msgid "The user is disabled."
+msgstr ""
+
+#: Controller/UsersController.php:47
+msgid "Your username or password was incorrect."
+msgstr ""
+
+#: Controller/UsersController.php:65
+msgid "Good-Bye"
+msgstr ""
+
+#: Controller/UsersController.php:75
+msgid "The password has been saved."
+msgstr ""
+
+#: Controller/UsersController.php:78
+msgid "The password could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:93;165
+msgid "Update password - Technical Visits"
+msgstr ""
+
+#: Controller/UsersController.php:97
+msgid "The password update email sent successfully."
+msgstr ""
+
+#: Controller/UsersController.php:99
+msgid "Could not send email for password update. Please, try again in a few minutes."
+msgstr ""
+
+#: Controller/UsersController.php:102
+msgid "Your password update permission could not be generated. Please, try again in a few minutes."
+msgstr ""
+
+#: Controller/UsersController.php:106
+msgid "No users found. Please, try again."
+msgstr ""
+
+#: Controller/UsersController.php:113
+msgid "Invalid token"
+msgstr ""
+
+#: Controller/UsersController.php:142;193;217;249;277;302
+msgid "Invalid user"
+msgstr ""
+
+#: Controller/UsersController.php:169;200;222;286
+msgid "The user has been saved."
+msgstr ""
+
+#: Controller/UsersController.php:171
+msgid "The user has been saved but could not send email for password update."
+msgstr ""
+
+#: Controller/UsersController.php:175;203;224;288
+msgid "The user could not be saved. Please, try again in a few minutes."
+msgstr ""
+
+#: Controller/UsersController.php:245
+msgid "You can not delete yourself."
+msgstr ""
+
+#: Controller/UsersController.php:255
+msgid "The user has been deleted."
+msgstr ""
+
+#: Controller/UsersController.php:257
+msgid "The user could not be deleted. Please, try again in a few minutes."
+msgstr ""
+
+#: Controller/UsersController.php:260
+msgid "The user could not be deleted because it is tied to a visit."
+msgstr ""
+
+#: Controller/UsersController.php:318
+msgid "The user permissions has been saved."
+msgstr ""
+
+#: Controller/VisitsController.php:274;354;434;577
 msgid "The visit has been saved."
 msgstr ""
 
-#: Controller/VisitsController.php:56;81
+#: Controller/VisitsController.php:277;360;437;540;580
 msgid "The visit could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/VisitsController.php:107
-msgid "The visit has been deleted."
+#: Controller/VisitsController.php:346
+msgid "Visit to %s has been Changed! - Technical Visits"
 msgstr ""
 
-#: Controller/VisitsController.php:109
-msgid "The visit could not be deleted. Please, try again."
+#: Controller/VisitsController.php:356
+msgid "The visit has been saved, but the system failed to send the Administrator a notification e-mail."
+msgstr ""
+
+#: Controller/VisitsController.php:384
+msgid "The visit is invalid or can not be changed."
+msgstr ""
+
+#: Controller/VisitsController.php:477
+msgid "The visit has been pre approved."
+msgstr ""
+
+#: Controller/VisitsController.php:479
+msgid "Pre approval could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/VisitsController.php:492
+msgid "The visit has been approved."
+msgstr ""
+
+#: Controller/VisitsController.php:495;511
+msgid "Approval could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/VisitsController.php:509
+msgid "The visit report has been approved."
+msgstr ""
+
+#: Controller/VisitsController.php:532
+msgid "The visit report has already been approved or the visit has been canceled."
+msgstr ""
+
+#: Controller/VisitsController.php:538
+msgid "The visit report was delivered."
+msgstr ""
+
+#: Controller/VisitsController.php:670
+msgid "Your visit to %s is missing report! - Technical Visits"
+msgstr ""
+
+#: Controller/VisitsController.php:704
+msgid "Your visit to %s is near! - Technical Visits"
+msgstr ""
+
+#: Controller/VisitsController.php:715
+msgid "Total of visits x frequency of students"
+msgstr ""
+
+#: Controller/VisitsController.php:722
+msgid "Total of visits x long and short distance"
+msgstr ""
+
+#: Controller/VisitsController.php:729
+msgid "Course x visits"
+msgstr ""
+
+#: Controller/VisitsController.php:736
+#: View/Visits/course_x_mileage.ctp:3;45
+msgid "Course x mileage"
+msgstr ""
+
+#: Controller/VisitsController.php:743
+#: View/Visits/course_x_cost.ctp:3;45
+msgid "Course x total cost"
+msgstr ""
+
+#: Controller/VisitsController.php:750
+msgid "User x visits"
+msgstr ""
+
+#: Controller/VisitsController.php:757
+#: View/Visits/user_x_mileage.ctp:3;45
+msgid "User x mileage"
+msgstr ""
+
+#: Controller/VisitsController.php:764
+#: View/Visits/user_x_cost.ctp:3;45
+msgid "User x total cost"
+msgstr ""
+
+#: Controller/VisitsController.php:771
+msgid "Visits x status"
+msgstr ""
+
+#: Controller/VisitsController.php:778
+msgid "Visits x city"
+msgstr ""
+
+#: Controller/VisitsController.php:785
+msgid "Visits x destination"
+msgstr ""
+
+#: Controller/VisitsController.php:792
+msgid "Mileage x total cost per type of transport"
+msgstr ""
+
+#: Controller/VisitsController.php:799
+msgid "Total of visits x long and short distance per type of transport"
+msgstr ""
+
+#: Controller/VisitsController.php:806
+msgid "Total of visits x long and short distance x mileage per type of transport"
+msgstr ""
+
+#: Controller/VisitsController.php:813
+msgid "Total of visits x long and short distance x total cost per type of transport"
+msgstr ""
+
+#: Controller/VisitsController.php:820
+msgid "Mileage x total cost per total of visits x long and short distance"
+msgstr ""
+
+#: Controller/VisitsController.php:862
+msgid "Less than 75%"
+msgstr ""
+
+#: Controller/VisitsController.php:862
+msgid "Greater than 75%"
+msgstr ""
+
+#: Controller/VisitsController.php:862;897;962;1034;1107;1175;1252
+msgid "Total technical visits"
+msgstr ""
+
+#: Controller/VisitsController.php:897;956;1022;1095;1233
+msgid "Short distance"
+msgstr ""
+
+#: Controller/VisitsController.php:897;950;1016;1089;1233
+msgid "Long distance"
+msgstr ""
+
+#: Controller/VisitsController.php:1028;1169;1246
+msgid "Total distance"
+msgstr ""
+
+#: Controller/VisitsController.php:1101;1163;1240
+#: View/Visits/course_x_cost.ctp:36
+#: View/Visits/user_x_cost.ctp:36
+msgid "Total cost"
+msgstr ""
+
+#: Controller/VisitsController.php:1233
+msgid "Total Visits"
 msgstr ""
 
 #: Plugin/AclExtras/Console/Command/AclExtrasShell.php:80
@@ -343,57 +622,78 @@ msgid "<error>Tree recovery failed.</error>"
 msgstr ""
 
 #: View/Cities/add.ctp:4
-msgid "Add City"
+#: View/Cities/index.ctp:68
+#: View/States/view.ctp:94
+msgid "New City"
 msgstr ""
 
 #: View/Cities/add.ctp:14
+#: View/Cities/cities_short_distance.ctp:12
 #: View/Cities/edit.ctp:15
 #: View/Courses/add.ctp:14
 #: View/Courses/edit.ctp:15
-#: View/Disciplines/add.ctp:15
-#: View/Disciplines/edit.ctp:16
+#: View/Disciplines/add.ctp:14
+#: View/Disciplines/edit.ctp:15
 #: View/Groups/add.ctp:13
 #: View/Groups/edit.ctp:14
 #: View/Groups/permission.ctp:14
-#: View/Refusals/add.ctp:16
-#: View/Refusals/edit.ctp:17
+#: View/Parameters/cost_per_km.ctp:13
+#: View/Parameters/email.ctp:21;44
+#: View/Parameters/system.ctp:14
+#: View/Refusals/add.ctp:14
 #: View/States/add.ctp:13
 #: View/States/edit.ctp:14
 #: View/Teams/add.ctp:13
 #: View/Teams/edit.ctp:14
-#: View/Users/add.ctp:15
-#: View/Users/edit.ctp:16
+#: View/Users/add.ctp:16
+#: View/Users/edit.ctp:15;36
 #: View/Users/permission.ctp:14
-#: View/Visits/add.ctp:25
-#: View/Visits/edit.ctp:26
+#: View/Users/profile.ctp:15;37
+#: View/Users/update_password.ctp:20
+#: View/Visits/add.ctp:22
+#: View/Visits/edit.ctp:23
+#: View/Visits/information_update.ctp:27
+#: View/Visits/transport_update.ctp:27
+#: View/Visits/view.ctp:244
 msgid "Submit"
 msgstr ""
 
-#: View/Cities/add.ctp:15
-#: View/Cities/edit.ctp:16
-#: View/Courses/add.ctp:15
-#: View/Courses/edit.ctp:16
+#: View/Cities/add.ctp:16
+#: View/Cities/cities_short_distance.ctp:14
+#: View/Cities/edit.ctp:17
+#: View/Courses/add.ctp:16
+#: View/Courses/edit.ctp:17
 #: View/Disciplines/add.ctp:16
 #: View/Disciplines/edit.ctp:17
-#: View/Groups/add.ctp:14
-#: View/Groups/edit.ctp:15
-#: View/Groups/permission.ctp:15
-#: View/Refusals/add.ctp:17
-#: View/Refusals/edit.ctp:18
-#: View/States/add.ctp:14
-#: View/States/edit.ctp:15
-#: View/Teams/add.ctp:14
-#: View/Teams/edit.ctp:15
-#: View/Users/add.ctp:16
-#: View/Users/edit.ctp:17
-#: View/Users/permission.ctp:15
-#: View/Visits/add.ctp:26
-#: View/Visits/edit.ctp:27
+#: View/Groups/add.ctp:15
+#: View/Groups/edit.ctp:16
+#: View/Groups/permission.ctp:16
+#: View/Parameters/cost_per_km.ctp:15
+#: View/Parameters/email.ctp:23
+#: View/Parameters/system.ctp:16
+#: View/Refusals/add.ctp:16
+#: View/States/add.ctp:15
+#: View/States/edit.ctp:16
+#: View/Teams/add.ctp:15
+#: View/Teams/edit.ctp:16
+#: View/Users/add.ctp:18
+#: View/Users/edit.ctp:17;38
+#: View/Users/permission.ctp:16
+#: View/Users/profile.ctp:17;39
+#: View/Visits/add.ctp:24
+#: View/Visits/edit.ctp:25
+#: View/Visits/index.ctp:129
+#: View/Visits/information_update.ctp:29
+#: View/Visits/transport_update.ctp:29;148
 msgid "Cancel"
 msgstr ""
 
+#: View/Cities/cities_short_distance.ctp:4
+msgid "Edit Cities Short Distance"
+msgstr ""
+
 #: View/Cities/edit.ctp:4
-#: View/Cities/view.ctp:35
+#: View/Cities/view.ctp:38
 msgid "Edit City"
 msgstr ""
 
@@ -404,171 +704,119 @@ msgstr ""
 #: View/Cities/index.ctp:11;21
 #: View/Cities/view.ctp:8
 #: View/Courses/index.ctp:11;21
-#: View/Courses/view.ctp:8;48;58
-#: View/Disciplines/view.ctp:8;48;56
-#: View/Groups/view.ctp:8;43;54
-#: View/Refusals/view.ctp:8
+#: View/Courses/view.ctp:8;54;63
+#: View/Disciplines/index.ctp:11;21
+#: View/Disciplines/view.ctp:8;58;66
+#: View/Groups/index.ctp:11;20
+#: View/Groups/view.ctp:8;52;62
 #: View/States/index.ctp:11;20
-#: View/States/view.ctp:8;43;52
-#: View/Teams/view.ctp:8;38;59;120;130
-#: View/Users/view.ctp:8;53;65;108;129
-#: View/Visits/view.ctp:8;103;115
+#: View/States/view.ctp:8;49;58
+#: View/Teams/view.ctp:8;44;54
+#: View/Users/index.ctp:11;22
+#: View/Users/view.ctp:8
+#: View/Visits/index.ctp:11
+#: View/Visits/transport_update.ctp:45
+#: View/Visits/view.ctp:8;193;204
 msgid "Id"
 msgstr ""
 
 #: View/Cities/index.ctp:12;22
 #: View/Cities/view.ctp:13
 #: View/Courses/index.ctp:12;22
-#: View/Courses/view.ctp:13;49;59
-#: View/Disciplines/view.ctp:13;49;57
-#: View/Groups/view.ctp:13;44;55
+#: View/Courses/view.ctp:13;55;64
+#: View/Disciplines/index.ctp:12;22
+#: View/Disciplines/view.ctp:13;59;67
+#: View/Groups/index.ctp:12;21
+#: View/Groups/view.ctp:13;53;63
 #: View/States/index.ctp:12;21
-#: View/States/view.ctp:13;44;53
-#: View/Teams/view.ctp:13;121;131
+#: View/States/view.ctp:13;50;59
+#: View/Teams/view.ctp:13;45;55
+#: View/Users/index.ctp:12;23
 #: View/Users/view.ctp:13
 msgid "Name"
 msgstr ""
 
 #: View/Cities/index.ctp:13;23
 #: View/Cities/view.ctp:18
-#: View/States/view.ctp:45;54
+#: View/States/view.ctp:51;60
 msgid "Short Distance"
 msgstr ""
 
 #: View/Cities/index.ctp:14;24
-#: View/Cities/view.ctp:27
+#: View/Cities/view.ctp:23
 #: View/States/view.ctp:3
+#: View/Visits/index.ctp:22
+#: View/Visits/transport_update.ctp:53
+#: View/Visits/view.ctp:52
 msgid "State"
 msgstr ""
 
-#: View/Cities/index.ctp:15;25;59
-#: View/Courses/index.ctp:15;25;51
-#: View/Courses/view.ctp:52;62
-#: View/Disciplines/index.ctp:15;25;53
-#: View/Disciplines/view.ctp:50;58
-#: View/Groups/index.ctp:14;23;49
-#: View/Groups/view.ctp:48;59
-#: View/Refusals/index.ctp:17;29;61
-#: View/States/index.ctp:14;23;48
-#: View/States/view.ctp:46;55
-#: View/Teams/index.ctp:13;21;45
-#: View/Teams/view.ctp:53;74;124;134
-#: View/Users/index.ctp:16;27;57
-#: View/Users/view.ctp:59;71;123;144
-#: View/Visits/index.ctp:26;47;90
-#: View/Visits/view.ctp:109;121
+#: View/Cities/index.ctp:15;25;64
+#: View/Courses/index.ctp:15;25;58
+#: View/Courses/view.ctp:57;66
+#: View/Disciplines/index.ctp:15;25;60
+#: View/Disciplines/view.ctp:60;68
+#: View/Groups/index.ctp:14;23;58
+#: View/Groups/view.ctp:56;66
+#: View/Parameters/system.ctp:25
+#: View/States/index.ctp:14;23;55
+#: View/States/view.ctp:52;61
+#: View/Teams/index.ctp:13;21;52
+#: View/Teams/view.ctp:48;58
+#: View/Users/index.ctp:16;27;76
+#: View/Visits/index.ctp:30;55;153
+#: View/Visits/transport_update.ctp:57;75
 msgid "Actions"
 msgstr ""
 
-#: View/Cities/index.ctp:36
-#: View/Cities/view.ctp:21
-#: View/States/view.ctp:66
-msgid "Yes"
-msgstr ""
-
-#: View/Cities/index.ctp:38
-#: View/Cities/view.ctp:23
-#: View/States/view.ctp:68
-msgid "No"
-msgstr ""
-
-#: View/Cities/index.ctp:45
-#: View/Courses/index.ctp:37
-#: View/Courses/view.ctp:74
-#: View/Disciplines/index.ctp:39
-#: View/Disciplines/view.ctp:68
-#: View/Groups/index.ctp:34
-#: View/Groups/view.ctp:72
-#: View/Refusals/index.ctp:47
-#: View/States/index.ctp:34
-#: View/States/view.ctp:72
-#: View/Teams/index.ctp:31
-#: View/Teams/view.ctp:97;146
-#: View/Users/index.ctp:42
-#: View/Users/view.ctp:85;167
-#: View/Visits/index.ctp:76
-#: View/Visits/view.ctp:135
+#: View/Cities/index.ctp:44
+#: View/Visits/index.ctp:122
+#: View/Visits/transport_update.ctp:141
 msgid "View"
 msgstr ""
 
-#: View/Cities/index.ctp:46
-#: View/Courses/index.ctp:38
-#: View/Courses/view.ctp:75
-#: View/Disciplines/index.ctp:40
-#: View/Disciplines/view.ctp:69
-#: View/Groups/index.ctp:35
-#: View/Groups/view.ctp:73
-#: View/Refusals/index.ctp:48
-#: View/States/index.ctp:35
-#: View/States/view.ctp:73
-#: View/Teams/index.ctp:32
-#: View/Teams/view.ctp:98;147
-#: View/Users/index.ctp:43
-#: View/Users/view.ctp:86;168
-#: View/Visits/index.ctp:77
-#: View/Visits/view.ctp:136
+#: View/Cities/index.ctp:47
+#: View/Visits/index.ctp:126
+#: View/Visits/transport_update.ctp:145
 msgid "Edit"
 msgstr ""
 
-#: View/Cities/index.ctp:47
-#: View/Courses/index.ctp:39
-#: View/Courses/view.ctp:76
-#: View/Disciplines/index.ctp:41
-#: View/Disciplines/view.ctp:70
-#: View/Groups/index.ctp:36
-#: View/Groups/view.ctp:74
-#: View/Refusals/index.ctp:49
-#: View/States/index.ctp:36
-#: View/States/view.ctp:74
-#: View/Teams/index.ctp:33
-#: View/Teams/view.ctp:99;148
-#: View/Users/index.ctp:44
-#: View/Users/view.ctp:87;169
-#: View/Visits/index.ctp:78
-#: View/Visits/view.ctp:137
+#: View/Cities/index.ctp:50
 msgid "Delete"
 msgstr ""
 
-#: View/Cities/index.ctp:47
-#: View/Cities/view.ctp:36
-#: View/Courses/index.ctp:39
-#: View/Courses/view.ctp:32;76
-#: View/Disciplines/index.ctp:41
-#: View/Disciplines/view.ctp:32;70
-#: View/Groups/index.ctp:36
-#: View/Groups/view.ctp:27;74
-#: View/Refusals/index.ctp:49
-#: View/Refusals/view.ctp:42
-#: View/States/index.ctp:36
-#: View/States/view.ctp:27;74
-#: View/Teams/index.ctp:33
-#: View/Teams/view.ctp:22;99;148
-#: View/Users/index.ctp:44
-#: View/Users/view.ctp:37;87;169
-#: View/Visits/index.ctp:78
-#: View/Visits/view.ctp:87;137
+#: View/Cities/index.ctp:50
+#: View/Cities/view.ctp:41
+#: View/Courses/index.ctp:44
+#: View/Courses/view.ctp:37;84
+#: View/Disciplines/index.ctp:46
+#: View/Disciplines/view.ctp:41;85
+#: View/Groups/index.ctp:41
+#: View/Groups/view.ctp:32;91
+#: View/States/index.ctp:41
+#: View/States/view.ctp:32;85
+#: View/Teams/index.ctp:38
+#: View/Teams/view.ctp:27;77
+#: View/Users/index.ctp:59
+#: View/Users/view.ctp:46
 msgid "Are you sure you want to delete # %s?"
 msgstr ""
 
-#: View/Cities/index.ctp:63
-#: View/States/view.ctp:81
-msgid "New City"
-msgstr ""
-
-#: View/Cities/view.ctp:34
+#: View/Cities/view.ctp:35
 msgid "List Cities"
 msgstr ""
 
-#: View/Cities/view.ctp:36
+#: View/Cities/view.ctp:41
 msgid "Delete City"
 msgstr ""
 
 #: View/Courses/add.ctp:4
-msgid "Add Course"
+#: View/Courses/index.ctp:62
+msgid "New Course"
 msgstr ""
 
 #: View/Courses/edit.ctp:4
-#: View/Courses/view.ctp:31
+#: View/Courses/view.ctp:34
 msgid "Edit Course"
 msgstr ""
 
@@ -580,16 +828,13 @@ msgstr ""
 msgid "Amount of Academic Periods"
 msgstr ""
 
-#: View/Courses/index.ctp:34
-msgid "%s"
-msgstr ""
-
-#: View/Courses/index.ctp:55
-msgid "New Course"
-msgstr ""
-
 #: View/Courses/view.ctp:3
+#: View/Disciplines/index.ctp:14;24
 #: View/Disciplines/view.ctp:23
+#: View/Teams/view.ctp:47;57
+#: View/Visits/index.ctp:23
+#: View/Visits/transport_update.ctp:54
+#: View/Visits/view.ctp:107
 msgid "Course"
 msgstr ""
 
@@ -601,115 +846,174 @@ msgstr ""
 msgid "Amount Of Academic Periods"
 msgstr ""
 
-#: View/Courses/view.ctp:30
+#: View/Courses/view.ctp:31
 msgid "List Courses"
 msgstr ""
 
-#: View/Courses/view.ctp:32
+#: View/Courses/view.ctp:37
 msgid "Delete Course"
 msgstr ""
 
-#: View/Courses/view.ctp:40
-#: View/Teams/view.ctp:112
+#: View/Courses/view.ctp:46
+#: View/Teams/view.ctp:36
 msgid "Related Disciplines"
 msgstr ""
 
-#: View/Courses/view.ctp:50;60
+#: View/Courses/view.ctp:56;65
+#: View/Disciplines/index.ctp:13;23
 #: View/Disciplines/view.ctp:18
-#: View/Teams/view.ctp:122;132
+#: View/Teams/view.ctp:46;56
 msgid "Academic Period"
 msgstr ""
 
-#: View/Courses/view.ctp:51;61
-#: View/Teams/view.ctp:123;133
-msgid "Course Id"
-msgstr ""
-
-#: View/Courses/view.ctp:83
-#: View/Disciplines/index.ctp:57
-#: View/Teams/view.ctp:155
+#: View/Courses/view.ctp:93
+#: View/Disciplines/add.ctp:4
+#: View/Disciplines/index.ctp:64
+#: View/Teams/view.ctp:86
 msgid "New Discipline"
 msgstr ""
 
-#: View/Disciplines/add.ctp:4
-msgid "Add Discipline"
-msgstr ""
-
 #: View/Disciplines/edit.ctp:4
-#: View/Disciplines/view.ctp:31
+#: View/Disciplines/view.ctp:38
 msgid "Edit Discipline"
 msgstr ""
 
-#: View/Disciplines/index.ctp:11;21
-#: View/Groups/index.ctp:11;20
-#: View/Refusals/index.ctp:11;23
-#: View/Teams/index.ctp:11;19
-#: View/Users/index.ctp:11;22
-#: View/Visits/index.ctp:11;32
-msgid "id"
-msgstr ""
-
-#: View/Disciplines/index.ctp:12;22
-#: View/Groups/index.ctp:12;21
-#: View/Teams/index.ctp:12;20
-#: View/Users/index.ctp:12;23
-msgid "name"
-msgstr ""
-
-#: View/Disciplines/index.ctp:13;23
-msgid "academic_period"
-msgstr ""
-
-#: View/Disciplines/index.ctp:14;24
-msgid "course_id"
-msgstr ""
-
 #: View/Disciplines/view.ctp:3
+#: View/Visits/index.ctp:24
+#: View/Visits/transport_update.ctp:55
+#: View/Visits/view.ctp:116
 msgid "Discipline"
 msgstr ""
 
-#: View/Disciplines/view.ctp:30
+#: View/Disciplines/view.ctp:35
 msgid "List Disciplines"
 msgstr ""
 
-#: View/Disciplines/view.ctp:32
+#: View/Disciplines/view.ctp:41
 msgid "Delete Discipline"
 msgstr ""
 
-#: View/Disciplines/view.ctp:40
+#: View/Disciplines/view.ctp:50
 msgid "Related Teams"
 msgstr ""
 
-#: View/Disciplines/view.ctp:77
-#: View/Teams/index.ctp:49
+#: View/Disciplines/view.ctp:94
+#: View/Teams/add.ctp:4
+#: View/Teams/index.ctp:56
 msgid "New Team"
 msgstr ""
 
+#: View/Emails/html/report_desaproved.ctp:1
+#: View/Emails/html/report_missing.ctp:1
+#: View/Emails/html/upcoming_visit.ctp:1
+#: View/Emails/html/update_password.ctp:1
+#: View/Emails/html/visit_desaproved.ctp:1
+msgid "Hello %s!"
+msgstr ""
+
+#: View/Emails/html/report_desaproved.ctp:3
+msgid "We are sorry to inform your submitted report for the visit on %s to %s has been desaproved due to:"
+msgstr ""
+
+#: View/Emails/html/report_desaproved.ctp:7
+msgid "Please resubmit the report accordingly."
+msgstr ""
+
+#: View/Emails/html/report_desaproved.ctp:9
+#: View/Emails/html/visit_desaproved.ctp:8
+msgid "In case of doubts, please contact the system administrator: %s"
+msgstr ""
+
+#: View/Emails/html/report_desaproved.ctp:10
+#: View/Emails/html/report_missing.ctp:9
+#: View/Emails/html/upcoming_visit.ctp:7
+#: View/Emails/html/update_password.ctp:8
+#: View/Emails/html/visit_canceled.ctp:9
+#: View/Emails/html/visit_changed.ctp:8
+#: View/Emails/html/visit_desaproved.ctp:9
+msgid "This is an automated e-mail. Do not answer it."
+msgstr ""
+
+#: View/Emails/html/report_missing.ctp:3
+msgid "We are sorry to inform your visit on %s to %s is missing report!"
+msgstr ""
+
+#: View/Emails/html/report_missing.ctp:6
+msgid "Please submit the report as soon as possible."
+msgstr ""
+
+#: View/Emails/html/report_missing.ctp:8
+#: View/Emails/html/upcoming_visit.ctp:6
+#: View/Emails/html/update_password.ctp:7
+msgid "In case of doubts, please contact the system administrator."
+msgstr ""
+
+#: View/Emails/html/test_email.ctp:2
+msgid "Test email successfully sent!"
+msgstr ""
+
+#: View/Emails/html/test_email.ctp:5
+#: View/Layouts/default.ctp:82
+#: View/Layouts/login.ctp:54
+#: View/Visits/course_x_visits.ctp:36
+#: View/Visits/dashboard.ctp:65
+#: View/Visits/user_x_visits.ctp:36
+#: View/Visits/visits_x_city.ctp:36
+#: View/Visits/visits_x_destination.ctp:36
+#: View/Visits/visits_x_status.ctp:36
+msgid "Technical Visits"
+msgstr ""
+
+#: View/Emails/html/test_email.ctp:6
+msgid "This is a test email. Do not answer it."
+msgstr ""
+
+#: View/Emails/html/upcoming_visit.ctp:3
+msgid "We would like to inform you that your visit on %s to %s is near."
+msgstr ""
+
+#: View/Emails/html/update_password.ctp:3
+msgid "Please enter the link below to create your password to access the Technical Visits system."
+msgstr ""
+
+#: View/Emails/html/visit_canceled.ctp:1
+msgid "%s canceled a visit!"
+msgstr ""
+
+#: View/Emails/html/visit_canceled.ctp:3
+msgid "The visit on %s to %s has been canceled due to:"
+msgstr ""
+
+#: View/Emails/html/visit_canceled.ctp:8
+#: View/Emails/html/visit_changed.ctp:7
+msgid "In case of doubts, please contact the teacher: %s"
+msgstr ""
+
+#: View/Emails/html/visit_changed.ctp:1
+msgid "%s has edited a visit!"
+msgstr ""
+
+#: View/Emails/html/visit_changed.ctp:3
+msgid "The visit on %s to %s has been changed."
+msgstr ""
+
+#: View/Emails/html/visit_desaproved.ctp:3
+msgid "We are sorry to inform you that your visit on %s to %s has been desaproved due to:"
+msgstr ""
+
 #: View/Groups/add.ctp:4
-msgid "Add Group"
+#: View/Groups/index.ctp:62
+msgid "New Group"
 msgstr ""
 
 #: View/Groups/edit.ctp:4
-#: View/Groups/view.ctp:26
+#: View/Groups/view.ctp:29
 msgid "Edit Group"
 msgstr ""
 
 #: View/Groups/index.ctp:13;22
-msgid "description"
-msgstr ""
-
-#: View/Groups/index.ctp:37
-#: View/Groups/view.ctp:75
-#: View/Users/index.ctp:45
-msgid "Permission"
-msgstr ""
-
-#: View/Groups/index.ctp:53
-msgid "New Group"
-msgstr ""
-
-#: View/Groups/index.ctp:54
-msgid "Rebuild Aco Tree (Actions & Controllers)"
+#: View/Groups/view.ctp:18
+msgid "Description"
 msgstr ""
 
 #: View/Groups/permission.ctp:4
@@ -718,154 +1022,110 @@ msgid "Edit permissions for "
 msgstr ""
 
 #: View/Groups/view.ctp:3
-#: View/Users/view.ctp:28
+#: View/Users/index.ctp:14;25
+#: View/Users/view.ctp:23
 msgid "Group"
 msgstr ""
 
-#: View/Groups/view.ctp:18
-msgid "Description"
-msgstr ""
-
-#: View/Groups/view.ctp:25
+#: View/Groups/view.ctp:26
 msgid "List Groups"
 msgstr ""
 
-#: View/Groups/view.ctp:27
+#: View/Groups/view.ctp:32
 msgid "Delete Group"
 msgstr ""
 
 #: View/Groups/view.ctp:35
+#: View/Users/view.ctp:49
+msgid "Permission"
+msgstr ""
+
+#: View/Groups/view.ctp:44
 msgid "Related Users"
 msgstr ""
 
-#: View/Groups/view.ctp:45;56
+#: View/Groups/view.ctp:54;64
+#: View/Users/index.ctp:13;24
 #: View/Users/view.ctp:18
 msgid "Email"
 msgstr ""
 
-#: View/Groups/view.ctp:46;57
-#: View/Users/login.ctp:8
-#: View/Users/view.ctp:23
-msgid "Password"
+#: View/Groups/view.ctp:55;65
+#: View/Users/index.ctp:15;26
+#: View/Users/view.ctp:32
+msgid "Enabled"
 msgstr ""
 
-#: View/Groups/view.ctp:47;58
-msgid "Group Id"
-msgstr ""
-
-#: View/Groups/view.ctp:82
-#: View/Users/index.ctp:61
+#: View/Groups/view.ctp:103
+#: View/Users/add.ctp:4
+#: View/Users/index.ctp:80
 msgid "New User"
 msgstr ""
 
-#: View/Layouts/default.ctp:51
-#: View/Layouts/login.ctp:53
-msgid "Technical Visits"
+#: View/Layouts/default.ctp:113;116
+msgid "Brazil"
 msgstr ""
 
-#: View/Layouts/default.ctp:60
-msgid "Welcome, "
+#: View/Layouts/default.ctp:122;125
+msgid "United States"
 msgstr ""
 
-#: View/Layouts/default.ctp:65
-msgid "Profile"
+#: View/Layouts/default.ctp:131;134
+msgid "Spain"
 msgstr ""
 
-#: View/Layouts/default.ctp:66
-msgid "Logout"
+#: View/Parameters/cost_per_km.ctp:4
+msgid "Edit cost per km parameters"
 msgstr ""
 
-#: View/Layouts/login.ctp:112
-msgid "Reset Password"
+#: View/Parameters/email.ctp:4
+msgid "Edit email parameters"
+msgstr ""
+
+#: View/Parameters/email.ctp:15
+msgid "Enter here to change the password."
+msgstr ""
+
+#: View/Parameters/email.ctp:25
+msgid "Test"
+msgstr ""
+
+#: View/Parameters/email.ctp:35
+msgid "Test email sending"
+msgstr ""
+
+#: View/Parameters/email.ctp:46
+#: View/Visits/view.ctp:246
+msgid "Close"
+msgstr ""
+
+#: View/Parameters/system.ctp:4
+msgid "Edit system parameters"
+msgstr ""
+
+#: View/Parameters/system.ctp:9;10
+msgid "days"
+msgstr ""
+
+#: View/Parameters/system.ctp:29
+msgid "Rebuild Aco Tree (Actions & Controllers)"
 msgstr ""
 
 #: View/Refusals/add.ctp:4
-msgid "Add Refusal"
-msgstr ""
-
-#: View/Refusals/edit.ctp:4
-#: View/Refusals/view.ctp:41
-msgid "Edit Refusal"
-msgstr ""
-
-#: View/Refusals/index.ctp:3
-msgid "Refusals"
-msgstr ""
-
-#: View/Refusals/index.ctp:12;24
-msgid "date"
-msgstr ""
-
-#: View/Refusals/index.ctp:13;25
-msgid "reason"
-msgstr ""
-
-#: View/Refusals/index.ctp:14;26
-msgid "type"
-msgstr ""
-
-#: View/Refusals/index.ctp:15;27
-#: View/Visits/index.ctp:23;44
-msgid "user_id"
-msgstr ""
-
-#: View/Refusals/index.ctp:16;28
-msgid "visit_id"
-msgstr ""
-
-#: View/Refusals/index.ctp:65
-#: View/Users/view.ctp:94
-#: View/Visits/view.ctp:144
 msgid "New Refusal"
 msgstr ""
 
-#: View/Refusals/view.ctp:3
-msgid "Refusal"
-msgstr ""
-
-#: View/Refusals/view.ctp:13
-#: View/Users/view.ctp:54;66
-#: View/Visits/view.ctp:104;116
-msgid "Date"
-msgstr ""
-
-#: View/Refusals/view.ctp:18
-#: View/Users/view.ctp:55;67
-#: View/Visits/view.ctp:105;117
-msgid "Reason"
-msgstr ""
-
-#: View/Refusals/view.ctp:23
-#: View/Users/view.ctp:56;68
-#: View/Visits/view.ctp:106;118
-msgid "Type"
-msgstr ""
-
-#: View/Refusals/view.ctp:28
-#: View/Users/view.ctp:3
-#: View/Visits/view.ctp:68
-msgid "User"
-msgstr ""
-
-#: View/Refusals/view.ctp:33
-#: View/Visits/view.ctp:3
-msgid "Visit"
-msgstr ""
-
-#: View/Refusals/view.ctp:40
-msgid "List Refusals"
-msgstr ""
-
-#: View/Refusals/view.ctp:42
-msgid "Delete Refusal"
+#: View/Refusals/add.ctp:14
+msgid "Are you sure you want to continue?"
 msgstr ""
 
 #: View/States/add.ctp:4
-msgid "Add State"
+#: View/States/index.ctp:59
+msgid "New State"
 msgstr ""
 
 #: View/States/edit.ctp:4
-#: View/States/view.ctp:26
+#: View/States/view.ctp:29
 msgid "Edit State"
 msgstr ""
 
@@ -874,296 +1134,642 @@ msgstr ""
 msgid "Initials"
 msgstr ""
 
-#: View/States/index.ctp:52
-msgid "New State"
-msgstr ""
-
-#: View/States/view.ctp:25
+#: View/States/view.ctp:26
 msgid "List States"
 msgstr ""
 
-#: View/States/view.ctp:27
+#: View/States/view.ctp:32
 msgid "Delete State"
 msgstr ""
 
-#: View/States/view.ctp:35
+#: View/States/view.ctp:41
 msgid "Related Cities"
 msgstr ""
 
-#: View/Teams/add.ctp:4
-msgid "Add Team"
+#: View/States/view.ctp:72
+msgid "Yes"
+msgstr ""
+
+#: View/States/view.ctp:74
+msgid "No"
 msgstr ""
 
 #: View/Teams/edit.ctp:4
-#: View/Teams/view.ctp:21
+#: View/Teams/view.ctp:24
 msgid "Edit Team"
 msgstr ""
 
+#: View/Teams/index.ctp:11;19
+#: View/Visits/index.ctp:36
+#: View/Visits/transport_update.ctp:63
+msgid "id"
+msgstr ""
+
+#: View/Teams/index.ctp:12;20
+msgid "name"
+msgstr ""
+
 #: View/Teams/view.ctp:3
-#: View/Visits/view.ctp:78
+#: View/Visits/index.ctp:25
+#: View/Visits/transport_update.ctp:56
+#: View/Visits/view.ctp:125
 msgid "Team"
 msgstr ""
 
-#: View/Teams/view.ctp:20
+#: View/Teams/view.ctp:21
 msgid "List Teams"
 msgstr ""
 
-#: View/Teams/view.ctp:22
+#: View/Teams/view.ctp:27
 msgid "Delete Team"
 msgstr ""
 
-#: View/Teams/view.ctp:30
-#: View/Users/view.ctp:100
-msgid "Related Visits"
-msgstr ""
-
-#: View/Teams/view.ctp:39;60
-#: View/Users/view.ctp:109;130
-#: View/Visits/view.ctp:13
-msgid "Departure"
-msgstr ""
-
-#: View/Teams/view.ctp:40;61
-#: View/Users/view.ctp:110;131
-#: View/Visits/view.ctp:18
-msgid "Arrival"
-msgstr ""
-
-#: View/Teams/view.ctp:41;62
-#: View/Users/view.ctp:111;132
-#: View/Visits/view.ctp:23
-msgid "Destination"
-msgstr ""
-
-#: View/Teams/view.ctp:42;63
-#: View/Users/view.ctp:112;133
-#: View/Visits/view.ctp:28
-msgid "Number Of Students"
-msgstr ""
-
-#: View/Teams/view.ctp:43;64
-#: View/Users/view.ctp:113;134
-#: View/Visits/view.ctp:33
-msgid "Daily"
-msgstr ""
-
-#: View/Teams/view.ctp:44;65
-#: View/Users/view.ctp:114;135
-#: View/Visits/view.ctp:38
-msgid "Transport"
-msgstr ""
-
-#: View/Teams/view.ctp:45;66
-#: View/Users/view.ctp:115;136
-#: View/Visits/view.ctp:43
-msgid "Cost Transport"
-msgstr ""
-
-#: View/Teams/view.ctp:46;67
-#: View/Users/view.ctp:116;137
-#: View/Visits/view.ctp:48
-msgid "Distance"
-msgstr ""
-
-#: View/Teams/view.ctp:47;68
-#: View/Users/view.ctp:117;138
-#: View/Visits/view.ctp:53
-msgid "Objective"
-msgstr ""
-
-#: View/Teams/view.ctp:48;69
-#: View/Users/view.ctp:118;139
-#: View/Visits/view.ctp:58
-msgid "Comments"
-msgstr ""
-
-#: View/Teams/view.ctp:49;70
-#: View/Users/view.ctp:119;140
-#: View/Visits/view.ctp:63
-msgid "Status"
-msgstr ""
-
-#: View/Teams/view.ctp:50;71
-#: View/Users/view.ctp:57;69;120;141
-#: View/Visits/view.ctp:107;119
-msgid "User Id"
-msgstr ""
-
-#: View/Teams/view.ctp:51;72
-#: View/Users/view.ctp:121;142
-msgid "City Id"
-msgstr ""
-
-#: View/Teams/view.ctp:52;73
-#: View/Users/view.ctp:122;143
-msgid "Team Id"
-msgstr ""
-
-#: View/Teams/view.ctp:106
-#: View/Users/view.ctp:176
-#: View/Visits/index.ctp:94
-msgid "New Visit"
-msgstr ""
-
-#: View/Users/add.ctp:4
-msgid "Add User"
-msgstr ""
-
 #: View/Users/edit.ctp:4
-#: View/Users/view.ctp:36
+#: View/Users/view.ctp:43
 msgid "Edit User"
 msgstr ""
 
-#: View/Users/index.ctp:13;24
-#: Model/User.php:validation for field email
-msgid "email"
+#: View/Users/edit.ctp:26
+#: View/Users/profile.ctp:26
+msgid "Edit Password"
 msgstr ""
 
-#: View/Users/index.ctp:14;25
-msgid "password"
-msgstr ""
-
-#: View/Users/index.ctp:15;26
-msgid "group_id"
-msgstr ""
-
-#: View/Users/login.ctp:2;18
+#: View/Users/login.ctp:7;23
 msgid "Login"
 msgstr ""
 
-#: View/Users/login.ctp:5
+#: View/Users/login.ctp:10
 msgid "Please provide your details"
 msgstr ""
 
-#: View/Users/login.ctp:7
-msgid "E-mail"
+#: View/Users/login.ctp:13
+#: View/Users/update_password.ctp:14
+msgid "Password"
 msgstr ""
 
-#: View/Users/login.ctp:15
+#: View/Users/login.ctp:20
 msgid "Keep me signed in"
 msgstr ""
 
-#: View/Users/view.ctp:35
+#: View/Users/login.ctp:32
+msgid "Forgot Password"
+msgstr ""
+
+#: View/Users/login.ctp:43
+msgid "Retrieve Password"
+msgstr ""
+
+#: View/Users/login.ctp:46
+msgid "Enter your email and to receive instructions"
+msgstr ""
+
+#: View/Users/login.ctp:51
+msgid "Send Me!"
+msgstr ""
+
+#: View/Users/login.ctp:59
+msgid "Back to Login"
+msgstr ""
+
+#: View/Users/profile.ctp:4
+msgid "Edit Profile"
+msgstr ""
+
+#: View/Users/update_password.ctp:6
+msgid "Update password"
+msgstr ""
+
+#: View/Users/update_password.ctp:9
+msgid "Please choose your password"
+msgstr ""
+
+#: View/Users/update_password.ctp:15
+msgid "Confirm password"
+msgstr ""
+
+#: View/Users/view.ctp:3
+#: View/Visits/index.ctp:20
+#: View/Visits/transport_update.ctp:51
+#: View/Visits/view.ctp:98;197;208
+msgid "User"
+msgstr ""
+
+#: View/Users/view.ctp:40
 msgid "List Users"
 msgstr ""
 
-#: View/Users/view.ctp:37
+#: View/Users/view.ctp:46
 msgid "Delete User"
 msgstr ""
 
-#: View/Users/view.ctp:45
-#: View/Visits/view.ctp:95
-msgid "Related Refusals"
-msgstr ""
-
-#: View/Users/view.ctp:58;70
-#: View/Visits/view.ctp:108;120
-msgid "Visit Id"
-msgstr ""
-
 #: View/Visits/add.ctp:4
-msgid "Add Visit"
+#: View/Visits/index.ctp:157
+msgid "New Visit"
+msgstr ""
+
+#: View/Visits/add.ctp:9
+#: View/Visits/edit.ctp:10
+msgid "Own transport"
+msgstr ""
+
+#: View/Visits/add.ctp:13;14
+#: View/Visits/edit.ctp:14;15
+#: View/Visits/transport_update.ctp:22
+msgid "(choose one)"
+msgstr ""
+
+#: View/Visits/add.ctp:15
+#: View/Visits/edit.ctp:16
+msgid "(choose a course before)"
+msgstr ""
+
+#: View/Visits/add.ctp:16
+#: View/Visits/edit.ctp:17
+msgid "(choose a discipline before)"
+msgstr ""
+
+#: View/Visits/course_x_cost.ctp:9
+#: View/Visits/course_x_mileage.ctp:9
+#: View/Visits/course_x_visits.ctp:9
+#: View/Visits/mileage_x_cost_per_type_transport.ctp:9
+#: View/Visits/mileage_x_cost_per_visits_x_long_short_distance.ctp:9
+#: View/Visits/user_x_cost.ctp:9
+#: View/Visits/user_x_mileage.ctp:9
+#: View/Visits/user_x_visits.ctp:9
+#: View/Visits/visits_x_city.ctp:9
+#: View/Visits/visits_x_destination.ctp:9
+#: View/Visits/visits_x_frequency_of_students.ctp:9
+#: View/Visits/visits_x_long_short_distance.ctp:9
+#: View/Visits/visits_x_long_short_distance_per_type_transport.ctp:9
+#: View/Visits/visits_x_long_short_distance_x_cost_per_type_transport.ctp:9
+#: View/Visits/visits_x_long_short_distance_x_mileage_per_type_transport.ctp:9
+#: View/Visits/visits_x_status.ctp:9
+msgid "Filters soon"
+msgstr ""
+
+#: View/Visits/course_x_mileage.ctp:36
+#: View/Visits/user_x_mileage.ctp:36
+msgid "Mileage"
+msgstr ""
+
+#: View/Visits/course_x_visits.ctp:3;45
+msgid "Course x technical visits"
+msgstr ""
+
+#: View/Visits/dashboard.ctp:3
+msgid "Today's Stats"
+msgstr ""
+
+#: View/Visits/dashboard.ctp:10
+msgid "Count of technical visits registered by status."
+msgstr ""
+
+#: View/Visits/dashboard.ctp:12
+msgid "Mouse over statistics to see the status."
+msgstr ""
+
+#: View/Visits/dashboard.ctp:30
+msgid "Technical visits by status"
+msgstr ""
+
+#: View/Visits/dashboard.ctp:31
+msgid "Total:"
+msgstr ""
+
+#: View/Visits/dashboard.ctp:45
+msgid "Calendar of technical visits"
 msgstr ""
 
 #: View/Visits/edit.ctp:4
-#: View/Visits/view.ctp:86
+#: View/Visits/view.ctp:173
 msgid "Edit Visit"
 msgstr ""
 
-#: View/Visits/index.ctp:12;33
-msgid "departure"
+#: View/Visits/index.ctp:12
+#: View/Visits/transport_update.ctp:46
+#: View/Visits/view.ctp:13
+msgid "Status"
 msgstr ""
 
-#: View/Visits/index.ctp:13;34
-msgid "arrival"
+#: View/Visits/index.ctp:13
+#: View/Visits/view.ctp:18
+msgid "Created"
 msgstr ""
 
-#: View/Visits/index.ctp:14;35
-msgid "destination"
+#: View/Visits/index.ctp:14
+#: View/Visits/view.ctp:23
+msgid "Modified"
 msgstr ""
 
-#: View/Visits/index.ctp:15;36
-msgid "number_of_students"
+#: View/Visits/index.ctp:15
+#: View/Visits/transport_update.ctp:47
+#: View/Visits/view.ctp:38
+msgid "Destination"
 msgstr ""
 
-#: View/Visits/index.ctp:16;37
-msgid "daily"
+#: View/Visits/index.ctp:16
+#: View/Visits/transport_update.ctp:48
+#: View/Visits/view.ctp:28
+msgid "Departure"
 msgstr ""
 
-#: View/Visits/index.ctp:17;38
-msgid "transport"
+#: View/Visits/index.ctp:17
+#: View/Visits/transport_update.ctp:49
+#: View/Visits/view.ctp:33
+msgid "Arrival"
 msgstr ""
 
-#: View/Visits/index.ctp:18;39
-msgid "cost_transport"
+#: View/Visits/index.ctp:18;136
+#: View/Visits/transport_update.ctp:50;155
+#: View/Visits/view.ctp:61
+msgid "Transport"
 msgstr ""
 
-#: View/Visits/index.ctp:19;40
-msgid "distance"
+#: View/Visits/index.ctp:19
+#: View/Visits/view.ctp:72
+msgid "Transport Cost"
 msgstr ""
 
-#: View/Visits/index.ctp:20;41
-msgid "objective"
+#: View/Visits/index.ctp:26
+msgid "Students"
 msgstr ""
 
-#: View/Visits/index.ctp:21;42
-msgid "comments"
+#: View/Visits/index.ctp:27
+#: View/Visits/view.ctp:82
+msgid "Refund"
 msgstr ""
 
-#: View/Visits/index.ctp:22;43
+#: View/Visits/index.ctp:28
+#: View/Visits/view.ctp:88
+msgid "Objective"
+msgstr ""
+
+#: View/Visits/index.ctp:29
+#: View/Visits/view.ctp:93
+msgid "Comments"
+msgstr ""
+
+#: View/Visits/index.ctp:37
+#: View/Visits/transport_update.ctp:64
 msgid "status"
 msgstr ""
 
-#: View/Visits/index.ctp:24;45
+#: View/Visits/index.ctp:38
+msgid "created"
+msgstr ""
+
+#: View/Visits/index.ctp:39
+msgid "modified"
+msgstr ""
+
+#: View/Visits/index.ctp:40
+#: View/Visits/transport_update.ctp:65
+msgid "destination"
+msgstr ""
+
+#: View/Visits/index.ctp:41
+#: View/Visits/transport_update.ctp:66
+msgid "departure"
+msgstr ""
+
+#: View/Visits/index.ctp:42
+#: View/Visits/transport_update.ctp:67
+msgid "arrival"
+msgstr ""
+
+#: View/Visits/index.ctp:43
+#: View/Visits/transport_update.ctp:68
+msgid "transport"
+msgstr ""
+
+#: View/Visits/index.ctp:44
+msgid "transport_cost"
+msgstr ""
+
+#: View/Visits/index.ctp:45
+#: View/Visits/transport_update.ctp:69
+msgid "user_id"
+msgstr ""
+
+#: View/Visits/index.ctp:46
+#: View/Visits/transport_update.ctp:70
 msgid "city_id"
 msgstr ""
 
-#: View/Visits/index.ctp:25;46
+#: View/Visits/index.ctp:47
+#: View/Visits/transport_update.ctp:71
+msgid "state_id"
+msgstr ""
+
+#: View/Visits/index.ctp:48
+#: View/Visits/transport_update.ctp:72
+msgid "course_id"
+msgstr ""
+
+#: View/Visits/index.ctp:49
+#: View/Visits/transport_update.ctp:73
+msgid "discipline_id"
+msgstr ""
+
+#: View/Visits/index.ctp:50
+#: View/Visits/transport_update.ctp:74
 msgid "team_id"
 msgstr ""
 
-#: View/Visits/view.ctp:85
+#: View/Visits/index.ctp:51
+msgid "number_of_students"
+msgstr ""
+
+#: View/Visits/index.ctp:52
+msgid "refund"
+msgstr ""
+
+#: View/Visits/index.ctp:53
+msgid "objective"
+msgstr ""
+
+#: View/Visits/index.ctp:54
+msgid "comments"
+msgstr ""
+
+#: View/Visits/index.ctp:119
+#: View/Visits/transport_update.ctp:138
+msgid "Copy"
+msgstr ""
+
+#: View/Visits/index.ctp:129
+#: View/Visits/transport_update.ctp:148
+#: View/Visits/view.ctp:176
+msgid "Are you sure you want to cancel # %s?"
+msgstr ""
+
+#: View/Visits/index.ctp:133
+#: View/Visits/transport_update.ctp:152
+msgid "Update information"
+msgstr ""
+
+#: View/Visits/index.ctp:139
+#: View/Visits/transport_update.ctp:158
+msgid "Invalidate visit"
+msgstr ""
+
+#: View/Visits/information_update.ctp:4
+msgid "Update Visit"
+msgstr ""
+
+#: View/Visits/mileage_x_cost_per_type_transport.ctp:3;40
+msgid "Mileage x total cost per type transport"
+msgstr ""
+
+#: View/Visits/mileage_x_cost_per_visits_x_long_short_distance.ctp:3;40
+msgid "Mileage x cost per technical visits x long and short distance"
+msgstr ""
+
+#: View/Visits/transport_update.ctp:4
+msgid "Transport update"
+msgstr ""
+
+#: View/Visits/transport_update.ctp:37
+msgid "Visits on departure date"
+msgstr ""
+
+#: View/Visits/user_x_visits.ctp:3;45
+msgid "User x technical visits"
+msgstr ""
+
+#: View/Visits/view.ctp:3
+msgid "Visit"
+msgstr ""
+
+#: View/Visits/view.ctp:67
+msgid "Distance"
+msgstr ""
+
+#: View/Visits/view.ctp:134
+msgid "Number Of Students"
+msgstr ""
+
+#: View/Visits/view.ctp:140
+msgid "Report"
+msgstr ""
+
+#: View/Visits/view.ctp:149
+msgid "Approve Visit"
+msgstr ""
+
+#: View/Visits/view.ctp:149;152;161
+msgid "Are you sure you want to approve # %s?"
+msgstr ""
+
+#: View/Visits/view.ctp:152
+msgid "Pre Approve Visit"
+msgstr ""
+
+#: View/Visits/view.ctp:158
+msgid "Disapprove Visit"
+msgstr ""
+
+#: View/Visits/view.ctp:158;164
+msgid "Are you sure you want to disapprove # %s?"
+msgstr ""
+
+#: View/Visits/view.ctp:161
+msgid "Approve Report"
+msgstr ""
+
+#: View/Visits/view.ctp:164
+msgid "Disapprove Report"
+msgstr ""
+
+#: View/Visits/view.ctp:167;234
+msgid "Deliver report"
+msgstr ""
+
+#: View/Visits/view.ctp:170
 msgid "List Visits"
 msgstr ""
 
-#: View/Visits/view.ctp:87
-msgid "Delete Visit"
+#: View/Visits/view.ctp:176
+msgid "Cancel Visit"
+msgstr ""
+
+#: View/Visits/view.ctp:185
+msgid "Related Refusals"
+msgstr ""
+
+#: View/Visits/view.ctp:194;205
+msgid "Date"
+msgstr ""
+
+#: View/Visits/view.ctp:195;206
+msgid "Reason"
+msgstr ""
+
+#: View/Visits/view.ctp:196;207
+msgid "Type"
+msgstr ""
+
+#: View/Visits/visits_x_city.ctp:3;45
+msgid "Technical visits x city"
+msgstr ""
+
+#: View/Visits/visits_x_destination.ctp:3;45
+msgid "Technical visits x destination"
+msgstr ""
+
+#: View/Visits/visits_x_frequency_of_students.ctp:3;36;47
+msgid "Technical visits x frequency of students"
+msgstr ""
+
+#: View/Visits/visits_x_long_short_distance.ctp:3;36;47
+msgid "Technical visits x long and short distance"
+msgstr ""
+
+#: View/Visits/visits_x_long_short_distance_per_type_transport.ctp:3;40
+msgid "Technical visits x long and short distance per type transport"
+msgstr ""
+
+#: View/Visits/visits_x_long_short_distance_x_cost_per_type_transport.ctp:3;40
+msgid "Technical visits x long and short distance x cost per type transport"
+msgstr ""
+
+#: View/Visits/visits_x_long_short_distance_x_mileage_per_type_transport.ctp:3;40
+msgid "Technical visits x long and short distance x mileage per type transport"
+msgstr ""
+
+#: View/Visits/visits_x_status.ctp:3;45
+msgid "Technical visits x status"
 msgstr ""
 
 #: Model/City.php:validation for field name
-#: Model/Course.php:validation for field name;validation for field type_of_academic_period
+#: Model/Course.php:validation for field name
 #: Model/Discipline.php:validation for field name
-#: Model/Group.php:validation for field name;validation for field description
-#: Model/Refusal.php:validation for field reason;validation for field type
+#: Model/Group.php:validation for field name
 #: Model/State.php:validation for field name
 #: Model/Team.php:validation for field name
-#: Model/User.php:validation for field name;validation for field password
-#: Model/Visit.php:validation for field destination;validation for field transport;validation for field objective;validation for field comments
-msgid "notBlank"
+msgid "Only letters, accentuation, numbers, underline \"_\", space \" \", parentheses \"( )\" and hyphen \"-\""
+msgstr ""
+
+#: Model/City.php:validation for field name
+#: Model/Course.php:validation for field name
+#: Model/Discipline.php:validation for field name
+#: Model/Group.php:validation for field name
+#: Model/Refusal.php:validation for field reason
+#: Model/State.php:validation for field name
+#: Model/Team.php:validation for field name
+#: Model/User.php:validation for field name
+#: Model/Visit.php:validation for field destination;validation for field objective
+msgid "At least 2 characters"
 msgstr ""
 
 #: Model/City.php:validation for field short_distance
-msgid "boolean"
+#: Model/Parameter.php:validation for field tls
+#: Model/User.php:validation for field enabled
+msgid "Boolean options only"
 msgstr ""
 
 #: Model/City.php:validation for field state_id
-#: Model/Course.php:validation for field amount_of_academic_periods
-#: Model/Discipline.php:validation for field academic_period;validation for field course_id
-#: Model/Refusal.php:validation for field user_id;validation for field visit_id
+#: Model/Course.php:validation for field type_of_academic_period
+#: Model/Discipline.php:validation for field course_id
+#: Model/Refusal.php:validation for field type;validation for field user_id;validation for field visit_id
 #: Model/User.php:validation for field group_id
-#: Model/Visit.php:validation for field number_of_students;validation for field daily;validation for field cost_transport;validation for field distance;validation for field status;validation for field user_id;validation for field city_id;validation for field team_id
-msgid "numeric"
+#: Model/Visit.php:validation for field transport;validation for field status;validation for field user_id;validation for field state_id;validation for field city_id;validation for field team_id;validation for field discipline_id;validation for field course_id
+msgid "Choose one of the options"
 msgstr ""
 
-#: Model/Refusal.php:validation for field date
+#: Model/Course.php:validation for field name
+#: Model/Discipline.php:validation for field name
+#: Model/Group.php:validation for field name
+#: Model/State.php:validation for field name
+#: Model/User.php:validation for field name
+msgid "This name is already in use"
+msgstr ""
+
+#: Model/Course.php:validation for field amount_of_academic_periods
+#: Model/Discipline.php:validation for field academic_period
+#: Model/Parameter.php:validation for field port;validation for field timeout
+#: Model/Visit.php:validation for field number_of_students;validation for field number_of_students_present
+msgid "Only natural numbers (greater than zero)"
+msgstr ""
+
+#: Model/Parameter.php:validation for field username
+msgid "Only letters, numbers, underline \"_\", point \".\", at \"@\" and hyphen \"-\""
+msgstr ""
+
+#: Model/Parameter.php:validation for field fromEmail
+#: Model/User.php:validation for field email
+msgid "Enter a valid email"
+msgstr ""
+
+#: Model/Parameter.php:validation for field replyTo
+msgid "Invalid email. Use commas \",\" to separate emails"
+msgstr ""
+
+#: Model/Parameter.php:validation for field costPerKmCampus;validation for field costPerKmOutsourced
+msgid "Enter a valid numerical value with 2 decimal places"
+msgstr ""
+
+#: Model/Parameter.php:validation for field updatePassword
+msgid "Enter a valid url"
+msgstr ""
+
+#: Model/State.php:validation for field initials
+msgid "Letters and numbers only"
+msgstr ""
+
+#: Model/State.php:validation for field initials
+msgid "Must have 2 characters"
+msgstr ""
+
+#: Model/State.php:validation for field initials
+msgid "This initial is already in use"
+msgstr ""
+
+#: Model/User.php:validation for field name
+msgid "Only letters, accentuation, numbers and space \" \""
+msgstr ""
+
+#: Model/User.php:validation for field email
+msgid "This email is already in use"
+msgstr ""
+
+#: Model/User.php:validation for field current_password
+msgid "Wrong password"
+msgstr ""
+
+#: Model/User.php:validation for field password
+msgid "Password and password confirmation are not the same"
+msgstr ""
+
+#: Model/User.php:validation for field password;validation for field confirm_password
+msgid "At least 4 characters"
+msgstr ""
+
 #: Model/Visit.php:validation for field departure;validation for field arrival
-msgid "datetime"
+msgid "Invalid date"
 msgstr ""
 
-#: Model/Course.php:enum for field type_of_academic_period
-msgid "Yearly"
+#: Model/Visit.php:validation for field departure
+msgid "The date and time must be longer than the current date"
 msgstr ""
 
-#: Model/Course.php:enum for field type_of_academic_period
-msgid "Semiannual"
+#: Model/Visit.php:validation for field arrival
+msgid "The date and time must be greater than the date of departure"
 msgstr ""
+
+#: Model/Visit.php:validation for field refund;validation for field cost_transport;validation for field distance
+msgid "Enter a valid numerical value"
+msgstr ""
+
+#: Model/Visit.php:validation for field report
+msgid "Please supply a valid file: \"odt\", \"docx\", \"doc\", \"pdf\", \"zip\", \"7z\", \"rar\""
+msgstr ""
+
+#: Model/Visit.php:validation for field report
+msgid "Report must be less than 2MB"
+msgstr ""
+
+#: Model/Visit.php:validation for field report
+msgid "Something went wrong with the upload."
+msgstr ""
+
