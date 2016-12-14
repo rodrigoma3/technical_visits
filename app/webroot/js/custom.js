@@ -160,6 +160,53 @@ $(document).ready(function() {
             }
             return false;
         });
+        $('#VisitDestination').on('keyup', function(){
+            var text = $(this).val();
+            console.log(text);
+            if (text != '') {
+                $.ajax({
+                    url: $(location).attr('href'),
+                    type: 'GET',
+                    data: {"text": text},
+                    success: function(data){
+                        // $( function() {
+                            // var availableTags = [
+                            //     "ActionScript",
+                            //     "AppleScript",
+                            //     "Asp",
+                            //     "BASIC",
+                            //     "C",
+                            //     "C++",
+                            //     "Clojure",
+                            //     "COBOL",
+                            //     "ColdFusion",
+                            //     "Erlang",
+                            //     "Fortran",
+                            //     "Groovy",
+                            //     "Haskell",
+                            //     "Java",
+                            //     "JavaScript",
+                            //     "Lisp",
+                            //     "Perl",
+                            //     "PHP",
+                            //     "Python",
+                            //     "Ruby",
+                            //     "Scala",
+                            //     "Scheme"
+                            // ];
+                            $('#VisitDestination').autocomplete({
+                                source: data
+                                // source: availableTags
+                            });
+                        // });
+                    },
+                    error: function(){
+
+                    }
+                });
+            }
+            return false;
+        });
     });
     // END: ajax
 

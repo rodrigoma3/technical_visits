@@ -250,6 +250,10 @@ class VisitsController extends AppController {
 		}
 		if($this->request->is('ajax')){
 			$this->autoRender = false;
+			if ($this->request->query('text') !== null) {
+				$options = array('conditions' => array($this->Visit->alias.'.destination LIKE %'.$this->request->query('text').'%'));
+				$result = $this->Visit->find('list', $options);
+			}
 			if ($this->request->query('course_id') !== null) {
 				$options = array('conditions' => array($this->Visit->Discipline->alias.'.course_id' => $this->request->query('course_id')));
 				$result = $this->Visit->Discipline->find('list', $options);
