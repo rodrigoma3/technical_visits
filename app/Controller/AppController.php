@@ -311,7 +311,7 @@ class AppController extends Controller {
         return $perms;
     }
 
-    public function randomColor() {
+    protected function randomColor() {
         return '#'.substr(str_shuffle('ABCDEF0123456789'), 0, 6);
     }
 }
