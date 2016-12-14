@@ -259,7 +259,7 @@ msgid "The refusal could not be saved. Please, try again."
 msgstr ""
 
 #: Controller/RefusalsController.php:88;92;103;114;125
-#: Controller/VisitsController.php:142;332;427;439;503;524;540;564;586;603
+#: Controller/VisitsController.php:130;308;391;403;467;488;504;528;550;567
 msgid "Invalid visit"
 msgstr ""
 
@@ -395,161 +395,161 @@ msgstr ""
 msgid "The user permissions has been saved."
 msgstr ""
 
-#: Controller/VisitsController.php:298;390;470;613
+#: Controller/VisitsController.php:274;354;434;577
 msgid "The visit has been saved."
 msgstr ""
 
-#: Controller/VisitsController.php:301;396;473;576;616
+#: Controller/VisitsController.php:277;360;437;540;580
 msgid "The visit could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/VisitsController.php:382
+#: Controller/VisitsController.php:346
 msgid "Visit to %s has been Changed! - Technical Visits"
 msgstr ""
 
-#: Controller/VisitsController.php:392
+#: Controller/VisitsController.php:356
 msgid "The visit has been saved, but the system failed to send the Administrator a notification e-mail."
 msgstr ""
 
-#: Controller/VisitsController.php:420
+#: Controller/VisitsController.php:384
 msgid "The visit is invalid or can not be changed."
 msgstr ""
 
-#: Controller/VisitsController.php:513
+#: Controller/VisitsController.php:477
 msgid "The visit has been pre approved."
 msgstr ""
 
-#: Controller/VisitsController.php:515
+#: Controller/VisitsController.php:479
 msgid "Pre approval could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/VisitsController.php:528
+#: Controller/VisitsController.php:492
 msgid "The visit has been approved."
 msgstr ""
 
-#: Controller/VisitsController.php:531;547
+#: Controller/VisitsController.php:495;511
 msgid "Approval could not be saved. Please, try again."
 msgstr ""
 
-#: Controller/VisitsController.php:545
+#: Controller/VisitsController.php:509
 msgid "The visit report has been approved."
 msgstr ""
 
-#: Controller/VisitsController.php:568
+#: Controller/VisitsController.php:532
 msgid "The visit report has already been approved or the visit has been canceled."
 msgstr ""
 
-#: Controller/VisitsController.php:574
+#: Controller/VisitsController.php:538
 msgid "The visit report was delivered."
 msgstr ""
 
-#: Controller/VisitsController.php:706
+#: Controller/VisitsController.php:670
 msgid "Your visit to %s is missing report! - Technical Visits"
 msgstr ""
 
-#: Controller/VisitsController.php:740
+#: Controller/VisitsController.php:704
 msgid "Your visit to %s is near! - Technical Visits"
 msgstr ""
 
-#: Controller/VisitsController.php:751
+#: Controller/VisitsController.php:715
 msgid "Total of visits x frequency of students"
 msgstr ""
 
-#: Controller/VisitsController.php:758
+#: Controller/VisitsController.php:722
 msgid "Total of visits x long and short distance"
 msgstr ""
 
-#: Controller/VisitsController.php:765
+#: Controller/VisitsController.php:729
 msgid "Course x visits"
 msgstr ""
 
-#: Controller/VisitsController.php:772
-#: View/Visits/course_x_mileage.ctp:14;56
+#: Controller/VisitsController.php:736
+#: View/Visits/course_x_mileage.ctp:3;45
 msgid "Course x mileage"
 msgstr ""
 
-#: Controller/VisitsController.php:779
-#: View/Visits/course_x_cost.ctp:14;56
+#: Controller/VisitsController.php:743
+#: View/Visits/course_x_cost.ctp:3;45
 msgid "Course x total cost"
 msgstr ""
 
-#: Controller/VisitsController.php:786
+#: Controller/VisitsController.php:750
 msgid "User x visits"
 msgstr ""
 
-#: Controller/VisitsController.php:793
-#: View/Visits/user_x_mileage.ctp:14;56
+#: Controller/VisitsController.php:757
+#: View/Visits/user_x_mileage.ctp:3;45
 msgid "User x mileage"
 msgstr ""
 
-#: Controller/VisitsController.php:800
-#: View/Visits/user_x_cost.ctp:14;56
+#: Controller/VisitsController.php:764
+#: View/Visits/user_x_cost.ctp:3;45
 msgid "User x total cost"
 msgstr ""
 
-#: Controller/VisitsController.php:807
+#: Controller/VisitsController.php:771
 msgid "Visits x status"
 msgstr ""
 
-#: Controller/VisitsController.php:814
+#: Controller/VisitsController.php:778
 msgid "Visits x city"
 msgstr ""
 
-#: Controller/VisitsController.php:821
+#: Controller/VisitsController.php:785
 msgid "Visits x destination"
 msgstr ""
 
-#: Controller/VisitsController.php:828
+#: Controller/VisitsController.php:792
 msgid "Mileage x total cost per type of transport"
 msgstr ""
 
-#: Controller/VisitsController.php:835
+#: Controller/VisitsController.php:799
 msgid "Total of visits x long and short distance per type of transport"
 msgstr ""
 
-#: Controller/VisitsController.php:842
+#: Controller/VisitsController.php:806
 msgid "Total of visits x long and short distance x mileage per type of transport"
 msgstr ""
 
-#: Controller/VisitsController.php:849
+#: Controller/VisitsController.php:813
 msgid "Total of visits x long and short distance x total cost per type of transport"
 msgstr ""
 
-#: Controller/VisitsController.php:856
+#: Controller/VisitsController.php:820
 msgid "Mileage x total cost per total of visits x long and short distance"
 msgstr ""
 
-#: Controller/VisitsController.php:920
+#: Controller/VisitsController.php:862
 msgid "Less than 75%"
 msgstr ""
 
-#: Controller/VisitsController.php:920
+#: Controller/VisitsController.php:862
 msgid "Greater than 75%"
 msgstr ""
 
-#: Controller/VisitsController.php:920;979;1068;1164;1261;1351;1452
+#: Controller/VisitsController.php:862;897;962;1034;1107;1175;1252
 msgid "Total technical visits"
 msgstr ""
 
-#: Controller/VisitsController.php:979;1062;1152;1249;1433
+#: Controller/VisitsController.php:897;956;1022;1095;1233
 msgid "Short distance"
 msgstr ""
 
-#: Controller/VisitsController.php:979;1056;1146;1243;1433
+#: Controller/VisitsController.php:897;950;1016;1089;1233
 msgid "Long distance"
 msgstr ""
 
-#: Controller/VisitsController.php:1158;1345;1446
+#: Controller/VisitsController.php:1028;1169;1246
 msgid "Total distance"
 msgstr ""
 
-#: Controller/VisitsController.php:1255;1339;1440
-#: View/Visits/course_x_cost.ctp:47
-#: View/Visits/user_x_cost.ctp:47
+#: Controller/VisitsController.php:1101;1163;1240
+#: View/Visits/course_x_cost.ctp:36
+#: View/Visits/user_x_cost.ctp:36
 msgid "Total cost"
 msgstr ""
 
-#: Controller/VisitsController.php:1433
+#: Controller/VisitsController.php:1233
 msgid "Total Visits"
 msgstr ""
 
@@ -953,14 +953,14 @@ msgid "Test email successfully sent!"
 msgstr ""
 
 #: View/Emails/html/test_email.ctp:5
-#: View/Layouts/default.ctp:84
+#: View/Layouts/default.ctp:82
 #: View/Layouts/login.ctp:54
-#: View/Visits/course_x_visits.ctp:47
+#: View/Visits/course_x_visits.ctp:36
 #: View/Visits/dashboard.ctp:65
-#: View/Visits/user_x_visits.ctp:47
-#: View/Visits/visits_x_city.ctp:47
-#: View/Visits/visits_x_destination.ctp:47
-#: View/Visits/visits_x_status.ctp:46
+#: View/Visits/user_x_visits.ctp:36
+#: View/Visits/visits_x_city.ctp:36
+#: View/Visits/visits_x_destination.ctp:36
+#: View/Visits/visits_x_status.ctp:36
 msgid "Technical Visits"
 msgstr ""
 
@@ -1062,18 +1062,15 @@ msgstr ""
 msgid "New User"
 msgstr ""
 
-#: View/Layouts/default.ctp:115;118
-#: View/Layouts/login.ctp:63;66
+#: View/Layouts/default.ctp:113;116
 msgid "Brazil"
 msgstr ""
 
-#: View/Layouts/default.ctp:124;127
-#: View/Layouts/login.ctp:72;75
+#: View/Layouts/default.ctp:122;125
 msgid "United States"
 msgstr ""
 
-#: View/Layouts/default.ctp:133;136
-#: View/Layouts/login.ctp:81;84
+#: View/Layouts/default.ctp:131;134
 msgid "Spain"
 msgstr ""
 
@@ -1291,31 +1288,31 @@ msgstr ""
 msgid "(choose a discipline before)"
 msgstr ""
 
-#: View/Visits/course_x_cost.ctp:21
-#: View/Visits/course_x_mileage.ctp:21
-#: View/Visits/course_x_visits.ctp:21
-#: View/Visits/mileage_x_cost_per_type_transport.ctp:20
-#: View/Visits/mileage_x_cost_per_visits_x_long_short_distance.ctp:20
-#: View/Visits/user_x_cost.ctp:21
-#: View/Visits/user_x_mileage.ctp:21
-#: View/Visits/user_x_visits.ctp:21
-#: View/Visits/visits_x_city.ctp:21
-#: View/Visits/visits_x_destination.ctp:21
-#: View/Visits/visits_x_frequency_of_students.ctp:20
-#: View/Visits/visits_x_long_short_distance.ctp:20
-#: View/Visits/visits_x_long_short_distance_per_type_transport.ctp:20
-#: View/Visits/visits_x_long_short_distance_x_cost_per_type_transport.ctp:20
-#: View/Visits/visits_x_long_short_distance_x_mileage_per_type_transport.ctp:20
-#: View/Visits/visits_x_status.ctp:20
-msgid "Filter"
+#: View/Visits/course_x_cost.ctp:9
+#: View/Visits/course_x_mileage.ctp:9
+#: View/Visits/course_x_visits.ctp:9
+#: View/Visits/mileage_x_cost_per_type_transport.ctp:9
+#: View/Visits/mileage_x_cost_per_visits_x_long_short_distance.ctp:9
+#: View/Visits/user_x_cost.ctp:9
+#: View/Visits/user_x_mileage.ctp:9
+#: View/Visits/user_x_visits.ctp:9
+#: View/Visits/visits_x_city.ctp:9
+#: View/Visits/visits_x_destination.ctp:9
+#: View/Visits/visits_x_frequency_of_students.ctp:9
+#: View/Visits/visits_x_long_short_distance.ctp:9
+#: View/Visits/visits_x_long_short_distance_per_type_transport.ctp:9
+#: View/Visits/visits_x_long_short_distance_x_cost_per_type_transport.ctp:9
+#: View/Visits/visits_x_long_short_distance_x_mileage_per_type_transport.ctp:9
+#: View/Visits/visits_x_status.ctp:9
+msgid "Filters soon"
 msgstr ""
 
-#: View/Visits/course_x_mileage.ctp:47
-#: View/Visits/user_x_mileage.ctp:47
+#: View/Visits/course_x_mileage.ctp:36
+#: View/Visits/user_x_mileage.ctp:36
 msgid "Mileage"
 msgstr ""
 
-#: View/Visits/course_x_visits.ctp:14;56
+#: View/Visits/course_x_visits.ctp:3;45
 msgid "Course x technical visits"
 msgstr ""
 
@@ -1511,20 +1508,15 @@ msgstr ""
 msgid "Update information"
 msgstr ""
 
-#: View/Visits/index.ctp:139
-#: View/Visits/transport_update.ctp:158
-msgid "Invalidate visit"
-msgstr ""
-
 #: View/Visits/information_update.ctp:4
 msgid "Update Visit"
 msgstr ""
 
-#: View/Visits/mileage_x_cost_per_type_transport.ctp:14;50
+#: View/Visits/mileage_x_cost_per_type_transport.ctp:3;40
 msgid "Mileage x total cost per type transport"
 msgstr ""
 
-#: View/Visits/mileage_x_cost_per_visits_x_long_short_distance.ctp:14;50
+#: View/Visits/mileage_x_cost_per_visits_x_long_short_distance.ctp:3;40
 msgid "Mileage x cost per technical visits x long and short distance"
 msgstr ""
 
@@ -1536,7 +1528,7 @@ msgstr ""
 msgid "Visits on departure date"
 msgstr ""
 
-#: View/Visits/user_x_visits.ctp:14;56
+#: View/Visits/user_x_visits.ctp:3;45
 msgid "User x technical visits"
 msgstr ""
 
@@ -1612,35 +1604,35 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: View/Visits/visits_x_city.ctp:14;56
+#: View/Visits/visits_x_city.ctp:3;45
 msgid "Technical visits x city"
 msgstr ""
 
-#: View/Visits/visits_x_destination.ctp:14;56
+#: View/Visits/visits_x_destination.ctp:3;45
 msgid "Technical visits x destination"
 msgstr ""
 
-#: View/Visits/visits_x_frequency_of_students.ctp:14;46;57
+#: View/Visits/visits_x_frequency_of_students.ctp:3;36;47
 msgid "Technical visits x frequency of students"
 msgstr ""
 
-#: View/Visits/visits_x_long_short_distance.ctp:14;46;57
+#: View/Visits/visits_x_long_short_distance.ctp:3;36;47
 msgid "Technical visits x long and short distance"
 msgstr ""
 
-#: View/Visits/visits_x_long_short_distance_per_type_transport.ctp:14;50
+#: View/Visits/visits_x_long_short_distance_per_type_transport.ctp:3;40
 msgid "Technical visits x long and short distance per type transport"
 msgstr ""
 
-#: View/Visits/visits_x_long_short_distance_x_cost_per_type_transport.ctp:14;50
+#: View/Visits/visits_x_long_short_distance_x_cost_per_type_transport.ctp:3;40
 msgid "Technical visits x long and short distance x cost per type transport"
 msgstr ""
 
-#: View/Visits/visits_x_long_short_distance_x_mileage_per_type_transport.ctp:14;50
+#: View/Visits/visits_x_long_short_distance_x_mileage_per_type_transport.ctp:3;40
 msgid "Technical visits x long and short distance x mileage per type transport"
 msgstr ""
 
-#: View/Visits/visits_x_status.ctp:14;55
+#: View/Visits/visits_x_status.ctp:3;45
 msgid "Technical visits x status"
 msgstr ""
 
@@ -1748,12 +1740,8 @@ msgstr ""
 msgid "At least 4 characters"
 msgstr ""
 
-#: Model/Visit.php:validation for field start;validation for field end;validation for field departure;validation for field arrival
+#: Model/Visit.php:validation for field departure;validation for field arrival
 msgid "Invalid date"
-msgstr ""
-
-#: Model/Visit.php:validation for field end
-msgid "The date and time must be greater than the date of start"
 msgstr ""
 
 #: Model/Visit.php:validation for field departure
@@ -1780,6 +1768,7 @@ msgstr ""
 msgid "Something went wrong with the upload."
 msgstr ""
 
+# ENUMS
 
 #: Model/Visit.php:85
 msgid "Undefined"
@@ -1859,6 +1848,10 @@ msgstr ""
 
 #: Model/Refusal.php:85
 msgid "Disapproved report"
+msgstr ""
+
+#: Model/User.php:128
+msgid "Invalidate visit"
 msgstr ""
 
 #: Model/User.php:128

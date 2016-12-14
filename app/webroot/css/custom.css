@@ -26,19 +26,25 @@ td.highlight {
 
 div.input label {
     font-weight: bold;
+    padding-right: 10px;
 }
 
 .btn-success, .btn-danger {
     margin-right: 15px;
 }
 
-input:not(.login):not([type="checkbox"]), textarea {
+input:not(.login):not([type="checkbox"]):not(.form-narrow), textarea {
     width: 400px;
     -webkit-border-radius: 3px !important;
     border-radius: 3px !important;
 }
 
-select {
+input, textarea {
+    -webkit-border-radius: 3px !important;
+    border-radius: 3px !important;
+}
+
+select:not(.form-narrow):not(.dataTables-select-filter) {
     width: 410px;
     -webkit-border-radius: 3px !important;
     border-radius: 3px !important;
@@ -98,4 +104,8 @@ select {
 
 a div.fc-content {
     background-color: transparent;
+}
+
+button.btn-filter {
+    margin: 0 20px 0 20px;
 }

@@ -109,8 +109,13 @@ class Visit extends AppModel {
 	public function beforeValidate($options = array()){
 		parent::beforeValidate($options);
 
+		if (isset($this->data[$this->alias]['start'])) {
+			$this->validate['end']['comparison']['rule'][2] = $this->data[$this->alias]['start'];
+		}
+		if (isset($this->data[$this->alias]['departure'])) {
+			$this->validate['arrival']['comparison']['rule'][2] = $this->data[$this->alias]['departure'];
+		}
 		$this->validate['departure']['comparison']['rule'][2] = date('Y-m-d H:i:s');
-		$this->validate['arrival']['comparison']['rule'][2] = $this->data[$this->alias]['departure'];
 		$this->validate['transport']['allowedChoice']['rule'][1] = array_keys($this->getEnums('transport'));
 		$this->validate['status']['allowedChoice']['rule'][1] = array_keys($this->getEnums('status'));
 		$this->validate['user_id']['allowedChoice']['rule'][1] = array_keys($this->User->find('list'));
@@ -125,6 +130,34 @@ class Visit extends AppModel {
  * @var array
  */
 	public $validate = array(
+		'start' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
+				'message' => 'Invalid date',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'end' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
+				'message' => 'Invalid date',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'comparison' => array(
+				'rule' => array('comparison', '>', ''),
+				'message' => 'The date and time must be greater than the date of start',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		'departure' => array(
 			'datetime' => array(
 				'rule' => array('datetime'),

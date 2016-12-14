@@ -13,7 +13,7 @@ $(document).ready(function() {
             this.api().columns().every( function () {
                 var column = this;
                 if (column.index() !== 0 && column.index() !== (qtdColumns-1)) {
-                    var select = $('<select><option value=""></option></select>')
+                    var select = $('<select class="dataTables-select-filter"><option value=""></option></select>')
                     .appendTo( $(column.footer()).empty() )
                     .on( 'change', function () {
                         var val = $.fn.dataTable.util.escapeRegex(

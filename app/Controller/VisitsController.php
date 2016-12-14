@@ -17,6 +17,14 @@ class VisitsController extends AppController {
 			$this->request->data[$this->Visit->alias]['arrival'] =
 			date('Y-m-d H:i:s', strtotime($this->request->data[$this->Visit->alias]['arrival']));
 		}
+		if (isset($this->request->data[$this->Visit->alias]['start'])) {
+			$this->request->data[$this->Visit->alias]['start'] =
+			date('Y-m-d H:i:s', strtotime($this->request->data[$this->Visit->alias]['start']));
+		}
+		if (isset($this->request->data[$this->Visit->alias]['end'])) {
+			$this->request->data[$this->Visit->alias]['end'] =
+			date('Y-m-d H:i:s', strtotime($this->request->data[$this->Visit->alias]['end']));
+		}
 	}
 
 	public function beforeRender(){
@@ -860,9 +868,31 @@ class VisitsController extends AppController {
 	}
 
 	public function visits_x_frequency_of_students() {
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+
 		$options = array(
 			'conditions' => array(
 				$this->Visit->alias.'.status > ' => '3',
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
 			),
 			'fields' => array(
 				$this->Visit->alias.'.id',
@@ -893,7 +923,31 @@ class VisitsController extends AppController {
 	}
 
 	public function visits_x_long_short_distance() {
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
 				$this->Visit->alias.'.id',
 				$this->Visit->alias.'.city_id',
@@ -928,7 +982,31 @@ class VisitsController extends AppController {
 	}
 
 	public function visits_x_long_short_distance_per_type_transport() {
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
 				$this->Visit->alias.'.id',
 				$this->Visit->City->alias.'.short_distance',
@@ -999,7 +1077,31 @@ class VisitsController extends AppController {
 	}
 
 	public function visits_x_long_short_distance_x_mileage_per_type_transport() {
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
 				$this->Visit->alias.'.id',
 				$this->Visit->alias.'.distance',
@@ -1071,7 +1173,31 @@ class VisitsController extends AppController {
 	}
 
 	public function visits_x_long_short_distance_x_cost_per_type_transport() {
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
 				$this->Visit->alias.'.id',
 				$this->Visit->alias.'.refund',
@@ -1144,9 +1270,31 @@ class VisitsController extends AppController {
 	}
 
 	public function mileage_x_cost_per_type_transport() {
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+
 		$options = array(
 			'conditions' => array(
 				$this->Visit->alias.'.status > ' => '3',
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
 			),
 			'fields' => array(
 				$this->Visit->alias.'.id',
@@ -1212,7 +1360,31 @@ class VisitsController extends AppController {
 	}
 
 	public function mileage_x_cost_per_visits_x_long_short_distance() {
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end', 'order')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
 				$this->Visit->alias.'.id',
 				$this->Visit->alias.'.distance',
@@ -1289,67 +1461,147 @@ class VisitsController extends AppController {
 	}
 
 	public function visits_x_city() {
+		$order = 'DESC';
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end', 'order')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+				if (isset($this->request->data[$this->Visit->alias]['order'])
+					&& !empty($this->request->data[$this->Visit->alias]['order'])
+				) {
+					$order = $this->request->data[$this->Visit->alias]['order'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+		$this->request->data[$this->Visit->alias]['order'] = $order;
+		$orders = array('DESC' => 'DESC', 'ASC' => 'ASC');
+
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
-				$this->Visit->alias.'.id',
-				$this->Visit->alias.'.city_id',
 				$this->Visit->City->alias.'.name',
+				'COUNT('.$this->Visit->alias.'.id) AS total',
 			),
-			'joins' => array(
-				array(
-					'table' => $this->Visit->City->table,
-					'alias' => $this->Visit->City->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->Visit->alias.'.city_id = '.$this->Visit->City->alias.'.id'
-					)
-				)
-			),
+			'group' => array($this->Visit->City->alias.'.name'),
+			'order' => array('COUNT('.$this->Visit->alias.'.id)' => $order)
 		);
-		$visits = $this->Visit->find('list', $options);
+		$visits = $this->Visit->find('all', $options);
 
 		$data = array();
 		$label = array();
 		$backgroundColor = array();
-		foreach ($visits as $city => $list) {
-			$data[] = count($list);
-			$label[] = $city;
+		foreach ($visits as $visit) {
+			$data[] = $visit[0]['total'];
+			$label[] = $visit[$this->Visit->City->alias]['name'];
 			$backgroundColor[] = $this->randomColor();
 		}
 
 		$data = json_encode($data);
 		$labels = json_encode($label);
 		$backgroundColor = json_encode($backgroundColor);
-		$this->set(compact('data', 'labels', 'backgroundColor'));
+		$this->set(compact('data', 'labels', 'backgroundColor', 'orders'));
 	}
 
 	public function visits_x_destination() {
+		$order = 'DESC';
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end', 'order')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+				if (isset($this->request->data[$this->Visit->alias]['order'])
+					&& !empty($this->request->data[$this->Visit->alias]['order'])
+				) {
+					$order = $this->request->data[$this->Visit->alias]['order'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+		$this->request->data[$this->Visit->alias]['order'] = $order;
+		$orders = array('DESC' => 'DESC', 'ASC' => 'ASC');
+
 		$options = array(
-			'fields' => array(
-				$this->Visit->alias.'.id',
-				$this->Visit->alias.'.status',
-				$this->Visit->alias.'.destination',
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
 			),
+			'fields' => array(
+				$this->Visit->alias.'.destination',
+				'COUNT('.$this->Visit->alias.'.id) AS total',
+			),
+			'group' => array($this->Visit->alias.'.destination'),
+			'order' => array('COUNT('.$this->Visit->alias.'.id)' => $order)
 		);
-		$visits = $this->Visit->find('list', $options);
+		$visits = $this->Visit->find('all', $options);
 
 		$data = array();
 		$label = array();
 		$backgroundColor = array();
-		foreach ($visits as $destination => $list) {
-			$data[] = count($list);
-			$label[] = $destination;
+		foreach ($visits as $visit) {
+			$data[] = $visit[0]['total'];
+			$label[] = $visit[$this->Visit->alias]['destination'];
 			$backgroundColor[] = $this->randomColor();
 		}
 
 		$data = json_encode($data);
 		$labels = json_encode($label);
 		$backgroundColor = json_encode($backgroundColor);
-		$this->set(compact('data', 'labels', 'backgroundColor'));
+		$this->set(compact('data', 'labels', 'backgroundColor', 'orders'));
 	}
 
 	public function visits_x_status() {
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end', 'order')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
 				$this->Visit->alias.'.id',
 				$this->Visit->alias.'.user_id',
@@ -1377,21 +1629,44 @@ class VisitsController extends AppController {
 	}
 
 	public function course_x_visits() {
+		$order = 'DESC';
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end', 'order')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+				if (isset($this->request->data[$this->Visit->alias]['order'])
+					&& !empty($this->request->data[$this->Visit->alias]['order'])
+				) {
+					$order = $this->request->data[$this->Visit->alias]['order'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+		$this->request->data[$this->Visit->alias]['order'] = $order;
+		$orders = array('DESC' => 'DESC', 'ASC' => 'ASC');
+
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
-				$this->Visit->alias.'.id',
-				$this->Visit->Discipline->Course->alias.'.id',
 				$this->Visit->Discipline->Course->alias.'.name',
+				'COUNT('.$this->Visit->alias.'.id) AS total',
 			),
 			'joins' => array(
-				array(
-					'table' => $this->Visit->Discipline->table,
-					'alias' => $this->Visit->Discipline->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->Visit->alias.'.discipline_id = '.$this->Visit->Discipline->alias.'.id'
-					)
-				),
 				array(
 					'table' => $this->Visit->Discipline->Course->table,
 					'alias' => $this->Visit->Discipline->Course->alias,
@@ -1401,40 +1676,65 @@ class VisitsController extends AppController {
 					)
 				)
 			),
+			'group' => array($this->Visit->Discipline->Course->alias.'.name'),
+			'order' => array('COUNT('.$this->Visit->alias.'.id)' => $order)
 		);
-		$visits = $this->Visit->find('list', $options);
+		$visits = $this->Visit->find('all', $options);
 
 		$data = array();
 		$label = array();
 		$backgroundColor = array();
-		foreach ($visits as $course => $list) {
-			$data[] = count($list);
-			$label[] = $course;
+		foreach ($visits as $visit) {
+			$data[] = $visit[0]['total'];
+			$label[] = $visit[$this->Visit->Discipline->Course->alias]['name'];
 			$backgroundColor[] = $this->randomColor();
 		}
 
 		$data = json_encode($data);
 		$labels = json_encode($label);
 		$backgroundColor = json_encode($backgroundColor);
-		$this->set(compact('data', 'labels', 'backgroundColor'));
+		$this->set(compact('data', 'labels', 'backgroundColor', 'orders'));
 	}
 
 	public function course_x_mileage() {
+		$order = 'DESC';
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end', 'order')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+				if (isset($this->request->data[$this->Visit->alias]['order'])
+					&& !empty($this->request->data[$this->Visit->alias]['order'])
+				) {
+					$order = $this->request->data[$this->Visit->alias]['order'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+		$this->request->data[$this->Visit->alias]['order'] = $order;
+		$orders = array('DESC' => 'DESC', 'ASC' => 'ASC');
+
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
-				$this->Visit->alias.'.id',
-				$this->Visit->alias.'.distance',
 				$this->Visit->Discipline->Course->alias.'.name',
+				'SUM('.$this->Visit->alias.'.distance) AS total',
 			),
 			'joins' => array(
-				array(
-					'table' => $this->Visit->Discipline->table,
-					'alias' => $this->Visit->Discipline->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->Visit->alias.'.discipline_id = '.$this->Visit->Discipline->alias.'.id'
-					)
-				),
 				array(
 					'table' => $this->Visit->Discipline->Course->table,
 					'alias' => $this->Visit->Discipline->Course->alias,
@@ -1444,31 +1744,63 @@ class VisitsController extends AppController {
 					)
 				)
 			),
+			'group' => array($this->Visit->Discipline->Course->alias.'.name'),
+			'order' => array('SUM('.$this->Visit->alias.'.distance)' => $order)
 		);
-		$visits = $this->Visit->find('list', $options);
+		$visits = $this->Visit->find('all', $options);
 
 		$data = array();
 		$label = array();
 		$backgroundColor = array();
-		foreach ($visits as $course => $list) {
-			$data[] = CakeNumber::precision(array_sum($list), 2);
-			$label[] = $course;
+		foreach ($visits as $visit) {
+			$data[] = CakeNumber::precision($visit[0]['total'], 2);
+			$label[] = $visit[$this->Visit->Discipline->Course->alias]['name'];
 			$backgroundColor[] = $this->randomColor();
 		}
 
 		$data = json_encode($data);
 		$labels = json_encode($label);
 		$backgroundColor = json_encode($backgroundColor);
-		$this->set(compact('data', 'labels', 'backgroundColor'));
+		$this->set(compact('data', 'labels', 'backgroundColor', 'orders'));
 	}
 
 	public function course_x_cost() {
+		$order = 'DESC';
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end', 'order')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+				if (isset($this->request->data[$this->Visit->alias]['order'])
+					&& !empty($this->request->data[$this->Visit->alias]['order'])
+				) {
+					$order = $this->request->data[$this->Visit->alias]['order'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+		$this->request->data[$this->Visit->alias]['order'] = $order;
+		$orders = array('DESC' => 'DESC', 'ASC' => 'ASC');
+
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
-				$this->Visit->alias.'.id',
-				$this->Visit->alias.'.refund',
-				$this->Visit->alias.'.transport_cost',
 				$this->Visit->Discipline->Course->alias.'.name',
+				'SUM('.$this->Visit->alias.'.refund + '.$this->Visit->alias.'.transport_cost) AS total',
 			),
 			'joins' => array(
 				array(
@@ -1480,124 +1812,198 @@ class VisitsController extends AppController {
 					)
 				)
 			),
+			'group' => array($this->Visit->Discipline->Course->alias.'.name'),
+			'order' => array('SUM('.$this->Visit->alias.'.refund + '.$this->Visit->alias.'.transport_cost)' => $order)
 		);
 		$visits = $this->Visit->find('all', $options);
 
-		$tmp = array();
+		$data = array();
+		$label = array();
+		$backgroundColor = array();
 		foreach ($visits as $visit) {
-			$sum = CakeNumber::precision(($visit[$this->Visit->alias]['refund'] + $visit[$this->Visit->alias]['transport_cost']), 2);
-			if (!isset($tmp[$visit[$this->Visit->Discipline->Course->alias]['name']]) || empty($tmp[$visit[$this->Visit->Discipline->Course->alias]['name']])) {
-				$tmp[$visit[$this->Visit->Discipline->Course->alias]['name']] = 0;
-			}
-			$tmp[$visit[$this->Visit->Discipline->Course->alias]['name']] = $tmp[$visit[$this->Visit->Discipline->Course->alias]['name']] + $sum;
-		}
-		for ($i=0; $i < count($tmp); $i++) {
+			$data[] = CakeNumber::precision($visit[0]['total'], 2);
+			$label[] = $visit[$this->Visit->Discipline->Course->alias]['name'];
 			$backgroundColor[] = $this->randomColor();
 		}
 
-		$data = json_encode(array_values($tmp));
-		$labels = json_encode(array_keys($tmp));
+		$data = json_encode($data);
+		$labels = json_encode($label);
 		$backgroundColor = json_encode($backgroundColor);
-		$this->set(compact('data', 'labels', 'backgroundColor'));
+		$this->set(compact('data', 'labels', 'backgroundColor', 'orders'));
 	}
 
 	public function user_x_visits() {
-		$options = array(
-			'fields' => array(
-				$this->Visit->alias.'.id',
-				$this->Visit->alias.'.user_id',
-				$this->Visit->User->alias.'.name',
-			),
-			'joins' => array(
-				array(
-					'table' => $this->Visit->User->table,
-					'alias' => $this->Visit->User->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->Visit->alias.'.user_id = '.$this->Visit->User->alias.'.id'
-					)
-				)
-			),
-		);
-		$visits = $this->Visit->find('list', $options);
-
-		$data = array();
-		$label = array();
-		$backgroundColor = array();
-		foreach ($visits as $user => $list) {
-			$data[] = count($list);
-			$label[] = $user;
-			$backgroundColor[] = $this->randomColor();
+		$order = 'DESC';
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end', 'order')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+				if (isset($this->request->data[$this->Visit->alias]['order'])
+					&& !empty($this->request->data[$this->Visit->alias]['order'])
+				) {
+					$order = $this->request->data[$this->Visit->alias]['order'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
 		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+		$this->request->data[$this->Visit->alias]['order'] = $order;
+		$orders = array('DESC' => 'DESC', 'ASC' => 'ASC');
 
-		$data = json_encode($data);
-		$labels = json_encode($label);
-		$backgroundColor = json_encode($backgroundColor);
-		$this->set(compact('data', 'labels', 'backgroundColor'));
-	}
-
-	public function user_x_mileage() {
 		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
 			'fields' => array(
-				$this->Visit->alias.'.id',
-				$this->Visit->alias.'.distance',
 				$this->Visit->User->alias.'.name',
+				'COUNT('.$this->Visit->alias.'.id) AS total',
 			),
-			'joins' => array(
-				array(
-					'table' => $this->Visit->User->table,
-					'alias' => $this->Visit->User->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->Visit->alias.'.user_id = '.$this->Visit->User->alias.'.id'
-					)
-				)
-			),
-		);
-		$visits = $this->Visit->find('list', $options);
-
-		$data = array();
-		$label = array();
-		$backgroundColor = array();
-		foreach ($visits as $user => $list) {
-			$data[] = CakeNumber::precision(array_sum($list), 2);
-			$label[] = $user;
-			$backgroundColor[] = $this->randomColor();
-		}
-
-		$data = json_encode($data);
-		$labels = json_encode($label);
-		$backgroundColor = json_encode($backgroundColor);
-		$this->set(compact('data', 'labels', 'backgroundColor'));
-	}
-
-	public function user_x_cost() {
-		$options = array(
-			'fields' => array(
-				$this->Visit->alias.'.id',
-				$this->Visit->alias.'.refund',
-				$this->Visit->alias.'.transport_cost',
-				$this->Visit->User->alias.'.name',
-			),
+			'group' => array($this->Visit->User->alias.'.name'),
+			'order' => array('COUNT('.$this->Visit->alias.'.id)' => $order)
 		);
 		$visits = $this->Visit->find('all', $options);
 
-		$tmp = array();
+		$data = array();
+		$label = array();
+		$backgroundColor = array();
 		foreach ($visits as $visit) {
-			$sum = CakeNumber::precision(($visit[$this->Visit->alias]['refund'] + $visit[$this->Visit->alias]['transport_cost']), 2);
-			if (!isset($tmp[$visit[$this->Visit->User->alias]['name']]) || empty($tmp[$visit[$this->Visit->User->alias]['name']])) {
-				$tmp[$visit[$this->Visit->User->alias]['name']] = 0;
-			}
-			$tmp[$visit[$this->Visit->User->alias]['name']] = $tmp[$visit[$this->Visit->User->alias]['name']] + $sum;
-		}
-		for ($i=0; $i < count($tmp); $i++) {
+			$data[] = $visit[0]['total'];
+			$label[] = $visit[$this->Visit->User->alias]['name'];
 			$backgroundColor[] = $this->randomColor();
 		}
 
-		$data = json_encode(array_values($tmp));
-		$labels = json_encode(array_keys($tmp));
+		$data = json_encode($data);
+		$labels = json_encode($label);
 		$backgroundColor = json_encode($backgroundColor);
-		$this->set(compact('data', 'labels', 'backgroundColor'));
+		$this->set(compact('data', 'labels', 'backgroundColor', 'orders'));
+	}
+
+	public function user_x_mileage() {
+		$order = 'DESC';
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end', 'order')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+				if (isset($this->request->data[$this->Visit->alias]['order'])
+					&& !empty($this->request->data[$this->Visit->alias]['order'])
+				) {
+					$order = $this->request->data[$this->Visit->alias]['order'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+		$this->request->data[$this->Visit->alias]['order'] = $order;
+		$orders = array('DESC' => 'DESC', 'ASC' => 'ASC');
+
+		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
+			'fields' => array(
+				$this->Visit->User->alias.'.name',
+				'SUM('.$this->Visit->alias.'.distance) AS total',
+			),
+			'group' => array($this->Visit->User->alias.'.name'),
+			'order' => array('SUM('.$this->Visit->alias.'.distance)' => $order)
+		);
+		$visits = $this->Visit->find('all', $options);
+
+		$data = array();
+		$label = array();
+		$backgroundColor = array();
+		foreach ($visits as $visit) {
+			$data[] = CakeNumber::precision($visit[0]['total'], 2);
+			$label[] = $visit[$this->Visit->User->alias]['name'];
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode($data);
+		$labels = json_encode($label);
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor', 'orders'));
+	}
+
+	public function user_x_cost() {
+		$order = 'DESC';
+		$start = date('Y-m-01 00:00');
+		$end = date('Y-m-t 23:59');
+		if ($this->request->is(array('post', 'put'))) {
+			$this->Visit->set($this->request->data);
+			if ($this->Visit->validates(array('fieldList' => array('start', 'end', 'order')))) {
+				if (isset($this->request->data[$this->Visit->alias]['start'])
+					&& !empty($this->request->data[$this->Visit->alias]['start'])
+					&& isset($this->request->data[$this->Visit->alias]['end'])
+					&& !empty($this->request->data[$this->Visit->alias]['end'])
+				) {
+					$start = $this->request->data[$this->Visit->alias]['start'];
+					$end = $this->request->data[$this->Visit->alias]['end'];
+				}
+				if (isset($this->request->data[$this->Visit->alias]['order'])
+					&& !empty($this->request->data[$this->Visit->alias]['order'])
+				) {
+					$order = $this->request->data[$this->Visit->alias]['order'];
+				}
+			} else {
+				$errors = $this->Visit->validationErrors;
+			}
+		}
+		$this->request->data[$this->Visit->alias]['start'] = date('Y-m-d\TH:i', strtotime($start));
+		$this->request->data[$this->Visit->alias]['end'] = date('Y-m-d\TH:i', strtotime($end));
+		$this->request->data[$this->Visit->alias]['order'] = $order;
+		$orders = array('DESC' => 'DESC', 'ASC' => 'ASC');
+
+		$options = array(
+			'conditions' => array(
+				$this->Visit->alias.'.arrival >= ' => $start,
+				$this->Visit->alias.'.arrival <= ' => $end,
+			),
+			'fields' => array(
+				$this->Visit->User->alias.'.name',
+				'SUM('.$this->Visit->alias.'.refund + '.$this->Visit->alias.'.transport_cost) AS total',
+			),
+			'group' => array($this->Visit->User->alias.'.name'),
+			'order' => array('SUM('.$this->Visit->alias.'.refund + '.$this->Visit->alias.'.transport_cost)' => $order)
+		);
+		$visits = $this->Visit->find('all', $options);
+
+		$data = array();
+		$label = array();
+		$backgroundColor = array();
+		foreach ($visits as $visit) {
+			$data[] = CakeNumber::precision($visit[0]['total'], 2);
+			$label[] = $visit[$this->Visit->User->alias]['name'];
+			$backgroundColor[] = $this->randomColor();
+		}
+
+		$data = json_encode($data);
+		$labels = json_encode($label);
+		$backgroundColor = json_encode($backgroundColor);
+		$this->set(compact('data', 'labels', 'backgroundColor', 'orders'));
 	}
 
 }

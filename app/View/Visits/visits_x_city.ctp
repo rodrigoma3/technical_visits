@@ -1,16 +1,27 @@
-<div class="widget widget-nopad">
-    <div class="widget-header">
-        <h3> <?php echo __('Technical visits x city'); ?></h3>
-    </div>
-    <!-- /widget-header -->
-    <div class="widget-content">
-        <div class="widget big-stats-container">
-            <div class="widget-content">
-                <?php echo __('Filters soon'); ?>
-            </div>
-        <!-- /widget-content -->
-        </div>
-    </div>
+<div class="widget visits form">
+    <?php echo $this->Form->create('Visit', array(
+            'inputDefaults' => array(
+                'div' => array(
+                    'class' => 'input span3'
+                ),
+                'class' => 'form-narrow',
+            ),
+            'class' => 'form-inline',
+            'role' => 'form'
+        )
+    ); ?>
+	<div class="widget-header">
+		<h3><?php echo __('Technical visits x city'); ?></h3>
+	</div>
+	<!-- /widget-header -->
+	<div class="widget-content">
+        <?php echo $this->Form->input('start', ['type'=>'datetime-local']); ?>
+        <?php echo $this->Form->input('end', ['type'=>'datetime-local']); ?>
+        <?php echo $this->Form->input('order', ['div' => ['class' => 'input span4']]); ?>
+        <?php echo $this->Form->button(__('Filter'), array('type' => 'submit', 'class' => 'btn btn-primary btn-filter')); ?>
+        <?php echo $this->Form->end(); ?>
+	</div>
+	<!-- /widget-content -->
 </div>
 
 <div class="widget widget-nopad">
