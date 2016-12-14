@@ -941,8 +941,8 @@ class VisitsController extends AppController {
 		$shortDistanceTrue = array();
 		$totalVisits = array();
 		foreach ($tmb as $transportType => $content) {
-			$shortDistanceFalse[] = $content[false];
-			$shortDistanceTrue[] = $content[true];
+			$shortDistanceFalse[] = (isset($content[0]))?$content[0]:0;
+			$shortDistanceTrue[] = (isset($content[1]))?$content[1]:0;
 			$totalVisits[] = $content['totalVisits'];
 			$labels[] = $transportType;
 		}
@@ -1005,8 +1005,8 @@ class VisitsController extends AppController {
 		$totalDistance = array();
 		$totalVisits = array();
 		foreach ($tmb as $transportType => $content) {
-			$shortDistanceFalse[] = $content[false];
-			$shortDistanceTrue[] = $content[true];
+			$shortDistanceFalse[] = (isset($content[0]))?$content[0]:0;
+			$shortDistanceTrue[] = (isset($content[1]))?$content[1]:0;
 			$totalDistance[] = $content['totalDistance'];
 			$totalVisits[] = $content['totalVisits'];
 			$labels[] = $transportType;
@@ -1078,8 +1078,8 @@ class VisitsController extends AppController {
 		$totalCost = array();
 		$totalVisits = array();
 		foreach ($tmb as $transportType => $content) {
-			$shortDistanceFalse[] = $content[false];
-			$shortDistanceTrue[] = $content[true];
+			$shortDistanceFalse[] = (isset($content[0]))?$content[0]:0;
+			$shortDistanceTrue[] = (isset($content[1]))?$content[1]:0;
 			$totalCost[] = $content['totalCost'];
 			$totalVisits[] = $content['totalVisits'];
 			$labels[] = $transportType;

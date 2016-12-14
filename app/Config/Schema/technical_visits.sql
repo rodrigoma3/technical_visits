@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 13-Dez-2016 às 18:26
--- Versão do servidor: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: 14-Dez-2016 às 03:50
+-- Versão do servidor: 10.1.10-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,121 +28,114 @@ USE `technical_visits`;
 -- Estrutura da tabela `acos`
 --
 
-CREATE TABLE `acos` (
-  `id` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `acos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) DEFAULT NULL,
   `model` varchar(255) DEFAULT NULL,
   `foreign_key` int(10) DEFAULT NULL,
   `alias` varchar(255) DEFAULT NULL,
   `lft` int(10) DEFAULT NULL,
-  `rght` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `rght` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_acos_lft_rght` (`lft`,`rght`),
+  KEY `idx_acos_alias` (`alias`)
+) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `acos`
 --
 
 INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `rght`) VALUES
-(1, NULL, NULL, NULL, 'controllers', 1, 344),
-(2, 1, NULL, NULL, 'Cities', 2, 17),
+(1, NULL, NULL, NULL, 'controllers', 1, 340),
+(2, 1, NULL, NULL, 'Cities', 2, 15),
 (3, 2, NULL, NULL, 'index', 3, 4),
 (4, 2, NULL, NULL, 'view', 5, 6),
 (5, 2, NULL, NULL, 'add', 7, 8),
 (6, 2, NULL, NULL, 'edit', 9, 10),
 (7, 2, NULL, NULL, 'delete', 11, 12),
-(8, 1, NULL, NULL, 'Courses', 18, 31),
-(9, 8, NULL, NULL, 'index', 19, 20),
-(10, 8, NULL, NULL, 'view', 21, 22),
-(11, 8, NULL, NULL, 'add', 23, 24),
-(12, 8, NULL, NULL, 'edit', 25, 26),
-(13, 8, NULL, NULL, 'delete', 27, 28),
-(14, 1, NULL, NULL, 'Disciplines', 32, 45),
-(15, 14, NULL, NULL, 'index', 33, 34),
-(16, 14, NULL, NULL, 'view', 35, 36),
-(17, 14, NULL, NULL, 'add', 37, 38),
-(18, 14, NULL, NULL, 'edit', 39, 40),
-(19, 14, NULL, NULL, 'delete', 41, 42),
-(26, 1, NULL, NULL, 'Groups', 46, 73),
-(27, 26, NULL, NULL, 'index', 47, 48),
-(28, 26, NULL, NULL, 'view', 49, 50),
-(29, 26, NULL, NULL, 'add', 51, 52),
-(30, 26, NULL, NULL, 'edit', 53, 54),
-(31, 26, NULL, NULL, 'delete', 55, 56),
-(32, 26, NULL, NULL, 'permission', 57, 58),
-(37, 1, NULL, NULL, 'Refusals', 74, 87),
-(40, 37, NULL, NULL, 'add', 75, 76),
-(43, 1, NULL, NULL, 'States', 88, 101),
-(44, 43, NULL, NULL, 'index', 89, 90),
-(45, 43, NULL, NULL, 'view', 91, 92),
-(46, 43, NULL, NULL, 'add', 93, 94),
-(47, 43, NULL, NULL, 'edit', 95, 96),
-(48, 43, NULL, NULL, 'delete', 97, 98),
-(49, 1, NULL, NULL, 'Teams', 102, 115),
-(50, 49, NULL, NULL, 'index', 103, 104),
-(51, 49, NULL, NULL, 'view', 105, 106),
-(52, 49, NULL, NULL, 'add', 107, 108),
-(53, 49, NULL, NULL, 'edit', 109, 110),
-(54, 49, NULL, NULL, 'delete', 111, 112),
-(55, 1, NULL, NULL, 'Users', 116, 203),
-(58, 55, NULL, NULL, 'index', 121, 122),
-(59, 55, NULL, NULL, 'view', 123, 124),
-(60, 55, NULL, NULL, 'add', 125, 126),
-(61, 55, NULL, NULL, 'edit', 127, 128),
-(62, 55, NULL, NULL, 'delete', 129, 130),
-(63, 55, NULL, NULL, 'permission', 131, 132),
-(64, 1, NULL, NULL, 'Visits', 204, 279),
-(65, 64, NULL, NULL, 'index', 205, 206),
-(66, 64, NULL, NULL, 'view', 207, 208),
-(67, 64, NULL, NULL, 'add', 209, 210),
-(68, 64, NULL, NULL, 'edit', 211, 212),
-(73, 55, NULL, NULL, 'allow_access', 145, 146),
-(74, 64, NULL, NULL, 'copy', 213, 214),
-(76, 1, NULL, NULL, 'Parameters', 290, 319),
-(83, 76, NULL, NULL, 'email', 291, 292),
-(89, 76, NULL, NULL, 'cost_per_km', 293, 294),
-(90, 76, NULL, NULL, 'system', 295, 296),
-(91, 76, NULL, NULL, 'rebuilt', 297, 298),
-(93, 37, NULL, NULL, 'cancel', 77, 78),
-(98, 37, NULL, NULL, 'disapproved_visit', 79, 80),
-(99, 37, NULL, NULL, 'disapproved_report', 81, 82),
-(103, 64, NULL, NULL, 'pre_approve_visit', 215, 216),
-(108, 64, NULL, NULL, 'approve_visit', 217, 218),
-(113, 64, NULL, NULL, 'deliver_report', 219, 220),
+(8, 1, NULL, NULL, 'Courses', 16, 27),
+(9, 8, NULL, NULL, 'index', 17, 18),
+(10, 8, NULL, NULL, 'view', 19, 20),
+(11, 8, NULL, NULL, 'add', 21, 22),
+(12, 8, NULL, NULL, 'edit', 23, 24),
+(13, 8, NULL, NULL, 'delete', 25, 26),
+(14, 1, NULL, NULL, 'Disciplines', 28, 39),
+(15, 14, NULL, NULL, 'index', 29, 30),
+(16, 14, NULL, NULL, 'view', 31, 32),
+(17, 14, NULL, NULL, 'add', 33, 34),
+(18, 14, NULL, NULL, 'edit', 35, 36),
+(19, 14, NULL, NULL, 'delete', 37, 38),
+(26, 1, NULL, NULL, 'Groups', 40, 65),
+(27, 26, NULL, NULL, 'index', 41, 42),
+(28, 26, NULL, NULL, 'view', 43, 44),
+(29, 26, NULL, NULL, 'add', 45, 46),
+(30, 26, NULL, NULL, 'edit', 47, 48),
+(31, 26, NULL, NULL, 'delete', 49, 50),
+(32, 26, NULL, NULL, 'permission', 51, 52),
+(37, 1, NULL, NULL, 'Refusals', 66, 77),
+(40, 37, NULL, NULL, 'add', 67, 68),
+(43, 1, NULL, NULL, 'States', 78, 89),
+(44, 43, NULL, NULL, 'index', 79, 80),
+(45, 43, NULL, NULL, 'view', 81, 82),
+(46, 43, NULL, NULL, 'add', 83, 84),
+(47, 43, NULL, NULL, 'edit', 85, 86),
+(48, 43, NULL, NULL, 'delete', 87, 88),
+(49, 1, NULL, NULL, 'Teams', 90, 101),
+(50, 49, NULL, NULL, 'index', 91, 92),
+(51, 49, NULL, NULL, 'view', 93, 94),
+(52, 49, NULL, NULL, 'add', 95, 96),
+(53, 49, NULL, NULL, 'edit', 97, 98),
+(54, 49, NULL, NULL, 'delete', 99, 100),
+(55, 1, NULL, NULL, 'Users', 102, 193),
+(58, 55, NULL, NULL, 'index', 107, 108),
+(59, 55, NULL, NULL, 'view', 109, 110),
+(60, 55, NULL, NULL, 'add', 111, 112),
+(61, 55, NULL, NULL, 'edit', 113, 114),
+(62, 55, NULL, NULL, 'delete', 115, 116),
+(63, 55, NULL, NULL, 'permission', 117, 118),
+(64, 1, NULL, NULL, 'Visits', 194, 273),
+(65, 64, NULL, NULL, 'index', 195, 196),
+(66, 64, NULL, NULL, 'view', 197, 198),
+(67, 64, NULL, NULL, 'add', 199, 200),
+(68, 64, NULL, NULL, 'edit', 201, 202),
+(73, 55, NULL, NULL, 'allow_access', 131, 132),
+(74, 64, NULL, NULL, 'copy', 203, 204),
+(76, 1, NULL, NULL, 'Parameters', 284, 313),
+(83, 76, NULL, NULL, 'email', 285, 286),
+(89, 76, NULL, NULL, 'cost_per_km', 287, 288),
+(90, 76, NULL, NULL, 'system', 289, 290),
+(91, 76, NULL, NULL, 'rebuilt', 291, 292),
+(93, 37, NULL, NULL, 'cancel', 69, 70),
+(98, 37, NULL, NULL, 'disapproved_visit', 71, 72),
+(99, 37, NULL, NULL, 'disapproved_report', 73, 74),
+(103, 64, NULL, NULL, 'pre_approve_visit', 205, 206),
+(108, 64, NULL, NULL, 'approve_visit', 207, 208),
+(113, 64, NULL, NULL, 'deliver_report', 209, 210),
 (120, 2, NULL, NULL, 'cities_short_distance', 13, 14),
-(124, 64, NULL, NULL, 'approve_report', 221, 222),
-(129, 64, NULL, NULL, 'transport_update', 223, 224),
-(131, 37, NULL, NULL, 'invalidate_visit', 83, 84),
-(135, 55, NULL, NULL, 'profile', 193, 194),
-(136, 64, NULL, NULL, 'information_update', 225, 226),
-(137, 64, NULL, NULL, 'download_report', 227, 228),
-(138, 2, NULL, NULL, 'randomColor', 15, 16),
-(139, 8, NULL, NULL, 'randomColor', 29, 30),
-(140, 14, NULL, NULL, 'randomColor', 43, 44),
-(141, 26, NULL, NULL, 'randomColor', 71, 72),
-(143, 76, NULL, NULL, 'randomColor', 317, 318),
-(144, 37, NULL, NULL, 'randomColor', 85, 86),
-(145, 43, NULL, NULL, 'randomColor', 99, 100),
-(146, 49, NULL, NULL, 'randomColor', 113, 114),
-(150, 55, NULL, NULL, 'randomColor', 201, 202),
-(151, 64, NULL, NULL, 'dashboard', 235, 236),
-(155, 64, NULL, NULL, 'general_analysis', 243, 244),
-(156, 64, NULL, NULL, 'visits_x_frequency_of_students', 245, 246),
-(157, 64, NULL, NULL, 'visits_x_long_short_distance', 247, 248),
-(158, 64, NULL, NULL, 'visits_x_long_short_distance_per_type_transport', 249, 250),
-(159, 64, NULL, NULL, 'visits_x_long_short_distance_x_mileage_per_type_transport', 251, 252),
-(160, 64, NULL, NULL, 'visits_x_long_short_distance_x_cost_per_type_transport', 253, 254),
-(161, 64, NULL, NULL, 'mileage_x_cost_per_type_transport', 255, 256),
-(162, 64, NULL, NULL, 'mileage_x_cost_per_visits_x_long_short_distance', 257, 258),
-(163, 64, NULL, NULL, 'visits_x_city', 259, 260),
-(164, 64, NULL, NULL, 'visits_x_destination', 261, 262),
-(165, 64, NULL, NULL, 'visits_x_status', 263, 264),
-(166, 64, NULL, NULL, 'course_x_visits', 265, 266),
-(167, 64, NULL, NULL, 'course_x_mileage', 267, 268),
-(168, 64, NULL, NULL, 'course_x_cost', 269, 270),
-(169, 64, NULL, NULL, 'user_x_visits', 271, 272),
-(170, 64, NULL, NULL, 'user_x_mileage', 273, 274),
-(171, 64, NULL, NULL, 'user_x_cost', 275, 276),
-(172, 64, NULL, NULL, 'randomColor', 277, 278);
+(124, 64, NULL, NULL, 'approve_report', 211, 212),
+(129, 64, NULL, NULL, 'transport_update', 213, 214),
+(131, 37, NULL, NULL, 'invalidate_visit', 75, 76),
+(135, 55, NULL, NULL, 'profile', 179, 180),
+(136, 64, NULL, NULL, 'information_update', 215, 216),
+(137, 64, NULL, NULL, 'download_report', 217, 218),
+(151, 64, NULL, NULL, 'dashboard', 225, 226),
+(155, 64, NULL, NULL, 'general_analysis', 233, 234),
+(156, 64, NULL, NULL, 'visits_x_frequency_of_students', 235, 236),
+(157, 64, NULL, NULL, 'visits_x_long_short_distance', 237, 238),
+(158, 64, NULL, NULL, 'visits_x_long_short_distance_per_type_transport', 239, 240),
+(159, 64, NULL, NULL, 'visits_x_long_short_distance_x_mileage_per_type_transport', 241, 242),
+(160, 64, NULL, NULL, 'visits_x_long_short_distance_x_cost_per_type_transport', 243, 244),
+(161, 64, NULL, NULL, 'mileage_x_cost_per_type_transport', 245, 246),
+(162, 64, NULL, NULL, 'mileage_x_cost_per_visits_x_long_short_distance', 247, 248),
+(163, 64, NULL, NULL, 'visits_x_city', 249, 250),
+(164, 64, NULL, NULL, 'visits_x_destination', 251, 252),
+(165, 64, NULL, NULL, 'visits_x_status', 253, 254),
+(166, 64, NULL, NULL, 'course_x_visits', 255, 256),
+(167, 64, NULL, NULL, 'course_x_mileage', 257, 258),
+(168, 64, NULL, NULL, 'course_x_cost', 259, 260),
+(169, 64, NULL, NULL, 'user_x_visits', 261, 262),
+(170, 64, NULL, NULL, 'user_x_mileage', 263, 264),
+(171, 64, NULL, NULL, 'user_x_cost', 265, 266);
 
 -- --------------------------------------------------------
 
@@ -150,15 +143,18 @@ INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `
 -- Estrutura da tabela `aros`
 --
 
-CREATE TABLE `aros` (
-  `id` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `aros` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) DEFAULT NULL,
   `model` varchar(255) DEFAULT NULL,
   `foreign_key` int(10) DEFAULT NULL,
   `alias` varchar(255) DEFAULT NULL,
   `lft` int(10) DEFAULT NULL,
-  `rght` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `rght` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_aros_lft_rght` (`lft`,`rght`),
+  KEY `idx_aros_alias` (`alias`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `aros`
@@ -183,15 +179,18 @@ INSERT INTO `aros` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `
 -- Estrutura da tabela `aros_acos`
 --
 
-CREATE TABLE `aros_acos` (
-  `id` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `aros_acos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `aro_id` int(10) NOT NULL,
   `aco_id` int(10) NOT NULL,
   `_create` varchar(2) NOT NULL DEFAULT '0',
   `_read` varchar(2) NOT NULL DEFAULT '0',
   `_update` varchar(2) NOT NULL DEFAULT '0',
-  `_delete` varchar(2) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `_delete` varchar(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`),
+  KEY `idx_aco_id` (`aco_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `aros_acos`
@@ -326,14 +325,6 @@ INSERT INTO `aros_acos` (`id`, `aro_id`, `aco_id`, `_create`, `_read`, `_update`
 (147, 3, 89, '-1', '-1', '-1', '-1'),
 (148, 3, 90, '-1', '-1', '-1', '-1'),
 (149, 3, 91, '-1', '-1', '-1', '-1'),
-(150, 3, 138, '-1', '-1', '-1', '-1'),
-(151, 3, 139, '-1', '-1', '-1', '-1'),
-(152, 3, 140, '-1', '-1', '-1', '-1'),
-(153, 3, 141, '-1', '-1', '-1', '-1'),
-(154, 3, 144, '-1', '-1', '-1', '-1'),
-(155, 3, 145, '-1', '-1', '-1', '-1'),
-(156, 3, 146, '-1', '-1', '-1', '-1'),
-(157, 3, 150, '-1', '-1', '-1', '-1'),
 (158, 3, 151, '1', '1', '1', '1'),
 (159, 3, 155, '-1', '-1', '-1', '-1'),
 (160, 3, 156, '-1', '-1', '-1', '-1'),
@@ -351,9 +342,7 @@ INSERT INTO `aros_acos` (`id`, `aro_id`, `aco_id`, `_create`, `_read`, `_update`
 (172, 3, 168, '-1', '-1', '-1', '-1'),
 (173, 3, 169, '-1', '-1', '-1', '-1'),
 (174, 3, 170, '-1', '-1', '-1', '-1'),
-(175, 3, 171, '-1', '-1', '-1', '-1'),
-(176, 3, 172, '-1', '-1', '-1', '-1'),
-(177, 3, 143, '-1', '-1', '-1', '-1');
+(175, 3, 171, '-1', '-1', '-1', '-1');
 
 -- --------------------------------------------------------
 
@@ -361,12 +350,14 @@ INSERT INTO `aros_acos` (`id`, `aro_id`, `aco_id`, `_create`, `_read`, `_update`
 -- Estrutura da tabela `cities`
 --
 
-CREATE TABLE `cities` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `cities` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `short_distance` tinyint(1) NOT NULL,
-  `state_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `state_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cities_state_id` (`state_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5565 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `cities`
@@ -5947,12 +5938,13 @@ INSERT INTO `cities` (`id`, `name`, `short_distance`, `state_id`) VALUES
 -- Estrutura da tabela `courses`
 --
 
-CREATE TABLE `courses` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `courses` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `type_of_academic_period` int(10) NOT NULL,
-  `amount_of_academic_periods` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `amount_of_academic_periods` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `courses`
@@ -5977,12 +5969,14 @@ INSERT INTO `courses` (`id`, `name`, `type_of_academic_period`, `amount_of_acade
 -- Estrutura da tabela `disciplines`
 --
 
-CREATE TABLE `disciplines` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `disciplines` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `academic_period` int(10) UNSIGNED NOT NULL,
-  `course_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `course_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `disciplines_course_id` (`course_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=424 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `disciplines`
@@ -6415,11 +6409,14 @@ INSERT INTO `disciplines` (`id`, `name`, `academic_period`, `course_id`) VALUES
 -- Estrutura da tabela `disciplines_teams`
 --
 
-CREATE TABLE `disciplines_teams` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `disciplines_teams` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `team_id` int(10) UNSIGNED NOT NULL,
-  `discipline_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `discipline_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `classes_disciplines_class_id` (`team_id`),
+  KEY `classes_disciplines_discipline_id` (`discipline_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=421 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `disciplines_teams`
@@ -6853,11 +6850,12 @@ INSERT INTO `disciplines_teams` (`id`, `team_id`, `discipline_id`) VALUES
 -- Estrutura da tabela `groups`
 --
 
-CREATE TABLE `groups` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `groups`
@@ -6873,14 +6871,17 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 -- Estrutura da tabela `refusals`
 --
 
-CREATE TABLE `refusals` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `refusals` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `created` datetime NOT NULL,
-  `reason` varchar(255) NOT NULL,
+  `reason` text NOT NULL,
   `type` int(10) NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
-  `visit_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `visit_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `refusals_visit_id` (`visit_id`),
+  KEY `refusals_user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `refusals`
@@ -6896,11 +6897,12 @@ INSERT INTO `refusals` (`id`, `created`, `reason`, `type`, `user_id`, `visit_id`
 -- Estrutura da tabela `states`
 --
 
-CREATE TABLE `states` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `states` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `initials` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `initials` varchar(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `states`
@@ -6941,10 +6943,11 @@ INSERT INTO `states` (`id`, `name`, `initials`) VALUES
 -- Estrutura da tabela `teams`
 --
 
-CREATE TABLE `teams` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `teams` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `teams`
@@ -6998,15 +7001,17 @@ INSERT INTO `teams` (`id`, `name`) VALUES
 -- Estrutura da tabela `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `group_id` int(10) UNSIGNED NOT NULL,
-  `token` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `token` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `users_group_id` (`group_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `users`
@@ -7028,8 +7033,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `enabled`, `group_id`, `
 -- Estrutura da tabela `visits`
 --
 
-CREATE TABLE `visits` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `visits` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   `departure` datetime NOT NULL,
@@ -7041,15 +7046,20 @@ CREATE TABLE `visits` (
   `transport` int(10) NOT NULL,
   `transport_cost` double UNSIGNED NOT NULL,
   `distance` double UNSIGNED NOT NULL,
-  `objective` varchar(255) NOT NULL,
-  `comments` varchar(255) NOT NULL,
+  `objective` text NOT NULL,
+  `comments` text NOT NULL,
   `status` int(10) UNSIGNED NOT NULL,
   `report` varchar(255) NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `city_id` int(10) UNSIGNED NOT NULL,
   `team_id` int(10) UNSIGNED NOT NULL,
-  `discipline_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `discipline_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `visits_user_id` (`user_id`),
+  KEY `visits_city_id` (`city_id`),
+  KEY `visits_class_id` (`team_id`),
+  KEY `discipline_id` (`discipline_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `visits`
@@ -7065,7 +7075,7 @@ INSERT INTO `visits` (`id`, `created`, `modified`, `departure`, `arrival`, `dest
 (7, '2016-12-08 00:19:42', '2016-12-08 00:19:42', '2016-11-12 12:00:00', '2016-11-12 20:00:00', 'Grano Alimentos S/A', 21, 20, 72.5, 3, 1203, 210, 'Proporcionar ao aluno o contato com as instalações e processos da tecnologia de vegetais, proporcionando vivências que auxiliem no aprendizado da disciplina.', 'Pode ser que caiba em micro..', 9, 'relatorio-da-visita.pdf', 8, 4276, 6, 61),
 (8, '2016-12-08 00:25:04', '2016-12-08 00:31:28', '2016-11-16 08:00:00', '2016-11-17 17:00:00', 'Vinícola Jolimont', 20, 0, 77.8, 2, 345, 300, 'Conhecer o microclima na campanha, conhecer a fenologia das videiras, equipamentos enológicos e vitícolas utilizados e degustação dos seus vinhos.', 'Melhor suco de uva da região', 10, '', 8, 4031, 18, 160),
 (9, '2016-12-08 00:35:03', '2016-12-08 00:38:15', '2016-12-18 15:00:00', '2016-12-18 18:00:00', 'Cooperativa Garibaldi', 10, 0, 0, 2, 51.75, 45, 'Visualizar os diferentes procedimentos enológicos das vinificações, assim como, equipamentos e instalações vinícolas.', 'Conheço o dono', 2, '', 8, 4023, 17, 159),
-(10, '2016-12-13 11:33:19', '2016-12-13 11:36:33', '2016-12-08 19:00:00', '2016-12-08 22:00:00', 'Tramontina', 40, 0, 0, 2, 75.25, 35, 'Visita para conhecer os Sistemas de Informações para gerenciamento de dados que a empresa utiliza.', 'Não precisa de ônibus com banheiro.', 6, 'relatorio-da-visita.pdf', 9, 4023, 12, 106),
+(10, '2016-12-13 11:33:19', '2016-12-14 03:12:34', '2016-12-08 19:00:00', '2016-12-08 22:00:00', 'Tramontina', 40, 0, 0, 2, 75.25, 35, 'Visita para conhecer os Sistemas de Informações para gerenciamento de dados que a empresa utiliza.', 'Não precisa de ônibus com banheiro.', 8, 'relatorio-da-visita.pdf', 9, 4023, 12, 106),
 (11, '2016-12-13 11:42:33', '2016-12-13 11:43:54', '2016-12-21 05:00:00', '2016-12-22 04:00:00', 'Ruínas de São Miguel', 40, 0, 249.4, 0, 0, 0, 'Visita às ruínas de São Miguel das Missões, como forma de aprofundar os conhecimentos discutidos em sala de aula acerca da influência jesuítica na educação brasileira.', 'Favor buscar contato com hotel.', 1, '', 9, 4253, 27, 228),
 (12, '2016-12-13 11:50:20', '2016-12-13 11:50:20', '2016-11-06 07:30:00', '2016-11-06 18:00:00', 'Fundação Bienal do Mercosul', 36, 35, 87.5, 2, 287.5, 250, 'A viagem de estudos dos alunos para a 10ª Bienal do Mercosul tem por objetivo oportunizar aos estudantes a interação da teoria do Período Literário Modernismo (conteúdos da ementa do plano de ensino da disciplina) com a prática.', 'Fazer contato com a empresa para confirmar.', 9, 'relatorio-da-visita.pdf', 9, 4174, 23, 204),
 (13, '2016-12-13 14:27:04', '2016-12-13 14:27:04', '2016-11-11 07:30:00', '2016-11-11 17:30:00', 'Produção hidropônica', 34, 30, 77.9, 3, 795, 150, 'Agregar conhecimentos práticos de gestão a partir da experiência de um empreendimento ligado à atividade agrícola.', 'Propriedade de ex-aluno', 9, 'relatorio-da-visita.pdf', 10, 4131, 40, 421),
@@ -7079,174 +7089,6 @@ INSERT INTO `visits` (`id`, `created`, `modified`, `departure`, `arrival`, `dest
 (21, '2016-12-13 16:23:39', '2016-12-13 16:23:39', '2016-11-18 19:00:00', '2016-11-18 22:00:00', 'Grendene', 12, 10, 0, 2, 82.8, 72, 'Observar in loco os conteúdos abordados em sala de aula da disciplina de Modelagem, aliando teoria e prática; proporcionar o desenvolvimento do senso crítico dos alunos.', 'Contato com ex professora.', 9, 'relatorio-da-visita.pdf', 4, 4011, 4, 31),
 (22, '2016-12-13 16:30:29', '2016-12-13 16:30:29', '2016-11-27 05:00:00', '2016-11-27 21:30:00', 'Italbraz, Rasip', 26, 20, 89.7, 3, 2077.63, 392, 'Visitar áreas de produção e comercialização de pequenos frutos. Conhecer o processo de beneficiamento de frutos. Visitar pomar de produção de frutíferas perenifólias.', 'Tudo confirmado.', 9, 'relatorio-da-visita.pdf', 10, 4323, 10, 94);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `acos`
---
-ALTER TABLE `acos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_acos_lft_rght` (`lft`,`rght`),
-  ADD KEY `idx_acos_alias` (`alias`);
-
---
--- Indexes for table `aros`
---
-ALTER TABLE `aros`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_aros_lft_rght` (`lft`,`rght`),
-  ADD KEY `idx_aros_alias` (`alias`);
-
---
--- Indexes for table `aros_acos`
---
-ALTER TABLE `aros_acos`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`),
-  ADD KEY `idx_aco_id` (`aco_id`);
-
---
--- Indexes for table `cities`
---
-ALTER TABLE `cities`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cities_state_id` (`state_id`);
-
---
--- Indexes for table `courses`
---
-ALTER TABLE `courses`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `disciplines`
---
-ALTER TABLE `disciplines`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `disciplines_course_id` (`course_id`);
-
---
--- Indexes for table `disciplines_teams`
---
-ALTER TABLE `disciplines_teams`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `classes_disciplines_class_id` (`team_id`),
-  ADD KEY `classes_disciplines_discipline_id` (`discipline_id`);
-
---
--- Indexes for table `groups`
---
-ALTER TABLE `groups`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `refusals`
---
-ALTER TABLE `refusals`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `refusals_visit_id` (`visit_id`),
-  ADD KEY `refusals_user_id` (`user_id`);
-
---
--- Indexes for table `states`
---
-ALTER TABLE `states`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `teams`
---
-ALTER TABLE `teams`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `users_group_id` (`group_id`);
-
---
--- Indexes for table `visits`
---
-ALTER TABLE `visits`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `visits_user_id` (`user_id`),
-  ADD KEY `visits_city_id` (`city_id`),
-  ADD KEY `visits_class_id` (`team_id`),
-  ADD KEY `discipline_id` (`discipline_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `acos`
---
-ALTER TABLE `acos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
---
--- AUTO_INCREMENT for table `aros`
---
-ALTER TABLE `aros`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT for table `aros_acos`
---
-ALTER TABLE `aros_acos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
---
--- AUTO_INCREMENT for table `cities`
---
-ALTER TABLE `cities`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5565;
---
--- AUTO_INCREMENT for table `courses`
---
-ALTER TABLE `courses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT for table `disciplines`
---
-ALTER TABLE `disciplines`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=424;
---
--- AUTO_INCREMENT for table `disciplines_teams`
---
-ALTER TABLE `disciplines_teams`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=421;
---
--- AUTO_INCREMENT for table `groups`
---
-ALTER TABLE `groups`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `refusals`
---
-ALTER TABLE `refusals`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `states`
---
-ALTER TABLE `states`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
---
--- AUTO_INCREMENT for table `teams`
---
-ALTER TABLE `teams`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT for table `visits`
---
-ALTER TABLE `visits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- Constraints for dumped tables
 --

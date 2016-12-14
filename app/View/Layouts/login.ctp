@@ -60,20 +60,29 @@
 			<div class="pull-right">
 				<?php
 					if (Configure::read('Config.language') == 'pt-br') {
-						echo $this->Html->image('flags-country/Brazil gray.ico', array('alt' => 'Brazil', 'border' => '0', 'id' => 'flag-country'));
+						echo $this->Html->image('flags-country/Brazil gray.ico', array('alt' => __('Brazil'), 'border' => '0', 'id' => 'flag-country'));
 					} else {
 						echo $this->Html->link(
-								$this->Html->image('flags-country/Brazil.ico', array('alt' => 'Brazil', 'border' => '0', 'id' => 'flag-country')),
-								array('controller' => 'groups', 'action' => 'set_language', 'pt-br'),
+								$this->Html->image('flags-country/Brazil.ico', array('alt' => __('Brazil'), 'border' => '0', 'id' => 'flag-country')),
+								array('controller' => 'parameters', 'action' => 'set_language', 'pt-br'),
 								array('escape' => false)
 							);
 					}
 					if (Configure::read('Config.language') == 'en-us') {
-						echo $this->Html->image('flags-country/United States gray.ico', array('alt' => 'Estados Unidos', 'border' => '0', 'id' => 'flag-country'));
+						echo $this->Html->image('flags-country/United States gray.ico', array('alt' => __('United States'), 'border' => '0', 'id' => 'flag-country'));
 					} else {
 						echo $this->Html->link(
-								$this->Html->image('flags-country/United States.ico', array('alt' => 'Estados Unidos', 'border' => '0', 'id' => 'flag-country')),
-								array('controller' => 'groups', 'action' => 'set_language', 'en-us'),
+								$this->Html->image('flags-country/United States.ico', array('alt' => __('United States'), 'border' => '0', 'id' => 'flag-country')),
+								array('controller' => 'parameters', 'action' => 'set_language', 'en-us'),
+								array('escape' => false)
+							);
+					}
+					if (Configure::read('Config.language') == 'es-es') {
+						echo $this->Html->image('flags-country/Spain gray.ico', array('alt' => __('Spain'), 'border' => '0', 'id' => 'flag-country'));
+					} else {
+						echo $this->Html->link(
+								$this->Html->image('flags-country/Spain.ico', array('alt' => __('Spain'), 'border' => '0', 'id' => 'flag-country')),
+								array('controller' => 'parameters', 'action' => 'set_language', 'es-es'),
 								array('escape' => false)
 							);
 					}

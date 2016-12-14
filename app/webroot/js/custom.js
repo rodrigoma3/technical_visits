@@ -26,7 +26,7 @@ $(document).ready(function() {
         $('#VisitTransportCost').val(parseFloat(cost * distance).toFixed(2));
     });
 
-    $('.btn').on('click', function() {
+    $('.btn').on('click', function(e) {
         var elem = $(this);
         if (!elem.is('input')) {
             elem.isLoading();
