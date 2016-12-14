@@ -160,52 +160,28 @@ $(document).ready(function() {
             }
             return false;
         });
-        $('#VisitDestination').on('keyup', function(){
-            var text = $(this).val();
-            console.log(text);
-            if (text != '') {
+        var src = [];
+        $('#VisitDestination').autocomplete({
+            source: function (request, response) {
+                var text = $('#VisitDestination').val();
                 $.ajax({
+                    dataType: "json",
+                    type : 'GET',
                     url: $(location).attr('href'),
-                    type: 'GET',
                     data: {"text": text},
-                    success: function(data){
-                        // $( function() {
-                            // var availableTags = [
-                            //     "ActionScript",
-                            //     "AppleScript",
-                            //     "Asp",
-                            //     "BASIC",
-                            //     "C",
-                            //     "C++",
-                            //     "Clojure",
-                            //     "COBOL",
-                            //     "ColdFusion",
-                            //     "Erlang",
-                            //     "Fortran",
-                            //     "Groovy",
-                            //     "Haskell",
-                            //     "Java",
-                            //     "JavaScript",
-                            //     "Lisp",
-                            //     "Perl",
-                            //     "PHP",
-                            //     "Python",
-                            //     "Ruby",
-                            //     "Scala",
-                            //     "Scheme"
-                            // ];
-                            $('#VisitDestination').autocomplete({
-                                source: data
-                                // source: availableTags
-                            });
-                        // });
+                    success: function(data) {
+                        $('#VisitDestination').parent().children('i').remove();
+                        response(data);
                     },
-                    error: function(){
+                    error: function(data) {
 
                     }
                 });
-            }
-            return false;
+            },
+            search: function () {
+                $('#VisitDestination').parent().append('<i class="fa fa-spinner fa-pulse fa-fw"></i>');
+            },
+            minLength: 2
         });
     });
     // END: ajax

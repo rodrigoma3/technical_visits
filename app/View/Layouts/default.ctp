@@ -26,6 +26,7 @@
 									'jsTree/style.min',
 									'bootstrap-duallistbox.min',
 									'/fullcalendar-3_1_0/fullcalendar.min',
+									'jquery-ui',
 									'custom',
 									'style',
 									'reports',
@@ -36,6 +37,7 @@
 		echo $this->Html->script(array(
 									// 'jquery-2.0.3.min',
 									'jquery-1.12.4.min',
+									'jquery-ui',
 									// 'bootstrap-dropdown',
 									'bootstrap',
 									// 'templatevamp/bootstrap-2.0.2',

@@ -251,7 +251,15 @@ class VisitsController extends AppController {
 		if($this->request->is('ajax')){
 			$this->autoRender = false;
 			if ($this->request->query('text') !== null) {
-				$options = array('conditions' => array($this->Visit->alias.'.destination LIKE %'.$this->request->query('text').'%'));
+				$options = array(
+					'conditions' => array(
+						$this->Visit->alias.'.destination LIKE "%'.$this->request->query('text').'%"'
+					),
+					'fields' => array(
+						$this->Visit->alias.'.id',
+						$this->Visit->alias.'.destination',
+					),
+				);
 				$result = $this->Visit->find('list', $options);
 			}
 			if ($this->request->query('course_id') !== null) {
@@ -320,6 +328,18 @@ class VisitsController extends AppController {
 		if ($visit[$this->Visit->alias]['status'] < 4) {
 			if($this->request->is('ajax')){
 				$this->autoRender = false;
+				if ($this->request->query('text') !== null) {
+					$options = array(
+						'conditions' => array(
+							$this->Visit->alias.'.destination LIKE "%'.$this->request->query('text').'%"'
+						),
+						'fields' => array(
+							$this->Visit->alias.'.id',
+							$this->Visit->alias.'.destination',
+						),
+					);
+					$result = $this->Visit->find('list', $options);
+				}
 				if ($this->request->query('course_id') !== null) {
 					$options = array('conditions' => array($this->Visit->Discipline->alias.'.course_id' => $this->request->query('course_id')));
 					$result = $this->Visit->Discipline->find('list', $options);
